@@ -9,8 +9,7 @@ A responsive, browser-based practice environment for the **Microsoft PL-300: Pow
 
 ## Try it online
 
-- **Primary site:** [pl300-practice-exam.bassamelshoraa.chatgpt.site](https://pl300-practice-exam.bassamelshoraa.chatgpt.site/)
-- **Short GitHub Pages link:** [bassamelshoraa.github.io/pl300-practice](https://bassamelshoraa.github.io/pl300-practice/)
+**Short GitHub Pages link:** [bassamelshoraa.github.io/pl300-practice](https://bassamelshoraa.github.io/pl300-practice/)
 
 No registration is required. Exam progress and the selected theme are stored locally in the browser.
 
