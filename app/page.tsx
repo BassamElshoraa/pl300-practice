@@ -70,11 +70,11 @@ const bankCards = [101, 102, 103, 104].map((id, index) => ({
 }));
 
 const instructions: Record<Question['type'], string> = {
-  single: 'Choose one answer.',
-  multi: 'Choose all answers that apply.',
-  sequence: 'Select every step in the order it should be performed.',
-  matching: 'Select one match for every row.',
-  manual: 'Click or tap your choices directly inside the answer area. Each choice gets a numbered marker.',
+  single: 'How to answer: Select one option only, then press Next.',
+  multi: 'How to answer: Select every correct option. More than one answer is required.',
+  sequence: 'How to answer: Add all the steps, then use the arrows to arrange them in the correct order.',
+  matching: 'How to answer: Choose one matching option for every row before moving on.',
+  manual: 'How to answer: Click each answer position inside the image. Your clicks appear as numbered markers; use Clear answer to restart.',
 };
 
 export default function Home() {
@@ -272,6 +272,11 @@ export default function Home() {
               </Button>
             </div>
 
+            <div className="mt-5 flex items-start gap-2 border-l-4 border-primary bg-accent/55 px-4 py-3 text-sm leading-6 text-accent-foreground">
+              <MousePointerClick className="mt-0.5 size-4 shrink-0" />
+              <span>{instructions[question.type]}</span>
+            </div>
+
             {question.context && (
               <div className="mt-7 border-l-4 border-primary bg-muted p-4 text-[15px] leading-7">
                 <p className="mb-1 font-semibold">Scenario</p>
@@ -282,18 +287,20 @@ export default function Home() {
             <h1 className="mt-7 max-w-5xl whitespace-pre-line text-lg font-semibold leading-8 sm:text-xl">
               {current + 1}. {displayText(question.prompt)}
             </h1>
-            <p className="mt-2 text-sm text-muted-foreground">{instructions[question.type]}</p>
 
             <div className="mt-7 max-w-5xl">
               {question.image && question.type !== 'manual' && (
-                <Image
-                  src={question.image}
-                  alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
-                  width={1000}
-                  height={1200}
-                  unoptimized
-                  className="mb-6 h-auto w-full rounded-sm border bg-white object-contain"
-                />
+                <figure className="mb-6">
+                  <figcaption className="mb-2 text-sm font-semibold text-muted-foreground">Source exhibit / table</figcaption>
+                  <Image
+                    src={question.image}
+                    alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
+                    width={1000}
+                    height={1200}
+                    unoptimized
+                    className="h-auto w-full rounded-sm border bg-white object-contain"
+                  />
+                </figure>
               )}
               <QuestionInput question={question} value={answers[question.id] ?? []} onChange={updateAnswer} />
             </div>

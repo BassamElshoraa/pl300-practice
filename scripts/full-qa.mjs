@@ -5,7 +5,11 @@ import sharp from 'sharp';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, '..');
-const questions = JSON.parse(fs.readFileSync(path.resolve(here, '../../../work/dump-questions.json'), 'utf8'));
+const questionsSource = fs.readFileSync(path.resolve(projectRoot, 'lib/questions.ts'), 'utf8');
+const questionsPrefix = 'export const questions: Question[] = ';
+const questionsStart = questionsSource.indexOf(questionsPrefix) + questionsPrefix.length;
+const questionsEnd = questionsSource.indexOf('\n];', questionsStart) + 2;
+const questions = JSON.parse(questionsSource.slice(questionsStart, questionsEnd));
 const failures = [];
 const warnings = [];
 
@@ -17,6 +21,7 @@ const targets = {
 };
 const supportedTypes = new Set(['single', 'multi', 'sequence', 'matching', 'manual']);
 const requiredText = ['id', 'domain', 'type', 'prompt', 'source'];
+const sourceVisualReference = /(?:following|shown in the|as shown in|shown below).{0,50}(?:exhibit|table|graphic|diagram)|click the exhibit|the table shown/is;
 const canon = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, '');
 const fail = (question, issue) => failures.push({ id: question?.id ?? 'bank', issue });
 
@@ -92,6 +97,7 @@ for (const question of questions) {
     if (question.correct.length !== 0) fail(question, 'manual item must not contain an automatic key');
     if (!isAnswered(question, [500501])) fail(question, 'manual marker did not register as answered');
   } else {
+    if (sourceVisualReference.test(question.prompt) && !question.image) fail(question, 'source exhibit or table is referenced but no image is attached');
     if (question.choices.length < 2) fail(question, 'auto-graded item needs at least two choices');
     if (question.correct.length < 1) fail(question, 'auto-graded item has no key');
     if (question.correct.some((index) => !Number.isInteger(index) || index < 0 || index >= question.choices.length)) fail(question, 'key index outside choices');

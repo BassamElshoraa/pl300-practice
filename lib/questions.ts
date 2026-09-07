@@ -140,7 +140,8 @@ export const questions: Question[] = [
     "explanation": "D. It's the Header/Detail Schema, and the most optimal way is to flatten the header into the detail table.\n\nSource:\n\nhttps://www.sqlbi.com/articles/header-detail-vs-star-schema-models-in-tabular-and-power-bi/\n\nGPT: Merging the Orders query and the Order Line Items query in Power Query will allow you to create a\n\nsingle query that combines the necessary data from the different tables. This will make it easier and more\nefficient to perform the required analyses, as you will have all the information you need in one place.\n\n--- PBI will do the best aggregation base on Star Schema model, we now have 1 Fact table (Order Line Items)\nand 2 Dim tables (Products, Orders). Orders has common field with Products (ProductID), and pretty sure time\nseries field (OrderDate); Orders Line Items has Price and Quanity.\n\n--- We need summarize some values like \"price\" and \"quantity\" over-time by attributes product. But we only\nhave common field in Dim table (Orders) so we need to merge Dim (Orders) and Fact (Order Line Items) to new\nsingle Fact table to design the right Star Schema model.\n\n=> So that D is correct",
     "source": "Final",
     "sourceNumber": 7,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-007-6.webp"
   },
   {
     "id": "f1-008-7",
@@ -389,7 +390,8 @@ export const questions: Question[] = [
     "explanation": "We all need the dimension to contain the list of unique countries. so we delete the city column because we\ndon't need it and remove the duplicates from the country column. The correct answer is DE\n\nThe table has to contain unique values for \"Country\" column, so\n\n- delete the city column --> in fact this column is not requested\n\n- Remove duplicates from the Country column",
     "source": "Final",
     "sourceNumber": 22,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-022-21.webp"
   },
   {
     "id": "f1-023-22",
@@ -456,7 +458,8 @@ export const questions: Question[] = [
     "explanation": "A. Select Replace Errors - is correct. C&D will remove some rows Option B, \"Edit the query in the Query Errors\n\ngroup\", would technically also allow to achieve the required result. However, this would not be the optimal\nsolution given the constraints provided in the scenario, which specifies that administrative effort must be\nminimized.",
     "source": "Final",
     "sourceNumber": 26,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-026-25.webp"
   },
   {
     "id": "f1-027-26",
@@ -717,7 +720,8 @@ export const questions: Question[] = [
     "explanation": "Transform the column to contain only the year.\n\nMinimal Administrative Effort:\n\nBy adding a new column, you preserve the original Date column while introducing a new column that contains\njust the year. This way, no data is lost, and the transformation is straightforward.\n\nUsing Power Query:\n\nIn Power Query, you can Add Column > Date > Year, which is an easy and direct way to extract the year from\nthe date. This is typically a minimal-effort approach because it doesn't require complex formulas or additional\nsteps.\n\nPreserving Original Data:\n\nAdding a new column ensures that you retain the original date data, which could be useful for other\ntransformations or analysis.\n\nConclusion:\n\nOption D is correct because it provides a simple way to add a column that contains the year, offering a non-\ninvasive solution while keeping the original data intact. This aligns with the requirement for minimal\nadministrative effort.",
     "source": "Final",
     "sourceNumber": 41,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-041-40.webp"
   },
   {
     "id": "f1-042-41",
@@ -851,7 +855,8 @@ export const questions: Question[] = [
     "explanation": "A. An Orders query that has a filter on CustomerID: This query will fetch the orders and apply a filter based on\nthe selected CustomerID to ensure the orders are filtered to the selected CustomerID value.\n\nD. A Customers query that has a single column containing a list of customer IDs: This query will fetch the list\nof customers from the OData source and provide a list of customer IDs that users can select from.\n\nE. A parameter for CustomerID that uses a query to populate the suggested values: This parameter will be\nused to dynamically filter the Orders query based on the selected CustomerID value. It will use the Customers\nquery to populate the suggested values for the CustomerID parameter.",
     "source": "Final",
     "sourceNumber": 49,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-049-48.webp"
   },
   {
     "id": "f1-050-49",
@@ -903,7 +908,8 @@ export const questions: Question[] = [
     "explanation": "D. Change the invoice table to a composite table that contains historical data as a DirectQuery table and hot\ndata as an import table, and then partition the table.\n\nCombines Import (fast performance) with DirectQuery (real-time, but slower).\n\nHot data (recent, frequently queried) is kept in Import mode for performance.\n\nHistorical data (older, less frequently queried) is kept in DirectQuery to reduce memory usage.",
     "source": "Final",
     "sourceNumber": 52,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-052-51.webp"
   },
   {
     "id": "f1-053-52",
@@ -924,7 +930,8 @@ export const questions: Question[] = [
     "explanation": "B. Remove duplicate valuesThis will ensure each country appears only once by removing duplicate rows in the\nCountry column.\n\nD. Replace the empty fieldsThis ensures that there are no blank or null values in the Country column, which\n\nmight otherwise appear as missing or extra entries.",
     "source": "Final",
     "sourceNumber": 53,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-053-52.webp"
   },
   {
     "id": "f1-054-53",
@@ -1016,7 +1023,8 @@ export const questions: Question[] = [
     "explanation": "A: Removing uninteresting rows will increase query performance.\n\nD: Splitting the Sales_Date column will make comparisons on the Sales date faster.\n\nThe Power BI Desktop data model only supports date/time, but they can be formatted as dates or times\nindependently. Date/Time – Represents both a date and time value. Underneath the covers, the Date/Time\n\nvalue is stored as a Decimal Number Type. Since there's a T in the dates column before split, it's saved as a\nsource text value. Splitting converts it to a numeric value. This reduces the size.",
     "source": "Final",
     "sourceNumber": 58,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-058-57.webp"
   },
   {
     "id": "f1-059-58",
@@ -1035,7 +1043,8 @@ export const questions: Question[] = [
     "explanation": "One on the primary Key side (customer table), many on the foreign key side (Transaction table) of the relation.",
     "source": "Final",
     "sourceNumber": 59,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-059-58.webp"
   },
   {
     "id": "f1-060-59",
@@ -1088,7 +1097,8 @@ export const questions: Question[] = [
     "explanation": "A: You can take advantage of the DAX functions username() or userprincipalname() within your dataset. You\ncan use them within expressions in Power BI\n\nDesktop. When you publish your model, it will be used within the Power BI service.\n\nNote: To define security roles, follow these steps.\n\nImport data into your Power BI Desktop report, or configure a DirectQuery connection.\n\n1. From the Modeling tab, select Manage Roles.\n\n2. From the Manage roles window, select Create.\n\n3. Under Roles, provide a name for the role.\n\n4. Under Tables, select the table to which you want to apply a DAX rule.\n\n5. In the Table filter DAX expression box, enter the DAX expressions. This expression returns a value of true or\nfalse. For example: [Entity ID] = Value.\n\n6. After you've created the DAX expression, select the checkmark above the expression box to validate the\nexpression.\n\nNote: You can use username() within this expression.\n\n7. Select Save.\n\nC: By default, row-level security filtering uses single-directional filters, whether the relationships are set to\nsingle direction or bi-directional. You can manually enable bi-directional cross-filtering with row-level security\nby selecting the relationship and checking the Apply security filter in both directions checkbox. Select this\noption when you've also implemented dynamic row-level security at the server level, where row-level security\nis based on username or login ID.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls",
     "source": "Final",
     "sourceNumber": 62,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-062-61.webp"
   },
   {
     "id": "f1-063-62",
@@ -1308,7 +1318,8 @@ export const questions: Question[] = [
     "explanation": "Row-level security (RLS) with Power BI can be used to restrict data access for given users. Filters restrict data\naccess at the row level, and you can define filters within roles.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls",
     "source": "Final",
     "sourceNumber": 76,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-076-75.webp"
   },
   {
     "id": "f1-077-76",
@@ -1375,7 +1386,8 @@ export const questions: Question[] = [
     "explanation": "Incorrect:\n\nNot C: A calculated table would increase the data model size.\n\nNot D: Need Impression_date etc.\n\nGrouping in power query reduces the number of rows in the impression table that is gonna be loaded in the\nmodel. Creating relationships doesn't increase the size of the model. Therefore, the answer AB is correct!\n\nCreating one-to-many relationships = optimizing the model. => A is correct.\n\nGroup the Impressions query in Power Query = pre-summarizing the data which results in a smaller and more\nefficient data model => B is correct.",
     "source": "Final",
     "sourceNumber": 80,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-080-79.webp"
   },
   {
     "id": "f1-081-80",
@@ -1408,7 +1420,8 @@ export const questions: Question[] = [
     "explanation": "The DateKey and MovementDate columns have the same information. Movementdate can be removed.\n\nD, because the best way to reduce the data model size is to remove the unnecessary column.\n\nIncorrect:\n\nNot C: Integer data type would lose data.",
     "source": "Final",
     "sourceNumber": 82,
-    "legacy": true
+    "legacy": true,
+    "image": "/exhibit-assets/f1-082-81.webp"
   },
   {
     "id": "f1-083-82",
@@ -1566,7 +1579,8 @@ export const questions: Question[] = [
     "explanation": "C: Remove columns that are not used in the report.\n\nD: Reduce the number of rows.\n\nIncorrect:\n\nNot A: Not possible.\n\nNot B: Need CustomerKey to count of customers who placed an order\n\nThis question presents a scenario where you're tasked with creating a sales report in Power BI for the\nNorthWest region. The data originates from a Microsoft SQL Server database view, and the report aims to\nanalyze:\n\nThe count of orders and the sum of total sales by Order Date\n\nThe count of customers who placed an order\n\nThe average quantity per order\n\nTo enhance data refresh and query times, the suggested actions are:\n\nC. Remove the TaxAmt and Freight columns.\n\nD. Filter the data to only the NorthWest region sales territory.\n\nJustification:\n\nRemoving Unnecessary Columns: By eliminating columns like TaxAmt and Freight that aren't required for the\nspecified analyses, you reduce the dataset's size. This streamlining leads to faster data refreshes and more\nefficient queries.\n\nFiltering Data to Relevant Regions: Applying a filter to include only the NorthWest region ensures that only\npertinent data is loaded into Power BI. This targeted approach minimizes the volume of data processed,\nfurther improving performance.\n\nImplementing these steps aligns with best practices for optimizing Power BI performance, as it reduces the\namount of data handled, leading to quicker refresh and query times.",
     "source": "Final",
     "sourceNumber": 92,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-092-91.webp"
   },
   {
     "id": "f1-093-92",
@@ -1604,7 +1618,8 @@ export const questions: Question[] = [
     "explanation": "Split a column of text (Power Query)\nYou can split a column with a text data type into two or more columns by using a common delimiter character.\nFor example, a Name column that contains values written as <LastName>, <FirstName> can be split into two\ncolumns using the comma (,) character.\nNote: Power Query is an Extract Transform Load (ETL) tool. It allows us to\nDownload and fetch data from different sources. We call this data ingestion\nCombine, clean, and model this data. We call this data wrangling\n\nReference:\nhttps://support.microsoft.com/en-us/office/split-a-column-of-text-power-query-5282d425-6dd0-46ca-95bf-\n8e0da9539662",
     "source": "Final",
     "sourceNumber": 94,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-094-93.webp"
   },
   {
     "id": "f1-095-94",
@@ -1682,7 +1697,8 @@ export const questions: Question[] = [
     "explanation": "Remove a column that is not used in the visuals reduces the size of the dataset.\n\nIncorrect:\n\nNot A: Merging the tables would increase the dataset.\n\nNot C: Two of the visuals need historical data.\n\nNot D: Grouping would not affect size.",
     "source": "Final",
     "sourceNumber": 99,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-099-98.webp"
   },
   {
     "id": "f1-100-99",
@@ -1703,7 +1719,8 @@ export const questions: Question[] = [
     "explanation": "B: Only blog posts rows are useful for the visuals.\nD: These two columns are not used in the visuals and can be removed.\nIncorrect:\nNot A: Three visuals need historical data.\nNot C: Traffic[Referring URL] is used in one of the visuals and therefore cannot be removed.\nNot E: These rows are used in 3 visuals.",
     "source": "Final",
     "sourceNumber": 100,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-100-99.webp"
   },
   {
     "id": "f1-101-100",
@@ -1736,7 +1753,8 @@ export const questions: Question[] = [
     "explanation": "Calculate (SUM(Sales[Sales]), SAMEPERIODLASTYEAR(dimDate[Date] ))",
     "source": "Final",
     "sourceNumber": 102,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-102-101.webp"
   },
   {
     "id": "f1-103-102",
@@ -1773,7 +1791,8 @@ export const questions: Question[] = [
     "explanation": "The correct answer is A. Splitting datetime column will improve the performance even if it generates one\nmore column, having less unique values in separated date and time columns will achieve better compression.",
     "source": "Final",
     "sourceNumber": 104,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-104-103.webp"
   },
   {
     "id": "f1-105-104",
@@ -1790,7 +1809,8 @@ export const questions: Question[] = [
     "explanation": "yes is a correct.\n\nit says : The IoT GUID and IoT ID columns are unique to each row in the query.\n\nBOTH UNIQUES to EACH row...\n\nSo basically each one can be used as primary key for the table.\n\nremoving the guid column does improve performance.\n\nBetter to remove the guid because it 's a 16-byte binary data type compared to a unsigned long which is a 4-\nbyte binary data type\n\nThere are two requirements to the question - improve the performance and enable the required analysis.\nRemoving the GUID column will do exactly that - it will improve the performance because it is one less column\nof data to load but it still enables the required analysis given the IOT ID column is equally unique.",
     "source": "Final",
     "sourceNumber": 105,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-105-104.webp"
   },
   {
     "id": "f1-106-105",
@@ -1807,7 +1827,8 @@ export const questions: Question[] = [
     "explanation": "B is correct because changing the IoT DateTime column to the Date data type alone will not meet the goal of\nanalyzing IoT events by the hour and day of the year in power query.",
     "source": "Final",
     "sourceNumber": 106,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-106-105.webp"
   },
   {
     "id": "f1-107-106",
@@ -1861,7 +1882,8 @@ export const questions: Question[] = [
     "explanation": "AC is the correct answer. B is not needed as: It's important to note that when you specify your own date table,\nPower BI Desktop does not auto-create the hierarchies that it would otherwise build into your model on your\nbehalf. If you later deselect your date table (and no longer have a manually set date table), Power BI Desktop\nrecreates the automatically created built-in date tables for you, for the date columns in the table.\nhttps://learn.microsoft.com/en-us/power-bi/transform-model/desktop-date-tables",
     "source": "Final",
     "sourceNumber": 109,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-109-108.webp"
   },
   {
     "id": "f1-110-109",
@@ -1930,7 +1952,8 @@ export const questions: Question[] = [
     "explanation": "Answer is NO.\n\nIoT GUID & IOT ID both are unique key columns. so we can delete any one among them. From performance\npoint of view its good to delete text ID column i.e IOT GUID and keep IOT ID. concatenation is not required\n\nBoth are unique columns, but by concatenating them you will end up with a Unique Key with data type Text.\nThis raises performance issues since Unique keys should be preferably integers for performance reasons.\nAlso, since IoT GUID is not required might as well remove it.",
     "source": "Final",
     "sourceNumber": 113,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-113-112.webp"
   },
   {
     "id": "f1-114-113",
@@ -2210,7 +2233,8 @@ export const questions: Question[] = [
     "explanation": "C is correct assuming we are selecting the \"2020\" and \"2021\" columns",
     "source": "Final",
     "sourceNumber": 129,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-129-128.webp"
   },
   {
     "id": "f1-130-129",
@@ -2288,7 +2312,8 @@ export const questions: Question[] = [
     "explanation": "DATEADD is correct. PARALLELPERIOD also calculate one quarter before, but the out come is the total sales\nof three months of previous quarter not only one day or one month of previous quarter.",
     "source": "Final",
     "sourceNumber": 134,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-134-133.webp"
   },
   {
     "id": "f1-135-134",
@@ -2345,7 +2370,8 @@ export const questions: Question[] = [
     "explanation": "The correct answer is C - Values.\n\nFirstly, this type of visualization is a MATRIX.\n\nIf you do a simple test in PowerBI Desktop, you can see that in the \"Rows\" section, we can't add measures!\n\nMost likely, the names of the measures in the rows of the matrix appear because the measures were put in\n\n\"fields parameteres\" that generated a Calculated Table, and the actual values of the measures appear by\nadding the measures (not from the Calculated Table) in the \"Values\" section.",
     "source": "Final",
     "sourceNumber": 137,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-137-136.webp"
   },
   {
     "id": "f1-138-137",
@@ -2559,7 +2585,8 @@ export const questions: Question[] = [
     "explanation": "Correct answer is A:Group2.\n\nA. Group 2. Per Microsoft Learn, here's why:\n\n\"You can use the following groups to set up row-level security:\n\nDistribution Group\n\nMail-enabled Group\n\nMicrosoft Entra Security Group\n\nNote that Microsoft 365 groups aren't supported and can't be added to any roles.\"\n\nhttps://learn.microsoft.com/en-us/fabric/security/service-admin-row-level-security\n\nBecause of this, it should be Group 2.",
     "source": "Final",
     "sourceNumber": 150,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-150-149.webp"
   },
   {
     "id": "f1-151-150",
@@ -2974,7 +3001,8 @@ export const questions: Question[] = [
     "explanation": "A. Split the Classes column into rows by using a delimiter.\n\nTransform tab > Split Column > By Delimiter > Advanced Options > Split into Rows\n\nWhy the other options are incorrect:\n\nB. Unpivot the Classes column\n\nUnpivot is used when you have multiple columns that you want to turn into attribute-value rows — not for\nsplitting within a single column.\n\nC. Extract the text between delimiters\n\nExtracting grabs one portion (e.g., first item), but it doesn’t handle multiple values per row.\n\nD. Convert to a list\n\nConverting to a list might be useful in code, but not helpful for data shaping in the UI unless used inside a\ncustom function.",
     "source": "Final",
     "sourceNumber": 173,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-173-172.webp"
   },
   {
     "id": "f1-174-173",
@@ -3011,7 +3039,8 @@ export const questions: Question[] = [
     "explanation": "D. many-to-one\n\nIn a typical star schema used in Power BI and other BI systems:\n\nFact tables (e.g., FactSales) contain many transactions or events.\n\nDimension tables (e.g., DimProduct) contain unique, descriptive data about a business entity (like products,\ncustomers, etc.).",
     "source": "Final",
     "sourceNumber": 175,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-175-174.webp"
   },
   {
     "id": "f1-176-175",
@@ -3147,7 +3176,8 @@ export const questions: Question[] = [
     "explanation": "A. Type 2 slowly changing dimension (SCD)\n\nA Dim Address table typically represents address-related information (e.g., street, city, state, zip, etc.)\nassociated with entities like customers, suppliers, or employees.\n\nIn real-world scenarios, addresses can change over time, and when you want to track historical changes (e.g.,\nwhere a customer lived previously), you use a Type 2 Slowly Changing Dimension (SCD).",
     "source": "Final",
     "sourceNumber": 184,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-184-183.webp"
   },
   {
     "id": "f1-185-184",
@@ -3285,7 +3315,8 @@ export const questions: Question[] = [
     "explanation": "Average quantity of units is displayed.\nIncorrect:\nNot B: Average quantity of units is displayed, not percentage.\n\nReference:\nhttps://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers",
     "source": "Final",
     "sourceNumber": 192,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-192-191.webp"
   },
   {
     "id": "f1-193-192",
@@ -3404,7 +3435,8 @@ export const questions: Question[] = [
     "explanation": "The analytics feature enables you to show percentiles across groups specified along a specific axis.\n1. Click on the analytics tab\n2. Select Percentile\n\n3. You can choose a specific percentile along with other formatting options.\n4. Drag a date or non-numeric dimension into the Axis of a column chart\n\nReference:\nhttps://www.dash-intel.com/powerbi/statistical_functions_percentile.php",
     "source": "Final",
     "sourceNumber": 199,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-199-198.webp"
   },
   {
     "id": "f1-200-199",
@@ -3496,7 +3528,8 @@ export const questions: Question[] = [
     "explanation": "Add images to your report -\n1. Create a column with the URLs of the images. See Considerations later in this article for requirements.\n2. Select that column. On the Column tools ribbon, for Data category, select Image URL.\n3. Add the column to a table, matrix, slicer, or multi-row card.\nStep 3: From powerbi.com, add a tile for Excel1 dataset to DashboardA.\nIn the Power BI service (app.powerbi.com), a dashboard contains tiles pinned from one or more datasets, so\nyou can ask questions about any of the data contained in any of those datasets.\n\nReference:\nhttps://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-images-tables\nhttps://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-tutorial-q-and-a",
     "source": "Final",
     "sourceNumber": 204,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-204-203.webp"
   },
   {
     "id": "f1-205-204",
@@ -3666,7 +3699,8 @@ export const questions: Question[] = [
     "explanation": "For example, here's how the current forecast looks like:\n\nReference:\nhttps://spreadsheeto.com/power-bi-forecasting/#intro",
     "source": "Final",
     "sourceNumber": 214,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-214-213.webp"
   },
   {
     "id": "f1-215-214",
@@ -3685,7 +3719,8 @@ export const questions: Question[] = [
     "explanation": "The decomposition tree visual in Power BI lets you visualize data across multiple dimensions. It automatically\naggregates data and enables drilling down into your dimensions in any order. It is also an artificial intelligence\n(AI) visualization, so you can ask it to find the next dimension to drill down into based on certain criteria.\nThis makes it a valuable tool for ad hoc exploration and conducting root cause analysis.\nExample:\n\nReference:\nhttps://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-decomposition-tree",
     "source": "Final",
     "sourceNumber": 215,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-215-214.webp"
   },
   {
     "id": "f1-216-215",
@@ -3742,7 +3777,8 @@ export const questions: Question[] = [
     "explanation": "A tile is a report visual pinned to a dashboard, and dashboard tile refreshes happen about every hour so that\nthe tiles show recent results. You can change the schedule in the dataset settings, as in the screenshot below,\nor force a dashboard update manually by using the Refresh now option.\n\nIf you press F5 or hit the refresh button, the dashboard charts gets updated.\n\nNote: Power BI enables you to go from data to insight to action quickly, yet you must make sure the data in\nyour Power BI reports and dashboards is recent.\n\nKnowing how to refresh the data is often critical in delivering accurate results.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/power-bi/connect-data/refresh-data",
     "source": "Final",
     "sourceNumber": 218,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-218-217.webp"
   },
   {
     "id": "f1-219-218",
@@ -3775,7 +3811,8 @@ export const questions: Question[] = [
     "explanation": "When to use a slicer -\n\nSlicers are a great choice when you want to:\n\nDisplay commonly used or important filters on the report canvas for easier access.\n\nMake it easier to see the current filtered state without having to open a drop-down list.\n\nFilter by columns that are unneeded and hidden in the data tables.\n\nCreate more focused reports by putting slicers next to important visuals.\n\nNote: Suppose you want your report readers to be able to look at overall sales metrics, but also highlight\nperformance for individual district managers and different time frames. You could create separate reports or\ncomparative charts. You could add filters in the Filters pane. Or you could use slicers. Slicers are another way\nof filtering. They narrow the portion of the dataset that is shown in the other report visualizations.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers",
     "source": "Final",
     "sourceNumber": 220,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-220-219.webp"
   },
   {
     "id": "f1-221-220",
@@ -3914,7 +3951,8 @@ export const questions: Question[] = [
     "explanation": "With dashboard themes you can apply a color theme to your entire dashboard, such as corporate colors,\nseasonal coloring, or any other color theme you might want to apply. When you apply a dashboard theme, all\nvisuals on your dashboard use the colors from your selected theme.\nIncorrect:\n\nNot A: With Power BI Desktop report themes, you can apply design changes to your entire report, such as\nusing corporate colors, changing icon sets, or applying new default visual formatting.\n\nReference:\nhttps://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes",
     "source": "Final",
     "sourceNumber": 228,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-228-227.webp"
   },
   {
     "id": "f1-229-228",
@@ -3952,7 +3990,8 @@ export const questions: Question[] = [
     "explanation": "As the requirements, show only value, so A, remove map and charts.\n\nDecreasing the size of card visuals will minimize the scrolling. Removing maps and chart visuals is a\nrequirement as they are non single-vlaue visuals",
     "source": "Final",
     "sourceNumber": 230,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-230-229.webp"
   },
   {
     "id": "f1-231-230",
@@ -4081,7 +4120,8 @@ export const questions: Question[] = [
     "explanation": "The visual colors can't be changed on the dashboard from a report after the visual has already been pinned.\nApplying a dashboard custom theme will do it.",
     "source": "Final",
     "sourceNumber": 237,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-237-236.webp"
   },
   {
     "id": "f1-238-237",
@@ -4486,7 +4526,8 @@ export const questions: Question[] = [
     "explanation": "Correct answer is C:the position.\n\nThe position refers to the horizontal and vertical coordinates of each visual in Power BI. In this case, to modify\nthe location of each visual, you need to adjust its position by changing the horizontal and vertical coordinates\nprovided (such as 300, 700 for the Clustered column chart).\n\nWhy Other Options Are Incorrect:\n\nA. Layer order: Affects the visibility of visuals overlapping one another, not the location.\n\nB. Padding: Controls the space inside the visual, not its position.\n\nD. Tab order: Refers to the sequence for navigating between visuals, not their position.",
     "source": "Final",
     "sourceNumber": 260,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-260-259.webp"
   },
   {
     "id": "f1-261-260",
@@ -4540,7 +4581,8 @@ export const questions: Question[] = [
     "explanation": "Correct answer is B:unpivot.\n\nThe unpivot transformation is used to convert columns into rows, which is exactly what you need to transform\nthe data. It will turn the order amounts (in columns) into rows under the corresponding month and year,\nmaking the data more manageable and meeting the requirement of having separate columns for month, year,\n\nand order amount.\n\nWhy Other Options Are Incorrect:\n\nA. Remove: This would delete unnecessary columns, but it doesn’t reshape the data.\n\nC. Transpose: This swaps rows and columns, which is not the required transformation.\n\nD. Pivot: This aggregates data but doesn't turn columns into rows.",
     "source": "Final",
     "sourceNumber": 263,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-263-262.webp"
   },
   {
     "id": "f1-264-263",
@@ -4579,7 +4621,8 @@ export const questions: Question[] = [
     "explanation": "B- theme colors cause you can customize it yourself\n\nC- Divergent specifically address color blind users\n\nD is not correct because it uses colors like RED, GREEN, which hurts visual impaired users",
     "source": "Final",
     "sourceNumber": 265,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-265-264.webp"
   },
   {
     "id": "f1-266-265",
@@ -4645,7 +4688,8 @@ export const questions: Question[] = [
     "explanation": "Change the icons to use a different shape for each color.\n\nIt's a \"color vision deficiency\" so using different shapes would secure understanding of the report for that\ngroup of users",
     "source": "Final",
     "sourceNumber": 269,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-269-268.webp"
   },
   {
     "id": "f1-270-269",
@@ -4749,7 +4793,8 @@ export const questions: Question[] = [
     "explanation": "Add icons to represent the sales status of each product.\n\nD. Add icons helps to make the visual more accessible to users with color vision deficiencies by providing an\nadditional layer of information. Icons can represent the sales status of each product, making it easier for users\nto understand the data without relying solely on color.\n\nWhy other options are incorrect:\n\nA. Changing font color improves readability but does not address color blindness.\n\nB. Changing the background color might still be difficult for colorblind users to interpret.\n\nC. Adding additional measures does not directly help users with color vision deficiencies.",
     "source": "Final",
     "sourceNumber": 275,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-275-274.webp"
   },
   {
     "id": "f1-276-275",
@@ -4820,7 +4865,8 @@ export const questions: Question[] = [
     "explanation": "You need to create a report that will contain the visual shown in the following exhibit.', that is clearly meant\nfor 100% stacked area chart. Cannot be B line chart as per the exhibited visual shown which is stacked\ncategory..\n\nB does not show referring to the visual diagram where you have different product category stacked up,\nquestion outlines",
     "source": "Final",
     "sourceNumber": 279,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-279-278.webp"
   },
   {
     "id": "f1-280-279",
@@ -4933,7 +4979,8 @@ export const questions: Question[] = [
     "explanation": "C. The wallpaper color and the canvas background color only.\n\nUse this if you're aiming for consistent branding or styling across the whole report page, including both:\n\nThe visual workspace (canvas)\n\nThe surrounding area (wallpaper)",
     "source": "Final",
     "sourceNumber": 286,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-286-285.webp"
   },
   {
     "id": "f1-287-286",
@@ -5679,7 +5726,8 @@ export const questions: Question[] = [
     "explanation": "Executives require a visual that shows sales by region.\n\nThe data type of Sales[region_id] must be changed from varchar to Whole Number, as Sales[region_id] is\nInteger.",
     "source": "Final",
     "sourceNumber": 328,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-328-327.webp"
   },
   {
     "id": "f1-329-328",
@@ -5698,7 +5746,8 @@ export const questions: Question[] = [
     "explanation": "C. DirectQuery that uses a database credential\n\nIf you used the credentials of the user (D) then all users would need to be created in the database.",
     "source": "Final",
     "sourceNumber": 329,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-329-328.webp"
   },
   {
     "id": "f1-330-329",
@@ -5931,7 +5980,8 @@ export const questions: Question[] = [
     "explanation": "You wouldn't use composite for all. I would say import as the SQL Server data is only 2GB and excel is really\nsmall. Also, only need it refreshing once a day so this dataset is very small. Answer is A (Import)",
     "source": "Final",
     "sourceNumber": 342,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-342-341.webp"
   },
   {
     "id": "f1-343-342",
@@ -5950,7 +6000,8 @@ export const questions: Question[] = [
     "explanation": "D - Add the sales department as a member of the reports workspace.\n\nFor the actions they need to perform (edit reports, publish app, etc) the Member role would be the least\nprivilege",
     "source": "Final",
     "sourceNumber": 343,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-343-342.webp"
   },
   {
     "id": "f1-344-343",
@@ -5983,7 +6034,8 @@ export const questions: Question[] = [
     "explanation": "One product in the product list can occur many times in the revenue results.\nNote 1: One to many (1:*): In a one-to-many relationship, the column in one table has only one instance of a\nparticular value, and the other related table can have more than one instance of a value.\nNote 2:\nRevenue data is provided at the date and product level.\nThe board must be able to get the following information from the quarterly reports:\n\nRevenue trends over time -\nThe percent of total revenue contributed by each product category\nA comparison of quarterly revenue versus the same quarter from the previous year\n\nReference:\nhttps://docs.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships",
     "source": "Final",
     "sourceNumber": 345,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-345-344.webp"
   },
   {
     "id": "f1-346-345",
@@ -6030,7 +6082,8 @@ export const questions: Question[] = [
     "explanation": "A) - LASTDATE()\n\nas we do not sum the balances of last 3 months\n\nThe board meeting requires quarter balance. For example, Jan - Mar. So what we need is the balance as at 31\nMar, the LASTDATE is appropriate. The balance sheet already gives you the number directly. No need to\ncalculate up to 3 months.\n\nIn case of using DATESQTD, daily sale and expenses will be listed in a table rather than balance in balance\nsheet.",
     "source": "Final",
     "sourceNumber": 348,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-348-347.webp"
   },
   {
     "id": "f1-349-348",
@@ -6049,7 +6102,8 @@ export const questions: Question[] = [
     "explanation": "Two date dims, two 1:* relationships\n\nThe customer service department requires a visual that can be filtered by both sales month and ship month\nindependently.\n\nNeed two date tables. Add a one-to-many relationship from both the Date tables to Sales table.\n\nReference:\n\nhttps://docs.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive",
     "source": "Final",
     "sourceNumber": 349,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-349-348.webp"
   },
   {
     "id": "f1-350-349",
@@ -6322,7 +6376,8 @@ export const questions: Question[] = [
     "explanation": "A. a measure column using:\n\nDAX\n\nCopy\n\nEdit\n\nSUMX(FILTER('Sales', 'Sales'[sales_amount] > 0), [sales_amount])\n\nThis filters out negative or zero values and sums only positive sales_amount values.\n\nUse case: Reporting only positive sales, e.g., excluding refunds/returns.\n\nIt's a measure, not a column—good for dynamic aggregation in visuals.\n\nLikely a good candidate if the requirement is to report only positive sales totals.",
     "source": "Final",
     "sourceNumber": 365,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-365-364.webp"
   },
   {
     "id": "f1-366-365",
@@ -6369,7 +6424,8 @@ export const questions: Question[] = [
     "explanation": "C is the answer. The database is on Azure database, not on-premise\n\n\"Scheduled refresh of reports isn’t supported with Dynamics 365 (on-premises) datasets that are published to\nthe Power BI service. You can refresh reports using in Microsoft Power BI Desktop or Microsoft Office Excel\nand then upload the reports to the Power BI service.\"\n\nSo D is impossible. C is correct.",
     "source": "Final",
     "sourceNumber": 368,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f1-368-367.webp"
   },
   {
     "id": "f1-369-368",
@@ -6388,7 +6444,8 @@ export const questions: Question[] = [
     "explanation": "Note:\n\nAnalysts must be able to create new reports from the dataset that contains the profit and loss data, but the\nreports built by the analysts must NOT be included in the quarterly reports for the board.\n\nAnalysts must NOT be able to make new reports by using the balance sheet data.\n\nTwo datasets are required.\n\nNeed DAX for: A comparison of quarterly revenue versus the same quarter from the previous year. Also see\nother questions in this Case study which uses DAX expressions.\n\nIncorrect:\n\nNot Direct Query: Direct Query Limited Transformations.\n\nYou are not able to use all of the normal Power Query transformation features. Particular DAX functions are\nnot available in this method as well. So if your data is poorly structured or needing lots of transformation,\nsometimes Direct Query is not a viable option.\n\nReference:\n\nhttps://www.tessellationtech.io/import-vs-direct-query-power-bi/",
     "source": "Final",
     "sourceNumber": 369,
-    "legacy": true
+    "legacy": true,
+    "image": "/exhibit-assets/f1-369-368.webp"
   },
   {
     "id": "f2-001-369",
@@ -6706,7 +6763,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 27,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-027-387.webp"
   },
   {
     "id": "f2-030-388",
@@ -6894,7 +6952,8 @@ export const questions: Question[] = [
     "explanation": "To create a dimension table for Country from your source data, you need to perform these two actions34:\n? Delete the City column. You don’t need this column for your Country dimension, as\nit is not a descriptive attribute of Country. You can create another dimension table for City if you want to use it in your analysis.\n? Remove duplicates from the Country column. You want to have a list of unique\ncountries in your dimension table, so you need to remove any duplicate values from this column.",
     "source": "Final 2",
     "sourceNumber": 61,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-061-398.webp"
   },
   {
     "id": "f2-066-399",
@@ -7074,7 +7133,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 105,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-105-409.webp"
   },
   {
     "id": "f2-106-410",
@@ -7107,7 +7167,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 111,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-111-411.webp"
   },
   {
     "id": "f2-113-412",
@@ -7270,7 +7331,8 @@ export const questions: Question[] = [
     "explanation": "References: http://community.powerbi.com/t5/Desktop/if-then-else/td-p/117999",
     "source": "Final 2",
     "sourceNumber": 137,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-137-420.webp"
   },
   {
     "id": "f2-141-421",
@@ -7307,7 +7369,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 143,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-143-422.webp"
   },
   {
     "id": "f2-144-423",
@@ -7395,7 +7458,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 161,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-161-427.webp"
   },
   {
     "id": "f2-164-428",
@@ -7434,7 +7498,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 167,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-167-429.webp"
   },
   {
     "id": "f2-168-430",
@@ -7553,7 +7618,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 184,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-184-436.webp"
   },
   {
     "id": "f2-187-437",
@@ -7796,7 +7862,8 @@ export const questions: Question[] = [
     "explanation": "Explore forecast results by adjusting the desired confidence interval or by adjusting outlier data to see how they affect results.\n\nTimeline Description automatically generated with low confidence\nReference:\nhttps://powerbi.microsoft.com/fr-fr/blog/introducing-new-forecasting-capabilities-in-power-view-for-office-365/",
     "source": "Final 2",
     "sourceNumber": 222,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-222-451.webp"
   },
   {
     "id": "f2-227-452",
@@ -7876,7 +7943,8 @@ export const questions: Question[] = [
     "explanation": "References: https://msdn.microsoft.com/en-us/library/gg492185.aspx",
     "source": "Final 2",
     "sourceNumber": 239,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-239-456.webp"
   },
   {
     "id": "f2-242-457",
@@ -8188,7 +8256,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 300,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-300-474.webp"
   },
   {
     "id": "f2-303-475",
@@ -8259,7 +8328,8 @@ export const questions: Question[] = [
     "explanation": "https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes#how-dashboard-themes-work",
     "source": "Final 2",
     "sourceNumber": 315,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-315-478.webp"
   },
   {
     "id": "f2-318-479",
@@ -8454,7 +8524,8 @@ export const questions: Question[] = [
     "explanation": "",
     "source": "Final 2",
     "sourceNumber": 355,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-355-490.webp"
   },
   {
     "id": "f2-358-491",
@@ -8616,7 +8687,8 @@ export const questions: Question[] = [
     "explanation": "Power BI Top N Filters are useful to display the top performing records, and Bottom N filters are helpful to display the least performing records. For example, we\ncan display top or bottom 10 products by orders or sales.\nNote:\n? Select the Column you want to display the Top Sales Profit\n? Then change the Filter Type of that Column to Top N\n? Fill in Top / Bottom number field\n? And lastly drag to the By Value filed your Sales Profit\nReference:\nhttps://www.tutorialgateway.org/power-bi-top-10-filters/",
     "source": "Final 2",
     "sourceNumber": 381,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-381-499.webp"
   },
   {
     "id": "f2-385-500",
@@ -8666,7 +8738,8 @@ export const questions: Question[] = [
     "explanation": "Example:\nReplace the text \"ur\" with the text \"or\" in the table.\n\nReference:\nhttps://docs.microsoft.com/en-us/powerquery-m/table-replacevalue",
     "source": "Final 2",
     "sourceNumber": 391,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-391-502.webp"
   },
   {
     "id": "f2-392-503",
@@ -8751,7 +8824,8 @@ export const questions: Question[] = [
     "explanation": "https://www.sqlbi.com/articles/header-detail-vs-star-schema-models-in- tabular-and-power-bi/",
     "source": "Final 2",
     "sourceNumber": 407,
-    "legacy": false
+    "legacy": false,
+    "image": "/exhibit-assets/f2-407-507.webp"
   },
   {
     "id": "f2-410-508",
