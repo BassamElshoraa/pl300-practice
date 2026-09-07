@@ -13,6 +13,7 @@ import {
   ExternalLink,
   FileCheck2,
   Flag,
+  Languages,
   ListChecks,
   Moon,
   MousePointerClick,
@@ -523,39 +524,75 @@ function GuideScreen({ dark, setDark, onHome }: {
   setDark: (value: boolean) => void;
   onHome: () => void;
 }) {
+  const [language, setLanguage] = useState<'ar' | 'en'>('ar');
+  const isArabic = language === 'ar';
+
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header time="Guide" dark={dark} setDark={setDark} onHome={onHome} />
-      <section dir="rtl" lang="ar-EG" className="mx-auto max-w-6xl px-4 py-7 text-right sm:px-8 sm:py-10">
-        <Button variant="outline" onClick={onHome}>الرجوع للرئيسية <ArrowLeft className="size-4 rotate-180" /></Button>
+      <Header
+        time={isArabic ? 'الدليل' : 'Guide'}
+        dark={dark}
+        setDark={setDark}
+        onHome={onHome}
+        homeLabel={isArabic ? 'الرئيسية' : 'Home'}
+        homeAriaLabel={isArabic ? 'الرجوع للرئيسية وإنهاء الجلسة الحالية' : 'Return home and end the current session'}
+      />
+      <section
+        dir={isArabic ? 'rtl' : 'ltr'}
+        lang={isArabic ? 'ar-EG' : 'en'}
+        className={`mx-auto max-w-6xl px-4 py-7 sm:px-8 sm:py-10 ${isArabic ? 'text-right' : 'text-left'}`}
+      >
+        <div className="flex items-center justify-between gap-3">
+          <Button variant="outline" onClick={onHome}>
+            {isArabic ? 'الرجوع للرئيسية' : 'Back to home'}
+            <ArrowLeft className={`size-4 ${isArabic ? 'rotate-180' : ''}`} />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setLanguage(isArabic ? 'en' : 'ar')}
+            aria-label={isArabic ? 'Switch guide to English' : 'تغيير لغة الدليل إلى العربية'}
+            title={isArabic ? 'English' : 'العربية'}
+            className="gap-1.5"
+          >
+            <Languages className="size-4" />
+            <span className="text-xs font-semibold">{isArabic ? 'EN' : 'ع'}</span>
+          </Button>
+        </div>
         <div className="mt-7 max-w-3xl">
-          <p className="text-sm font-semibold text-primary">دليل استخدام محاكي PL-300</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">من أول اختيار الامتحان لحد مراجعة إجاباتك</h1>
-          <p className="mt-4 text-base leading-8 text-muted-foreground">الدليل ده يشرحلك كل جزء في المحاكي بسرعة، عشان تركّز في السؤال نفسه ومايضيعش وقتك في فهم الأزرار.</p>
+          <p className="text-sm font-semibold text-primary">{isArabic ? 'دليل استخدام محاكي PL-300' : 'PL-300 Simulator User Guide'}</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+            {isArabic ? 'من أول اختيار الامتحان لحد مراجعة إجاباتك' : 'From choosing a practice mode to reviewing your answers'}
+          </h1>
+          <p className="mt-4 text-base leading-8 text-muted-foreground">
+            {isArabic
+              ? 'الدليل ده يشرحلك كل جزء في المحاكي بسرعة، عشان تركّز في السؤال نفسه ومايضيعش وقتك في فهم الأزرار.'
+              : 'This guide explains every part of the simulator so you can focus on the questions instead of spending time figuring out the controls.'}
+          </p>
         </div>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          <GuideCard icon={<ListChecks className="size-6" />} number="١" title="اختار طريقة التدريب">
-            <strong>Practice exam</strong> امتحان كامل من 50 سؤال و100 دقيقة، ومتوزع على مهارات PL-300. أما <strong>Complete source bank</strong> فبيقسّم كل بنك الأسئلة لأربع أجزاء عشان تراجعهم كلهم من غير تكرار.
+          <GuideCard icon={<ListChecks className="size-6" />} number={isArabic ? '١' : '1'} title={isArabic ? 'اختار طريقة التدريب' : 'Choose how you want to practice'}>
+            {isArabic ? <><strong>Practice exam</strong> امتحان كامل من 50 سؤال و100 دقيقة، ومتوزع على مهارات PL-300. أما <strong>Complete source bank</strong> فبيقسّم كل بنك الأسئلة لأربع أجزاء عشان تراجعهم كلهم من غير تكرار.</> : <><strong>Practice exam</strong> gives you 50 questions in 100 minutes, balanced across the PL-300 skill areas. <strong>Complete source bank</strong> divides the full question bank into four parts so you can cover every question without repetition.</>}
           </GuideCard>
-          <GuideCard icon={<MousePointerClick className="size-6" />} number="٢" title="جاوب حسب نوع السؤال">
-            الدائرة معناها اختيار واحد، والمربعات معناها أكتر من إجابة. في أسئلة <strong>Answer Area</strong> اضغط جوه مكان الاختيار في الصورة؛ كل ضغطة بتظهر بعلامة مرقمة وتقدر تمسحها وتعيدها.
+          <GuideCard icon={<MousePointerClick className="size-6" />} number={isArabic ? '٢' : '2'} title={isArabic ? 'جاوب حسب نوع السؤال' : 'Answer each question type correctly'}>
+            {isArabic ? <>الدائرة معناها اختيار واحد، والمربعات معناها أكتر من إجابة. في أسئلة <strong>Answer Area</strong> اضغط جوه مكان الاختيار في الصورة؛ كل ضغطة بتظهر بعلامة مرقمة وتقدر تمسحها وتعيدها.</> : <>A radio button means one answer; checkboxes mean more than one answer. For an <strong>Answer Area</strong>, click the required position inside the image. Each click creates a numbered marker that you can clear and place again.</>}
           </GuideCard>
-          <GuideCard icon={<FileCheck2 className="size-6" />} number="٣" title="اتحكم في وقتك">
-            العداد فوق بيحسب الوقت المتبقي. استخدم <strong>Flag</strong> للسؤال اللي محتاج ترجعله، وأرقام الأسئلة على الجنب بتوضح الحالي والمجاب والمتعلّم للمراجعة. تقدمك بيتحفظ على نفس الجهاز لو خرجت ورجعت.
+          <GuideCard icon={<FileCheck2 className="size-6" />} number={isArabic ? '٣' : '3'} title={isArabic ? 'اتحكم في وقتك' : 'Manage your time and progress'}>
+            {isArabic ? <>العداد فوق بيحسب الوقت المتبقي. استخدم <strong>Flag</strong> للسؤال اللي محتاج ترجعله، وأرقام الأسئلة على الجنب بتوضح الحالي والمجاب والمتعلّم للمراجعة. تقدمك بيتحفظ لو عملت Refresh أو قفلت التب، لكن الرجوع للرئيسية بينهي المحاولة.</> : <>The timer shows your remaining time. Use <strong>Flag</strong> for questions you want to revisit; the navigator marks the current, answered, and flagged questions. Your progress is saved if you refresh or close the tab, while returning Home ends the attempt.</>}
           </GuideCard>
-          <GuideCard icon={<Check className="size-6" />} number="٤" title="سلّم وراجع صح">
-            بعد <strong>Submit exam</strong> هتشوف الدرجة وتوزيع أدائك على المهارات. افتح <strong>Review answers</strong> عشان تقارن إجابتك بالصح وتشوف شرح المصدر، وبعده اضغط <strong>شعبولي الدنيا</strong> للشرح المصري المبسّط خطوة بخطوة.
+          <GuideCard icon={<Check className="size-6" />} number={isArabic ? '٤' : '4'} title={isArabic ? 'سلّم وراجع صح' : 'Submit and learn from your review'}>
+            {isArabic ? <>بعد <strong>Submit exam</strong> هتشوف الدرجة وتوزيع أدائك على المهارات. افتح <strong>Review answers</strong> عشان تقارن إجابتك بالصح وتشوف شرح المصدر، وبعده اضغط <strong>شعبولي الدنيا</strong> للشرح المصري المبسّط خطوة بخطوة.</> : <>After <strong>Submit exam</strong>, you will see your score and performance by skill area. Open <strong>Review answers</strong> to compare your response with the correct answer and read the source explanation. Use <strong>شعبولي الدنيا</strong> for a step-by-step beginner explanation in Egyptian Arabic.</>}
           </GuideCard>
         </div>
 
-        <Card className="mt-7 rounded-sm border-r-4 border-r-primary shadow-none">
+        <Card className={`mt-7 rounded-sm shadow-none ${isArabic ? 'border-r-4 border-r-primary' : 'border-l-4 border-l-primary'}`}>
           <CardContent className="p-6 sm:p-8">
-            <h2 className="text-xl font-semibold">قبل ما تبدأ</h2>
+            <h2 className="text-xl font-semibold">{isArabic ? 'قبل ما تبدأ' : 'Before you start'}</h2>
             <div className="mt-5 grid gap-4 text-[15px] leading-7 sm:grid-cols-3">
-              <p><strong className="block text-primary">اتمرّن كأنها محاولة حقيقية</strong>اقفل المراجع، التزم بالوقت، وسيب السؤال الصعب Flag بدل ما يعطلك.</p>
-              <p><strong className="block text-primary">راجع السبب مش الحرف</strong>احفظ أسماء ميزات Power BI بالإنجليزي، لكن افهم ليه الاختيار مناسب لقيود السؤال.</p>
-              <p><strong className="block text-primary">كرر نقاط ضعفك</strong>بعد النتيجة ركّز على Skill area الأقل، وبعدها استخدم بنك الأسئلة للتدريب المكثف.</p>
+              <p><strong className="block text-primary">{isArabic ? 'اتمرّن كأنها محاولة حقيقية' : 'Practice like it is the real exam'}</strong>{isArabic ? 'اقفل المراجع، التزم بالوقت، وسيب السؤال الصعب Flag بدل ما يعطلك.' : 'Close your reference material, respect the timer, and flag a difficult question instead of letting it slow you down.'}</p>
+              <p><strong className="block text-primary">{isArabic ? 'راجع السبب مش الحرف' : 'Review the reason, not the letter'}</strong>{isArabic ? 'احفظ أسماء ميزات Power BI بالإنجليزي، لكن افهم ليه الاختيار مناسب لقيود السؤال.' : 'Learn Power BI feature names in English, but focus on why an option fits the requirements in the question.'}</p>
+              <p><strong className="block text-primary">{isArabic ? 'كرر نقاط ضعفك' : 'Repeat your weakest areas'}</strong>{isArabic ? 'بعد النتيجة ركّز على Skill area الأقل، وبعدها استخدم بنك الأسئلة للتدريب المكثف.' : 'After the result, focus on your lowest skill area, then use the source bank for concentrated practice.'}</p>
             </div>
           </CardContent>
         </Card>
@@ -580,7 +617,14 @@ function GuideCard({ icon, number, title, children }: { icon: React.ReactNode; n
   );
 }
 
-function Header({ time, dark, setDark, onHome }: { time: string; dark: boolean; setDark: (value: boolean) => void; onHome?: () => void }) {
+function Header({ time, dark, setDark, onHome, homeLabel = 'Home', homeAriaLabel = 'Return home and end the current session' }: {
+  time: string;
+  dark: boolean;
+  setDark: (value: boolean) => void;
+  onHome?: () => void;
+  homeLabel?: string;
+  homeAriaLabel?: string;
+}) {
   const brand = (
     <>
       <div className="grid size-9 place-items-center bg-[#0078d4] font-semibold text-white transition-transform group-hover:scale-105">P3</div>
@@ -600,8 +644,8 @@ function Header({ time, dark, setDark, onHome }: { time: string; dark: boolean; 
         ) : <div className="group flex items-center gap-3">{brand}</div>}
         <div className="flex items-center gap-2">
           {onHome && (
-            <Button variant="ghost" size="sm" onClick={onHome} aria-label="Return home and end the current session">
-              <ArrowLeft className="size-4" /> <span className="hidden sm:inline">Home</span>
+            <Button variant="ghost" size="sm" onClick={onHome} aria-label={homeAriaLabel}>
+              <ArrowLeft className="size-4" /> <span className="hidden sm:inline">{homeLabel}</span>
             </Button>
           )}
           <div className="flex h-9 items-center gap-2 rounded-sm border bg-card px-3 font-mono text-sm font-semibold tabular-nums">

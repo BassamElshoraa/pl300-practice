@@ -25,7 +25,7 @@ No registration is required. Exam progress and the selected theme are stored loc
 - One-click Home/brand exit and browser Back handling that safely ends the active attempt.
 - Final score, domain-level performance, correct-answer review, and source explanations.
 - **“شعبولي الدنيا”**: expanded explanations in beginner-friendly Egyptian Arabic.
-- Built-in Arabic usage guide, light/dark themes, responsive layouts, keyboard-friendly controls, and Cairo typography.
+- Built-in Arabic/English usage guide with RTL/LTR switching, light/dark themes, responsive layouts, keyboard-friendly controls, and Cairo typography.
 
 ## Practice structure
 
