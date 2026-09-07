@@ -22,6 +22,7 @@ No registration is required. Exam progress and the selected theme are stored loc
 - **324 automatically graded questions** and **185 visual/manual-review questions**.
 - Source exhibits and tables displayed with the questions that reference them.
 - Question navigator, progress indicator, flags, unanswered-question warning, and resumable local progress.
+- One-click Home/brand exit and browser Back handling that safely ends the active attempt.
 - Final score, domain-level performance, correct-answer review, and source explanations.
 - **“شعبولي الدنيا”**: expanded explanations in beginner-friendly Egyptian Arabic.
 - Built-in Arabic usage guide, light/dark themes, responsive layouts, keyboard-friendly controls, and Cairo typography.

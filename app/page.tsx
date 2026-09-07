@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import {
   ArrowLeft,
@@ -94,12 +94,44 @@ export default function Home() {
   const [saved, setSaved] = useState<SavedProgress | null>(null);
   const [submitOpen, setSubmitOpen] = useState(false);
   const [dark, setDark] = useState(false);
+  const screenRef = useRef<Screen>('home');
+  const sessionHistoryRef = useRef(false);
+  const skipNextPopRef = useRef(false);
 
   const exam = useMemo(() => buildExam(model), [model]);
   const question = exam[current];
   const answeredCount = exam.filter((item) => isAnswered(item, answers[item.id])).length;
   const unansweredCount = exam.length - answeredCount;
   const score = useMemo(() => calculateScore(exam, answers), [exam, answers]);
+
+  const beginSession = () => {
+    if (sessionHistoryRef.current) return;
+    window.history.pushState({ pl300Session: true }, '', window.location.href);
+    sessionHistoryRef.current = true;
+  };
+
+  const exitToHome = () => {
+    const removeHistoryMarker = sessionHistoryRef.current;
+    sessionHistoryRef.current = false;
+    screenRef.current = 'home';
+    setScreen('home');
+    setAnswers({});
+    setFlags([]);
+    setCurrent(0);
+    setTimeLeft(6000);
+    setSaved(null);
+    setSubmitOpen(false);
+    try { localStorage.removeItem('pl300-progress-v4'); } catch {}
+    if (removeHistoryMarker) {
+      skipNextPopRef.current = true;
+      window.history.back();
+    }
+  };
+
+  const openGuide = () => {
+    beginSession();
+    setScreen('guide');
+  };
 
   useEffect(() => {
     const restore = window.setTimeout(() => {
@@ -119,6 +151,32 @@ export default function Home() {
     document.documentElement.classList.toggle('dark', dark);
     try { localStorage.setItem('pl300-theme', dark ? 'dark' : 'light'); } catch {}
   }, [dark]);
+
+  useEffect(() => {
+    screenRef.current = screen;
+  }, [screen]);
+
+  useEffect(() => {
+    const handleBrowserBack = () => {
+      if (skipNextPopRef.current) {
+        skipNextPopRef.current = false;
+        return;
+      }
+      if (!sessionHistoryRef.current && screenRef.current === 'home') return;
+      sessionHistoryRef.current = false;
+      screenRef.current = 'home';
+      setScreen('home');
+      setAnswers({});
+      setFlags([]);
+      setCurrent(0);
+      setTimeLeft(6000);
+      setSaved(null);
+      setSubmitOpen(false);
+      try { localStorage.removeItem('pl300-progress-v4'); } catch {}
+    };
+    window.addEventListener('popstate', handleBrowserBack);
+    return () => window.removeEventListener('popstate', handleBrowserBack);
+  }, []);
 
   useEffect(() => {
     if (screen !== 'exam') return;
@@ -169,6 +227,7 @@ export default function Home() {
         setCurrent(0);
         const count = buildExam(value).length;
         setTimeLeft(count * 120);
+        beginSession();
         setScreen('exam');
         try { localStorage.removeItem('pl300-progress-v4'); } catch {}
         return { model: value, questionCount: count, timeLimitMinutes: count * 2 };
@@ -184,6 +243,7 @@ export default function Home() {
     setFlags([]);
     setCurrent(0);
     setTimeLeft(timeLimitSeconds(selectedModel));
+    beginSession();
     setScreen('exam');
     try { localStorage.removeItem('pl300-progress-v4'); } catch {}
   }
@@ -195,6 +255,7 @@ export default function Home() {
     setFlags(saved.flags);
     setCurrent(saved.current);
     setTimeLeft(saved.timeLeft);
+    beginSession();
     setScreen('exam');
   }
 
@@ -216,11 +277,11 @@ export default function Home() {
   }
 
   if (screen === 'home') {
-    return <HomeScreen dark={dark} setDark={setDark} saved={saved} onResume={resumeExam} onStart={startExam} onGuide={() => setScreen('guide')} />;
+    return <HomeScreen dark={dark} setDark={setDark} saved={saved} onResume={resumeExam} onStart={startExam} onGuide={openGuide} />;
   }
 
   if (screen === 'guide') {
-    return <GuideScreen dark={dark} setDark={setDark} onHome={() => setScreen('home')} />;
+    return <GuideScreen dark={dark} setDark={setDark} onHome={exitToHome} />;
   }
 
   if (screen === 'results') {
@@ -232,7 +293,8 @@ export default function Home() {
         model={model}
         score={score}
         onReview={() => { setCurrent(0); setScreen('review'); }}
-        onNew={() => setScreen('home')}
+        onNew={exitToHome}
+        onHome={exitToHome}
         dark={dark}
         setDark={setDark}
       />
@@ -248,6 +310,7 @@ export default function Home() {
         setCurrent={setCurrent}
         flags={flags}
         onResults={() => setScreen('results')}
+        onHome={exitToHome}
         dark={dark}
         setDark={setDark}
       />
@@ -256,7 +319,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header time={formatTime(timeLeft)} dark={dark} setDark={setDark} />
+      <Header time={formatTime(timeLeft)} dark={dark} setDark={setDark} onHome={exitToHome} />
       <div className="mx-auto grid max-w-[1540px] gap-5 px-3 py-4 md:grid-cols-[240px_minmax(0,1fr)] md:px-5 md:py-6 xl:grid-cols-[280px_minmax(0,1fr)] xl:px-7">
         <Navigator
           exam={exam}
@@ -462,7 +525,7 @@ function GuideScreen({ dark, setDark, onHome }: {
 }) {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header time="Guide" dark={dark} setDark={setDark} />
+      <Header time="Guide" dark={dark} setDark={setDark} onHome={onHome} />
       <section dir="rtl" lang="ar-EG" className="mx-auto max-w-6xl px-4 py-7 text-right sm:px-8 sm:py-10">
         <Button variant="outline" onClick={onHome}>الرجوع للرئيسية <ArrowLeft className="size-4 rotate-180" /></Button>
         <div className="mt-7 max-w-3xl">
@@ -517,18 +580,30 @@ function GuideCard({ icon, number, title, children }: { icon: React.ReactNode; n
   );
 }
 
-function Header({ time, dark, setDark }: { time: string; dark: boolean; setDark: (value: boolean) => void }) {
+function Header({ time, dark, setDark, onHome }: { time: string; dark: boolean; setDark: (value: boolean) => void; onHome?: () => void }) {
+  const brand = (
+    <>
+      <div className="grid size-9 place-items-center bg-[#0078d4] font-semibold text-white transition-transform group-hover:scale-105">P3</div>
+      <div>
+        <p className="font-semibold leading-none">PL-300 Practice Exam</p>
+        <p className="mt-1 hidden text-xs text-muted-foreground sm:block">Microsoft Power BI Data Analyst</p>
+      </div>
+    </>
+  );
   return (
     <header className="sticky top-0 z-20 border-b bg-card">
       <div className="mx-auto flex h-[72px] max-w-[1540px] items-center justify-between px-4 sm:px-8">
-        <div className="flex items-center gap-3">
-          <div className="grid size-9 place-items-center bg-[#0078d4] font-semibold text-white">P3</div>
-          <div>
-            <p className="font-semibold leading-none">PL-300 Practice Exam</p>
-            <p className="mt-1 hidden text-xs text-muted-foreground sm:block">Microsoft Power BI Data Analyst</p>
-          </div>
-        </div>
+        {onHome ? (
+          <button type="button" onClick={onHome} className="group flex items-center gap-3 text-left" aria-label="Return to the home page and end the current session">
+            {brand}
+          </button>
+        ) : <div className="group flex items-center gap-3">{brand}</div>}
         <div className="flex items-center gap-2">
+          {onHome && (
+            <Button variant="ghost" size="sm" onClick={onHome} aria-label="Return home and end the current session">
+              <ArrowLeft className="size-4" /> <span className="hidden sm:inline">Home</span>
+            </Button>
+          )}
           <div className="flex h-9 items-center gap-2 rounded-sm border bg-card px-3 font-mono text-sm font-semibold tabular-nums">
             <Clock3 className="size-4 text-primary" /> {time}
           </div>
@@ -744,7 +819,7 @@ function QuestionInput({ question, value, onChange }: { question: Question; valu
   );
 }
 
-function ResultsScreen({ exam, answers, timeLeft, model, score, onReview, onNew, dark, setDark }: {
+function ResultsScreen({ exam, answers, timeLeft, model, score, onReview, onNew, onHome, dark, setDark }: {
   exam: Question[];
   answers: Answers;
   timeLeft: number;
@@ -752,13 +827,14 @@ function ResultsScreen({ exam, answers, timeLeft, model, score, onReview, onNew,
   score: ReturnType<typeof calculateScore>;
   onReview: () => void;
   onNew: () => void;
+  onHome: () => void;
   dark: boolean;
   setDark: (value: boolean) => void;
 }) {
   const percent = score.autoGraded > 0 ? Math.round((score.correct / score.autoGraded) * 100) : 0;
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header time={formatTime(timeLeft)} dark={dark} setDark={setDark} />
+      <Header time={formatTime(timeLeft)} dark={dark} setDark={setDark} onHome={onHome} />
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-8 sm:py-12">
         <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
           <Card className="rounded-sm border-t-4 border-t-primary bg-card shadow-none">
@@ -809,13 +885,14 @@ function ResultsScreen({ exam, answers, timeLeft, model, score, onReview, onNew,
   );
 }
 
-function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, dark, setDark }: {
+function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, onHome, dark, setDark }: {
   exam: Question[];
   answers: Answers;
   current: number;
   setCurrent: (index: number) => void;
   flags: string[];
   onResults: () => void;
+  onHome: () => void;
   dark: boolean;
   setDark: (value: boolean) => void;
 }) {
@@ -825,7 +902,7 @@ function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, da
   const correct = isCorrect(question, answer);
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <Header time="Review" dark={dark} setDark={setDark} />
+      <Header time="Review" dark={dark} setDark={setDark} onHome={onHome} />
       <section className="mx-auto max-w-5xl px-4 py-6 sm:px-8 sm:py-10">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <Button variant="outline" onClick={onResults}><ArrowLeft className="size-4" /> Results</Button>
