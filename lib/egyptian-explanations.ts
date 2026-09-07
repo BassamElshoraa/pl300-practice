@@ -243,10 +243,61 @@ function topicExplanation(question: Question) {
     ?? 'خدها من آخرها: حدّد السؤال طالب إيه بالظبط، اربطه بالميزة اللي بتعمل الوظيفة دي في Power BI، وبعدها استبعد الاختيارات اللي بتغيّر حاجة تانية أو بتدي صلاحية أكبر من المطلوب. المصطلح الإنجليزي مهم تحفظه زي ما هو لأنه هو اللي هتشوفه في الامتحان.';
 }
 
-export function buildEgyptianExplanation(question: Question) {
-  const visualNote = question.type === 'manual'
-    ? 'في أسئلة الـ Answer Area، كل خانة قرار لوحدها؛ ماتتعاملش مع الصورة كأنها اختيار واحد.'
-    : 'مش المطلوب تحفظ الجملة؛ افهم ليه الاختيار ده بيحل الشرط المذكور في السؤال.';
+function questionClues(question: Question) {
+  const source = `${question.prompt}\n${question.context ?? ''}`.toLowerCase();
+  const rules: Array<[string[], string]> = [
+    [['near real time', 'real-time'], 'الداتا لازم تبقى قريبة من اللحظة الحالية، فالتحديث التقليدي على فترات ممكن مايكفيش'],
+    [['minimize the load times', 'improve performance', 'fastest'], 'الأداء والسرعة شرط أساسي، مش مجرد إن الحل يشتغل'],
+    [['least privilege', 'minimum permissions', 'minimize permissions'], 'لازم ندي أقل صلاحية تحقق المطلوب، من غير صلاحيات زيادة'],
+    [['must not', 'without'], 'فيه قيد منع واضح في السؤال؛ أي اختيار يكسر القيد ده يتشال فورًا'],
+    [['automatically', 'schedule'], 'المطلوب يحصل تلقائيًا، فالحل اليدوي مش إجابة كاملة'],
+    [['all users', 'each user', 'individual'], 'الحل لازم يراعي نطاق المستخدمين وهل النتيجة واحدة للكل ولا مختلفة لكل شخص'],
+    [['multiple', 'two'], 'فيه أكتر من عنصر أو شرط، فلازم تتأكد إن الإجابة غطّت كلهم مش أول واحد بس'],
+    [['last year', 'previous year', 'year-to-date'], 'الفترة الزمنية جزء من المنطق، فلازم دالة التاريخ أو الفلتر يحافظ عليها صح'],
+    [['source', 'database', 'file'], 'مكان الداتا وطريقة الاتصال بيها هما اللي بيحددوا أنسب خطوة وتحديث'],
+    [['visual', 'report'], 'المطلوب هنا متعلق بتجربة التقرير وطريقة عرض أو تفاعل المستخدم مع الداتا'],
+  ];
+  const found = rules.filter(([terms]) => terms.some((term) => source.includes(term))).map(([, text]) => text);
+  if (found.length > 0) return found.slice(0, 3);
 
-  return `${answerText(question)}\n\n${topicExplanation(question)}\n\n${visualNote}`;
+  const byDomain: Record<Question['domain'], string> = {
+    'Prepare the data': 'ركّز في شكل المصدر والخطوات اللي بتحوّل الداتا الخام لجدول نظيف ينفع يتحلل',
+    'Model the data': 'ركّز في العلاقات وسياق الفلترة وهل الناتج المطلوب عمود ولا مقياس ولا جدول',
+    'Visualize and analyze the data': 'ركّز في نوع التحليل والتفاعل اللي المستخدم محتاج يشوفه في التقرير',
+    'Manage and secure Power BI': 'ركّز في نطاق الصلاحية والنشر والتحديث، وطبّق أقل وصول يحقق المطلوب',
+  };
+  return [byDomain[question.domain]];
+}
+
+function solvingSteps(question: Question) {
+  const answerKind = question.type === 'manual'
+    ? 'بعد ما تحدد وظيفة كل خانة، طابقها مع الاختيارات الظاهرة في صورة الإجابة، خانة بخانة.'
+    : question.type === 'multi'
+      ? 'راجع كل اختيار لوحده؛ وجود اختيار صح ما يمنعش إن فيه اختيار تاني مطلوب معاه.'
+      : question.type === 'sequence'
+        ? 'اسأل نفسك كل خطوة محتاجة إيه قبلها؛ الخطوة اللي مالهاش متطلبات سابقة تبدأ الأول.'
+        : question.type === 'matching'
+          ? 'عامل كل صف كسؤال صغير مستقل، وبعدها راجع إن التوصيلات مع بعض منطقية.'
+          : 'قارن وظيفة كل اختيار بالفعل المطلوب في السؤال، واختار اللي يحقق الشرط مباشرة.';
+
+  return [
+    'طلّع كلمة الفعل في المطلوب: هل عايز تنضّف، تربط، تحسب، تعرض، تأمّن، ولا تنشر؟',
+    'علّم على القيود المهمة زي السرعة، حداثة الداتا، أقل صلاحية، أو عدم التأثير على مستخدمين تانيين.',
+    answerKind,
+  ];
+}
+
+function examTrap(question: Question) {
+  if (question.type === 'manual') return 'ماتحكمش على الصورة كلها مرة واحدة؛ كل Box له إجابة ودرجة مستقلة، والترتيب مهم.';
+  if (question.type === 'multi') return 'كلمة “Each correct answer” معناها إن السؤال Multiple response؛ اختيار جزء من الحل مش كفاية.';
+  if (question.type === 'sequence') return 'وجود الخطوات الصح بترتيب غلط يعتبر إجابة غلط، فراجع الاعتماد بين كل خطوتين.';
+  if (question.type === 'matching') return 'ماتسيبش صف من غير اختيار، وراجع كل صف حتى لو نفس الاختيار ينفع يتكرر.';
+  return 'الاختيار اللي “ممكن يشتغل” مش دايمًا هو الصح؛ الصح هو اللي يحقق كل القيود بأبسط وأدق طريقة.';
+}
+
+export function buildEgyptianExplanation(question: Question) {
+  const clues = questionClues(question).map((clue) => `• ${clue}`).join('\n');
+  const steps = solvingSteps(question).map((step, index) => `${index + 1}. ${step}`).join('\n');
+
+  return `الإجابة من الآخر\n${answerText(question)}\n\nالقصة ببساطة\n${topicExplanation(question)}\n\nإيه اللي السؤال كان بيلمح له؟\n${clues}\n\nنمشي في التفكير إزاي؟\n${steps}\n\nخد بالك من الفخ\n${examTrap(question)}\n\nالخلاصة اللي تتحفظ\nاحفظ اسم الميزة بالإنجليزي زي ما ظهر في الإجابة، لكن اربطه بالوظيفة والشرط اللي حلّهم؛ ساعتها لو صياغة السؤال اتغيّرت هتعرف توصل لنفس الإجابة.`;
 }

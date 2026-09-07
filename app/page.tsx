@@ -5,14 +5,17 @@ import Image from 'next/image';
 import {
   ArrowLeft,
   ArrowRight,
+  BookOpen,
   Check,
   ChevronDown,
   ChevronUp,
   Clock3,
   ExternalLink,
+  FileCheck2,
   Flag,
-  Languages,
+  ListChecks,
   Moon,
+  MousePointerClick,
   RotateCcw,
   ShieldCheck,
   Sun,
@@ -44,7 +47,7 @@ import {
 import { calculateScore, isAnswered, isCorrect, type Answers } from '@/lib/exam-utils';
 import { buildEgyptianExplanation } from '@/lib/egyptian-explanations';
 
-type Screen = 'home' | 'exam' | 'results' | 'review';
+type Screen = 'home' | 'guide' | 'exam' | 'results' | 'review';
 type SavedProgress = {
   model: number;
   answers: Answers;
@@ -206,7 +209,11 @@ export default function Home() {
   }
 
   if (screen === 'home') {
-    return <HomeScreen dark={dark} setDark={setDark} saved={saved} onResume={resumeExam} onStart={startExam} />;
+    return <HomeScreen dark={dark} setDark={setDark} saved={saved} onResume={resumeExam} onStart={startExam} onGuide={() => setScreen('guide')} />;
+  }
+
+  if (screen === 'guide') {
+    return <GuideScreen dark={dark} setDark={setDark} onHome={() => setScreen('home')} />;
   }
 
   if (screen === 'results') {
@@ -328,12 +335,13 @@ export default function Home() {
   );
 }
 
-function HomeScreen({ dark, setDark, saved, onResume, onStart }: {
+function HomeScreen({ dark, setDark, saved, onResume, onStart, onGuide }: {
   dark: boolean;
   setDark: (value: boolean) => void;
   saved: SavedProgress | null;
   onResume: () => void;
   onStart: (model: number) => void;
+  onGuide: () => void;
 }) {
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -346,14 +354,19 @@ function HomeScreen({ dark, setDark, saved, onResume, onStart }: {
             Four realistic 50-question exams. Each one gives you 100 minutes and follows the current skill-area balance.
           </p>
 
-          <a
-            href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonVariants({ variant: 'outline', size: 'lg' })} mt-5 rounded-sm`}
-          >
-            <ExternalLink className="size-4 text-primary" /> Microsoft exam instructions &amp; sandbox
-          </a>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Button variant="outline" size="lg" className="rounded-sm" onClick={onGuide}>
+              <BookOpen className="size-4 text-primary" /> How to use this simulator
+            </Button>
+            <a
+              href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${buttonVariants({ variant: 'outline', size: 'lg' })} rounded-sm`}
+            >
+              <ExternalLink className="size-4 text-primary" /> Microsoft exam instructions &amp; sandbox
+            </a>
+          </div>
 
           {saved && (
             <Card className="mt-7 rounded-sm border-l-4 border-l-primary bg-card shadow-none">
@@ -422,6 +435,67 @@ function HomeScreen({ dark, setDark, saved, onResume, onStart }: {
         </Card>
       </section>
     </main>
+  );
+}
+
+function GuideScreen({ dark, setDark, onHome }: {
+  dark: boolean;
+  setDark: (value: boolean) => void;
+  onHome: () => void;
+}) {
+  return (
+    <main className="min-h-screen bg-background text-foreground">
+      <Header time="Guide" dark={dark} setDark={setDark} />
+      <section dir="rtl" lang="ar-EG" className="mx-auto max-w-6xl px-4 py-7 text-right sm:px-8 sm:py-10">
+        <Button variant="outline" onClick={onHome}>الرجوع للرئيسية <ArrowLeft className="size-4 rotate-180" /></Button>
+        <div className="mt-7 max-w-3xl">
+          <p className="text-sm font-semibold text-primary">دليل استخدام محاكي PL-300</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">من أول اختيار الامتحان لحد مراجعة إجاباتك</h1>
+          <p className="mt-4 text-base leading-8 text-muted-foreground">الدليل ده يشرحلك كل جزء في المحاكي بسرعة، عشان تركّز في السؤال نفسه ومايضيعش وقتك في فهم الأزرار.</p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <GuideCard icon={<ListChecks className="size-6" />} number="١" title="اختار طريقة التدريب">
+            <strong>Practice exam</strong> امتحان كامل من 50 سؤال و100 دقيقة، ومتوزع على مهارات PL-300. أما <strong>Complete source bank</strong> فبيقسّم كل بنك الأسئلة لأربع أجزاء عشان تراجعهم كلهم من غير تكرار.
+          </GuideCard>
+          <GuideCard icon={<MousePointerClick className="size-6" />} number="٢" title="جاوب حسب نوع السؤال">
+            الدائرة معناها اختيار واحد، والمربعات معناها أكتر من إجابة. في أسئلة <strong>Answer Area</strong> اضغط جوه مكان الاختيار في الصورة؛ كل ضغطة بتظهر بعلامة مرقمة وتقدر تمسحها وتعيدها.
+          </GuideCard>
+          <GuideCard icon={<FileCheck2 className="size-6" />} number="٣" title="اتحكم في وقتك">
+            العداد فوق بيحسب الوقت المتبقي. استخدم <strong>Flag</strong> للسؤال اللي محتاج ترجعله، وأرقام الأسئلة على الجنب بتوضح الحالي والمجاب والمتعلّم للمراجعة. تقدمك بيتحفظ على نفس الجهاز لو خرجت ورجعت.
+          </GuideCard>
+          <GuideCard icon={<Check className="size-6" />} number="٤" title="سلّم وراجع صح">
+            بعد <strong>Submit exam</strong> هتشوف الدرجة وتوزيع أدائك على المهارات. افتح <strong>Review answers</strong> عشان تقارن إجابتك بالصح وتشوف شرح المصدر، وبعده اضغط <strong>شعبولي الدنيا</strong> للشرح المصري المبسّط خطوة بخطوة.
+          </GuideCard>
+        </div>
+
+        <Card className="mt-7 rounded-sm border-r-4 border-r-primary shadow-none">
+          <CardContent className="p-6 sm:p-8">
+            <h2 className="text-xl font-semibold">قبل ما تبدأ</h2>
+            <div className="mt-5 grid gap-4 text-[15px] leading-7 sm:grid-cols-3">
+              <p><strong className="block text-primary">اتمرّن كأنها محاولة حقيقية</strong>اقفل المراجع، التزم بالوقت، وسيب السؤال الصعب Flag بدل ما يعطلك.</p>
+              <p><strong className="block text-primary">راجع السبب مش الحرف</strong>احفظ أسماء ميزات Power BI بالإنجليزي، لكن افهم ليه الاختيار مناسب لقيود السؤال.</p>
+              <p><strong className="block text-primary">كرر نقاط ضعفك</strong>بعد النتيجة ركّز على Skill area الأقل، وبعدها استخدم بنك الأسئلة للتدريب المكثف.</p>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
+  );
+}
+
+function GuideCard({ icon, number, title, children }: { icon: React.ReactNode; number: string; title: string; children: React.ReactNode }) {
+  return (
+    <Card className="rounded-sm bg-card shadow-none">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between gap-4">
+          <div className="grid size-11 place-items-center rounded-full bg-accent text-primary">{icon}</div>
+          <span className="text-3xl font-semibold text-border">{number}</span>
+        </div>
+        <h2 className="mt-5 text-xl font-semibold">{title}</h2>
+        <p className="mt-3 text-[15px] leading-8 text-muted-foreground">{children}</p>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -806,7 +880,9 @@ function EgyptianExplanation({ question }: { question: Question }) {
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
       >
-        <Languages className="size-4" />
+        <span className="relative size-6 shrink-0 overflow-hidden rounded-full border border-primary/25 bg-white" aria-hidden="true">
+          <Image src="/shaaban-abdel-rahim.png" alt="" fill unoptimized className="scale-[2.35] object-cover object-[60%_20%]" />
+        </span>
         {open ? 'خلاص فهمت' : 'شعبولي الدنيا'}
       </Button>
       {open && (
