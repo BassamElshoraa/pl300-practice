@@ -11,6 +11,7 @@ import {
   Clock3,
   ExternalLink,
   Flag,
+  Languages,
   Moon,
   RotateCcw,
   ShieldCheck,
@@ -41,6 +42,7 @@ import {
   type Question,
 } from '@/lib/questions';
 import { calculateScore, isAnswered, isCorrect, type Answers } from '@/lib/exam-utils';
+import { buildEgyptianExplanation } from '@/lib/egyptian-explanations';
 
 type Screen = 'home' | 'exam' | 'results' | 'review';
 type SavedProgress = {
@@ -763,6 +765,7 @@ function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, da
               </div>
             )}
             <div className="mt-6 whitespace-pre-line border-l-4 border-border bg-muted p-4 text-sm leading-7"><strong>Explanation: </strong>{displayText(question.explanation) || 'No text explanation was included in the source.'}</div>
+            {displayText(question.explanation) && <EgyptianExplanation key={question.id} question={question} />}
             <div className="mt-8 flex justify-between border-t pt-6">
               <Button variant="outline" disabled={current === 0} onClick={() => setCurrent(current - 1)}><ArrowLeft className="size-4" /> Previous</Button>
               <Button disabled={current === exam.length - 1} onClick={() => setCurrent(current + 1)}>Next <ArrowRight className="size-4" /></Button>
@@ -787,6 +790,31 @@ function AnswerPanel({ title, lines, good }: { title: string; lines: string[]; g
     <div className={`rounded-sm border p-4 ${good ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-red-500/40 bg-red-500/5'}`}>
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</p>
       {lines.map((line) => <p key={line} className="text-sm leading-6">{line}</p>)}
+    </div>
+  );
+}
+
+function EgyptianExplanation({ question }: { question: Question }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="mt-3">
+      <Button
+        type="button"
+        variant="outline"
+        className="border-primary/40 bg-accent/60 font-semibold text-primary hover:bg-accent"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <Languages className="size-4" />
+        {open ? 'خلاص فهمت' : 'شعبولي الدنيا'}
+      </Button>
+      {open && (
+        <div dir="rtl" lang="ar-EG" className="mt-3 rounded-sm border border-primary/25 border-r-4 border-r-primary bg-accent/45 p-5 text-right text-sm leading-8">
+          <p className="font-bold text-primary">بص يا سيدي 👇</p>
+          <p className="mt-2 whitespace-pre-line">{buildEgyptianExplanation(question)}</p>
+        </div>
+      )}
     </div>
   );
 }
