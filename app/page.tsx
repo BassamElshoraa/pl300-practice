@@ -77,6 +77,13 @@ const instructions: Record<Question['type'], string> = {
   manual: 'How to answer: Click each answer position inside the image. Your clicks appear as numbered markers; use Clear answer to restart.',
 };
 
+const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
+const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
+function publicAsset(path: string) {
+  return `${ASSET_BASE.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+}
+
 export default function Home() {
   const [screen, setScreen] = useState<Screen>('home');
   const [model, setModel] = useState(1);
@@ -293,7 +300,7 @@ export default function Home() {
                 <figure className="mb-6">
                   <figcaption className="mb-2 text-sm font-semibold text-muted-foreground">Source exhibit / table</figcaption>
                   <Image
-                    src={question.image}
+                    src={publicAsset(question.image)}
                     alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
                     width={1000}
                     height={1200}
@@ -321,6 +328,8 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
+
+      <SiteFooter />
 
       <AlertDialog open={submitOpen} onOpenChange={setSubmitOpen}>
         <AlertDialogContent>
@@ -441,6 +450,7 @@ function HomeScreen({ dark, setDark, saved, onResume, onStart, onGuide }: {
           </CardContent>
         </Card>
       </section>
+      <SiteFooter />
     </main>
   );
 }
@@ -487,6 +497,7 @@ function GuideScreen({ dark, setDark, onHome }: {
           </CardContent>
         </Card>
       </section>
+      <SiteFooter />
     </main>
   );
 }
@@ -598,7 +609,7 @@ function VisualAnswerImage({ question, value, onChange }: {
       className={`relative block w-full overflow-hidden bg-white outline-none ${onChange ? 'cursor-crosshair focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2' : ''}`}
     >
       <Image
-        src={question.image}
+        src={publicAsset(question.image)}
         alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
         width={1000}
         height={1200}
@@ -793,6 +804,7 @@ function ResultsScreen({ exam, answers, timeLeft, model, score, onReview, onNew,
           </CardContent>
         </Card>
       </section>
+      <SiteFooter />
     </main>
   );
 }
@@ -832,12 +844,12 @@ function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, da
             {question.image && (
               question.type === 'manual'
                 ? <div className="mt-6 overflow-hidden rounded-sm border"><VisualAnswerImage question={question} value={answer ?? []} /></div>
-                : <Image src={question.image} alt={`Original visual for ${question.source} question ${question.sourceNumber}`} width={1000} height={1200} unoptimized className="mt-6 h-auto w-full rounded-sm border bg-white object-contain" />
+                : <Image src={publicAsset(question.image)} alt={`Original visual for ${question.source} question ${question.sourceNumber}`} width={1000} height={1200} unoptimized className="mt-6 h-auto w-full rounded-sm border bg-white object-contain" />
             )}
             {question.type === 'manual' ? (
               <div className="mt-7 rounded-sm border border-emerald-500/40 bg-emerald-500/5 p-4">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Source answer</p>
-                {question.answerImage && <Image src={question.answerImage} alt={`Answer for ${question.source} question ${question.sourceNumber}`} width={1000} height={1200} unoptimized className="h-auto w-full rounded-sm border bg-white object-contain" />}
+                {question.answerImage && <Image src={publicAsset(question.answerImage)} alt={`Answer for ${question.source} question ${question.sourceNumber}`} width={1000} height={1200} unoptimized className="h-auto w-full rounded-sm border bg-white object-contain" />}
               </div>
             ) : (
               <div className="mt-7 grid gap-5 sm:grid-cols-2">
@@ -854,7 +866,30 @@ function ReviewScreen({ exam, answers, current, setCurrent, flags, onResults, da
           </CardContent>
         </Card>
       </section>
+      <SiteFooter />
     </main>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="border-t bg-card/70">
+      <div className="mx-auto flex max-w-[1500px] flex-col gap-3 px-4 py-7 text-sm text-muted-foreground sm:px-8 md:flex-row md:items-center md:justify-between">
+        <p>
+          Designed and developed by{' '}
+          <a className="font-semibold text-foreground underline-offset-4 hover:text-primary hover:underline" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+            Bassam Elshoraa
+          </a>
+          .
+        </p>
+        <a className="inline-flex w-fit items-center gap-2 text-primary underline-offset-4 hover:underline" href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+          <svg className="size-4" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.5 8.25H3.25V21H6.5V8.25ZM4.87 3A1.88 1.88 0 1 0 4.9 6.75 1.88 1.88 0 0 0 4.87 3ZM21 13.7c0-3.84-2.05-5.63-4.78-5.63a4.14 4.14 0 0 0-3.75 2.06V8.25H9.22V21h3.25v-6.31c0-1.66.32-3.28 2.39-3.28 2.04 0 2.06 1.91 2.06 3.39V21H21v-7.3Z" />
+          </svg>
+          Suggestions or updates? I&apos;d be happy to hear from you on LinkedIn.
+        </a>
+      </div>
+    </footer>
   );
 }
 
@@ -888,7 +923,7 @@ function EgyptianExplanation({ question }: { question: Question }) {
         onClick={() => setOpen((value) => !value)}
       >
         <span className="relative size-6 shrink-0 overflow-hidden rounded-full border border-primary/25 bg-white" aria-hidden="true">
-          <Image src="/shaaban-abdel-rahim.png" alt="" fill unoptimized className="scale-[2.35] object-cover object-[60%_20%]" />
+          <Image src={publicAsset('/shaaban-abdel-rahim.png')} alt="" fill unoptimized className="scale-[2.35] object-cover object-[60%_20%]" />
         </span>
         {open ? 'خلاص فهمت' : 'شعبولي الدنيا'}
       </Button>

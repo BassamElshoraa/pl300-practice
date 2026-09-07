@@ -1,0 +1,12 @@
+name: Improvement suggestion
+description: Suggest a student experience or simulator improvement.
+title: "[Suggestion]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggestion
+      description: What would you like to improve, and how would it help students?
+    validations:
+      required: true

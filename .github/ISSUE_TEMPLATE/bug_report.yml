@@ -1,0 +1,40 @@
+name: Question or simulator issue
+description: Report a broken exhibit, answer, question, or simulator behavior.
+title: "[Issue]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to help improve the simulator.
+  - type: input
+    id: question
+    attributes:
+      label: Question reference
+      description: Include the mode, displayed number, source label, and source question number.
+      placeholder: Practice exam 2, question 18, PL-300 Final, Q74
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Issue type
+      options:
+        - Missing or incorrect exhibit
+        - Incorrect answer or explanation
+        - Interaction problem
+        - Layout or accessibility problem
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Explain what happened and what you expected.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser and device
+      placeholder: Edge on Windows 11, Chrome on Android, etc.
