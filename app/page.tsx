@@ -187,6 +187,10 @@ function publicAsset(path: string) {
   return `${ASSET_BASE.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 }
 
+function downloadAsset(path: string) {
+  return `https://bassamelshoraa.github.io/pl300-practice/${path.replace(/^\//, '')}`;
+}
+
 export default function Page() {
   return (
     <LanguageProvider>
@@ -3078,7 +3082,7 @@ function DownloadsScreen({
                         )}
                       </div>
                       <a
-                        href={publicAsset(item.path)}
+                        href={downloadAsset(item.path)}
                         download
                         className={`${buttonVariants({ variant: 'outline' })} shrink-0 rounded-sm`}
                       >
