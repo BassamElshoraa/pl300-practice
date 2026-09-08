@@ -11,6 +11,13 @@
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "qa": "node scripts/full-qa.mjs",
+    "qa:state": "node --experimental-strip-types scripts/state-qa.mjs",
+    "qa:learning": "node --experimental-strip-types scripts/learning-qa.mjs",
+    "qa:downloads": "node --experimental-strip-types scripts/downloads-qa.mjs",
+    "qa:ai": "node --experimental-strip-types scripts/ai-tutor-qa.mjs",
+    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:downloads && npm run qa:ai",
+    "ai:dev": "wrangler dev --config ai-tutor-worker/wrangler.jsonc",
+    "ai:deploy": "wrangler deploy --config ai-tutor-worker/wrangler.jsonc",
     "format": "oxfmt"
   },
   "dependencies": {

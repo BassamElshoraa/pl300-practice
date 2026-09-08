@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run project QA
-        run: npm run qa
+        run: npm run qa:all
       - name: Build static site
         env:
           GITHUB_PAGES: 'true'
