@@ -50,22 +50,22 @@
 }
 
 :root {
-  --background: #f5f8fc;
-  --foreground: #172033;
+  --background: #f2f4f8;
+  --foreground: #111827;
   --card: #ffffff;
   --card-foreground: #172033;
   --popover: #ffffff;
   --popover-foreground: #242424;
-  --primary: #0f6cbd;
+  --primary: #146cda;
   --primary-foreground: #ffffff;
-  --secondary: #edf2f8;
+  --secondary: #e9eef6;
   --secondary-foreground: #24324a;
-  --muted: #f1f5f9;
-  --muted-foreground: #5b667a;
-  --accent: #e8f3ff;
-  --accent-foreground: #084b83;
+  --muted: #edf1f6;
+  --muted-foreground: #657084;
+  --accent: #e6f0ff;
+  --accent-foreground: #0b4fa4;
   --destructive: #c50f1f;
-  --border: #d9e2ec;
+  --border: #d9e0ea;
   --input: #8c9aad;
   --ring: #0f6cbd;
   --chart-1: #0f6cbd;
@@ -73,7 +73,7 @@
   --chart-3: #ffaa44;
   --chart-4: #8764b8;
   --chart-5: #038387;
-  --radius: 0.72rem;
+  --radius: 0.9rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #172033;
   --sidebar-primary: #0f6cbd;
@@ -82,9 +82,11 @@
   --sidebar-accent-foreground: #084b83;
   --sidebar-border: #d9e2ec;
   --sidebar-ring: #0f6cbd;
-  --study-yellow: #f2c811;
-  --study-purple: #6750a4;
-  --study-shadow: 0 14px 42px rgba(22, 48, 82, 0.08);
+  --study-yellow: #f4cf2f;
+  --study-purple: #5a51ce;
+  --study-navy: #111c33;
+  --study-cyan: #57c7d4;
+  --study-shadow: 0 10px 32px rgba(17, 28, 51, 0.075);
 }
 
 .dark {
@@ -125,17 +127,11 @@
     @apply bg-background text-foreground;
     font-family: 'Cairo', system-ui, sans-serif;
     min-width: 320px;
-    background-image:
-      radial-gradient(
-        circle at 8% 0%,
-        color-mix(in srgb, var(--primary) 9%, transparent) 0,
-        transparent 25rem
-      ),
-      radial-gradient(
-        circle at 92% 18%,
-        color-mix(in srgb, var(--study-yellow) 10%, transparent) 0,
-        transparent 22rem
-      );
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--primary) 3%, transparent),
+      transparent 22rem
+    );
     background-attachment: fixed;
   }
   html {
@@ -145,8 +141,110 @@
 
 @layer components {
   [data-slot='card'] {
-    border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 94%, transparent);
+    border-radius: 1.25rem;
     box-shadow: var(--study-shadow);
+  }
+
+  [data-slot='input'] {
+    border-radius: 0.85rem;
+  }
+
+  .app-header {
+    background: color-mix(in srgb, var(--card) 92%, transparent);
+    box-shadow: 0 1px 0 color-mix(in srgb, var(--border) 80%, transparent);
+  }
+
+  .home-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 88% 15%,
+        rgba(87, 199, 212, 0.22),
+        transparent 20rem
+      ),
+      linear-gradient(125deg, #101a30 0%, #182a4d 58%, #123a62 100%);
+    box-shadow: 0 24px 60px rgba(17, 28, 51, 0.18);
+  }
+
+  .home-hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: auto -7rem -11rem auto;
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    box-shadow:
+      0 0 0 3.8rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.02);
+  }
+
+  .command-bar {
+    scrollbar-width: thin;
+    box-shadow: 0 15px 40px rgba(17, 28, 51, 0.12);
+  }
+
+  .command-item {
+    min-width: 8.5rem;
+  }
+
+  .command-item:hover .command-icon {
+    transform: translateY(-2px);
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+
+  .command-icon {
+    transition:
+      transform 180ms ease,
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .session-card {
+    position: relative;
+    overflow: hidden;
+    box-shadow: none;
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .session-card::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--primary);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  [dir='rtl'] .session-card::before {
+    inset: 0 0 0 auto;
+  }
+
+  .session-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
+    box-shadow: 0 16px 35px rgba(17, 28, 51, 0.1);
+  }
+
+  .session-card:hover::before {
+    opacity: 1;
+  }
+
+  .domain-stack {
+    display: grid;
+    grid-template-columns: 28fr 26fr 26fr 20fr;
+    gap: 3px;
+    overflow: hidden;
+    border-radius: 999px;
   }
 
   button,

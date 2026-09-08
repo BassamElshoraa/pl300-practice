@@ -1214,317 +1214,431 @@ function HomeScreen({
         setDark={setDark}
         learnerName={learnerName}
       />
-      <section className="mx-auto grid max-w-[1500px] gap-8 px-4 py-8 sm:px-8 lg:grid-cols-[1fr_360px] lg:py-11">
-        <div>
-          <p className="inline-flex rounded-full border border-primary/20 bg-accent/60 px-3 py-1.5 text-sm font-semibold text-primary">
-            PL-300 · Microsoft Power BI Data Analyst
-          </p>
-          <h1 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl sm:leading-[1.15]">
-            {learnerName
-              ? tx(
-                  `Welcome back, ${learnerName}`,
-                  `أهلًا برجوعك يا ${learnerName}`,
-                )
-              : tx('Choose your study session', 'اختار جلسة المذاكرة')}
-          </h1>
-          <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
-            {tx(
-              'Use Practice for instant feedback and AI help, or Exam for a focused 100-minute simulation with answers hidden until submission.',
-              'استخدم التدريب للتصحيح الفوري ومساعدة الـAI، أو الامتحان لمحاكاة مركزة لمدة 100 دقيقة مع إخفاء الإجابات لحد التسليم.',
-            )}
-          </p>
-
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-sm"
-              onClick={onGuide}
-            >
-              <BookOpen className="size-4 text-primary" />{' '}
-              {tx('How to use the simulator', 'دليل استخدام المحاكي')}
-            </Button>
-            <a
-              href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${buttonVariants({ variant: 'outline', size: 'lg' })} rounded-sm`}
-            >
-              <ExternalLink className="size-4 text-primary" />{' '}
-              {tx('Microsoft exam instructions', 'تعليمات امتحان Microsoft')}
-            </a>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-sm"
-              onClick={onProgress}
-            >
-              <BarChart3 className="size-4 text-primary" />{' '}
-              {tx('My progress', 'تقدمي')}
-            </Button>
-            {learnerName && (
-              <Button
-                variant="ghost"
-                size="lg"
-                className="rounded-sm"
-                onClick={() => {
-                  setSetupName(learnerName);
-                  setSetupModel(null);
-                  setRenameOnly(true);
-                }}
-              >
-                <UserRound className="size-4" /> {tx('Change name', 'غيّر الاسم')}
-              </Button>
-            )}
-          </div>
-
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-            <button
-              type="button"
-              onClick={onCustom}
-              className="flex items-center gap-3 rounded-sm border bg-card p-4 text-left transition hover:border-primary hover:bg-accent/30"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-primary">
-                <SlidersHorizontal className="size-5" />
-              </span>
-              <span>
-                <strong className="block">
-                  {tx('Custom practice', 'تدريب مخصص')}
-                </strong>
-                <small className="text-muted-foreground">
-                  {tx('Build by domain or topic', 'اختار المجال أو الموضوع')}
-                </small>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={onMistakes}
-              className="flex items-center gap-3 rounded-sm border bg-card p-4 text-left transition hover:border-primary hover:bg-accent/30"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-primary">
-                <Brain className="size-5" />
-              </span>
-              <span>
-                <strong className="block">{tx('My Mistakes', 'أخطائي')}</strong>
-                <small className="text-muted-foreground">
-                  {tx(
-                    `${mistakeCount} still need work`,
-                    `${mistakeCount} محتاجين مراجعة`,
-                  )}
-                </small>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={onBookmarks}
-              className="flex items-center gap-3 rounded-sm border bg-card p-4 text-left transition hover:border-primary hover:bg-accent/30"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-primary">
-                <Bookmark className="size-5" />
-              </span>
-              <span>
-                <strong className="block">
-                  {tx('Bookmarks', 'الأسئلة المحفوظة')}
-                </strong>
-                <small className="text-muted-foreground">
-                  {tx(
-                    `${bookmarkCount} saved questions`,
-                    `${bookmarkCount} سؤال محفوظ`,
-                  )}
-                </small>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={onDownloads}
-              className="flex items-center gap-3 rounded-sm border bg-card p-4 text-left transition hover:border-primary hover:bg-accent/30"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-primary">
-                <Download className="size-5" />
-              </span>
-              <span>
-                <strong className="block">
-                  {tx('PDF Library', 'مكتبة ملفات PDF')}
-                </strong>
-                <small className="text-muted-foreground">
-                  {tx(
-                    `${DOWNLOAD_COUNT} files by month`,
-                    `${DOWNLOAD_COUNT} ملف متقسمين بالشهور`,
-                  )}
-                </small>
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={onBackup}
-              className="flex items-center gap-3 rounded-sm border bg-card p-4 text-left transition hover:border-primary hover:bg-accent/30"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-primary">
-                <DatabaseBackup className="size-5" />
-              </span>
-              <span>
-                <strong className="block">
-                  {tx('Backup & Restore', 'نسخة احتياطية واستعادة')}
-                </strong>
-                <small className="text-muted-foreground">
-                  {tx('Move progress safely', 'انقل تقدمك بأمان')}
-                </small>
-              </span>
-            </button>
-          </div>
-
-          {saved && (
-            <Card className="mt-7 rounded-sm border-l-4 border-l-primary bg-card shadow-none">
-              <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5">
-                <div>
-                  <p className="font-semibold">
-                    {saved.sessionLabel || selectionLabel(saved.model)} ·{' '}
-                    {modeLabel(saved.mode, language)}{' '}
-                    {tx('is in progress', 'لسه مستمر')}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {saved.learnerName ||
-                      learnerName ||
-                      tx('Learner', 'الطالب')}{' '}
-                    · {tx('Question', 'سؤال')} {saved.current + 1}
-                    {saved.mode === 'exam'
-                      ? ` · ${formatTime(saved.timeLeft ?? 0)} remaining`
-                      : tx(' · untimed practice', ' · تدريب بدون وقت')}
-                  </p>
-                </div>
-                <Button onClick={onResume}>
-                  {tx('Resume', 'كمّل')} {modeLabel(saved.mode, language)}
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {modelCards.map((item) => (
-              <Card
-                key={item.id}
-                className="rounded-sm border-l-4 border-l-primary bg-card shadow-none transition-colors hover:bg-accent/40"
-              >
-                <CardContent className="flex items-center justify-between gap-4 p-5">
-                  <div>
-                    <p className="font-semibold">
-                      {tx(item.label, `نموذج امتحان ${item.id}`)}
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {tx(item.note, 'متوازن على مجالات المهارات الأربعة')}
-                    </p>
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      {tx(
-                        `${item.count} questions · ${item.count * 2} minutes`,
-                        `${item.count} سؤال · ${item.count * 2} دقيقة`,
-                      )}
-                    </p>
-                  </div>
-                  <Button onClick={() => openSetup(item.id)}>
-                    {tx('Start', 'ابدأ')}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="mt-10 flex items-end justify-between gap-4 border-t pt-7">
+      <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-8 lg:py-9">
+        <div className="home-hero rounded-[1.75rem] px-6 py-8 text-white sm:px-10 sm:py-10">
+          <div className="relative z-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
             <div>
-              <h2 className="text-xl font-semibold">
-                {tx('Complete source bank', 'بنك الأسئلة كامل')}
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-xs font-semibold tracking-wide text-[#f4cf2f]">
+                <Sparkles className="size-3.5" /> PL-300 · MICROSOFT POWER BI
+              </p>
+              <h1 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl sm:leading-[1.12]">
+                {learnerName
+                  ? tx(
+                      `Ready for your next round, ${learnerName}?`,
+                      `جاهز للجولة الجاية يا ${learnerName}؟`,
+                    )
+                  : tx(
+                      'Train with purpose. Pass with confidence.',
+                      'اتدرّب بتركيز. وادخل الامتحان بثقة.',
+                    )}
+              </h1>
+              <p className="mt-4 max-w-2xl text-[15px] leading-7 text-slate-300 sm:text-base">
                 {tx(
-                  'Work through all 509 source questions in four non-overlapping parts.',
-                  'ذاكر كل الـ509 سؤال في أربع أجزاء من غير تكرار.',
+                  'Practice with instant feedback and AI support, or switch to a focused 100-minute exam simulation.',
+                  'ذاكر بتصحيح فوري ومساعدة الـAI، أو ادخل محاكاة امتحان مركزة لمدة 100 دقيقة.',
                 )}
               </p>
             </div>
-          </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {bankCards.map((item) => (
-              <Card
-                key={item.id}
-                className="rounded-sm bg-card shadow-none transition-colors hover:bg-muted"
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <Button
+                size="lg"
+                className="bg-[#f4cf2f] text-[#111c33] shadow-none hover:bg-[#ffe16b]"
+                onClick={() => openSetup(1)}
               >
-                <CardContent className="flex items-center justify-between gap-4 p-5">
-                  <div>
-                    <p className="font-semibold">
-                      {tx(item.label, `جزء بنك الأسئلة ${item.id - 100}`)}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {tx(
-                        `${item.count} questions · complete-bank practice`,
-                        `${item.count} سؤال · تدريب على البنك الكامل`,
-                      )}
-                    </p>
+                <GraduationCap className="size-4" />{' '}
+                {tx('Start a session', 'ابدأ جلسة')}
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white/20 bg-white/8 text-white hover:bg-white/15 hover:text-white"
+                onClick={onGuide}
+              >
+                <BookOpen className="size-4" />{' '}
+                {tx('Quick guide', 'الدليل السريع')}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <nav
+          aria-label={tx('Study tools', 'أدوات المذاكرة')}
+          className="command-bar relative z-10 -mt-3 flex overflow-x-auto rounded-2xl border bg-card p-2 sm:mx-5"
+        >
+          <button
+            type="button"
+            onClick={onCustom}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <SlidersHorizontal className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('Custom practice', 'تدريب مخصص')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx('Build by domain or topic', 'اختار المجال أو الموضوع')}
+              </small>
+            </span>
+          </button>
+          <span className="my-2 hidden w-px bg-border xl:block" />
+          <button
+            type="button"
+            onClick={onMistakes}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <Brain className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('My Mistakes', 'أخطائي')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx(
+                  `${mistakeCount} still need work`,
+                  `${mistakeCount} محتاجين مراجعة`,
+                )}
+              </small>
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={onBookmarks}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <Bookmark className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('Bookmarks', 'الأسئلة المحفوظة')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx(
+                  `${bookmarkCount} saved questions`,
+                  `${bookmarkCount} سؤال محفوظ`,
+                )}
+              </small>
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={onDownloads}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <Download className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('PDF Library', 'مكتبة ملفات PDF')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx(
+                  `${DOWNLOAD_COUNT} files by month`,
+                  `${DOWNLOAD_COUNT} ملف متقسمين بالشهور`,
+                )}
+              </small>
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={onBackup}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <DatabaseBackup className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('Backup & Restore', 'نسخة احتياطية واستعادة')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx('Move progress safely', 'انقل تقدمك بأمان')}
+              </small>
+            </span>
+          </button>
+          <span className="my-2 hidden w-px bg-border xl:block" />
+          <button
+            type="button"
+            onClick={onProgress}
+            className="command-item flex flex-1 items-center gap-3 rounded-xl px-3 py-3 text-left hover:bg-accent/55"
+          >
+            <span className="command-icon grid size-9 shrink-0 place-items-center rounded-xl bg-accent text-primary">
+              <BarChart3 className="size-[18px]" />
+            </span>
+            <span>
+              <strong className="block text-sm">
+                {tx('My progress', 'تقدمي')}
+              </strong>
+              <small className="block whitespace-nowrap text-[11px] text-muted-foreground">
+                {tx(
+                  `${attempts.length} completed`,
+                  `${attempts.length} محاولة مكتملة`,
+                )}
+              </small>
+            </span>
+          </button>
+        </nav>
+
+        <div className="mt-9 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div>
+            {saved && (
+              <Card className="mb-7 overflow-hidden rounded-2xl border-primary/25 bg-primary text-primary-foreground shadow-[0_16px_35px_rgba(20,108,218,0.18)]">
+                <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
+                  <div className="flex items-center gap-4">
+                    <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white/15">
+                      <History className="size-5" />
+                    </span>
+                    <div>
+                      <p className="font-bold">
+                        {saved.sessionLabel || selectionLabel(saved.model)} ·{' '}
+                        {modeLabel(saved.mode, language)}{' '}
+                        {tx('is in progress', 'لسه مستمر')}
+                      </p>
+                      <p className="mt-1 text-sm text-blue-100">
+                        {saved.learnerName ||
+                          learnerName ||
+                          tx('Learner', 'الطالب')}{' '}
+                        · {tx('Question', 'سؤال')} {saved.current + 1}
+                        {saved.mode === 'exam'
+                          ? ` · ${formatTime(saved.timeLeft ?? 0)} remaining`
+                          : tx(' · untimed practice', ' · تدريب بدون وقت')}
+                      </p>
+                    </div>
                   </div>
-                  <Button variant="outline" onClick={() => openSetup(item.id)}>
-                    {tx('Start', 'ابدأ')}
+                  <Button
+                    className="bg-white text-primary shadow-none hover:bg-blue-50"
+                    onClick={onResume}
+                  >
+                    {tx('Resume', 'كمّل')} {modeLabel(saved.mode, language)}
+                    <ArrowRight
+                      className={`size-4 ${language === 'ar' ? 'rotate-180' : ''}`}
+                    />
                   </Button>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-
-          <p className="mt-7 text-xs leading-5 text-muted-foreground">
-            {tx(
-              'Answer keys match the supplied files. Some source wording uses older Power BI names, so legacy items are preserved as written. One empty vendor placeholder was excluded. Not affiliated with or endorsed by Microsoft.',
-              'مفاتيح الإجابة مطابقة للملفات المرفوعة. بعض الأسئلة تستخدم أسماء Power BI قديمة فحافظنا على صياغتها الأصلية. المحاكي مستقل وغير تابع أو معتمد من Microsoft.',
             )}
-          </p>
-        </div>
 
-        <Card className="h-fit rounded-sm border-t-4 border-t-primary bg-card shadow-none">
-          <CardContent className="p-6 sm:p-7">
-            <ShieldCheck className="size-9 text-primary" />
-            <h2 className="mt-5 text-xl font-semibold">
-              {tx('Current PL-300 balance', 'توزيع مجالات PL-300')}
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                  {tx('Exam simulations', 'محاكاة الامتحان')}
+                </p>
+                <h2 className="mt-1 text-2xl font-bold tracking-tight">
+                  {tx('Choose your mock', 'اختار النموذج')}
+                </h2>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {tx(
+                  '4 balanced models · 50 questions each',
+                  '4 نماذج متوازنة · كل نموذج 50 سؤال',
+                )}
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {modelCards.map((item) => (
+                <Card
+                  key={item.id}
+                  className="session-card rounded-2xl bg-card"
+                >
+                  <CardContent className="p-5 sm:p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#111c33] text-lg font-bold text-[#f4cf2f]">
+                        {String(item.id).padStart(2, '0')}
+                      </span>
+                      <Badge
+                        variant="secondary"
+                        className="rounded-lg px-2.5 py-1 text-[10px] uppercase tracking-wider"
+                      >
+                        {tx('Balanced', 'متوازن')}
+                      </Badge>
+                    </div>
+                    <div className="mt-5">
+                      <p className="text-lg font-bold">
+                        {tx(item.label, `نموذج امتحان ${item.id}`)}
+                      </p>
+                      <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
+                        {tx(item.note, 'متوازن على مجالات المهارات الأربعة')}
+                      </p>
+                      <div className="mt-5 flex items-center justify-between gap-3 border-t pt-4">
+                        <span className="text-xs font-semibold text-muted-foreground">
+                          {tx(
+                            `${item.count} questions · ${item.count * 2} minutes`,
+                            `${item.count} سؤال · ${item.count * 2} دقيقة`,
+                          )}
+                        </span>
+                        <Button size="sm" onClick={() => openSetup(item.id)}>
+                          {tx('Open', 'افتح')}
+                          <ArrowRight
+                            className={`size-3.5 ${language === 'ar' ? 'rotate-180' : ''}`}
+                          />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-11 flex items-end justify-between gap-4 border-t pt-8">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  {tx('Complete source bank', 'بنك الأسئلة كامل')}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {tx(
+                    'Work through all 509 source questions in four non-overlapping parts.',
+                    'ذاكر كل الـ509 سؤال في أربع أجزاء من غير تكرار.',
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {bankCards.map((item) => (
+                <Card
+                  key={item.id}
+                  className="session-card rounded-2xl bg-card"
+                >
+                  <CardContent className="flex items-center justify-between gap-4 p-5">
+                    <div>
+                      <p className="font-semibold">
+                        {tx(item.label, `جزء بنك الأسئلة ${item.id - 100}`)}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {tx(
+                          `${item.count} questions · complete-bank practice`,
+                          `${item.count} سؤال · تدريب على البنك الكامل`,
+                        )}
+                      </p>
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => openSetup(item.id)}
+                    >
+                      {tx('Start', 'ابدأ')}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <p className="mt-7 text-xs leading-5 text-muted-foreground">
               {tx(
-                "Each practice exam stays inside Microsoft's published domain ranges.",
-                'كل نموذج ملتزم بنسب المجالات المنشورة من Microsoft.',
+                'Answer keys match the supplied files. Some source wording uses older Power BI names, so legacy items are preserved as written. One empty vendor placeholder was excluded. Not affiliated with or endorsed by Microsoft.',
+                'مفاتيح الإجابة مطابقة للملفات المرفوعة. بعض الأسئلة تستخدم أسماء Power BI قديمة فحافظنا على صياغتها الأصلية. المحاكي مستقل وغير تابع أو معتمد من Microsoft.',
               )}
             </p>
-            <div className="mt-6 space-y-4 text-sm">
-              <DomainLine
-                label={domainLabel('Prepare the data', language)}
-                value="28%"
-              />
-              <DomainLine
-                label={domainLabel('Model the data', language)}
-                value="26%"
-              />
-              <DomainLine
-                label={tx('Visualize and analyze', 'عرض البيانات وتحليلها')}
-                value="26%"
-              />
-              <DomainLine
-                label={tx('Manage and secure', 'الإدارة والتأمين')}
-                value="20%"
-              />
-            </div>
-            <div className="mt-6 grid grid-cols-2 gap-3 border-t pt-5">
-              <div className="rounded-sm bg-muted/60 p-3">
-                <p className="text-2xl font-semibold text-primary">
-                  {attempts.length}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {tx('Completed attempts', 'المحاولات المكتملة')}
-                </p>
+          </div>
+
+          <Card className="h-fit rounded-2xl bg-[#111c33] text-white shadow-[0_18px_45px_rgba(17,28,51,0.16)] lg:sticky lg:top-24">
+            <CardContent className="p-6 sm:p-7">
+              <div className="flex items-center justify-between gap-4">
+                <span className="grid size-11 place-items-center rounded-2xl bg-white/10 text-[#f4cf2f]">
+                  <ShieldCheck className="size-6" />
+                </span>
+                <Badge className="border-white/10 bg-white/10 text-white shadow-none hover:bg-white/10">
+                  PL-300
+                </Badge>
               </div>
-              <div className="rounded-sm bg-muted/60 p-3">
-                <p className="text-2xl font-semibold text-primary">
-                  {bestScore === null ? '—' : `${bestScore}%`}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {tx('Best score', 'أفضل نتيجة')}
-                </p>
+              <h2 className="mt-5 text-xl font-bold">
+                {tx('Current PL-300 balance', 'توزيع مجالات PL-300')}
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                {tx(
+                  "Each practice exam stays inside Microsoft's published domain ranges.",
+                  'كل نموذج ملتزم بنسب المجالات المنشورة من Microsoft.',
+                )}
+              </p>
+              <div className="domain-stack mt-6 h-2.5">
+                <span className="bg-[#57c7d4]" />
+                <span className="bg-[#6ca5ff]" />
+                <span className="bg-[#9e8cff]" />
+                <span className="bg-[#f4cf2f]" />
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="mt-5 space-y-3 text-xs">
+                {[
+                  [domainLabel('Prepare the data', language), '28%', '#57c7d4'],
+                  [domainLabel('Model the data', language), '26%', '#6ca5ff'],
+                  [
+                    tx('Visualize and analyze', 'عرض البيانات وتحليلها'),
+                    '26%',
+                    '#9e8cff',
+                  ],
+                  [
+                    tx('Manage and secure', 'الإدارة والتأمين'),
+                    '20%',
+                    '#f4cf2f',
+                  ],
+                ].map(([label, value, color]) => (
+                  <div
+                    key={label}
+                    className="flex items-center justify-between gap-3 text-slate-300"
+                  >
+                    <span className="flex items-center gap-2">
+                      <i
+                        className="size-2 rounded-full"
+                        style={{ backgroundColor: color }}
+                      />
+                      {label}
+                    </span>
+                    <strong className="text-white">{value}</strong>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-7 grid grid-cols-2 gap-3 border-t border-white/10 pt-5">
+                <div className="rounded-2xl bg-white/7 p-4">
+                  <p className="text-2xl font-bold text-white">
+                    {attempts.length}
+                  </p>
+                  <p className="mt-1 text-[11px] text-slate-400">
+                    {tx('Completed attempts', 'المحاولات المكتملة')}
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-white/7 p-4">
+                  <p className="text-2xl font-bold text-white">
+                    {bestScore === null ? '—' : `${bestScore}%`}
+                  </p>
+                  <p className="mt-1 text-[11px] text-slate-400">
+                    {tx('Best score', 'أفضل نتيجة')}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-5 grid gap-2">
+                <a
+                  href="https://learn.microsoft.com/en-us/credentials/certifications/prepare-exam"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl bg-white/8 px-3 py-3 text-xs font-semibold text-white transition hover:bg-white/14"
+                >
+                  {tx(
+                    'Microsoft exam instructions',
+                    'تعليمات امتحان Microsoft',
+                  )}
+                  <ExternalLink className="size-4 text-[#f4cf2f]" />
+                </a>
+                {learnerName && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSetupName(learnerName);
+                      setSetupModel(null);
+                      setRenameOnly(true);
+                    }}
+                    className="flex items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-semibold text-slate-300 transition hover:bg-white/8 hover:text-white"
+                  >
+                    {tx('Change learner name', 'غيّر اسم الطالب')}
+                    <UserRound className="size-4" />
+                  </button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </section>
       <SiteFooter />
 
@@ -3520,7 +3634,7 @@ function Header({
       : homeAriaLabel;
   const brand = (
     <>
-      <div className="relative grid size-10 place-items-center overflow-hidden rounded-xl bg-[#172033] font-semibold text-white shadow-md transition-transform group-hover:-translate-y-0.5">
+      <div className="relative grid size-11 place-items-center overflow-hidden rounded-2xl bg-[#111c33] font-semibold text-white shadow-[0_8px_20px_rgba(17,28,51,0.18)] transition-transform group-hover:-translate-y-0.5">
         <span className="absolute right-1.5 bottom-1.5 flex items-end gap-0.5 opacity-90">
           <i className="h-2 w-1 rounded-full bg-[#f2c811]" />
           <i className="h-3.5 w-1 rounded-full bg-[#f2c811]" />
@@ -3542,8 +3656,8 @@ function Header({
     </>
   );
   return (
-    <header className="sticky top-0 z-20 border-b bg-card/90 shadow-[0_4px_22px_rgba(22,48,82,0.06)] backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1540px] items-center justify-between px-4 sm:px-8">
+    <header className="app-header sticky top-0 z-20 border-b border-border/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-[76px] max-w-[1540px] items-center justify-between px-4 sm:px-8">
         {onHome ? (
           <button
             type="button"
@@ -3576,7 +3690,7 @@ function Header({
               <span className="hidden sm:inline">{resolvedHomeLabel}</span>
             </Button>
           )}
-          <div className="flex h-9 items-center gap-2 rounded-lg border bg-muted/45 px-3 text-sm font-semibold tabular-nums">
+          <div className="flex h-10 items-center gap-2 rounded-xl border bg-muted/55 px-3 text-sm font-semibold tabular-nums">
             <Clock3 className="size-4 text-primary" /> {time}
           </div>
           <Button
@@ -3587,7 +3701,7 @@ function Header({
             title={language === 'en' ? 'العربية' : 'English'}
             variant="outline"
             size="sm"
-            className="min-w-10 gap-1.5 rounded-lg"
+            className="min-w-10 gap-1.5"
             onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
           >
             <Languages className="size-4" />
@@ -4791,18 +4905,6 @@ function ReleaseNote({ title, text }: { title: string; text: string }) {
     <div className="rounded-sm border bg-muted/30 p-4">
       <p className="font-semibold text-foreground">{title}</p>
       <p className="mt-1 text-muted-foreground">{text}</p>
-    </div>
-  );
-}
-
-function DomainLine({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex items-center justify-between border-b pb-3">
-      <span className="flex items-center gap-2">
-        <Check className="size-4 text-primary" />
-        {label}
-      </span>
-      <strong>{value}</strong>
     </div>
   );
 }
