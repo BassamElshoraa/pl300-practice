@@ -1,6 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type DragEvent as ReactDragEvent,
+  type PointerEvent as ReactPointerEvent,
+} from 'react';
 import Image from 'next/image';
 import {
   ArrowLeft,
@@ -22,6 +30,7 @@ import {
   FileCheck2,
   Flag,
   GraduationCap,
+  GripVertical,
   History,
   Languages,
   ListChecks,
@@ -76,6 +85,7 @@ import {
   calculateScore,
   isAnswered,
   isCorrect,
+  isYesNoQuestion,
   type Answers,
 } from '@/lib/exam-utils';
 import { buildEgyptianExplanation } from '@/lib/egyptian-explanations';
@@ -112,6 +122,8 @@ import { AiTutor } from '@/components/ai-tutor';
 import { AiStudyExplanation } from '@/components/ai-study-explanation';
 import { buildTutorContext } from '@/lib/ai-tutor';
 import { LanguageProvider, useLanguage } from '@/lib/i18n';
+import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
+import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 
 type Screen =
   | 'home'
@@ -175,6 +187,33 @@ const instructionsArabic: Record<Question['type'], string> = {
   manual:
     'طريقة الإجابة: اضغط داخل كل موضع إجابة في الصورة. كل ضغطة هتظهر بعلامة مرقمة، وتقدر تمسح وتبدأ من جديد.',
 };
+
+function questionInstruction(question: Question, language: 'en' | 'ar') {
+  const dragSpec = dragDropData[question.id];
+  if (dragSpec) {
+    if (language === 'ar') {
+      return dragSpec.mode === 'sequence'
+        ? 'طريقة الإجابة: اسحب كل خطوة من الاختيارات وحطّها في مكانها بالترتيب الصحيح. تقدر كمان تضغط على الاختيار ثم على الخانة.'
+        : 'طريقة الإجابة: اسحب كل اختيار من الناحية الشمال وحطّه قدّام الخانة المناسبة. تقدر كمان تضغط على الاختيار ثم على الخانة.';
+    }
+    return dragSpec.mode === 'sequence'
+      ? 'How to answer: Drag each action into the correct step. You can also select a choice, then select its slot.'
+      : 'How to answer: Drag each choice from the left into its matching target. You can also select a choice, then select its slot.';
+  }
+  if (visualControlData[question.id]) {
+    return language === 'ar'
+      ? 'طريقة الإجابة: افتح كل قائمة واختار إجابة واحدة من الاختيارات الأصلية الظاهرة.'
+      : 'How to answer: Open every answer list and select one option from the original source choices.';
+  }
+  if (isYesNoQuestion(question)) {
+    return language === 'ar'
+      ? 'طريقة الإجابة: اختار Yes أو No لكل عبارة ظاهرة في صورة السؤال.'
+      : 'How to answer: Select Yes or No for every statement shown in the source image.';
+  }
+  return language === 'ar'
+    ? instructionsArabic[question.type]
+    : instructions[question.type];
+}
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
 const APP_VERSION = '2.2.0';
@@ -965,11 +1004,7 @@ function Simulator() {
 
             <div className="mt-5 flex items-start gap-2 border-l-4 border-primary bg-accent/55 px-4 py-3 text-sm leading-6 text-accent-foreground">
               <MousePointerClick className="mt-0.5 size-4 shrink-0" />
-              <span>
-                {language === 'ar'
-                  ? instructionsArabic[question.type]
-                  : instructions[question.type]}
-              </span>
+              <span>{questionInstruction(question, language)}</span>
             </div>
 
             {question.context && (
@@ -3869,6 +3904,595 @@ function VisualAnswerImage({
   );
 }
 
+type DragChoicePayload = { choice: number; fromSlot: number | null };
+type PointerDragState = DragChoicePayload & { x: number; y: number };
+
+function DragChoiceImage({
+  option,
+  choice,
+}: {
+  option: DragDropOption;
+  choice: number;
+}) {
+  const { tx } = useLanguage();
+  return (
+    <Image
+      src={publicAsset(option.image)}
+      alt={tx(`Choice ${choice + 1}`, `الاختيار ${choice + 1}`)}
+      width={option.width}
+      height={option.height}
+      unoptimized
+      draggable={false}
+      className="h-auto max-h-24 w-full select-none object-contain object-left"
+    />
+  );
+}
+
+function DragDropAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange?: (value: number[]) => void;
+}) {
+  const { tx } = useLanguage();
+  const spec = dragDropData[question.id];
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const [pointerDrag, setPointerDrag] = useState<PointerDragState | null>(null);
+  const slots = useMemo(
+    () =>
+      Array.from(
+        { length: spec?.slots ?? 0 },
+        (_, index) => value[index] ?? -1,
+      ),
+    [spec?.slots, value],
+  );
+
+  const placeChoice = useCallback(
+    (payload: DragChoicePayload, targetSlot: number) => {
+      if (!spec || !onChange) return;
+      const next = Array.from(
+        { length: spec.slots },
+        (_, index) => value[index] ?? -1,
+      );
+      const displaced = next[targetSlot];
+      if (payload.fromSlot != null) next[payload.fromSlot] = -1;
+      if (!spec.allowReuse) {
+        next.forEach((choice, index) => {
+          if (choice === payload.choice && index !== targetSlot)
+            next[index] = -1;
+        });
+      }
+      next[targetSlot] = payload.choice;
+      if (
+        payload.fromSlot != null &&
+        payload.fromSlot !== targetSlot &&
+        displaced >= 0
+      ) {
+        next[payload.fromSlot] = displaced;
+      }
+      onChange(next);
+      setSelectedChoice(null);
+    },
+    [onChange, spec, value],
+  );
+
+  useEffect(() => {
+    if (!pointerDrag) return;
+    const movePointer = (event: PointerEvent) => {
+      event.preventDefault();
+      setPointerDrag((current) =>
+        current ? { ...current, x: event.clientX, y: event.clientY } : null,
+      );
+    };
+    const finishPointer = (event: PointerEvent) => {
+      const element = document.elementFromPoint(event.clientX, event.clientY);
+      const target = element?.closest<HTMLElement>('[data-drop-slot]');
+      const board = target?.closest<HTMLElement>('[data-drag-question]');
+      if (target && board?.dataset.dragQuestion === question.id) {
+        placeChoice(pointerDrag, Number(target.dataset.dropSlot));
+      }
+      setPointerDrag(null);
+    };
+    document.addEventListener('pointermove', movePointer, { passive: false });
+    document.addEventListener('pointerup', finishPointer, { once: true });
+    document.addEventListener('pointercancel', finishPointer, { once: true });
+    return () => {
+      document.removeEventListener('pointermove', movePointer);
+      document.removeEventListener('pointerup', finishPointer);
+      document.removeEventListener('pointercancel', finishPointer);
+    };
+  }, [placeChoice, pointerDrag, question.id]);
+
+  if (!spec) return null;
+  const usedChoices = new Set(slots.filter((choice) => choice >= 0));
+  const availableChoices = spec.options
+    .map((_, index) => index)
+    .filter((index) => spec.allowReuse || !usedChoices.has(index));
+
+  function setNativePayload(
+    event: ReactDragEvent<HTMLElement>,
+    payload: DragChoicePayload,
+  ) {
+    if (!onChange) {
+      event.preventDefault();
+      return;
+    }
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData(
+      'application/x-pl300-choice',
+      JSON.stringify(payload),
+    );
+  }
+
+  function receiveNativeDrop(
+    event: ReactDragEvent<HTMLElement>,
+    targetSlot: number,
+  ) {
+    event.preventDefault();
+    if (!onChange) return;
+    try {
+      placeChoice(
+        JSON.parse(
+          event.dataTransfer.getData('application/x-pl300-choice'),
+        ) as DragChoicePayload,
+        targetSlot,
+      );
+    } catch {
+      // Ignore drags that did not originate from this question board.
+    }
+  }
+
+  function beginPointerDrag(
+    event: ReactPointerEvent<HTMLElement>,
+    payload: DragChoicePayload,
+  ) {
+    if (!onChange) return;
+    event.preventDefault();
+    setPointerDrag({ ...payload, x: event.clientX, y: event.clientY });
+  }
+
+  function removeFromSlot(slotIndex: number) {
+    if (!onChange) return;
+    const next = [...slots];
+    next[slotIndex] = -1;
+    onChange(next);
+    setSelectedChoice(null);
+  }
+
+  return (
+    <div
+      data-drag-question={question.id}
+      dir="ltr"
+      lang="en"
+      className="space-y-5 text-left"
+    >
+      {question.image && (
+        <details className="overflow-hidden rounded-sm border bg-card" open>
+          <summary className="cursor-pointer border-b bg-muted/45 px-4 py-3 text-sm font-semibold">
+            {tx('Original question exhibit', 'صورة السؤال الأصلية')}
+          </summary>
+          <Image
+            src={publicAsset(question.image)}
+            alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
+            width={1000}
+            height={1200}
+            unoptimized
+            draggable={false}
+            className="h-auto w-full bg-white object-contain"
+          />
+        </details>
+      )}
+
+      {onChange && (
+        <div className="rounded-sm border border-primary/25 bg-primary/[0.035] px-4 py-3 text-sm leading-6">
+          <span className="font-semibold">
+            {tx('Drag is enabled.', 'السحب شغّال فعليًا.')}
+          </span>{' '}
+          <span className="text-muted-foreground">
+            {tx(
+              'Drag using the grip, or tap a choice and then tap its destination. Drag an assigned choice to another slot to swap it.',
+              'اسحب من علامة المسكة، أو اضغط على اختيار وبعدها على مكانه. تقدر تسحب إجابة محطوطة لخانة تانية عشان تبدّلهم.',
+            )}
+          </span>
+        </div>
+      )}
+
+      <div className="grid gap-5 lg:grid-cols-2">
+        <section aria-label={tx('Available choices', 'الاختيارات المتاحة')}>
+          <p className="mb-2 text-sm font-semibold">
+            {tx('Available choices', 'الاختيارات المتاحة')}
+          </p>
+          <div className="grid min-h-24 content-start gap-2 rounded-sm border bg-muted/30 p-3">
+            {availableChoices.length === 0 && (
+              <p className="p-3 text-sm text-muted-foreground">
+                {tx('All choices are placed.', 'كل الاختيارات اتحطّت.')}
+              </p>
+            )}
+            {availableChoices.map((choice) => (
+              <button
+                key={choice}
+                type="button"
+                draggable={Boolean(onChange)}
+                onDragStart={(event) =>
+                  setNativePayload(event, { choice, fromSlot: null })
+                }
+                onClick={() =>
+                  onChange &&
+                  setSelectedChoice((current) =>
+                    current === choice ? null : choice,
+                  )
+                }
+                className={`group flex min-h-14 items-center gap-2 rounded-sm border bg-card p-2 text-left shadow-sm transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${selectedChoice === choice ? 'border-primary ring-2 ring-primary/25' : ''}`}
+              >
+                <span
+                  role="presentation"
+                  onPointerDown={(event) =>
+                    beginPointerDrag(event, { choice, fromSlot: null })
+                  }
+                  className="grid min-h-10 w-9 shrink-0 touch-none cursor-grab place-items-center rounded-sm bg-muted text-muted-foreground active:cursor-grabbing"
+                >
+                  <GripVertical className="size-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <DragChoiceImage option={spec.options[choice]} choice={choice} />
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section aria-label={tx('Answer area', 'منطقة الإجابة')}>
+          <p className="mb-2 text-sm font-semibold">
+            {spec.mode === 'sequence'
+              ? tx('Correct order', 'الترتيب الصحيح')
+              : tx('Answer area', 'منطقة الإجابة')}
+          </p>
+          <div className="grid gap-2 rounded-sm border bg-muted/30 p-3">
+            {slots.map((choice, slotIndex) => (
+              <div
+                key={slotIndex}
+                data-drop-slot={slotIndex}
+                onDragOver={(event) => {
+                  if (onChange) {
+                    event.preventDefault();
+                    event.dataTransfer.dropEffect = 'move';
+                  }
+                }}
+                onDrop={(event) => receiveNativeDrop(event, slotIndex)}
+                className={`min-h-20 rounded-sm border-2 border-dashed p-2 transition ${pointerDrag || selectedChoice != null ? 'border-primary/60 bg-primary/5' : 'border-border bg-card/70'}`}
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="inline-flex min-w-16 items-center justify-center rounded-sm bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
+                    {spec.mode === 'sequence'
+                      ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                      : tx(`Target ${slotIndex + 1}`, `الخانة ${slotIndex + 1}`)}
+                  </span>
+                  {choice >= 0 && onChange && (
+                    <button
+                      type="button"
+                      onClick={() => removeFromSlot(slotIndex)}
+                      aria-label={tx('Remove choice', 'امسح الاختيار')}
+                      className="grid size-8 place-items-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  )}
+                </div>
+                {choice >= 0 ? (
+                  <div
+                    draggable={Boolean(onChange)}
+                    onDragStart={(event) =>
+                      setNativePayload(event, { choice, fromSlot: slotIndex })
+                    }
+                    className="flex items-center gap-2 rounded-sm border bg-card p-2 shadow-sm"
+                  >
+                    {onChange && (
+                      <span
+                        role="presentation"
+                        onPointerDown={(event) =>
+                          beginPointerDrag(event, {
+                            choice,
+                            fromSlot: slotIndex,
+                          })
+                        }
+                        className="grid min-h-10 w-9 shrink-0 touch-none cursor-grab place-items-center rounded-sm bg-muted text-muted-foreground active:cursor-grabbing"
+                      >
+                        <GripVertical className="size-5" />
+                      </span>
+                    )}
+                    <span className="min-w-0 flex-1">
+                      <DragChoiceImage option={spec.options[choice]} choice={choice} />
+                    </span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!onChange || selectedChoice == null}
+                    onClick={() =>
+                      selectedChoice != null &&
+                      placeChoice(
+                        { choice: selectedChoice, fromSlot: null },
+                        slotIndex,
+                      )
+                    }
+                    className="grid min-h-14 w-full place-items-center rounded-sm text-center text-sm text-muted-foreground enabled:cursor-pointer enabled:hover:bg-primary/5 enabled:hover:text-foreground"
+                  >
+                    {selectedChoice == null
+                      ? tx('Drop a choice here', 'اسحب الاختيار هنا')
+                      : tx(
+                          'Place selected choice here',
+                          'حط الاختيار المحدد هنا',
+                        )}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {pointerDrag && (
+        <div
+          aria-hidden="true"
+          style={{
+            left: pointerDrag.x + 14,
+            top: pointerDrag.y + 14,
+            width: 280,
+          }}
+          className="pointer-events-none fixed z-[100] rounded-sm border border-primary bg-card p-2 opacity-95 shadow-2xl"
+        >
+          <DragChoiceImage
+            option={spec.options[pointerDrag.choice]}
+            choice={pointerDrag.choice}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function VisualMenuImage({
+  menu,
+  selectedY,
+  onSelect,
+}: {
+  menu: VisualMenu;
+  selectedY: number;
+  onSelect?: (value: number) => void;
+}) {
+  const { tx } = useLanguage();
+  return (
+    <button
+      type="button"
+      disabled={!onSelect}
+      aria-label={tx(
+        'Original answer list. Select an option.',
+        'قائمة الإجابات الأصلية. اختار إجابة.',
+      )}
+      onClick={
+        onSelect
+          ? (event) => {
+              const rect = event.currentTarget.getBoundingClientRect();
+              onSelect(
+                Math.max(
+                  0,
+                  Math.min(
+                    1000,
+                    Math.round(
+                      ((event.clientY - rect.top) / rect.height) * 1000,
+                    ),
+                  ),
+                ),
+              );
+            }
+          : undefined
+      }
+      className={`relative block max-w-full overflow-hidden border bg-white text-left ${onSelect ? 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary' : ''}`}
+    >
+      <Image
+        src={publicAsset(menu.image)}
+        alt={tx('Original dropdown options', 'اختيارات القائمة الأصلية')}
+        width={menu.width}
+        height={menu.height}
+        unoptimized
+        draggable={false}
+        className="h-auto max-h-72 max-w-full select-none object-contain object-left"
+      />
+      {selectedY >= 0 && (
+        <span
+          aria-hidden="true"
+          style={{ top: `${selectedY / 10}%` }}
+          className="pointer-events-none absolute right-2 grid size-5 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-primary text-[10px] font-bold text-white shadow-md"
+        >
+          ✓
+        </span>
+      )}
+    </button>
+  );
+}
+
+function VisualListAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange?: (value: number[]) => void;
+}) {
+  const { tx } = useLanguage();
+  const spec = visualControlData[question.id];
+  const [openSlot, setOpenSlot] = useState<number | null>(null);
+  if (!spec) return null;
+  const selections = Array.from(
+    { length: spec.slots },
+    (_, index) => value[index] ?? -1,
+  );
+
+  function select(slotIndex: number, selectedY: number) {
+    if (!onChange) return;
+    const next = [...selections];
+    next[slotIndex] = selectedY;
+    onChange(next);
+    setOpenSlot(null);
+  }
+
+  return (
+    <div className="space-y-5" dir="ltr" lang="en">
+      {question.image && (
+        <details className="overflow-hidden rounded-sm border bg-card" open>
+          <summary className="cursor-pointer border-b bg-muted/45 px-4 py-3 text-sm font-semibold">
+            {tx('Original question exhibit', 'صورة السؤال الأصلية')}
+          </summary>
+          <Image
+            src={publicAsset(question.image)}
+            alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
+            width={1000}
+            height={1200}
+            unoptimized
+            draggable={false}
+            className="h-auto w-full bg-white object-contain"
+          />
+        </details>
+      )}
+      <div className="rounded-sm border bg-muted/25 p-4">
+        <p className="text-sm font-semibold">
+          {tx('Answer Area', 'منطقة الإجابة')}
+        </p>
+        <p className="mt-1 text-xs leading-5 text-muted-foreground">
+          {tx(
+            'Open each list, then select the required row from the original source options.',
+            'افتح كل قائمة، وبعدها اختار الصف المطلوب من اختيارات المصدر الأصلية.',
+          )}
+        </p>
+        <div className="mt-4 grid gap-4">
+          {selections.map((selectedY, slotIndex) => {
+            const menu = spec.menus[Math.min(slotIndex, spec.menus.length - 1)];
+            const isOpen = !onChange || openSlot === slotIndex;
+            return (
+              <div key={slotIndex} className="rounded-sm border bg-card p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-medium">
+                    {tx(`Answer ${slotIndex + 1}`, `الإجابة ${slotIndex + 1}`)}
+                  </span>
+                  {onChange && (
+                    <button
+                      type="button"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenSlot(isOpen ? null : slotIndex)}
+                      className="flex min-h-10 min-w-48 items-center justify-between gap-3 rounded-sm border bg-background px-3 text-sm hover:border-primary"
+                    >
+                      <span>
+                        {selectedY >= 0
+                          ? tx('Option selected', 'تم اختيار إجابة')
+                          : tx('Select an answer', 'اختار إجابة')}
+                      </span>
+                      <ChevronDown
+                        className={`size-4 transition ${isOpen ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                  )}
+                </div>
+                {isOpen && (
+                  <div className="mt-3 flex justify-end">
+                    <VisualMenuImage
+                      menu={menu}
+                      selectedY={selectedY}
+                      onSelect={
+                        onChange
+                          ? (choiceY) => select(slotIndex, choiceY)
+                          : undefined
+                      }
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function YesNoAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange?: (value: number[]) => void;
+}) {
+  const { tx } = useLanguage();
+  const selections = Array.from(
+    { length: 3 },
+    (_, index) => value[index] ?? -1,
+  );
+
+  function choose(rowIndex: number, answer: number) {
+    if (!onChange) return;
+    const next = [...selections];
+    next[rowIndex] = answer;
+    onChange(next);
+  }
+
+  return (
+    <div className="space-y-5" dir="ltr" lang="en">
+      {question.image && (
+        <div className="overflow-hidden rounded-sm border bg-white">
+          <Image
+            src={publicAsset(question.image)}
+            alt={`Statements for ${question.source} question ${question.sourceNumber}`}
+            width={1000}
+            height={1200}
+            unoptimized
+            draggable={false}
+            className="h-auto w-full object-contain"
+          />
+        </div>
+      )}
+      <div className="overflow-hidden rounded-sm border bg-card">
+        <div className="grid grid-cols-[minmax(0,1fr)_80px_80px] border-b bg-muted/55 text-sm font-semibold">
+          <span className="p-3">
+            {tx('Statement in the source image', 'العبارة في صورة السؤال')}
+          </span>
+          <span className="border-l p-3 text-center">Yes</span>
+          <span className="border-l p-3 text-center">No</span>
+        </div>
+        {selections.map((selected, rowIndex) => (
+          <div
+            key={rowIndex}
+            className="grid grid-cols-[minmax(0,1fr)_80px_80px] border-b last:border-b-0"
+          >
+            <span className="p-3 text-sm font-medium">
+              {tx(`Statement ${rowIndex + 1}`, `العبارة ${rowIndex + 1}`)}
+            </span>
+            {[1, 0].map((answer) => (
+              <button
+                key={answer}
+                type="button"
+                disabled={!onChange}
+                aria-label={`${answer === 1 ? 'Yes' : 'No'} for statement ${rowIndex + 1}`}
+                aria-pressed={selected === answer}
+                onClick={() => choose(rowIndex, answer)}
+                className={`grid min-h-12 place-items-center border-l transition ${selected === answer ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'}`}
+              >
+                <span
+                  className={`size-4 rounded-full border-2 ${selected === answer ? 'border-white bg-white ring-2 ring-primary ring-offset-2' : 'border-muted-foreground'}`}
+                />
+              </button>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function QuestionInput({
   question,
   value,
@@ -3880,6 +4504,29 @@ function QuestionInput({
 }) {
   const { tx } = useLanguage();
   if (question.type === 'manual') {
+    if (dragDropData[question.id]) {
+      return (
+        <DragDropAnswer
+          question={question}
+          value={value}
+          onChange={onChange}
+        />
+      );
+    }
+    if (visualControlData[question.id]) {
+      return (
+        <VisualListAnswer
+          question={question}
+          value={value}
+          onChange={onChange}
+        />
+      );
+    }
+    if (isYesNoQuestion(question)) {
+      return (
+        <YesNoAnswer question={question} value={value} onChange={onChange} />
+      );
+    }
     return (
       <div className="overflow-hidden rounded-sm border bg-card">
         <div className="border-b bg-primary/5 px-4 py-3 text-sm leading-6">
@@ -4549,6 +5196,40 @@ function ResultsScreen({
   );
 }
 
+function ManualReviewResponse({
+  question,
+  value,
+}: {
+  question: Question;
+  value: number[];
+}) {
+  const { tx } = useLanguage();
+  if (dragDropData[question.id]) {
+    return <DragDropAnswer question={question} value={value} />;
+  }
+  if (visualControlData[question.id]) {
+    return <VisualListAnswer question={question} value={value} />;
+  }
+  if (isYesNoQuestion(question)) {
+    return <YesNoAnswer question={question} value={value} />;
+  }
+  if (!question.image) {
+    return (
+      <p className="text-sm text-muted-foreground">
+        {tx(
+          'No selectable image was included in the source.',
+          'المصدر مافيهوش صورة قابلة للاختيار للسؤال ده.',
+        )}
+      </p>
+    );
+  }
+  return (
+    <div className="overflow-hidden rounded-sm border">
+      <VisualAnswerImage question={question} value={value} />
+    </div>
+  );
+}
+
 function ReviewScreen({
   exam,
   answers,
@@ -4683,21 +5364,20 @@ function ReviewScreen({
             >
               {current + 1}. {displayText(question.prompt)}
             </h1>
-            {question.image &&
-              (question.type === 'manual' ? (
-                <div className="mt-6 overflow-hidden rounded-sm border">
-                  <VisualAnswerImage question={question} value={answer ?? []} />
-                </div>
-              ) : (
-                <Image
-                  src={publicAsset(question.image)}
-                  alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
-                  width={1000}
-                  height={1200}
-                  unoptimized
-                  className="mt-6 h-auto w-full rounded-sm border bg-white object-contain"
-                />
-              ))}
+            {question.type === 'manual' ? (
+              <div className="mt-6">
+                <ManualReviewResponse question={question} value={answer ?? []} />
+              </div>
+            ) : question.image ? (
+              <Image
+                src={publicAsset(question.image)}
+                alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
+                width={1000}
+                height={1200}
+                unoptimized
+                className="mt-6 h-auto w-full rounded-sm border bg-white object-contain"
+              />
+            ) : null}
             {question.type === 'manual' ? (
               <div className="mt-7 rounded-sm border border-emerald-500/40 bg-emerald-500/5 p-4">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
