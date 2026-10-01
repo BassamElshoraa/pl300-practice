@@ -39,7 +39,12 @@ import {
   type TutorQuestionContext,
   type TutorSession,
 } from '@/lib/ai-tutor';
-import { chatWithPuter, ensurePuterReady } from '@/lib/puter-ai';
+import {
+  chatWithPuter,
+  ensurePuterReady,
+  isPuterSignedIn,
+  signInToPuter,
+} from '@/lib/puter-ai';
 
 const apiUrl = (process.env.NEXT_PUBLIC_AI_TUTOR_API_URL ?? '').replace(
   /\/$/,
@@ -70,6 +75,7 @@ export function AiTutor({
     context.responseLanguage,
   );
   const [puterReady, setPuterReady] = useState(false);
+  const [puterSignedIn, setPuterSignedIn] = useState(false);
   const isArabic = conversationLanguage === 'ar-EG';
   const tx = (english: string, arabic: string) => (isArabic ? arabic : english);
   const [messages, setMessages] = useState<TutorMessage[]>([
@@ -82,7 +88,9 @@ export function AiTutor({
   const checkedRef = useRef(context.checked);
   const languageRef = useRef(context.responseLanguage);
   const workerConnected = Boolean(apiUrl);
-  const canChat = !workerConnected || Boolean(session);
+  const canChat = workerConnected
+    ? Boolean(session)
+    : puterReady && puterSignedIn;
   const quickPrompts = useMemo(
     () => getTutorQuickPrompts(context.checked, conversationLanguage),
     [context.checked, conversationLanguage],
@@ -110,7 +118,10 @@ export function AiTutor({
     if (workerConnected) return;
     let active = true;
     void ensurePuterReady().then((ready) => {
-      if (active) setPuterReady(ready);
+      if (active) {
+        setPuterReady(ready);
+        setPuterSignedIn(ready && isPuterSignedIn());
+      }
     });
     return () => {
       active = false;
@@ -242,6 +253,27 @@ export function AiTutor({
     }
   }
 
+  async function connectPuter() {
+    setAuthBusy(true);
+    setAuthError('');
+    try {
+      const signedIn = await signInToPuter();
+      if (!signedIn)
+        throw new Error(
+          tx(
+            'Sign-in was not completed. Please try again.',
+            'تسجيل الدخول ماكملش. جرّب تاني.',
+          ),
+        );
+      setPuterReady(true);
+      setPuterSignedIn(true);
+    } catch (error) {
+      setAuthError(readError(error));
+    } finally {
+      setAuthBusy(false);
+    }
+  }
+
   function signOut() {
     setSession(null);
     saveTutorSession(localStorage, null);
@@ -364,14 +396,18 @@ export function AiTutor({
                   PL-300 AI Tutor
                   <Badge
                     variant={
-                      workerConnected || puterReady ? 'default' : 'secondary'
+                      workerConnected || (puterReady && puterSignedIn)
+                        ? 'default'
+                        : 'secondary'
                     }
                   >
                     {workerConnected
                       ? tx('Connected', 'متصل')
-                      : puterReady
+                      : puterReady && puterSignedIn
                         ? tx('AI ready', 'الـAI جاهز')
-                        : tx('Loading AI', 'بيحمّل الـAI')}
+                        : puterReady
+                          ? tx('Connect AI', 'وصّل الـAI')
+                          : tx('Loading AI', 'بيحمّل الـAI')}
                   </Badge>
                 </SheetTitle>
                 <SheetDescription className="mt-1 truncate">
@@ -459,6 +495,50 @@ export function AiTutor({
                 </Button>
               </div>
             </div>
+          ) : !workerConnected && (!puterReady || !puterSignedIn) ? (
+            <div
+              className="flex-1 overflow-y-auto p-5"
+              lang={isArabic ? 'ar-EG' : 'en'}
+            >
+              <div className="rounded-sm border border-primary/25 bg-accent/45 p-5">
+                <TutorOrb />
+                <h2 className="mt-4 text-xl font-semibold">
+                  {tx('Connect the free AI tutor', 'وصّل مدرس الـAI المجاني')}
+                </h2>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                  {tx(
+                    'Puter provides the live AI chat without an API key from the website. Connect once, then the tutor can discuss the current question with you turn by turn.',
+                    'Puter هو اللي بيوفّر محادثة الـAI الحقيقية من غير API key على الموقع. وصّله مرة، وبعدها المدرس هيفهم سؤال الصفحة وياخد ويدي معاك خطوة خطوة.',
+                  )}
+                </p>
+                {authError && (
+                  <output className="mt-3 block text-sm leading-6 text-destructive">
+                    {authError}
+                  </output>
+                )}
+                <Button
+                  className="mt-5 w-full"
+                  size="lg"
+                  disabled={authBusy || !puterReady}
+                  onClick={connectPuter}
+                >
+                  {authBusy || !puterReady ? (
+                    <LoaderCircle className="size-4 animate-spin" />
+                  ) : (
+                    <LogIn className="size-4" />
+                  )}
+                  {!puterReady
+                    ? tx('Loading AI…', 'بيحمّل الـAI…')
+                    : tx('Connect and start chatting', 'وصّل وابدأ الشرح')}
+                </Button>
+                <p className="mt-3 text-xs leading-5 text-muted-foreground">
+                  {tx(
+                    'Puter may open a secure sign-in window. A temporary free account can be created automatically.',
+                    'ممكن يفتحلك نافذة تسجيل آمنة من Puter، ويقدر يعمل حساب مجاني مؤقت تلقائيًا.',
+                  )}
+                </p>
+              </div>
+            </div>
           ) : (
             <div className="flex min-h-0 flex-1 flex-col">
               <div className="flex items-center justify-between gap-3 border-b bg-muted/35 px-5 py-2.5 text-xs">
@@ -476,10 +556,7 @@ export function AiTutor({
                   ) : (
                     <>
                       <BrainCircuit className="size-3.5" />{' '}
-                      {tx(
-                        'Free AI · Puter may ask you to sign in once',
-                        'AI مجاني · ممكن يطلب تسجيل دخول Puter مرة واحدة',
-                      )}
+                      {tx('Free AI · Puter connected', 'AI مجاني · Puter متصل')}
                     </>
                   )}
                 </span>

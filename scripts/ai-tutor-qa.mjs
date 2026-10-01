@@ -18,7 +18,7 @@ import {
   detectTutorIntent as detectWorkerTutorIntent,
   detectTutorLanguage as detectWorkerTutorLanguage,
 } from '../ai-tutor-worker/src/index.ts';
-import { chatWithPuter } from '../lib/puter-ai.ts';
+import { chatWithPuter, signInToPuter } from '../lib/puter-ai.ts';
 import { questions } from '../lib/questions.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
@@ -103,8 +103,16 @@ assert.match(workerPrompt, /latest learner intent is: teach/);
 assert.match(workerPrompt, /Do not lead with an answer dump/);
 
 let puterMessages = [];
+let puterSignedIn = false;
 globalThis.window = {
   puter: {
+    auth: {
+      isSignedIn: () => puterSignedIn,
+      signIn: async (options) => {
+        assert.equal(options.attempt_temp_user_creation, true);
+        puterSignedIn = true;
+      },
+    },
     ai: {
       chat: async (messages) => {
         puterMessages = messages;
@@ -113,6 +121,8 @@ globalThis.window = {
     },
   },
 };
+assert.equal(await signInToPuter(), true);
+assert.equal(puterSignedIn, true);
 const puterReply = await chatWithPuter({
   context: { ...hidden, responseLanguage: 'ar-EG' },
   messages: [{ role: 'user', content: 'فهمني السؤال' }],

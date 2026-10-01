@@ -7,6 +7,13 @@ type PuterChat = (
 
 type PuterSdk = {
   ai?: { chat?: PuterChat };
+  auth?: {
+    isSignedIn?: () => boolean;
+    signIn?: (options?: {
+      attempt_temp_user_creation?: boolean;
+      request_auth?: boolean;
+    }) => Promise<unknown>;
+  };
 };
 
 declare global {
@@ -38,6 +45,29 @@ export async function ensurePuterReady(timeoutMs = 12_000) {
   return false;
 }
 
+export function isPuterSignedIn() {
+  try {
+    return window.puter?.auth?.isSignedIn?.() === true;
+  } catch {
+    return false;
+  }
+}
+
+export async function signInToPuter() {
+  let auth = window.puter?.auth;
+  if (!auth?.signIn) {
+    const ready = await ensurePuterReady();
+    if (!ready)
+      throw new Error('Puter sign-in is not available. Refresh and try again.');
+    auth = window.puter?.auth;
+  }
+  if (!auth?.signIn)
+    throw new Error('Puter sign-in is not available. Refresh and try again.');
+  if (auth.isSignedIn?.()) return true;
+  await auth.signIn({ attempt_temp_user_creation: true });
+  return auth.isSignedIn?.() === true;
+}
+
 export async function chatWithPuter(request: TutorChatRequest) {
   const ready = await ensurePuterReady();
   const ai = window.puter?.ai;
@@ -56,10 +86,11 @@ export async function chatWithPuter(request: TutorChatRequest) {
     request.context,
     latestUserMessage,
   );
-  const response = await chat([
-    { role: 'system', content: systemPrompt },
-    ...request.messages,
-  ]);
+  const response = await withTimeout(
+    chat([{ role: 'system', content: systemPrompt }, ...request.messages]),
+    45_000,
+    request.context.responseLanguage,
+  );
   const reply = extractPuterReply(response);
   if (!reply)
     throw new Error(
@@ -68,6 +99,36 @@ export async function chatWithPuter(request: TutorChatRequest) {
         : 'The AI returned an empty reply. Please send the message again.',
     );
   return { reply };
+}
+
+function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+  language: 'ar-EG' | 'en',
+) {
+  return new Promise<T>((resolve, reject) => {
+    const timer = setTimeout(
+      () =>
+        reject(
+          new Error(
+            language === 'ar-EG'
+              ? 'الرد أخد وقت أطول من المتوقع. جرّب تاني.'
+              : 'The reply took too long. Please try again.',
+          ),
+        ),
+      timeoutMs,
+    );
+    promise.then(
+      (value) => {
+        clearTimeout(timer);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timer);
+        reject(error);
+      },
+    );
+  });
 }
 
 function extractPuterReply(value: unknown): string {
