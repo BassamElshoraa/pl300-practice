@@ -4,12 +4,21 @@ import {
   AI_TUTOR_DAILY_LIMIT,
   AI_TUTOR_SESSION_KEY,
   buildLocalTutorReply,
+  buildTutorSystemPrompt,
   buildTutorContext,
+  detectTutorIntent,
+  detectTutorLanguage,
   getTutorQuickPrompts,
   readTutorSession,
   saveTutorSession,
   consumeDailyTutorMessage,
 } from '../lib/ai-tutor.ts';
+import {
+  buildSystemPrompt as buildWorkerSystemPrompt,
+  detectTutorIntent as detectWorkerTutorIntent,
+  detectTutorLanguage as detectWorkerTutorLanguage,
+} from '../ai-tutor-worker/src/index.ts';
+import { chatWithPuter } from '../lib/puter-ai.ts';
 import { questions } from '../lib/questions.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
@@ -66,8 +75,53 @@ assert.equal(revealed.answerImageUrl, question.answerImage);
 
 const refusal = buildLocalTutorReply(hidden, 'قولّي الإجابة الصح');
 assert.match(refusal, /مش هقولك الاختيار الصح قبل Check Answer/);
-const explanation = buildLocalTutorReply(revealed, 'اشرح النتيجة');
-assert.match(explanation, /الإجابة المعتمدة/);
+const explanation = buildLocalTutorReply(revealed, 'فهمني السؤال');
+assert.match(explanation, /خلّينا نفهم الفكرة الأول/);
+assert.doesNotMatch(explanation, /الإجابة المعتمدة/);
+const directAnswer = buildLocalTutorReply(revealed, 'قولّي الإجابة الصح');
+assert.match(directAnswer, /الإجابة المعتمدة/);
+assert.equal(detectTutorLanguage('فهمني السؤال', 'en'), 'ar-EG');
+assert.equal(detectTutorLanguage('Explain this question', 'ar-EG'), 'en');
+assert.equal(detectTutorIntent('فهمني الفكرة من البداية'), 'teach');
+assert.equal(detectTutorIntent('قولّي الإجابة الصح'), 'direct-answer');
+assert.equal(detectWorkerTutorLanguage('اشرحلي ده', 'en'), 'ar-EG');
+assert.equal(detectWorkerTutorIntent('help me understand'), 'teach');
+
+const clientPrompt = buildTutorSystemPrompt(
+  { ...revealed, responseLanguage: 'en' },
+  'فهمني السؤال',
+);
+assert.match(clientPrompt, /natural, friendly Egyptian Arabic/);
+assert.match(clientPrompt, /latest learner intent is: teach/);
+assert.match(clientPrompt, /Do not lead with an answer dump/);
+const workerPrompt = buildWorkerSystemPrompt(
+  { ...revealed, responseLanguage: 'ar-EG' },
+  'فهمني السؤال',
+);
+assert.match(workerPrompt, /natural, friendly Egyptian Arabic/);
+assert.match(workerPrompt, /latest learner intent is: teach/);
+assert.match(workerPrompt, /Do not lead with an answer dump/);
+
+let puterMessages = [];
+globalThis.window = {
+  puter: {
+    ai: {
+      chat: async (messages) => {
+        puterMessages = messages;
+        return { message: { content: 'شرح مصري تجريبي' } };
+      },
+    },
+  },
+};
+const puterReply = await chatWithPuter({
+  context: { ...hidden, responseLanguage: 'ar-EG' },
+  messages: [{ role: 'user', content: 'فهمني السؤال' }],
+});
+assert.equal(puterReply.reply, 'شرح مصري تجريبي');
+assert.equal(puterMessages[0].role, 'system');
+assert.match(puterMessages[0].content, /latest learner intent is: teach/);
+delete globalThis.window;
+
 assert.equal(getTutorQuickPrompts(false).length, 3);
 assert.equal(getTutorQuickPrompts(true).length, 3);
 
@@ -97,5 +151,5 @@ assert.equal(
 );
 
 console.log(
-  'AI tutor QA passed: answer gating, local fallback, sessions, and daily limit.',
+  'AI tutor QA passed: answer gating, language/intent routing, Puter chat, sessions, and daily limit.',
 );

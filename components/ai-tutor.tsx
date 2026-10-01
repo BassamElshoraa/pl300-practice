@@ -28,6 +28,7 @@ import { Textarea } from '@/components/ui/textarea';
 import {
   AI_TUTOR_DAILY_LIMIT,
   buildLocalTutorReply,
+  detectTutorLanguage,
   getTutorQuickPrompts,
   getTutorStarterMessage,
   readTutorSession,
@@ -38,6 +39,7 @@ import {
   type TutorQuestionContext,
   type TutorSession,
 } from '@/lib/ai-tutor';
+import { chatWithPuter, ensurePuterReady } from '@/lib/puter-ai';
 
 const apiUrl = (process.env.NEXT_PUBLIC_AI_TUTOR_API_URL ?? '').replace(
   /\/$/,
@@ -64,7 +66,11 @@ export function AiTutor({
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const [remaining, setRemaining] = useState(AI_TUTOR_DAILY_LIMIT);
-  const isArabic = context.responseLanguage === 'ar-EG';
+  const [conversationLanguage, setConversationLanguage] = useState(
+    context.responseLanguage,
+  );
+  const [puterReady, setPuterReady] = useState(false);
+  const isArabic = conversationLanguage === 'ar-EG';
   const tx = (english: string, arabic: string) => (isArabic ? arabic : english);
   const [messages, setMessages] = useState<TutorMessage[]>([
     assistantMessage(
@@ -72,13 +78,14 @@ export function AiTutor({
     ),
   ]);
   const chatEnd = useRef<HTMLDivElement>(null);
+  const questionRef = useRef(context.questionId);
   const checkedRef = useRef(context.checked);
   const languageRef = useRef(context.responseLanguage);
-  const connected = Boolean(apiUrl);
-  const canChat = !connected || Boolean(session);
+  const workerConnected = Boolean(apiUrl);
+  const canChat = !workerConnected || Boolean(session);
   const quickPrompts = useMemo(
-    () => getTutorQuickPrompts(context.checked, context.responseLanguage),
-    [context.checked, context.responseLanguage],
+    () => getTutorQuickPrompts(context.checked, conversationLanguage),
+    [context.checked, conversationLanguage],
   );
 
   useEffect(() => {
@@ -100,25 +107,54 @@ export function AiTutor({
   }, []);
 
   useEffect(() => {
+    if (workerConnected) return;
+    let active = true;
+    void ensurePuterReady().then((ready) => {
+      if (active) setPuterReady(ready);
+    });
+    return () => {
+      active = false;
+    };
+  }, [workerConnected]);
+
+  useEffect(() => {
+    if (questionRef.current === context.questionId) return;
+    questionRef.current = context.questionId;
+    checkedRef.current = context.checked;
+    languageRef.current = context.responseLanguage;
+    const timer = window.setTimeout(() => {
+      setConversationLanguage(context.responseLanguage);
+      setMessages([
+        assistantMessage(
+          getTutorStarterMessage(context.checked, context.responseLanguage),
+        ),
+      ]);
+      setInput('');
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [context.checked, context.questionId, context.responseLanguage]);
+
+  useEffect(() => {
     if (checkedRef.current || !context.checked) return;
     checkedRef.current = true;
     const timer = window.setTimeout(() => {
       setMessages((previous) => [
         ...previous,
         assistantMessage(
-          context.responseLanguage === 'ar-EG'
+          conversationLanguage === 'ar-EG'
             ? 'تمام، النتيجة ظهرت دلوقتي والإجابة المعتمدة بقت متاحة ليا. اسألني عن سبب الصح والغلط أو أي اختيار مش واضح.'
             : 'Your result is available now, so I can use the verified answer. Ask me why it is right or wrong, or about any unclear choice.',
         ),
       ]);
     }, 0);
     return () => window.clearTimeout(timer);
-  }, [context.checked, context.responseLanguage]);
+  }, [context.checked, conversationLanguage]);
 
   useEffect(() => {
     if (languageRef.current === context.responseLanguage) return;
     languageRef.current = context.responseLanguage;
     const timer = window.setTimeout(() => {
+      setConversationLanguage(context.responseLanguage);
       setMessages((previous) => {
         if (previous.some((message) => message.role === 'user'))
           return previous;
@@ -214,11 +250,14 @@ export function AiTutor({
         getTutorStarterMessage(context.checked, context.responseLanguage),
       ),
     ]);
+    setConversationLanguage(context.responseLanguage);
   }
 
   async function sendMessage(text = input) {
     const clean = text.trim().slice(0, 1000);
     if (!clean || sending || !canChat) return;
+    const messageLanguage = detectTutorLanguage(clean, conversationLanguage);
+    setConversationLanguage(messageLanguage);
     let usage = { allowed: true, remaining };
     try {
       usage = consumeDailyTutorMessage(localStorage);
@@ -246,12 +285,30 @@ export function AiTutor({
     setSending(true);
     try {
       let reply: string;
-      if (!connected) {
-        await new Promise((resolve) => window.setTimeout(resolve, 350));
-        reply = buildLocalTutorReply(context, clean);
+      const requestContext = {
+        ...resolveImageUrls(context),
+        responseLanguage: messageLanguage,
+      };
+      if (!workerConnected) {
+        const request: TutorChatRequest = {
+          context: requestContext,
+          messages: history.map(({ role, content }) => ({ role, content })),
+        };
+        try {
+          reply = (await chatWithPuter(request)).reply;
+          setPuterReady(true);
+        } catch (error) {
+          setPuterReady(false);
+          const fallback = buildLocalTutorReply(requestContext, clean);
+          const reason = readError(error);
+          reply =
+            messageLanguage === 'ar-EG'
+              ? `${fallback}\n\nملاحظة: الرد المباشر بالـAI مش متاح دلوقتي (${reason})، فده شرح احتياطي من الموقع.`
+              : `${fallback}\n\nNote: live AI is unavailable right now (${reason}), so this is the site's built-in explanation.`;
+        }
       } else if (session) {
         const request: TutorChatRequest = {
-          context: resolveImageUrls(context),
+          context: requestContext,
           messages: history.map(({ role, content }) => ({ role, content })),
         };
         const result = await chatWithRefresh(request, session, setSession);
@@ -264,10 +321,9 @@ export function AiTutor({
       setMessages((previous) => [
         ...previous,
         assistantMessage(
-          tx(
-            `Connection problem: ${readError(error)} Please try again in a moment.`,
-            `حصلت مشكلة في الاتصال: ${readError(error)} جرّب تاني بعد لحظة.`,
-          ),
+          messageLanguage === 'ar-EG'
+            ? `حصلت مشكلة في الاتصال: ${readError(error)} جرّب تاني بعد لحظة.`
+            : `Connection problem: ${readError(error)} Please try again in a moment.`,
         ),
       ]);
     } finally {
@@ -306,10 +362,16 @@ export function AiTutor({
               <div className="min-w-0">
                 <SheetTitle className="flex flex-wrap items-center gap-2 text-lg">
                   PL-300 AI Tutor
-                  <Badge variant={connected ? 'default' : 'secondary'}>
-                    {connected
+                  <Badge
+                    variant={
+                      workerConnected || puterReady ? 'default' : 'secondary'
+                    }
+                  >
+                    {workerConnected
                       ? tx('Connected', 'متصل')
-                      : tx('Local demo', 'تجربة محلية')}
+                      : puterReady
+                        ? tx('AI ready', 'الـAI جاهز')
+                        : tx('Loading AI', 'بيحمّل الـAI')}
                   </Badge>
                 </SheetTitle>
                 <SheetDescription className="mt-1 truncate">
@@ -323,7 +385,7 @@ export function AiTutor({
             <div className="grid flex-1 place-items-center">
               <LoaderCircle className="size-7 animate-spin text-primary" />
             </div>
-          ) : connected && !session ? (
+          ) : workerConnected && !session ? (
             <div
               className="flex-1 overflow-y-auto p-5"
               lang={isArabic ? 'ar-EG' : 'en'}
@@ -406,10 +468,18 @@ export function AiTutor({
                       <UserRound className="size-3.5 shrink-0" />
                       <span className="truncate">{session.email}</span>
                     </>
-                  ) : (
+                  ) : workerConnected ? (
                     <>
                       <Lightbulb className="size-3.5" />{' '}
                       {tx('Preview without cloud AI', 'تجربة بدون AI سحابي')}
+                    </>
+                  ) : (
+                    <>
+                      <BrainCircuit className="size-3.5" />{' '}
+                      {tx(
+                        'Free AI · Puter may ask you to sign in once',
+                        'AI مجاني · ممكن يطلب تسجيل دخول Puter مرة واحدة',
+                      )}
                     </>
                   )}
                 </span>

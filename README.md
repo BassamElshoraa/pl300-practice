@@ -11,7 +11,7 @@ A responsive, browser-based practice environment for the **Microsoft PL-300: Pow
 
 **Short GitHub Pages link:** [bassamelshoraa.github.io/pl300-practice](https://bassamelshoraa.github.io/pl300-practice/)
 
-Core practice requires no registration. The learner name, active session, attempt history, progress analytics, and selected theme are stored locally in the browser. The optional connected AI Tutor uses a free learner account to protect the shared service from abuse.
+Core practice requires no registration. The learner name, active session, attempt history, progress analytics, and selected theme are stored locally in the browser. The AI Tutor uses Puter's user-pays model, so learners can start with a free allowance and the project does not expose or fund a shared API key.
 
 ## What is included
 
@@ -70,8 +70,9 @@ Visual items are separated from automatically graded items because their answers
 - Vinext / Vite static export
 - Tailwind CSS and shadcn-based UI components
 - Lucide icons
+- Puter.js for browser-based AI chat without project API keys
 - Cloudflare-compatible OpenAI Sites deployment
-- Cloudflare Workers AI gateway with Supabase email authentication
+- Optional Cloudflare Workers AI gateway with Supabase email authentication
 - GitHub Actions deployment to GitHub Pages
 
 ## Run locally
@@ -100,15 +101,17 @@ npm run build
 
 The QA scripts check question integrity, correct-answer indexes, mock composition, asset references, complete-bank coverage, local-state migration, backup export/import and merge behavior, save/load round trips, mastery-state transitions, topic coverage, option-explanation alignment with the answer key, AI answer-key gating and usage limits, and every downloadable PDF's header, size, checksum, and uniqueness.
 
-## Optional connected AI Tutor
+## AI Tutor
 
-Without configuration, the tutor runs as a deterministic local preview so the full interface and answer-gating behavior can be reviewed without accounts or API keys. To enable real conversational AI:
+The static site uses Puter.js for live conversational AI without a project API key. Puter may ask the learner to sign in the first time they send a message; usage is then associated with that learner's Puter allowance. The tutor follows the language of the learner's latest message, keeps follow-up turns attached to the current question, and resets its context when the learner moves to another question.
+
+An optional self-managed gateway is also included:
 
 1. Create a Supabase project with Email/Password authentication.
 2. Follow [`ai-tutor-worker/README.md`](ai-tutor-worker/README.md) to configure and deploy the Cloudflare Worker.
 3. Copy `.env.example` to `.env.local`, replace the Worker URL, then rebuild the static site.
 
-The answer key and official answer image are never sent to the AI before the learner presses **Check Answer**. The Worker stores no chat transcript.
+The answer key and official answer image are not included in the tutor context before the learner presses **Check Answer**. The optional Worker stores no chat transcript.
 
 ## GitHub Pages deployment
 
