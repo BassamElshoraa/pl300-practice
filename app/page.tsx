@@ -3853,14 +3853,15 @@ function Header({
       : homeAriaLabel;
   const brand = (
     <>
-      <div className="relative grid size-11 place-items-center overflow-hidden rounded-2xl bg-[#111c33] font-semibold text-white shadow-[0_8px_20px_rgba(17,28,51,0.18)] transition-transform group-hover:-translate-y-0.5">
-        <span className="absolute right-1.5 bottom-1.5 flex items-end gap-0.5 opacity-90">
-          <i className="h-2 w-1 rounded-full bg-[#f2c811]" />
-          <i className="h-3.5 w-1 rounded-full bg-[#f2c811]" />
-          <i className="h-5 w-1 rounded-full bg-[#f2c811]" />
-        </span>
-        <span className="relative -translate-x-1 text-xs">P3</span>
-      </div>
+      <Image
+        src={publicAsset('/favicon.svg')}
+        alt={tx('PL-300 Practice Exam logo', 'لوجو محاكي امتحان PL-300')}
+        width={44}
+        height={44}
+        priority
+        unoptimized
+        className="size-11 shrink-0 drop-shadow-[0_8px_16px_rgba(17,28,51,0.2)] transition-transform group-hover:-translate-y-0.5 group-hover:scale-[1.03]"
+      />
       <div>
         <p className="font-semibold leading-none">
           {tx('PL-300 Practice Exam', 'محاكي امتحان PL-300')}
