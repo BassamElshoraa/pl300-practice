@@ -224,7 +224,7 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
 }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
-const APP_VERSION = '2.3.0';
+const APP_VERSION = '2.4.0';
 const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const questionById = new Map(
   questions.map((question) => [question.id, question]),
@@ -1290,7 +1290,7 @@ function HomeScreen({
         setDark={setDark}
         learnerName={learnerName}
       />
-      <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-8 lg:py-9">
+      <section className="home-stage mx-auto max-w-[1500px] px-4 py-6 sm:px-8 lg:py-9">
         <div className="home-hero rounded-[1.75rem] px-6 py-8 text-white sm:px-10 sm:py-10">
           <div className="relative z-10 grid items-end gap-8 lg:grid-cols-[1fr_auto]">
             <div>
@@ -1318,7 +1318,7 @@ function HomeScreen({
             <div className="flex flex-wrap gap-3 lg:justify-end">
               <Button
                 size="lg"
-                className="bg-[#f4cf2f] text-[#111c33] shadow-none hover:bg-[#ffe16b]"
+                className="border border-[#ffe77a]/70 bg-[#f4cf2f] text-[#111c33] shadow-[0_12px_28px_rgba(244,207,47,0.22)] hover:bg-[#ffe16b]"
                 onClick={() => openSetup(1)}
               >
                 <GraduationCap className="size-4" />{' '}
@@ -1339,7 +1339,7 @@ function HomeScreen({
 
         <nav
           aria-label={tx('Study tools', 'أدوات المذاكرة')}
-          className="command-bar relative z-10 -mt-3 flex overflow-x-auto rounded-2xl border bg-card p-2 sm:mx-5"
+          className="command-bar relative z-10 -mt-3 flex overflow-x-auto rounded-2xl border p-2 sm:mx-5"
         >
           <button
             type="button"
@@ -1459,10 +1459,10 @@ function HomeScreen({
           </button>
         </nav>
 
-        <div className="mt-9 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px] xl:gap-10">
           <div>
             {saved && (
-              <Card className="mb-7 overflow-hidden rounded-2xl border-primary/25 bg-primary text-primary-foreground shadow-[0_16px_35px_rgba(20,108,218,0.18)]">
+              <Card className="mb-8 overflow-hidden rounded-2xl border-primary/25 bg-primary text-primary-foreground shadow-[0_18px_42px_rgba(20,108,218,0.2)]">
                 <CardContent className="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
                   <div className="flex items-center gap-4">
                     <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-white/15">
@@ -1498,12 +1498,126 @@ function HomeScreen({
               </Card>
             )}
 
+            <section className="mb-11">
+              <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <p className="section-kicker">
+                    {tx('Monthly dump practice', 'ممارسة الدامبات بالشهور')}
+                  </p>
+                  <h2 className="mt-2 text-2xl font-bold tracking-tight">
+                    {tx(
+                      'Practice the latest source collections',
+                      'ذاكر أحدث مجموعات الأسئلة',
+                    )}
+                  </h2>
+                </div>
+                <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+                  {tx(
+                    'Each month stays separate, so future updates can be added without changing earlier practice sets.',
+                    'كل شهر مستقل، عشان نقدر نضيف تحديثات جديدة بعدين من غير ما نغيّر مجموعات الشهور القديمة.',
+                  )}
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                {dumpPracticeCollections.map((collection) => (
+                  <Card
+                    key={collection.id}
+                    className="dump-feature-card rounded-[1.5rem]"
+                  >
+                    <CardContent className="p-0">
+                      <div className="grid lg:grid-cols-[minmax(0,1fr)_auto]">
+                        <div className="p-5 sm:p-7">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Badge className="rounded-lg bg-[#111c33] px-3 py-1 text-[#f4cf2f] shadow-none hover:bg-[#111c33]">
+                              {language === 'ar'
+                                ? collection.monthLabelAr
+                                : collection.monthLabel}
+                            </Badge>
+                            <Badge
+                              variant="secondary"
+                              className="rounded-lg px-3 py-1"
+                            >
+                              {tx('Practice only', 'تدريب فقط')}
+                            </Badge>
+                          </div>
+                          <div className="mt-5 flex items-start gap-4">
+                            <span className="grid size-12 shrink-0 place-items-center rounded-2xl border border-primary/15 bg-primary/10 text-primary shadow-sm">
+                              <FileCheck2 className="size-6" />
+                            </span>
+                            <div>
+                              <h3 className="text-lg font-bold sm:text-xl">
+                                {language === 'ar'
+                                  ? collection.titleAr
+                                  : collection.title}
+                              </h3>
+                              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-muted-foreground">
+                                {tx(
+                                  `All ${collection.questionIds.length} unique questions from the latest two August source files in one continuous, untimed practice session.`,
+                                  `كل الـ${collection.questionIds.length} سؤال الفريدين من أحدث ملفين لشهر أغسطس في جلسة تدريب واحدة، من غير وقت.`,
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                            {collection.sourceFiles.map((sourceFile) => (
+                              <span
+                                key={sourceFile}
+                                className="rounded-lg border bg-card/65 px-3 py-2"
+                              >
+                                {sourceFile}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="dump-feature-aside flex min-w-[260px] flex-col justify-between gap-5 border-t p-5 sm:p-7 lg:border-s lg:border-t-0">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="metric-tile rounded-2xl border p-4">
+                              <p className="text-2xl font-bold text-primary">
+                                {collection.questionIds.length}
+                              </p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                {tx('Unique questions', 'سؤال فريد')}
+                              </p>
+                            </div>
+                            <div className="metric-tile rounded-2xl border p-4">
+                              <p className="text-2xl font-bold text-primary">
+                                {collection.sourceFiles.length}
+                              </p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                {tx('Source files', 'ملفات مصدر')}
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            size="lg"
+                            className="w-full"
+                            onClick={() => openDumpPractice(collection)}
+                          >
+                            <GraduationCap className="size-4" />
+                            {tx(
+                              `Practice all ${collection.questionIds.length}`,
+                              `ذاكر الـ${collection.questionIds.length} سؤال`,
+                            )}
+                            <ArrowRight
+                              className={`size-4 ${language === 'ar' ? 'rotate-180' : ''}`}
+                            />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
             <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                <p className="section-kicker">
                   {tx('Exam simulations', 'محاكاة الامتحان')}
                 </p>
-                <h2 className="mt-1 text-2xl font-bold tracking-tight">
+                <h2 className="mt-2 text-2xl font-bold tracking-tight">
                   {tx('Choose your mock', 'اختار النموذج')}
                 </h2>
               </div>
@@ -1519,7 +1633,7 @@ function HomeScreen({
               {modelCards.map((item) => (
                 <Card
                   key={item.id}
-                  className="session-card rounded-2xl bg-card"
+                  className="session-card rounded-[1.35rem] bg-card"
                 >
                   <CardContent className="p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-4">
@@ -1560,121 +1674,7 @@ function HomeScreen({
               ))}
             </div>
 
-            <section className="mt-11 border-t pt-8">
-              <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-                    {tx('Monthly dump practice', 'ممارسة الدامبات بالشهور')}
-                  </p>
-                  <h2 className="mt-1 text-xl font-semibold tracking-tight">
-                    {tx(
-                      'Practice the latest source collections',
-                      'ذاكر أحدث مجموعات الأسئلة',
-                    )}
-                  </h2>
-                </div>
-                <p className="max-w-xl text-sm text-muted-foreground">
-                  {tx(
-                    'Each month stays separate, so future updates can be added without changing earlier practice sets.',
-                    'كل شهر مستقل، عشان نقدر نضيف تحديثات جديدة بعدين من غير ما نغيّر مجموعات الشهور القديمة.',
-                  )}
-                </p>
-              </div>
-
-              <div className="grid gap-4">
-                {dumpPracticeCollections.map((collection) => (
-                  <Card
-                    key={collection.id}
-                    className="overflow-hidden rounded-2xl border-primary/20 bg-card shadow-[0_16px_40px_rgba(20,108,218,0.09)]"
-                  >
-                    <CardContent className="p-0">
-                      <div className="grid lg:grid-cols-[minmax(0,1fr)_auto]">
-                        <div className="p-5 sm:p-7">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <Badge className="rounded-lg bg-[#111c33] px-3 py-1 text-[#f4cf2f] shadow-none hover:bg-[#111c33]">
-                              {language === 'ar'
-                                ? collection.monthLabelAr
-                                : collection.monthLabel}
-                            </Badge>
-                            <Badge
-                              variant="secondary"
-                              className="rounded-lg px-3 py-1"
-                            >
-                              {tx('Practice only', 'تدريب فقط')}
-                            </Badge>
-                          </div>
-                          <div className="mt-4 flex items-start gap-4">
-                            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
-                              <FileCheck2 className="size-6" />
-                            </span>
-                            <div>
-                              <h3 className="text-lg font-bold sm:text-xl">
-                                {language === 'ar'
-                                  ? collection.titleAr
-                                  : collection.title}
-                              </h3>
-                              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-muted-foreground">
-                                {tx(
-                                  `All ${collection.questionIds.length} unique questions from the latest two August source files in one continuous, untimed practice session.`,
-                                  `كل الـ${collection.questionIds.length} سؤال الفريدين من أحدث ملفين لشهر أغسطس في جلسة تدريب واحدة، من غير وقت.`,
-                                )}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                            {collection.sourceFiles.map((sourceFile) => (
-                              <span
-                                key={sourceFile}
-                                className="rounded-lg border bg-muted/35 px-3 py-2"
-                              >
-                                {sourceFile}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="flex min-w-[260px] flex-col justify-between gap-5 border-t bg-muted/25 p-5 sm:p-7 lg:border-s lg:border-t-0">
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="rounded-2xl border bg-card p-4">
-                              <p className="text-2xl font-bold text-primary">
-                                {collection.questionIds.length}
-                              </p>
-                              <p className="mt-1 text-[11px] text-muted-foreground">
-                                {tx('Unique questions', 'سؤال فريد')}
-                              </p>
-                            </div>
-                            <div className="rounded-2xl border bg-card p-4">
-                              <p className="text-2xl font-bold text-primary">
-                                {collection.sourceFiles.length}
-                              </p>
-                              <p className="mt-1 text-[11px] text-muted-foreground">
-                                {tx('Source files', 'ملفات مصدر')}
-                              </p>
-                            </div>
-                          </div>
-                          <Button
-                            size="lg"
-                            className="w-full"
-                            onClick={() => openDumpPractice(collection)}
-                          >
-                            <GraduationCap className="size-4" />
-                            {tx(
-                              `Practice all ${collection.questionIds.length}`,
-                              `ذاكر الـ${collection.questionIds.length} سؤال`,
-                            )}
-                            <ArrowRight
-                              className={`size-4 ${language === 'ar' ? 'rotate-180' : ''}`}
-                            />
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
-            <div className="mt-11 flex items-end justify-between gap-4 border-t pt-8">
+            <div className="home-divider mt-11 flex items-end justify-between gap-4 border-t pt-8">
               <div>
                 <h2 className="text-xl font-semibold">
                   {tx('Complete source bank', 'بنك الأسئلة كامل')}
@@ -1691,7 +1691,7 @@ function HomeScreen({
               {bankCards.map((item) => (
                 <Card
                   key={item.id}
-                  className="session-card rounded-2xl bg-card"
+                  className="session-card rounded-[1.35rem] bg-card"
                 >
                   <CardContent className="flex items-center justify-between gap-4 p-5">
                     <div>
@@ -1725,7 +1725,7 @@ function HomeScreen({
             </p>
           </div>
 
-          <Card className="h-fit rounded-2xl bg-[#111c33] text-white shadow-[0_18px_45px_rgba(17,28,51,0.16)] lg:sticky lg:top-24">
+          <Card className="exam-balance-card h-fit rounded-[1.5rem] text-white lg:sticky lg:top-24">
             <CardContent className="p-6 sm:p-7">
               <div className="flex items-center justify-between gap-4">
                 <span className="grid size-11 place-items-center rounded-2xl bg-white/10 text-[#f4cf2f]">
@@ -3882,7 +3882,7 @@ function Header({
           <button
             type="button"
             onClick={onHome}
-            className="group flex items-center gap-3 text-left"
+            className="brand-lockup group flex items-center gap-3 text-left"
             aria-label={tx(
               'Return to the home page and end the current session',
               'الرجوع للصفحة الرئيسية وإنهاء الجلسة الحالية',
@@ -3891,7 +3891,7 @@ function Header({
             {brand}
           </button>
         ) : (
-          <div className="group flex items-center gap-3">{brand}</div>
+          <div className="brand-lockup group flex items-center gap-3">{brand}</div>
         )}
         <div className="flex items-center gap-2">
           {learnerName && (
@@ -3910,7 +3910,7 @@ function Header({
               <span className="hidden sm:inline">{resolvedHomeLabel}</span>
             </Button>
           )}
-          <div className="flex h-10 items-center gap-2 rounded-xl border bg-muted/55 px-3 text-sm font-semibold tabular-nums">
+          <div className="header-control flex h-10 items-center gap-2 rounded-xl border px-3 text-sm font-semibold tabular-nums">
             <Clock3 className="size-4 text-primary" /> {time}
           </div>
           <Button
@@ -3921,7 +3921,7 @@ function Header({
             title={language === 'en' ? 'العربية' : 'English'}
             variant="outline"
             size="sm"
-            className="min-w-10 gap-1.5"
+            className="header-control min-w-10 gap-1.5"
             onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
           >
             <Languages className="size-4" />
@@ -3937,6 +3937,7 @@ function Header({
             }
             variant="outline"
             size="icon"
+            className="header-control"
             onClick={() => setDark(!dark)}
           >
             {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
@@ -5671,7 +5672,7 @@ function SiteFooter() {
 
   return (
     <>
-      <footer className="border-t bg-card/70">
+      <footer className="site-footer border-t">
         <div className="mx-auto flex max-w-[1500px] flex-col gap-3 px-4 py-7 text-sm text-muted-foreground sm:px-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <p>
@@ -5726,34 +5727,34 @@ function SiteFooter() {
             </DialogTitle>
             <DialogDescription>
               {tx(
-                'October 2, 2026 · Monthly dump practice update',
-                '2 أكتوبر 2026 · تحديث ممارسة الدامبات بالشهور',
+                'October 2, 2026 · Light and dark visual refresh',
+                '2 أكتوبر 2026 · تحديث الهوية البصرية في الوضعين الفاتح والغامق',
               )}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 text-sm leading-6">
             <ReleaseNote
               title={tx(
-                'August 2026 dump practice',
-                'ممارسة دامبات أغسطس 2026',
+                'Latest practice first',
+                'أحدث ممارسة في الأول',
               )}
               text={tx(
-                'A dedicated home-page area now combines all 509 unique questions from the latest two August source files in one collection.',
-                'جزء مستقل في الصفحة الرئيسية بيجمع كل الـ509 سؤال الفريدين من أحدث ملفين لشهر أغسطس في مجموعة واحدة.',
-              )}
-            />
-            <ReleaseNote
-              title={tx('Built for focused practice', 'مصمم للمذاكرة المركزة')}
-              text={tx(
-                'The monthly collection is practice-only and untimed, with instant checking, AI support, question navigation, and saved progress across all 509 questions.',
-                'المجموعة الشهرية تدريب فقط ومن غير وقت، مع تصحيح فوري ومساعدة الـAI والتنقل بين الأسئلة وحفظ التقدم في كل الـ509 سؤال.',
+                'The August 2026 collection now appears before the mock exams so students can reach the newest 509-question practice set immediately.',
+                'مجموعة أغسطس 2026 بقت قبل نماذج الامتحان عشان الطالب يوصل مباشرة لأحدث تدريب فيه 509 سؤال.',
               )}
             />
             <ReleaseNote
-              title={tx('Ready for future months', 'جاهز للشهور الجاية')}
+              title={tx('One visual system', 'هوية بصرية واحدة')}
               text={tx(
-                'Monthly collections are kept separate so new question sets can be added later without changing the existing mocks, bank parts, or earlier months.',
-                'كل شهر مستقل عشان نضيف مجموعات جديدة بعدين من غير ما نغيّر الموكات أو أجزاء البنك أو الشهور القديمة.',
+                'Surfaces, navigation, cards, buttons, spacing, and section hierarchy now share one clearer visual language across the site.',
+                'الخلفيات والتنقل والكروت والأزرار والمسافات وترتيب الأقسام بقوا ماشيين على لغة بصرية أوضح في كل الموقع.',
+              )}
+            />
+            <ReleaseNote
+              title={tx('Balanced light and dark modes', 'فاتح وغامق متوازنين')}
+              text={tx(
+                'Both themes keep the familiar navy, blue, and yellow palette with stronger contrast and calmer reading surfaces.',
+                'الوضعين حافظوا على الكحلي والأزرق والأصفر المعروفين، مع تباين أقوى وخلفيات أريح للقراءة.',
               )}
             />
           </div>
