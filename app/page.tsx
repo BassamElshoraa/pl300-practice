@@ -124,6 +124,7 @@ import { buildTutorContext } from '@/lib/ai-tutor';
 import { LanguageProvider, useLanguage } from '@/lib/i18n';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
+import { DUMP_PRACTICE_COLLECTIONS } from '@/lib/dump-practice';
 
 type Screen =
   | 'home'
@@ -165,6 +166,13 @@ const bankCards = [101, 102, 103, 104].map((id, index) => ({
   id,
   label: `Bank Part ${String(index + 1).padStart(2, '0')}`,
   count: buildExam(id).length,
+}));
+
+const dumpPracticeCollections = DUMP_PRACTICE_COLLECTIONS.map((collection) => ({
+  ...collection,
+  questionIds: questions
+    .filter((question) => collection.sourceKeys.includes(question.source))
+    .map((question) => question.id),
 }));
 
 const instructions: Record<Question['type'], string> = {
@@ -216,7 +224,7 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
 }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
-const APP_VERSION = '2.2.0';
+const APP_VERSION = '2.3.0';
 const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const questionById = new Map(
   questions.map((question) => [question.id, question]),
@@ -1200,7 +1208,12 @@ function HomeScreen({
   bookmarkCount: number;
   mistakeCount: number;
   onResume: () => void;
-  onStart: (model: number, mode: SessionMode, name: string) => void;
+  onStart: (
+    model: number,
+    mode: SessionMode,
+    name: string,
+    options?: { questionIds?: string[]; label?: string },
+  ) => void;
   onGuide: () => void;
   onProgress: () => void;
   onCustom: () => void;
@@ -1215,6 +1228,9 @@ function HomeScreen({
   const [renameOnly, setRenameOnly] = useState(false);
   const [setupName, setSetupName] = useState(learnerName);
   const [setupMode, setSetupMode] = useState<SessionMode>('exam');
+  const [setupQuestionIds, setSetupQuestionIds] = useState<string[]>([]);
+  const [setupLabel, setSetupLabel] = useState('');
+  const [practiceOnly, setPracticeOnly] = useState(false);
   const cleanSetupName = setupName.trim().replace(/\s+/g, ' ').slice(0, 60);
   const bestScore =
     attempts.length > 0
@@ -1224,20 +1240,45 @@ function HomeScreen({
   function openSetup(selectedModel: number) {
     setSetupName(learnerName);
     setSetupMode(selectedModel > 4 ? 'practice' : 'exam');
+    setSetupQuestionIds([]);
+    setSetupLabel('');
+    setPracticeOnly(false);
     setRenameOnly(false);
     setSetupModel(selectedModel);
+  }
+
+  function openDumpPractice(
+    collection: (typeof dumpPracticeCollections)[number],
+  ) {
+    setSetupName(learnerName);
+    setSetupMode('practice');
+    setSetupQuestionIds(collection.questionIds);
+    setSetupLabel(collection.sessionLabel);
+    setPracticeOnly(true);
+    setRenameOnly(false);
+    setSetupModel(collection.modelId);
   }
 
   function closeSetup() {
     setSetupModel(null);
     setRenameOnly(false);
+    setSetupQuestionIds([]);
+    setSetupLabel('');
+    setPracticeOnly(false);
   }
 
   function confirmSetup() {
     if (!cleanSetupName) return;
     if (renameOnly) onRename(cleanSetupName);
     else if (setupModel !== null)
-      onStart(setupModel, setupMode, cleanSetupName);
+      onStart(
+        setupModel,
+        practiceOnly ? 'practice' : setupMode,
+        cleanSetupName,
+        setupQuestionIds.length > 0
+          ? { questionIds: setupQuestionIds, label: setupLabel }
+          : undefined,
+      );
     closeSetup();
   }
 
@@ -1519,6 +1560,120 @@ function HomeScreen({
               ))}
             </div>
 
+            <section className="mt-11 border-t pt-8">
+              <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+                    {tx('Monthly dump practice', 'ممارسة الدامبات بالشهور')}
+                  </p>
+                  <h2 className="mt-1 text-xl font-semibold tracking-tight">
+                    {tx(
+                      'Practice the latest source collections',
+                      'ذاكر أحدث مجموعات الأسئلة',
+                    )}
+                  </h2>
+                </div>
+                <p className="max-w-xl text-sm text-muted-foreground">
+                  {tx(
+                    'Each month stays separate, so future updates can be added without changing earlier practice sets.',
+                    'كل شهر مستقل، عشان نقدر نضيف تحديثات جديدة بعدين من غير ما نغيّر مجموعات الشهور القديمة.',
+                  )}
+                </p>
+              </div>
+
+              <div className="grid gap-4">
+                {dumpPracticeCollections.map((collection) => (
+                  <Card
+                    key={collection.id}
+                    className="overflow-hidden rounded-2xl border-primary/20 bg-card shadow-[0_16px_40px_rgba(20,108,218,0.09)]"
+                  >
+                    <CardContent className="p-0">
+                      <div className="grid lg:grid-cols-[minmax(0,1fr)_auto]">
+                        <div className="p-5 sm:p-7">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <Badge className="rounded-lg bg-[#111c33] px-3 py-1 text-[#f4cf2f] shadow-none hover:bg-[#111c33]">
+                              {language === 'ar'
+                                ? collection.monthLabelAr
+                                : collection.monthLabel}
+                            </Badge>
+                            <Badge
+                              variant="secondary"
+                              className="rounded-lg px-3 py-1"
+                            >
+                              {tx('Practice only', 'تدريب فقط')}
+                            </Badge>
+                          </div>
+                          <div className="mt-4 flex items-start gap-4">
+                            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+                              <FileCheck2 className="size-6" />
+                            </span>
+                            <div>
+                              <h3 className="text-lg font-bold sm:text-xl">
+                                {language === 'ar'
+                                  ? collection.titleAr
+                                  : collection.title}
+                              </h3>
+                              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-muted-foreground">
+                                {tx(
+                                  `All ${collection.questionIds.length} unique questions from the latest two August source files in one continuous, untimed practice session.`,
+                                  `كل الـ${collection.questionIds.length} سؤال الفريدين من أحدث ملفين لشهر أغسطس في جلسة تدريب واحدة، من غير وقت.`,
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="mt-5 flex flex-wrap gap-2 text-xs text-muted-foreground">
+                            {collection.sourceFiles.map((sourceFile) => (
+                              <span
+                                key={sourceFile}
+                                className="rounded-lg border bg-muted/35 px-3 py-2"
+                              >
+                                {sourceFile}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex min-w-[260px] flex-col justify-between gap-5 border-t bg-muted/25 p-5 sm:p-7 lg:border-s lg:border-t-0">
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-2xl border bg-card p-4">
+                              <p className="text-2xl font-bold text-primary">
+                                {collection.questionIds.length}
+                              </p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                {tx('Unique questions', 'سؤال فريد')}
+                              </p>
+                            </div>
+                            <div className="rounded-2xl border bg-card p-4">
+                              <p className="text-2xl font-bold text-primary">
+                                {collection.sourceFiles.length}
+                              </p>
+                              <p className="mt-1 text-[11px] text-muted-foreground">
+                                {tx('Source files', 'ملفات مصدر')}
+                              </p>
+                            </div>
+                          </div>
+                          <Button
+                            size="lg"
+                            className="w-full"
+                            onClick={() => openDumpPractice(collection)}
+                          >
+                            <GraduationCap className="size-4" />
+                            {tx(
+                              `Practice all ${collection.questionIds.length}`,
+                              `ذاكر الـ${collection.questionIds.length} سؤال`,
+                            )}
+                            <ArrowRight
+                              className={`size-4 ${language === 'ar' ? 'rotate-180' : ''}`}
+                            />
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </section>
+
             <div className="mt-11 flex items-end justify-between gap-4 border-t pt-8">
               <div>
                 <h2 className="text-xl font-semibold">
@@ -1659,11 +1814,14 @@ function HomeScreen({
                 {learnerName && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setSetupName(learnerName);
-                      setSetupModel(null);
-                      setRenameOnly(true);
-                    }}
+                onClick={() => {
+                  setSetupName(learnerName);
+                  setSetupQuestionIds([]);
+                  setSetupLabel('');
+                  setPracticeOnly(false);
+                  setSetupModel(null);
+                  setRenameOnly(true);
+                }}
                     className="flex items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-semibold text-slate-300 transition hover:bg-white/8 hover:text-white"
                   >
                     {tx('Change learner name', 'غيّر اسم الطالب')}
@@ -1688,10 +1846,15 @@ function HomeScreen({
             <DialogTitle>
               {renameOnly
                 ? tx('Update learner name', 'تعديل اسم الطالب')
-                : tx(
-                    `Start ${setupModel !== null ? selectionLabel(setupModel) : 'session'}`,
-                    `ابدأ ${setupModel !== null ? selectionLabel(setupModel, language) : 'الجلسة'}`,
-                  )}
+                : setupLabel
+                  ? tx(
+                      `Start ${setupLabel}`,
+                      `ابدأ ${dumpPracticeCollections.find((item) => item.modelId === setupModel)?.titleAr ?? setupLabel}`,
+                    )
+                  : tx(
+                      `Start ${setupModel !== null ? selectionLabel(setupModel) : 'session'}`,
+                      `ابدأ ${setupModel !== null ? selectionLabel(setupModel, language) : 'الجلسة'}`,
+                    )}
             </DialogTitle>
             <DialogDescription>
               {renameOnly
@@ -1699,10 +1862,15 @@ function HomeScreen({
                     'Your saved attempts will stay exactly as they are.',
                     'كل محاولاتك المحفوظة هتفضل زي ما هي.',
                   )
-                : tx(
-                    'Add the learner name and choose how this attempt should run.',
-                    'اكتب اسم الطالب واختار طريقة تشغيل المحاولة.',
-                  )}
+                : practiceOnly
+                  ? tx(
+                      'This collection runs as untimed practice with instant checking, AI support, and saved progress.',
+                      'المجموعة دي بتشتغل كتدريب من غير وقت، مع تصحيح فوري ومساعدة الـAI وحفظ تقدمك.',
+                    )
+                  : tx(
+                      'Add the learner name and choose how this attempt should run.',
+                      'اكتب اسم الطالب واختار طريقة تشغيل المحاولة.',
+                    )}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-5 py-2">
@@ -1727,7 +1895,23 @@ function HomeScreen({
                 )}
               </p>
             </div>
-            {!renameOnly && (
+            {!renameOnly && practiceOnly && (
+              <div className="flex items-start gap-3 rounded-2xl border border-primary/25 bg-primary/5 p-4">
+                <GraduationCap className="mt-0.5 size-5 shrink-0 text-primary" />
+                <div>
+                  <p className="text-sm font-semibold">
+                    {tx('Practice mode', 'وضع التدريب')}
+                  </p>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                    {tx(
+                      `${setupQuestionIds.length} questions · no timer · instant feedback · progress saved on this device`,
+                      `${setupQuestionIds.length} سؤال · من غير وقت · تصحيح فوري · التقدم محفوظ على الجهاز ده`,
+                    )}
+                  </p>
+                </div>
+              </div>
+            )}
+            {!renameOnly && !practiceOnly && (
               <RadioGroup
                 value={setupMode}
                 onValueChange={(value) => setSetupMode(value as SessionMode)}
@@ -5541,31 +5725,34 @@ function SiteFooter() {
             </DialogTitle>
             <DialogDescription>
               {tx(
-                'September 8, 2026 · Bilingual study experience update',
-                '8 سبتمبر 2026 · تحديث تجربة المذاكرة ثنائية اللغة',
+                'October 2, 2026 · Monthly dump practice update',
+                '2 أكتوبر 2026 · تحديث ممارسة الدامبات بالشهور',
               )}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 text-sm leading-6">
             <ReleaseNote
-              title={tx('Bilingual interface', 'واجهة عربية وإنجليزية')}
+              title={tx(
+                'August 2026 dump practice',
+                'ممارسة دامبات أغسطس 2026',
+              )}
               text={tx(
-                'Switch the complete simulator between English and Arabic. The layout direction, navigation, feedback, guide, and AI Tutor move together while source questions remain in English.',
-                'بدّل المحاكي بالكامل بين العربي والإنجليزي. اتجاه الواجهة والتنقل والتصحيح والدليل ومدرس الـAI بيتغيروا مع بعض، والأسئلة الأصلية بتفضل بالإنجليزي.',
+                'A dedicated home-page area now combines all 509 unique questions from the latest two August source files in one collection.',
+                'جزء مستقل في الصفحة الرئيسية بيجمع كل الـ509 سؤال الفريدين من أحدث ملفين لشهر أغسطس في مجموعة واحدة.',
               )}
             />
             <ReleaseNote
-              title={tx('AI-powered explanations', 'شرح معتمد على الـAI')}
+              title={tx('Built for focused practice', 'مصمم للمذاكرة المركزة')}
               text={tx(
-                'Simple explanations and option-by-option analysis now use the connected AI service when available, with a reliable built-in fallback when it is not.',
-                'شرح المبتدئين وتحليل كل اختيار بيستخدموا خدمة الـAI المتصلة عند توفرها، ومعاهم شرح احتياطي مدمج لو الخدمة مش متاحة.',
+                'The monthly collection is practice-only and untimed, with instant checking, AI support, question navigation, and saved progress across all 509 questions.',
+                'المجموعة الشهرية تدريب فقط ومن غير وقت، مع تصحيح فوري ومساعدة الـAI والتنقل بين الأسئلة وحفظ التقدم في كل الـ509 سؤال.',
               )}
             />
             <ReleaseNote
-              title={tx('A calmer study workspace', 'مساحة مذاكرة أهدى')}
+              title={tx('Ready for future months', 'جاهز للشهور الجاية')}
               text={tx(
-                'A more polished Microsoft-inspired visual system improves hierarchy, reading comfort, focus states, and the AI Tutor entry point without changing exam structure.',
-                'نظام بصري أهدى وأقرب لأسلوب Microsoft حسّن ترتيب العناصر وراحة القراءة والتركيز وأيقونة مدرس الـAI من غير تغيير تقسيم الامتحان.',
+                'Monthly collections are kept separate so new question sets can be added later without changing the existing mocks, bank parts, or earlier months.',
+                'كل شهر مستقل عشان نضيف مجموعات جديدة بعدين من غير ما نغيّر الموكات أو أجزاء البنك أو الشهور القديمة.',
               )}
             />
           </div>

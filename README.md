@@ -18,6 +18,7 @@ Core practice requires no registration. The learner name, active session, attemp
 - **509 source questions** from the two owner-supplied collections; one empty vendor placeholder was excluded.
 - **Four 50-question mock exams**, each with a 100-minute timer and balanced skill-area coverage.
 - **Four non-overlapping bank parts** for working through the complete source collection.
+- A dedicated **monthly dump-practice area**, starting with one untimed August 2026 session containing all 509 unique questions from the latest two source files; the structure is ready for future months.
 - Single-choice, multiple-response, matching, hotspot, and visual answer-area interactions from the supplied bank. The interaction engine also supports ordering/drag-and-drop-style questions when future source items include them.
 - **324 automatically graded questions** and **185 visual/manual-review questions**.
 - Source exhibits and tables displayed with the questions that reference them.
@@ -40,10 +41,11 @@ Core practice requires no registration. The learner name, active session, attemp
 
 ## Practice structure
 
-| Session         |    Questions | Practice mode             | Exam mode                                         |
-| --------------- | -----------: | ------------------------- | ------------------------------------------------- |
-| Mock 01–04      |      50 each | Untimed, instant feedback | 100 minutes, feedback after submission            |
-| Bank Part 01–04 | 127–128 each | Untimed, instant feedback | 2 minutes per question, feedback after submission |
+| Session                   |    Questions | Practice mode             | Exam mode                                         |
+| ------------------------- | -----------: | ------------------------- | ------------------------------------------------- |
+| Mock 01–04                |      50 each | Untimed, instant feedback | 100 minutes, feedback after submission            |
+| Bank Part 01–04           | 127–128 each | Untimed, instant feedback | 2 minutes per question, feedback after submission |
+| August 2026 dump practice |          509 | Untimed, instant feedback | Practice only                                     |
 
 The mock-exam builder targets the four PL-300 skill areas used by the simulator:
 
@@ -95,11 +97,12 @@ npm run qa:state
 npm run qa:learning
 npm run qa:downloads
 npm run qa:ai
+npm run qa:dumps
 npm run qa:all
 npm run build
 ```
 
-The QA scripts check question integrity, correct-answer indexes, mock composition, asset references, complete-bank coverage, local-state migration, backup export/import and merge behavior, save/load round trips, mastery-state transitions, topic coverage, option-explanation alignment with the answer key, AI answer-key gating and usage limits, and every downloadable PDF's header, size, checksum, and uniqueness.
+The QA scripts check question integrity, correct-answer indexes, mock composition, asset references, complete-bank and monthly-dump coverage, local-state migration, backup export/import and merge behavior, save/load round trips, mastery-state transitions, topic coverage, option-explanation alignment with the answer key, AI answer-key gating and usage limits, and every downloadable PDF's header, size, checksum, and uniqueness.
 
 ## AI Tutor
 

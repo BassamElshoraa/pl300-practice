@@ -16,7 +16,8 @@
     "qa:downloads": "node --experimental-strip-types scripts/downloads-qa.mjs",
     "qa:ai": "node --experimental-strip-types scripts/ai-tutor-qa.mjs",
     "qa:interactions": "node scripts/interaction-qa.mjs",
-    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:downloads && npm run qa:ai && npm run qa:interactions",
+    "qa:dumps": "node --experimental-strip-types scripts/dump-practice-qa.mjs",
+    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:downloads && npm run qa:ai && npm run qa:interactions && npm run qa:dumps",
     "ai:dev": "wrangler dev --config ai-tutor-worker/wrangler.jsonc",
     "ai:deploy": "wrangler deploy --config ai-tutor-worker/wrangler.jsonc",
     "format": "oxfmt"
