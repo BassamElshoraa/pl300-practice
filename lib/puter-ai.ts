@@ -16,6 +16,14 @@ type PuterSdk = {
   };
 };
 
+export const PUTER_TUTOR_MODELS = [
+  'openrouter:qwen/qwen3.8-27b:free',
+  'infron:deepseek/deepseek-v4-flash:free',
+  'gpt-5-nano',
+] as const;
+
+export const PUTER_TUTOR_MAX_TOKENS = 750;
+
 declare global {
   interface Window {
     puter?: PuterSdk;
@@ -86,19 +94,38 @@ export async function chatWithPuter(request: TutorChatRequest) {
     request.context,
     latestUserMessage,
   );
-  const response = await withTimeout(
-    chat([{ role: 'system', content: systemPrompt }, ...request.messages]),
-    45_000,
-    request.context.responseLanguage,
+  const messages = [
+    { role: 'system', content: systemPrompt },
+    ...request.messages,
+  ];
+  let lastError: unknown;
+
+  for (const model of PUTER_TUTOR_MODELS) {
+    try {
+      const response = await withTimeout(
+        chat(messages, {
+          model,
+          max_tokens: PUTER_TUTOR_MAX_TOKENS,
+          temperature: 0.35,
+          normalize: true,
+        }),
+        25_000,
+        request.context.responseLanguage,
+      );
+      const reply = extractPuterReply(response);
+      if (reply) return { reply, model };
+      lastError = new Error(`The ${model} model returned an empty reply.`);
+    } catch (error) {
+      lastError = error;
+    }
+  }
+
+  throw new Error(
+    request.context.responseLanguage === 'ar-EG'
+      ? 'الموديلات المجانية مش متاحة دلوقتي. استنى دقيقة وجرّب تاني.'
+      : 'The free AI models are temporarily unavailable. Wait a minute and try again.',
+    { cause: lastError },
   );
-  const reply = extractPuterReply(response);
-  if (!reply)
-    throw new Error(
-      request.context.responseLanguage === 'ar-EG'
-        ? 'الـAI رجّع رد فاضي. جرّب تبعت السؤال تاني.'
-        : 'The AI returned an empty reply. Please send the message again.',
-    );
-  return { reply };
 }
 
 function withTimeout<T>(

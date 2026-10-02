@@ -18,7 +18,12 @@ import {
   detectTutorIntent as detectWorkerTutorIntent,
   detectTutorLanguage as detectWorkerTutorLanguage,
 } from '../ai-tutor-worker/src/index.ts';
-import { chatWithPuter, signInToPuter } from '../lib/puter-ai.ts';
+import {
+  PUTER_TUTOR_MAX_TOKENS,
+  PUTER_TUTOR_MODELS,
+  chatWithPuter,
+  signInToPuter,
+} from '../lib/puter-ai.ts';
 import { questions } from '../lib/questions.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
@@ -103,6 +108,7 @@ assert.match(workerPrompt, /latest learner intent is: teach/);
 assert.match(workerPrompt, /Do not lead with an answer dump/);
 
 let puterMessages = [];
+const puterAttempts = [];
 let puterSignedIn = false;
 globalThis.window = {
   puter: {
@@ -114,8 +120,11 @@ globalThis.window = {
       },
     },
     ai: {
-      chat: async (messages) => {
+      chat: async (messages, options) => {
         puterMessages = messages;
+        puterAttempts.push(options);
+        if (puterAttempts.length < PUTER_TUTOR_MODELS.length)
+          throw new Error('Simulated free-model quota limit.');
         return { message: { content: 'شرح مصري تجريبي' } };
       },
     },
@@ -128,8 +137,21 @@ const puterReply = await chatWithPuter({
   messages: [{ role: 'user', content: 'فهمني السؤال' }],
 });
 assert.equal(puterReply.reply, 'شرح مصري تجريبي');
+assert.equal(puterReply.model, PUTER_TUTOR_MODELS.at(-1));
 assert.equal(puterMessages[0].role, 'system');
 assert.match(puterMessages[0].content, /latest learner intent is: teach/);
+assert.deepEqual(
+  puterAttempts.map((attempt) => attempt.model),
+  PUTER_TUTOR_MODELS,
+);
+assert.ok(
+  puterAttempts.every(
+    (attempt) =>
+      attempt.max_tokens === PUTER_TUTOR_MAX_TOKENS &&
+      attempt.temperature === 0.35 &&
+      attempt.normalize === true,
+  ),
+);
 delete globalThis.window;
 
 assert.equal(getTutorQuickPrompts(false).length, 3);

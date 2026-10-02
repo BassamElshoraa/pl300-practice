@@ -103,7 +103,7 @@ The QA scripts check question integrity, correct-answer indexes, mock compositio
 
 ## AI Tutor
 
-The static site uses Puter.js for live conversational AI without a project API key. Puter may ask the learner to sign in the first time they send a message; usage is then associated with that learner's Puter allowance. The tutor follows the language of the learner's latest message, keeps follow-up turns attached to the current question, and resets its context when the learner moves to another question.
+The static site uses Puter.js for live conversational AI without a project API key. Puter may ask the learner to sign in the first time they send a message; usage is then associated with that learner's Puter allowance. To stretch free access and avoid a single-model outage, the tutor tries Qwen 3.8 27B Free, then DeepSeek V4 Flash Free, and finally GPT-5 Nano. Replies are capped at 750 output tokens. The tutor follows the language of the learner's latest message, keeps follow-up turns attached to the current question, and resets its context when the learner moves to another question.
 
 An optional self-managed gateway is also included:
 
