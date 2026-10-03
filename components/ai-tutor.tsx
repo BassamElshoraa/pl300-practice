@@ -45,6 +45,7 @@ import {
   isPuterSignedIn,
   signInToPuter,
 } from '@/lib/puter-ai';
+import { trackAnalyticsEvent } from '@/lib/analytics';
 
 const apiUrl = (process.env.NEXT_PUBLIC_AI_TUTOR_API_URL ?? '').replace(
   /\/$/,
@@ -289,6 +290,11 @@ export function AiTutor({
     const clean = text.trim().slice(0, 1000);
     if (!clean || sending || !canChat) return;
     const messageLanguage = detectTutorLanguage(clean, conversationLanguage);
+    trackAnalyticsEvent('pl300_ai_tutor_message_sent', {
+      language: messageLanguage,
+      answer_checked: context.checked,
+      provider: workerConnected ? 'worker' : 'puter',
+    });
     setConversationLanguage(messageLanguage);
     let usage = { allowed: true, remaining };
     try {
@@ -369,7 +375,13 @@ export function AiTutor({
         type="button"
         size="lg"
         className={`group fixed bottom-4 z-40 h-14 rounded-full border border-white/20 bg-[#172033] px-3 pr-5 text-white shadow-[0_16px_40px_rgba(23,32,51,0.28)] hover:bg-[#22304a] sm:bottom-6 ${isArabic ? 'left-4 sm:left-6' : 'right-4 sm:right-6'}`}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          trackAnalyticsEvent('pl300_ai_tutor_opened', {
+            language: conversationLanguage,
+            answer_checked: context.checked,
+          });
+          setOpen(true);
+        }}
         aria-label={tx(
           'Open AI tutor for the current question',
           'افتح مدرس الذكاء الاصطناعي للسؤال الحالي',

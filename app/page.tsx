@@ -125,6 +125,10 @@ import { LanguageProvider, useLanguage } from '@/lib/i18n';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import { DUMP_PRACTICE_COLLECTIONS } from '@/lib/dump-practice';
+import {
+  analyticsSessionType,
+  trackAnalyticsEvent,
+} from '@/lib/analytics';
 
 type Screen =
   | 'home'
@@ -363,6 +367,12 @@ function Simulator() {
     );
     setSubmitOpen(false);
     setSaved(null);
+    trackAnalyticsEvent('pl300_session_completed', {
+      mode: sessionMode,
+      session_type: analyticsSessionType(model, questionIds.length > 0),
+      question_count: exam.length,
+      duration_seconds: elapsed,
+    });
     setScreen('results');
   }, [
     answers,
@@ -371,6 +381,7 @@ function Simulator() {
     currentSessionLabel,
     learnerName,
     model,
+    questionIds.length,
     score,
     screen,
     sessionMode,
@@ -610,6 +621,11 @@ function Simulator() {
           startedAt: now,
           updatedAt: now,
         });
+        trackAnalyticsEvent('pl300_session_started', {
+          mode: 'exam',
+          session_type: 'mock_exam',
+          question_count: count,
+        });
         beginSession();
         setScreen('exam');
         return {
@@ -670,6 +686,15 @@ function Simulator() {
       startedAt: now,
       updatedAt: now,
     });
+    trackAnalyticsEvent('pl300_session_started', {
+      mode: selectedMode,
+      session_type: analyticsSessionType(
+        selectedModel,
+        selectedQuestionIds.length > 0,
+      ),
+      question_count:
+        selectedQuestionIds.length || buildExam(selectedModel).length,
+    });
     beginSession();
     setScreen('exam');
   }
@@ -688,6 +713,15 @@ function Simulator() {
     setSessionLabel(saved.sessionLabel);
     setCurrent(saved.current);
     setTimeLeft(saved.timeLeft ?? 0);
+    trackAnalyticsEvent('pl300_session_resumed', {
+      mode: saved.mode,
+      session_type: analyticsSessionType(
+        saved.model,
+        saved.questionIds.length > 0,
+      ),
+      question_count:
+        saved.questionIds.length || buildExam(saved.model).length,
+    });
     beginSession();
     setScreen('exam');
   }
@@ -3417,6 +3451,12 @@ function DownloadsScreen({
                       <a
                         href={downloadAsset(item.path)}
                         download
+                        onClick={() =>
+                          trackAnalyticsEvent('pl300_pdf_downloaded', {
+                            file_id: item.id,
+                            month: collection.month,
+                          })
+                        }
                         className={`${buttonVariants({ variant: 'outline' })} shrink-0 rounded-sm`}
                       >
                         <Download className="size-4" />{' '}

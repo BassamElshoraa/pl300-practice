@@ -11,6 +11,7 @@ import {
   type TutorQuestionContext,
   type TutorSession,
 } from '@/lib/ai-tutor';
+import { trackAnalyticsEvent } from '@/lib/analytics';
 
 const apiUrl = (process.env.NEXT_PUBLIC_AI_TUTOR_API_URL ?? '').replace(
   /\/$/,
@@ -32,6 +33,13 @@ export function AiStudyExplanation({
   const [status, setStatus] = useState<'loading' | 'ai' | 'fallback'>(
     'loading',
   );
+
+  useEffect(() => {
+    trackAnalyticsEvent('pl300_ai_explanation_requested', {
+      explanation_kind: kind,
+      language: context.responseLanguage,
+    });
+  }, [context.questionId, context.responseLanguage, kind]);
 
   useEffect(() => {
     const controller = new AbortController();

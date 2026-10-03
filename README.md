@@ -1,7 +1,6 @@
 # PL-300 Practice Exam Simulator
 
-[![Open the live simulator](https://img.shields.io/badge/Live%20Simulator-Start%20Practicing-0078D4?style=for-the-badge&logo=microsoftpowerbi&logoColor=white)](https://pl300-practice-exam.bassamelshoraa.chatgpt.site/)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Alternative%20Link-24292F?style=for-the-badge&logo=github)](https://bassamelshoraa.github.io/pl300-practice/)
+[![Open the live simulator](https://img.shields.io/badge/Live%20Simulator-Start%20Practicing-0078D4?style=for-the-badge&logo=github&logoColor=white)](https://bassamelshoraa.github.io/pl300-practice/)
 
 > Found an issue, a changed exam objective, or an improvement idea? I would be happy to hear from you. Connect with [Bassam Elshoraa on LinkedIn](https://www.linkedin.com/in/bassam-elshoraa/).
 
@@ -73,7 +72,7 @@ Visual items are separated from automatically graded items because their answers
 - Tailwind CSS and shadcn-based UI components
 - Lucide icons
 - Puter.js for browser-based AI chat without project API keys
-- Cloudflare-compatible OpenAI Sites deployment
+- Privacy-aware Google Analytics 4 integration for GitHub Pages
 - Optional Cloudflare Workers AI gateway with Supabase email authentication
 - GitHub Actions deployment to GitHub Pages
 
@@ -122,6 +121,21 @@ Publishing is automated by [`.github/workflows/deploy-pages.yml`](.github/workfl
 
 Repository settings required by GitHub: **Settings → Pages → Source → GitHub Actions**.
 
+The deployed build reads its Google Analytics measurement ID from the repository variable `GA_MEASUREMENT_ID` under **Settings → Secrets and variables → Actions → Variables**. Local development does not send analytics unless `NEXT_PUBLIC_GA_MEASUREMENT_ID` is intentionally set.
+
+Analytics events are aggregate and privacy-limited. They cover session starts, resumes and completions, PDF downloads, AI Tutor opens/messages, and AI-generated explanation requests. Learner names, answers, question text, and AI chat content are never included in event parameters. Browser Do Not Track is respected, Google advertising storage and personalization are disabled, and Google Signals are disabled.
+
+### View analytics
+
+Open [Google Analytics](https://analytics.google.com/analytics/web/) and select **PL-300 Practice Exam**:
+
+- **Reports → Realtime** shows current visitors and recently triggered events.
+- **Reports → Acquisition → Traffic acquisition** shows how visitors reached the simulator.
+- **Reports → Engagement → Pages and screens** shows page views and engagement.
+- **Reports → Engagement → Events** shows the PL-300 session, PDF, and AI Tutor events listed above.
+
+Analytics starts collecting from the deployment date and is not retroactive. GitHub's **Insights → Traffic** page is separate and describes repository visits and clones, not full simulator usage.
+
 ## Project layout
 
 ```text
@@ -133,7 +147,6 @@ public/               Source exhibits, answer images, static assets, and monthly
 scripts/              Extraction, repair, audit, and full QA utilities
 ai-tutor-worker/       Authenticated Cloudflare Workers AI gateway
 .github/workflows/    GitHub Pages deployment workflow
-.openai/              OpenAI Sites hosting configuration
 ```
 
 ## Content and trademark notice
