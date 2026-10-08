@@ -154,8 +154,8 @@ export function AiTutor({
         ...previous,
         assistantMessage(
           conversationLanguage === 'ar-EG'
-            ? 'تمام، النتيجة ظهرت دلوقتي والإجابة المعتمدة بقت متاحة ليا. اسألني عن سبب الصح والغلط أو أي اختيار مش واضح.'
-            : 'Your result is available now, so I can use the verified answer. Ask me why it is right or wrong, or about any unclear choice.',
+            ? 'تمام، النتيجة ظهرت دلوقتي وإجابة السؤال وحالة مراجعتها بقوا متاحين ليا. اسألني عن سبب الصح والغلط أو أي اختيار مش واضح.'
+            : 'Your result and its answer-review status are available now. Ask me why it is right or wrong, or about any unclear choice.',
         ),
       ]);
     }, 0);
@@ -179,8 +179,8 @@ export function AiTutor({
           translated.push(
             assistantMessage(
               context.responseLanguage === 'ar-EG'
-                ? 'تمام، النتيجة ظهرت دلوقتي والإجابة المعتمدة بقت متاحة ليا. اسألني عن سبب الصح والغلط أو أي اختيار مش واضح.'
-                : 'Your result is available now, so I can use the verified answer. Ask me why it is right or wrong, or about any unclear choice.',
+                ? 'تمام، النتيجة ظهرت دلوقتي وإجابة السؤال وحالة مراجعتها بقوا متاحين ليا. اسألني عن سبب الصح والغلط أو أي اختيار مش واضح.'
+                : 'Your result and its answer-review status are available now. Ask me why it is right or wrong, or about any unclear choice.',
             ),
           );
         }

@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { buildEgyptianExplanation } from '../lib/egyptian-explanations.ts';
+import { questions } from '../lib/questions.ts';
 
 import {
   AI_TUTOR_DAILY_LIMIT,
@@ -24,7 +26,6 @@ import {
   chatWithPuter,
   signInToPuter,
 } from '../lib/puter-ai.ts';
-import { questions } from '../lib/questions.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
 class MemoryStorage {
@@ -47,6 +48,12 @@ const question = questions.find(
   (item) => item.type !== 'manual' && item.correct.length > 0,
 );
 assert.ok(question, 'An auto-graded question is required for tutor QA.');
+
+const profilingQuestion = questions.find((item) => item.id === 'f1-256-255');
+assert.ok(profilingQuestion, 'The Data Profiling regression question is missing.');
+const profilingExplanation = buildEgyptianExplanation(profilingQuestion);
+assert.match(profilingExplanation, /Data profiling|Column quality/i);
+assert.doesNotMatch(profilingExplanation, /RLS بيخفي|sensitivity label/i);
 
 const base = {
   question,
@@ -84,7 +91,8 @@ const explanation = buildLocalTutorReply(revealed, 'فهمني السؤال');
 assert.match(explanation, /خلّينا نفهم الفكرة الأول/);
 assert.doesNotMatch(explanation, /الإجابة المعتمدة/);
 const directAnswer = buildLocalTutorReply(revealed, 'قولّي الإجابة الصح');
-assert.match(directAnswer, /الإجابة المعتمدة/);
+assert.match(directAnswer, /الإجابة بعد المراجعة/);
+assert.ok(revealed.answerReviewStatus);
 assert.equal(detectTutorLanguage('فهمني السؤال', 'en'), 'ar-EG');
 assert.equal(detectTutorLanguage('Explain this question', 'ar-EG'), 'en');
 assert.equal(detectTutorIntent('فهمني الفكرة من البداية'), 'teach');

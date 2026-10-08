@@ -28,6 +28,15 @@ type TutorContext = {
   answerImageUrl?: string;
   correctAnswer?: string[];
   sourceExplanation?: string;
+  answerReviewStatus?:
+    | 'independently-reviewed'
+    | 'corrected'
+    | 'flawed-source'
+    | 'incomplete-source'
+    | 'outdated'
+    | 'source-key';
+  answerReviewNote?: string;
+  answerEvidence?: Array<{ label: string; url: string }>;
 };
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
@@ -244,7 +253,7 @@ function runTextModel(
 ) {
   return env.AI.run(env.TEXT_MODEL ?? '@cf/qwen/qwen3-30b-a3b-fp8', {
     messages: [{ role: 'system', content: systemPrompt }, ...messages],
-    max_tokens: 750,
+    max_tokens: 1600,
     temperature: 0.35,
     user: userId,
   });
@@ -259,8 +268,15 @@ export function buildSystemPrompt(
     context.responseLanguage === 'ar-EG'
       ? 'Reply in natural, friendly Egyptian Arabic because the learner wrote in Arabic. Keep official Power BI and PL-300 feature names in English, then explain them in Arabic. Do not switch to English just because the question is written in English.'
       : 'Reply in clear, friendly English because the learner wrote in English. Keep official Power BI and PL-300 feature names unchanged.';
+  const answerLabel =
+    context.answerReviewStatus === 'corrected' ||
+    context.answerReviewStatus === 'flawed-source' ||
+    context.answerReviewStatus === 'outdated' ||
+    context.answerReviewStatus === 'independently-reviewed'
+      ? 'independently reviewed answer'
+      : 'source answer key (not independently verified yet)';
   const checkedRules = context.checked
-    ? `The learner has checked the answer. You may use the verified answer and source explanation below. Do not lead with an answer dump when the intent is teach. Teach the scenario, concept, clues, and reasoning first; mention the verified answer near the end only when it helps. If the learner explicitly asks for the direct answer, or asks why an option is right or wrong, answer directly and explain why. Verified answer: ${JSON.stringify(context.correctAnswer ?? [])}. Source explanation: ${context.sourceExplanation || 'Not supplied.'}`
+    ? `The learner has checked the answer. You may use the ${answerLabel} and explanation below. Do not call a source-only key verified. If the status is corrected, flawed-source, or outdated, follow the reviewed correction or current-product note rather than the original dump. Do not lead with an answer dump when the intent is teach. Teach the scenario, concept, clues, and reasoning first; mention the answer near the end only when it helps. If the learner explicitly asks for the direct answer, or asks why an option is right or wrong, answer directly and explain why. Answer: ${JSON.stringify(context.correctAnswer ?? [])}. Review status: ${context.answerReviewStatus || 'source-key'}. Review note: ${context.answerReviewNote || 'None'}. Source explanation: ${context.sourceExplanation || 'Not supplied.'}`
     : 'The learner has NOT checked the answer. The answer key is intentionally absent. Never state, infer, rank, eliminate toward, or hint at a specific correct option. If asked for the answer, politely refuse and give one conceptual hint that still leaves the decision to the learner.';
   return `You are a patient PL-300 Power BI tutor inside a practice simulator. You are discussing the CURRENT QUESTION below, not a generic topic.
 ${languageRule}
@@ -285,6 +301,7 @@ Choices: ${JSON.stringify(context.choices)}
 Learner answer: ${JSON.stringify(context.learnerAnswer)}
 Exhibit: ${context.imageUrl ? 'Attached to the latest learner message when vision is available.' : 'None'}
 Official answer image: ${context.answerImageUrl ? 'Attached because the learner has already checked the answer.' : 'None'}
+Review evidence: ${JSON.stringify(context.answerEvidence ?? [])}
 `;
 }
 
@@ -431,6 +448,17 @@ function normalizeContext(value: unknown): TutorContext | null {
     correctAnswer: stringArray(value.correctAnswer, 30, 3000),
     sourceExplanation:
       stringValue(value.sourceExplanation, 16_000) || undefined,
+    answerReviewStatus:
+      value.answerReviewStatus === 'independently-reviewed' ||
+      value.answerReviewStatus === 'corrected' ||
+      value.answerReviewStatus === 'flawed-source' ||
+      value.answerReviewStatus === 'incomplete-source' ||
+      value.answerReviewStatus === 'outdated' ||
+      value.answerReviewStatus === 'source-key'
+        ? value.answerReviewStatus
+        : undefined,
+    answerReviewNote: stringValue(value.answerReviewNote, 4000) || undefined,
+    answerEvidence: normalizeEvidence(value.answerEvidence),
   };
 }
 
@@ -442,10 +470,22 @@ function normalizeMessages(value: unknown): ChatMessage[] {
       role: (message.role === 'assistant'
         ? 'assistant'
         : 'user') as ChatMessage['role'],
-      content: stringValue(message.content, 1000),
+      content: stringValue(message.content, 4000),
     }))
     .filter((message) => message.content)
     .slice(-10);
+}
+
+function normalizeEvidence(value: unknown) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter(isRecord)
+    .map((item) => ({
+      label: stringValue(item.label, 200),
+      url: stringValue(item.url, 2000),
+    }))
+    .filter((item) => item.label && item.url)
+    .slice(0, 8);
 }
 
 function extractReply(value: unknown) {

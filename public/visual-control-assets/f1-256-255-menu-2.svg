@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="136" viewBox="0 0 220 136">
+  <rect width="220" height="136" fill="#fff"/>
+  <g fill="#111827" font-family="Arial, sans-serif" font-size="18">
+    <text x="14" y="25">0</text>
+    <text x="14" y="57">17</text>
+    <text x="14" y="89">24</text>
+    <text x="14" y="121">33</text>
+  </g>
+  <g stroke="#d1d5db"><path d="M0 34h220M0 66h220M0 98h220"/></g>
+  <rect x="0.5" y="0.5" width="219" height="135" fill="none" stroke="#6b7280"/>
+</svg>

@@ -1,4 +1,5 @@
 import type { Question } from './questions.ts';
+import { getAnswerAudit, type AnswerAuditStatus } from './answer-audit.ts';
 
 export const AI_TUTOR_SESSION_KEY = 'pl300-ai-tutor-session';
 export const AI_TUTOR_DAILY_KEY = 'pl300-ai-tutor-daily-usage';
@@ -36,6 +37,9 @@ export type TutorQuestionContext = {
   answerImageUrl?: string;
   correctAnswer?: string[];
   sourceExplanation?: string;
+  answerReviewStatus?: AnswerAuditStatus;
+  answerReviewNote?: string;
+  answerEvidence?: Array<{ label: string; url: string }>;
 };
 
 export type TutorChatRequest = {
@@ -86,9 +90,13 @@ export function buildTutorContext({
 
   // The answer key must never reach the model before the learner checks the answer.
   if (checked) {
+    const audit = getAnswerAudit(question);
     context.correctAnswer = formatSelections(question, question.correct);
     context.sourceExplanation = cleanText(question.explanation);
     context.answerImageUrl = answerImageUrl;
+    context.answerReviewStatus = audit.status;
+    context.answerReviewNote = audit.reason;
+    context.answerEvidence = audit.evidence;
   }
   return context;
 }
@@ -180,8 +188,15 @@ export function buildTutorSystemPrompt(
     language === 'ar-EG'
       ? 'Reply in natural, friendly Egyptian Arabic because the learner wrote in Arabic. Keep official Power BI and PL-300 feature names in English, then explain them in Arabic. Do not switch to English just because the question is written in English.'
       : 'Reply in clear, friendly English because the learner wrote in English. Keep official Power BI and PL-300 feature names unchanged.';
+  const answerLabel =
+    context.answerReviewStatus === 'corrected' ||
+    context.answerReviewStatus === 'flawed-source' ||
+    context.answerReviewStatus === 'outdated' ||
+    context.answerReviewStatus === 'independently-reviewed'
+      ? 'independently reviewed answer'
+      : 'source answer key (not independently verified yet)';
   const answerRule = context.checked
-    ? `The learner has checked the answer. You may use the verified answer and source explanation below. Do not lead with an answer dump when the intent is teach. Teach the scenario, concept, clues, and reasoning first; mention the verified answer near the end only when it helps. If the learner explicitly asks for the direct answer, or asks why an option is right or wrong, answer directly and explain why. Verified answer: ${JSON.stringify(context.correctAnswer ?? [])}. Source explanation: ${context.sourceExplanation || 'Not supplied.'}`
+    ? `The learner has checked the answer. You may use the ${answerLabel} and explanation below. Do not call a source-only key verified. If the status is corrected, flawed-source, or outdated, clearly follow the reviewed correction or current-product note rather than the original dump. Do not lead with an answer dump when the intent is teach. Teach the scenario, concept, clues, and reasoning first; mention the answer near the end only when it helps. If the learner explicitly asks for the direct answer, or asks why an option is right or wrong, answer directly and explain why. Answer: ${JSON.stringify(context.correctAnswer ?? [])}. Review status: ${context.answerReviewStatus || 'source-key'}. Review note: ${context.answerReviewNote || 'None'}. Source explanation: ${context.sourceExplanation || 'Not supplied.'}`
     : 'The learner has NOT checked the answer. The answer key is intentionally absent. Never state, infer, rank, eliminate toward, or hint at a specific correct option. If asked for the answer, politely refuse and give one conceptual hint that still leaves the decision to the learner.';
 
   return `You are a patient PL-300 Power BI tutor inside a practice simulator. You are discussing the CURRENT QUESTION below, not a generic topic.
@@ -206,7 +221,8 @@ Rows: ${JSON.stringify(context.rows ?? [])}
 Choices: ${JSON.stringify(context.choices)}
 Learner answer: ${JSON.stringify(context.learnerAnswer)}
 Exhibit URL: ${context.imageUrl || 'None'}
-Official answer image URL: ${context.answerImageUrl || 'None'}`;
+Official answer image URL: ${context.answerImageUrl || 'None'}
+Review evidence: ${JSON.stringify(context.answerEvidence ?? [])}`;
 }
 
 export function buildLocalTutorReply(
@@ -223,7 +239,7 @@ export function buildLocalTutorReply(
   }
 
   if (context.checked) {
-    const answer = context.correctAnswer?.join(' · ') || 'راجع صورة الإجابة';
+    const answer = context.correctAnswer?.join(' · ') || 'راجع شرح الإجابة';
     const evidence =
       context.sourceExplanation ||
       'المصدر لم يرفق شرحًا نصيًا، لذلك قارن إجابتك بصورة الحل الظاهرة في الصفحة.';
@@ -232,8 +248,8 @@ export function buildLocalTutorReply(
         ? `Let’s understand the idea before naming the choice. This question is testing “${context.topic}”.\n\n${shorten(evidence, 1100)}\n\nNow tell me which step or term still feels unclear, and we will work through that part together.`
         : `خلّينا نفهم الفكرة الأول بدل ما نحفظ الاختيار. السؤال هنا بيختبر موضوع “${context.topic}”.\n\n${shorten(evidence, 1100)}\n\nقولي أنهي خطوة أو مصطلح لسه مش راكب، وأنا أمشي معاك فيه واحدة واحدة.`;
     return english
-      ? `Verified answer: ${answer}\n\nThe core idea: ${shorten(evidence, 900)}\n\nTell me which part is still unclear and I will break it into smaller steps.`
-      : `الإجابة المعتمدة: ${answer}\n\nالفكرة ببساطة: ${shorten(evidence, 900)}\n\nلو فيه جزء معين لسه مش واضح، اكتبهولي وأنا أقسمه لخطوات أصغر.`;
+      ? `Reviewed answer: ${answer}\n\nThe core idea: ${shorten(evidence, 900)}\n\nTell me which part is still unclear and I will break it into smaller steps.`
+      : `الإجابة بعد المراجعة: ${answer}\n\nالفكرة ببساطة: ${shorten(evidence, 900)}\n\nلو فيه جزء معين لسه مش واضح، اكتبهولي وأنا أقسمه لخطوات أصغر.`;
   }
 
   const scenario = context.scenario

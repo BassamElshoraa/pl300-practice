@@ -22,7 +22,7 @@ export const PUTER_TUTOR_MODELS = [
   'gpt-5-nano',
 ] as const;
 
-export const PUTER_TUTOR_MAX_TOKENS = 750;
+export const PUTER_TUTOR_MAX_TOKENS = 1600;
 
 declare global {
   interface Window {

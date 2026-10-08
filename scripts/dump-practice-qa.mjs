@@ -1,21 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { DUMP_PRACTICE_COLLECTIONS } from '../lib/dump-practice.ts';
-
-const here = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(here, '..');
-const questionsSource = fs.readFileSync(
-  path.resolve(projectRoot, 'lib/questions.ts'),
-  'utf8',
-);
-const questionsPrefix = 'export const questions: Question[] = ';
-const questionsStart =
-  questionsSource.indexOf(questionsPrefix) + questionsPrefix.length;
-const questionsEnd = questionsSource.indexOf('\n];', questionsStart) + 2;
-const questions = JSON.parse(
-  questionsSource.slice(questionsStart, questionsEnd),
-);
+import { questions } from '../lib/questions.ts';
 
 const failures = [];
 const fail = (message) => failures.push(message);
@@ -69,15 +53,17 @@ if (!august) {
       selected.filter((question) => question.source === source).length,
     ]),
   );
-  if (selected.length !== 509)
-    fail(`August 2026 should contain 509 questions, found ${selected.length}`);
+  if (selected.length !== questions.length)
+    fail(
+      `August 2026 should contain all ${questions.length} verified questions, found ${selected.length}`,
+    );
   if (sourceCounts.Final !== 369)
     fail(
       `August Final should contain 369 questions, found ${sourceCounts.Final}`,
     );
-  if (sourceCounts['Final 2'] !== 140)
+  if (sourceCounts['Final 2'] !== 125)
     fail(
-      `August Final 2 should contain 140 questions, found ${sourceCounts['Final 2']}`,
+      `August Final 2 should contain 125 verified questions, found ${sourceCounts['Final 2']}`,
     );
   if (selected.length !== questions.length)
     fail('August 2026 does not cover the complete current question bank');
@@ -90,5 +76,5 @@ if (failures.length > 0) {
 }
 
 console.log(
-  `Dump practice QA passed: ${DUMP_PRACTICE_COLLECTIONS.length} monthly collection, 509 unique August 2026 questions, 2 verified source files.`,
+  `Dump practice QA passed: ${DUMP_PRACTICE_COLLECTIONS.length} monthly collection, ${questions.length} verified August 2026 questions, 2 source files.`,
 );

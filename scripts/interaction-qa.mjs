@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { questions } from '../lib/questions.ts';
+import { auditedQuestionBank, questions } from '../lib/questions.ts';
 import { dragDropData } from '../lib/drag-drop-data.ts';
 import { visualControlData } from '../lib/visual-control-data.ts';
 import { isAnswered, isYesNoQuestion } from '../lib/exam-utils.ts';
@@ -12,7 +12,7 @@ const projectRoot = path.resolve(
 );
 const failures = [];
 const questionById = new Map(
-  questions.map((question) => [question.id, question]),
+  auditedQuestionBank.map((question) => [question.id, question]),
 );
 const fail = (id, issue) => failures.push({ id, issue });
 

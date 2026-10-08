@@ -1,3 +1,5 @@
+import { applyAnswerAudit } from './answer-audit.ts';
+
 export type Domain =
   | 'Prepare the data'
   | 'Model the data'
@@ -21,9 +23,14 @@ export type Question = {
   answerImage?: string;
   context?: string;
   rows?: string[];
+  /**
+   * Questions whose source is incomplete or no longer has a defensible answer
+   * stay in the audit trail, but never enter a scored practice or exam session.
+   */
+  excluded?: boolean;
 };
 
-export const questions: Question[] = [
+const sourceQuestions: Question[] = [
   {
     "id": "f1-001-0",
     "domain": "Model the data",
@@ -8848,6 +8855,14 @@ export const questions: Question[] = [
     "legacy": false
   }
 ];
+
+export const auditedQuestionBank: Question[] = sourceQuestions.map(applyAnswerAudit);
+export const excludedQuestions: Question[] = auditedQuestionBank.filter(
+  (question) => question.excluded,
+);
+export const questions: Question[] = auditedQuestionBank.filter(
+  (question) => !question.excluded,
+);
 
 export const domainTargets: Record<Domain, number> = {
   'Prepare the data': 14,

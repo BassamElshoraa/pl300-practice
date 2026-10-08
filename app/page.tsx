@@ -77,6 +77,7 @@ import {
 import {
   buildExam,
   domainTargets,
+  excludedQuestions,
   questions,
   type Domain,
   type Question,
@@ -118,6 +119,7 @@ import {
   type QuestionTopic,
 } from '@/lib/question-topics';
 import { buildOptionExplanations } from '@/lib/option-explanations';
+import { getAnswerAudit } from '@/lib/answer-audit';
 import { AiTutor } from '@/components/ai-tutor';
 import { AiStudyExplanation } from '@/components/ai-study-explanation';
 import { buildTutorContext } from '@/lib/ai-tutor';
@@ -125,10 +127,7 @@ import { LanguageProvider, useLanguage } from '@/lib/i18n';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import { DUMP_PRACTICE_COLLECTIONS } from '@/lib/dump-practice';
-import {
-  analyticsSessionType,
-  trackAnalyticsEvent,
-} from '@/lib/analytics';
+import { analyticsSessionType, trackAnalyticsEvent } from '@/lib/analytics';
 
 type Screen =
   | 'home'
@@ -228,7 +227,7 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
 }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
-const APP_VERSION = '2.4.0';
+const APP_VERSION = '2.6.0';
 const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const questionById = new Map(
   questions.map((question) => [question.id, question]),
@@ -719,8 +718,7 @@ function Simulator() {
         saved.model,
         saved.questionIds.length > 0,
       ),
-      question_count:
-        saved.questionIds.length || buildExam(saved.model).length,
+      question_count: saved.questionIds.length || buildExam(saved.model).length,
     });
     beginSession();
     setScreen('exam');
@@ -1715,8 +1713,8 @@ function HomeScreen({
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {tx(
-                    'Work through all 509 source questions in four non-overlapping parts.',
-                    'ذاكر كل الـ509 سؤال في أربع أجزاء من غير تكرار.',
+                    `Work through all ${questions.length} verified questions in four non-overlapping parts. ${excludedQuestions.length} incomplete source items are quarantined from scoring.`,
+                    `ذاكر كل الـ${questions.length} سؤال المعتمدين في أربع أجزاء من غير تكرار. تم عزل ${excludedQuestions.length} أسئلة مصدرها ناقص من الامتحان والتصحيح.`,
                   )}
                 </p>
               </div>
@@ -1753,8 +1751,8 @@ function HomeScreen({
 
             <p className="mt-7 text-xs leading-5 text-muted-foreground">
               {tx(
-                'Answer keys match the supplied files. Some source wording uses older Power BI names, so legacy items are preserved as written. One empty vendor placeholder was excluded. Not affiliated with or endorsed by Microsoft.',
-                'مفاتيح الإجابة مطابقة للملفات المرفوعة. بعض الأسئلة تستخدم أسماء Power BI قديمة فحافظنا على صياغتها الأصلية. المحاكي مستقل وغير تابع أو معتمد من Microsoft.',
+                `Source questions are preserved, while known incorrect keys are replaced by independently reviewed corrections. Some wording uses older Power BI names. ${excludedQuestions.length} incomplete source items are quarantined from practice and scoring. Not affiliated with or endorsed by Microsoft.`,
+                'الأسئلة الأصلية محفوظة، لكن مفاتيح الإجابة المعروفة بخطئها تم استبدالها بتصحيحات راجعناها بشكل مستقل. بعض الأسئلة تستخدم أسماء Power BI قديمة. المحاكي مستقل وغير تابع أو معتمد من Microsoft.',
               )}
             </p>
           </div>
@@ -1848,14 +1846,14 @@ function HomeScreen({
                 {learnerName && (
                   <button
                     type="button"
-                onClick={() => {
-                  setSetupName(learnerName);
-                  setSetupQuestionIds([]);
-                  setSetupLabel('');
-                  setPracticeOnly(false);
-                  setSetupModel(null);
-                  setRenameOnly(true);
-                }}
+                    onClick={() => {
+                      setSetupName(learnerName);
+                      setSetupQuestionIds([]);
+                      setSetupLabel('');
+                      setPracticeOnly(false);
+                      setSetupModel(null);
+                      setRenameOnly(true);
+                    }}
                     className="flex items-center justify-between rounded-xl px-3 py-3 text-left text-xs font-semibold text-slate-300 transition hover:bg-white/8 hover:text-white"
                   >
                     {tx('Change learner name', 'غيّر اسم الطالب')}
@@ -3401,8 +3399,8 @@ function DownloadsScreen({
             <ShieldCheck className="mt-0.5 size-5 shrink-0 text-amber-700 dark:text-amber-300" />
             <p>
               {tx(
-                "This is a separate reference-download library. Downloading a PDF never changes the simulator's 509-question bank, mock exams, answers, scoring, or saved progress.",
-                'دي مكتبة تحميل مراجع منفصلة. تنزيل أي PDF مش بيغيّر بنك الـ509 سؤال أو النماذج أو الإجابات أو الدرجات أو التقدم المحفوظ.',
+                `This is a separate reference-download library. Downloading a PDF never changes the simulator's ${questions.length}-question verified bank, mock exams, answers, scoring, or saved progress.`,
+                `دي مكتبة تحميل مراجع منفصلة. تنزيل أي PDF مش بيغيّر بنك الـ${questions.length} سؤال المعتمد أو النماذج أو الإجابات أو الدرجات أو التقدم المحفوظ.`,
               )}
             </p>
           </CardContent>
@@ -3931,7 +3929,9 @@ function Header({
             {brand}
           </button>
         ) : (
-          <div className="brand-lockup group flex items-center gap-3">{brand}</div>
+          <div className="brand-lockup group flex items-center gap-3">
+            {brand}
+          </div>
         )}
         <div className="flex items-center gap-2">
           {learnerName && (
@@ -4363,7 +4363,10 @@ function DragDropAnswer({
                   <GripVertical className="size-5" />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <DragChoiceImage option={spec.options[choice]} choice={choice} />
+                  <DragChoiceImage
+                    option={spec.options[choice]}
+                    choice={choice}
+                  />
                 </span>
               </button>
             ))}
@@ -4394,7 +4397,10 @@ function DragDropAnswer({
                   <span className="inline-flex min-w-16 items-center justify-center rounded-sm bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
                     {spec.mode === 'sequence'
                       ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
-                      : tx(`Target ${slotIndex + 1}`, `الخانة ${slotIndex + 1}`)}
+                      : tx(
+                          `Target ${slotIndex + 1}`,
+                          `الخانة ${slotIndex + 1}`,
+                        )}
                   </span>
                   {choice >= 0 && onChange && (
                     <button
@@ -4430,7 +4436,10 @@ function DragDropAnswer({
                       </span>
                     )}
                     <span className="min-w-0 flex-1">
-                      <DragChoiceImage option={spec.options[choice]} choice={choice} />
+                      <DragChoiceImage
+                        option={spec.options[choice]}
+                        choice={choice}
+                      />
                     </span>
                   </div>
                 ) : (
@@ -4732,11 +4741,7 @@ function QuestionInput({
   if (question.type === 'manual') {
     if (dragDropData[question.id]) {
       return (
-        <DragDropAnswer
-          question={question}
-          value={value}
-          onChange={onChange}
-        />
+        <DragDropAnswer question={question} value={value} onChange={onChange} />
       );
     }
     if (visualControlData[question.id]) {
@@ -5004,6 +5009,7 @@ function PracticeFeedback({
   const { language, tx } = useLanguage();
   const correct = isCorrect(question, answer);
   const manual = question.type === 'manual';
+  const audit = getAnswerAudit(question);
   return (
     <div
       className={`mt-6 rounded-sm border-l-4 p-5 ${manual ? 'border-l-sky-500 bg-sky-500/5' : correct ? 'border-l-emerald-600 bg-emerald-500/5' : 'border-l-red-600 bg-red-500/5'}`}
@@ -5012,7 +5018,12 @@ function PracticeFeedback({
         <div>
           <p className="text-sm font-semibold">
             {manual
-              ? tx('Compare with the source answer', 'قارن بإجابة المصدر')
+              ? audit.status !== 'source-key'
+                ? tx(
+                    'Compare with the reviewed answer',
+                    'قارن بالإجابة بعد المراجعة',
+                  )
+                : tx('Compare with the source answer', 'قارن بإجابة المصدر')
               : correct
                 ? tx('Correct answer', 'إجابة صحيحة')
                 : tx(
@@ -5037,6 +5048,7 @@ function PracticeFeedback({
               : tx('Incorrect', 'خطأ')}
         </Badge>
       </div>
+      <AnswerAuditNotice question={question} />
       {manual ? (
         question.answerImage && (
           <Image
@@ -5063,7 +5075,11 @@ function PracticeFeedback({
         </div>
       )}
       <div className="mt-4 whitespace-pre-line rounded-sm bg-card/70 p-4 text-sm leading-7">
-        <strong>{tx('Source explanation:', 'شرح المصدر:')}</strong>
+        <strong>
+          {audit.status !== 'source-key'
+            ? tx('Reviewed explanation:', 'الشرح بعد المراجعة:')
+            : tx('Source explanation:', 'شرح المصدر:')}
+        </strong>
         <p
           dir={displayText(question.explanation) ? 'ltr' : undefined}
           lang={displayText(question.explanation) ? 'en' : undefined}
@@ -5078,12 +5094,10 @@ function PracticeFeedback({
             )}
         </p>
       </div>
-      {displayText(question.explanation) && (
-        <EgyptianExplanation
-          key={`practice-${question.id}`}
-          question={question}
-        />
-      )}
+      <EgyptianExplanation
+        key={`practice-${question.id}`}
+        question={question}
+      />
       <OptionBreakdown question={question} answer={answer} />
     </div>
   );
@@ -5098,6 +5112,7 @@ function OptionBreakdown({
 }) {
   const { language, tx } = useLanguage();
   const [aiOpen, setAiOpen] = useState(false);
+  const audit = getAnswerAudit(question);
   const items = buildOptionExplanations(question);
   if (items.length === 0) return null;
 
@@ -5118,8 +5133,8 @@ function OptionBreakdown({
           .map((item) => {
             const choice = question.choices[item.choiceIndex];
             return item.isCorrect
-              ? `✓ ${choice}\nالاختيار ده موجود في الإجابة المعتمدة وبيحقق المطلوب في السؤال.`
-              : `✕ ${choice}\nالاختيار ده مش موجود في مفتاح الإجابة ومش بيحقق كل شروط السؤال.`;
+              ? `✓ ${choice}\nالاختيار ده موجود في ${audit.status === 'source-key' ? 'مفتاح المصدر' : 'الإجابة بعد المراجعة'} وبيحقق المطلوب في السؤال.`
+              : `✕ ${choice}\nالاختيار ده مش موجود في ${audit.status === 'source-key' ? 'مفتاح المصدر' : 'الإجابة بعد المراجعة'} ومش بيحقق كل شروط السؤال.`;
           })
           .join('\n\n')}\n\n${buildEgyptianExplanation(question)}`
       : items
@@ -5186,8 +5201,12 @@ function OptionBreakdown({
               </span>
               <Badge variant={item.isCorrect ? 'default' : 'secondary'}>
                 {item.isCorrect
-                  ? tx('In answer key', 'ضمن الإجابة الصحيحة')
-                  : tx('Not in answer key', 'إجابة غير صحيحة')}
+                  ? audit.status === 'source-key'
+                    ? tx('In source key', 'ضمن مفتاح المصدر')
+                    : tx('Reviewed answer', 'إجابة بعد المراجعة')
+                  : audit.status === 'source-key'
+                    ? tx('Not in source key', 'مش ضمن مفتاح المصدر')
+                    : tx('Not correct', 'إجابة غير صحيحة')}
               </Badge>
             </summary>
             <p
@@ -5592,7 +5611,10 @@ function ReviewScreen({
             </h1>
             {question.type === 'manual' ? (
               <div className="mt-6">
-                <ManualReviewResponse question={question} value={answer ?? []} />
+                <ManualReviewResponse
+                  question={question}
+                  value={answer ?? []}
+                />
               </div>
             ) : question.image ? (
               <Image
@@ -5604,23 +5626,21 @@ function ReviewScreen({
                 className="mt-6 h-auto w-full rounded-sm border bg-white object-contain"
               />
             ) : null}
-            {question.type === 'manual' ? (
+            {question.type === 'manual' && question.answerImage ? (
               <div className="mt-7 rounded-sm border border-emerald-500/40 bg-emerald-500/5 p-4">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {tx('Source answer', 'إجابة المصدر')}
                 </p>
-                {question.answerImage && (
-                  <Image
-                    src={publicAsset(question.answerImage)}
-                    alt={`Answer for ${question.source} question ${question.sourceNumber}`}
-                    width={1000}
-                    height={1200}
-                    unoptimized
-                    className="h-auto w-full rounded-sm border bg-white object-contain"
-                  />
-                )}
+                <Image
+                  src={publicAsset(question.answerImage)}
+                  alt={`Answer for ${question.source} question ${question.sourceNumber}`}
+                  width={1000}
+                  height={1200}
+                  unoptimized
+                  className="h-auto w-full rounded-sm border bg-white object-contain"
+                />
               </div>
-            ) : (
+            ) : question.type !== 'manual' ? (
               <div className="mt-7 grid gap-5 sm:grid-cols-2">
                 <AnswerPanel
                   title={tx('Your answer', 'إجابتك')}
@@ -5633,9 +5653,14 @@ function ReviewScreen({
                   good
                 />
               </div>
-            )}
+            ) : null}
+            <AnswerAuditNotice question={question} />
             <div className="mt-6 whitespace-pre-line border-l-4 border-border bg-muted p-4 text-sm leading-7">
-              <strong>{tx('Source explanation:', 'شرح المصدر:')}</strong>
+              <strong>
+                {getAnswerAudit(question).status !== 'source-key'
+                  ? tx('Reviewed explanation:', 'الشرح بعد المراجعة:')
+                  : tx('Source explanation:', 'شرح المصدر:')}
+              </strong>
               <p
                 dir={displayText(question.explanation) ? 'ltr' : undefined}
                 lang={displayText(question.explanation) ? 'en' : undefined}
@@ -5650,9 +5675,7 @@ function ReviewScreen({
                   )}
               </p>
             </div>
-            {displayText(question.explanation) && (
-              <EgyptianExplanation key={question.id} question={question} />
-            )}
+            <EgyptianExplanation key={question.id} question={question} />
             <OptionBreakdown question={question} answer={answer} />
             <div className="mt-8 flex justify-between border-t pt-6">
               <Button
@@ -5767,34 +5790,31 @@ function SiteFooter() {
             </DialogTitle>
             <DialogDescription>
               {tx(
-                'October 2, 2026 · Light and dark visual refresh',
-                '2 أكتوبر 2026 · تحديث الهوية البصرية في الوضعين الفاتح والغامق',
+                'October 8, 2026 · Full-bank answer audit and expanded study explanations',
+                '8 أكتوبر 2026 · مراجعة كاملة لبنك الأسئلة وتطوير الشرح التفصيلي',
               )}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 text-sm leading-6">
             <ReleaseNote
-              title={tx(
-                'Latest practice first',
-                'أحدث ممارسة في الأول',
-              )}
+              title={tx('Reviewed corrections', 'تصحيحات بعد مراجعة مستقلة')}
               text={tx(
-                'The August 2026 collection now appears before the mock exams so students can reach the newest 509-question practice set immediately.',
-                'مجموعة أغسطس 2026 بقت قبل نماذج الامتحان عشان الطالب يوصل مباشرة لأحدث تدريب فيه 509 سؤال.',
+                `All ${questions.length} active questions were reviewed. Incorrect dump keys are replaced by reviewed answers, and ${excludedQuestions.length} incomplete source items are quarantined from scoring.`,
+                `اتراجع كل الـ${questions.length} سؤال النشطين، واتصححت مفاتيح الدامب الخاطئة، واتعزل ${excludedQuestions.length} أسئلة ناقصة من التصحيح والامتحانات.`,
               )}
             />
             <ReleaseNote
-              title={tx('One visual system', 'هوية بصرية واحدة')}
+              title={tx('A complete Shaabouly guide', 'شعبولي الدنيا بقى شرح كامل')}
               text={tx(
-                'Surfaces, navigation, cards, buttons, spacing, and section hierarchy now share one clearer visual language across the site.',
-                'الخلفيات والتنقل والكروت والأزرار والمسافات وترتيب الأقسام بقوا ماشيين على لغة بصرية أوضح في كل الموقع.',
+                'Every reviewed question can now show a full translation, scenario explanation, key terms, reasoning steps, option-by-option analysis, exam traps, and review sources.',
+                'كل سؤال بعد التصحيح يقدر يعرض ترجمة وشرح السيناريو والمصطلحات وخطوات التفكير وتحليل كل اختيار وفخ الامتحان والمراجع.',
               )}
             />
             <ReleaseNote
-              title={tx('Balanced light and dark modes', 'فاتح وغامق متوازنين')}
+              title={tx('Faster repeat study', 'مراجعة أسرع في المرات الجاية')}
               text={tx(
-                'Both themes keep the familiar navy, blue, and yellow palette with stronger contrast and calmer reading surfaces.',
-                'الوضعين حافظوا على الكحلي والأزرق والأصفر المعروفين، مع تباين أقوى وخلفيات أريح للقراءة.',
+                'AI explanations are cached on the learner’s device and can use either the site tutor session or an already connected Puter account.',
+                'شرح الـAI بيتحفظ على جهاز الطالب، ويقدر يستخدم جلسة مدرس الموقع أو حساب Puter المتوصل بالفعل.',
               )}
             />
           </div>
@@ -5865,6 +5885,82 @@ function AnswerPanel({
   );
 }
 
+function AnswerAuditNotice({ question }: { question: Question }) {
+  const { tx } = useLanguage();
+  const audit = getAnswerAudit(question);
+  if (audit.status === 'source-key') return null;
+
+  if (audit.status === 'independently-reviewed')
+    return (
+      <div className="mt-4 flex items-center gap-2 rounded-sm border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-800 dark:text-emerald-200">
+        <ShieldCheck className="size-4 shrink-0" />
+        {tx(
+          'This answer was independently reviewed against the Power BI concept.',
+          'الإجابة دي اتراجعت بشكل مستقل على مفهوم Power BI، مش اعتمادًا على مفتاح الدامب بس.',
+        )}
+      </div>
+    );
+
+  const flawed = audit.status === 'flawed-source';
+  const outdated = audit.status === 'outdated';
+  return (
+    <div
+      className={`mt-4 rounded-sm border p-4 ${flawed || outdated ? 'border-amber-500/40 bg-amber-500/10' : 'border-rose-500/35 bg-rose-500/5'}`}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className="flex items-center gap-2 font-semibold">
+          <ShieldCheck className="size-4 text-primary" />
+          {outdated
+            ? tx('Legacy source item', 'تنبيه: سؤال قديم')
+            : flawed
+              ? tx('Source item issue', 'تنبيه: السؤال الأصلي معيب')
+              : tx('Dump answer corrected', 'تم تصحيح إجابة الدامب')}
+        </p>
+        <Badge variant={flawed || outdated ? 'secondary' : 'destructive'}>
+          {tx('Independent review', 'مراجعة مستقلة')}
+        </Badge>
+      </div>
+      {audit.originalAnswer && (
+        <p className="mt-3 text-sm leading-7 text-muted-foreground">
+          <strong>{tx('Original dump answer:', 'إجابة الدامب الأصلية:')}</strong>{' '}
+          <span dir="ltr" lang="en">
+            {audit.originalAnswer}
+          </span>
+        </p>
+      )}
+      {audit.reviewedAnswer && (
+        <p className="mt-2 text-sm leading-7">
+          <strong>{tx('Reviewed answer:', 'الإجابة بعد المراجعة:')}</strong>{' '}
+          <span dir="ltr" lang="en">
+            {audit.reviewedAnswer}
+          </span>
+        </p>
+      )}
+      {(audit.reason || audit.reasonAr) && (
+        <p className="mt-2 text-sm leading-7">
+          {tx(audit.reason ?? '', audit.reasonAr ?? audit.reason ?? '')}
+        </p>
+      )}
+      {!!audit.evidence?.length && (
+        <div className="mt-3 flex flex-wrap gap-2 border-t pt-3">
+          {audit.evidence.map((item) => (
+            <a
+              key={item.url}
+              href={item.url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-medium text-primary underline-offset-4 hover:underline"
+            >
+              <ExternalLink className="size-3.5" />
+              {item.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function EgyptianExplanation({ question }: { question: Question }) {
   const { language, tx } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -5912,7 +6008,7 @@ function EgyptianExplanation({ question }: { question: Question }) {
         >
           <AiStudyExplanation
             context={tutorContext}
-            kind="simple"
+            kind="shaabouly"
             fallback={
               language === 'ar'
                 ? buildEgyptianExplanation(question)

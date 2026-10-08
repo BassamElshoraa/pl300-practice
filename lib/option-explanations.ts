@@ -1,4 +1,5 @@
 import type { Question } from './questions';
+import { getAnswerAudit } from './answer-audit.ts';
 
 export type OptionExplanation = {
   choiceIndex: number;
@@ -14,6 +15,11 @@ export function buildOptionExplanations(
     .map((index) => question.choices[index])
     .filter(Boolean);
   const sourceSummary = explanationSummary(question.explanation);
+  const audit = getAnswerAudit(question);
+  const answerLabel =
+    audit.status === 'source-key'
+      ? 'the source answer key'
+      : 'the independently reviewed answer';
 
   return question.choices.map((choice, choiceIndex) => {
     const isKeyed = question.correct.includes(choiceIndex);
@@ -23,14 +29,14 @@ export function buildOptionExplanations(
         choiceIndex,
         isCorrect: true,
         text: directEvidence
-          ? `This option is included in the source answer. ${directEvidence}`
-          : `This option satisfies the requirement and is included in the answer key.${sourceSummary ? ` ${sourceSummary}` : ''}`,
+          ? `This option is included in ${answerLabel}. ${directEvidence}`
+          : `This option satisfies the requirement and is included in ${answerLabel}.${sourceSummary ? ` ${sourceSummary}` : ''}`,
       };
     }
     return {
       choiceIndex,
       isCorrect: false,
-      text: `This option is not included in the answer key. The requirement is met by ${formatList(keyedAnswers)}.${directEvidence ? ` The source mentions this option in context: ${directEvidence}` : sourceSummary ? ` ${sourceSummary}` : ''}`,
+      text: `This option is not included in ${answerLabel}. The requirement is met by ${formatList(keyedAnswers)}.${directEvidence ? ` The explanation mentions this option in context: ${directEvidence}` : sourceSummary ? ` ${sourceSummary}` : ''}`,
     };
   });
 }

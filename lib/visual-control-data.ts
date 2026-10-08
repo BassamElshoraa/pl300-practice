@@ -485,5 +485,20 @@ export const visualControlData: Record<string, VisualControlSpec> = {
       }
     ],
     "sourceQuestion": "f1-227-226"
+  },
+  "f1-256-255": {
+    "slots": 2,
+    "menus": [
+      {
+        "image": "/visual-control-assets/f1-256-255-menu-1.svg",
+        "width": 220,
+        "height": 136
+      },
+      {
+        "image": "/visual-control-assets/f1-256-255-menu-2.svg",
+        "width": 220,
+        "height": 136
+      }
+    ]
   }
 };
