@@ -18,7 +18,8 @@
     "qa:answers": "node --experimental-strip-types scripts/answer-bank-audit.mjs",
     "qa:interactions": "node scripts/interaction-qa.mjs",
     "qa:dumps": "node --experimental-strip-types scripts/dump-practice-qa.mjs",
-    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:downloads && npm run qa:ai && npm run qa:answers && npm run qa:interactions && npm run qa:dumps",
+    "qa:case-studies": "node --experimental-strip-types scripts/case-study-qa.mjs",
+    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:downloads && npm run qa:ai && npm run qa:answers && npm run qa:interactions && npm run qa:dumps && npm run qa:case-studies",
     "ai:dev": "wrangler dev --config ai-tutor-worker/wrangler.jsonc",
     "ai:deploy": "wrangler deploy --config ai-tutor-worker/wrangler.jsonc",
     "format": "oxfmt"

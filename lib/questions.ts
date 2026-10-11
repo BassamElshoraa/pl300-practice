@@ -1,4 +1,5 @@
 import { applyAnswerAudit } from './answer-audit.ts';
+import { applyCaseStudyContexts } from './case-study-context.ts';
 
 export type Domain =
   | 'Prepare the data'
@@ -8856,7 +8857,10 @@ const sourceQuestions: Question[] = [
   }
 ];
 
-export const auditedQuestionBank: Question[] = sourceQuestions.map(applyAnswerAudit);
+const questionsWithCaseStudyContext = applyCaseStudyContexts(sourceQuestions);
+
+export const auditedQuestionBank: Question[] =
+  questionsWithCaseStudyContext.map(applyAnswerAudit);
 export const excludedQuestions: Question[] = auditedQuestionBank.filter(
   (question) => question.excluded,
 );
