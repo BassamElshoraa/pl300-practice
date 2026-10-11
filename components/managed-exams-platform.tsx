@@ -1608,9 +1608,15 @@ export function ManagedExamPlayer({
               <p className="mt-3 rounded-xl bg-amber-400/10 p-3 text-sm text-amber-700 dark:text-amber-300">
                 {currentAttempt.manualPending}{' '}
                 {tx(
-                  'visual answers are pending instructor review.',
-                  'إجابة بصرية مستنية مراجعة المدرس.',
+                  'completed visual answers are pending instructor review.',
+                  'إجابة بصرية مكتملة مستنية مراجعة المدرس.',
                 )}
+                <span className="mt-1 block text-xs">
+                  {tx(
+                    `The displayed score currently covers ${currentAttempt.autoGraded ?? 0} automatically graded questions only.`,
+                    `الدرجة الظاهرة حاليًا محسوبة على ${currentAttempt.autoGraded ?? 0} سؤال بيتصحح تلقائيًا فقط.`,
+                  )}
+                </span>
               </p>
             )}
             <Button className="mt-7" size="lg" onClick={onExit}>

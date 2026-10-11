@@ -931,7 +931,12 @@ async function submitAttempt(
     if (!question) continue;
     const answer = answers[id];
     if (question.type === 'manual') {
-      manualPending += 1;
+      if (
+        answer?.length &&
+        answer.every((value) => Number.isInteger(value) && value >= 0)
+      ) {
+        manualPending += 1;
+      }
       continue;
     }
     if (!answer?.length || answer.some((value) => value < 0)) {
