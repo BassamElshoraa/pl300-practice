@@ -163,7 +163,8 @@ async function passwordHash(password: string, salt: string) {
       name: 'PBKDF2',
       hash: 'SHA-256',
       salt: encoder.encode(salt),
-      iterations: 310_000,
+      // Cloudflare Workers Web Crypto currently caps PBKDF2 at 100,000 rounds.
+      iterations: 100_000,
     },
     key,
     256,
