@@ -16,10 +16,10 @@ import {
   CalendarClock,
   Check,
   CheckCircle2,
+  ChevronDown,
   ClipboardCheck,
   Clock3,
   Download,
-  Eye,
   FilePlus2,
   Flag,
   Fullscreen,
@@ -65,7 +65,7 @@ import { useLanguage } from '@/lib/i18n';
 import { questions, type Domain, type Question } from '@/lib/questions';
 import { isAnswered, isYesNoQuestion } from '@/lib/exam-utils';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
-import { visualControlData } from '@/lib/visual-control-data';
+import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import {
   DEMO_ACCOUNTS,
   MANAGED_EXAMS_STORAGE_KEY,
@@ -2561,6 +2561,241 @@ function MatchingManagedAnswer({
   );
 }
 
+function VisualMenuManagedImage({
+  menu,
+  selectedY,
+  onSelect,
+}: {
+  menu: VisualMenu;
+  selectedY: number;
+  onSelect: (value: number) => void;
+}) {
+  const { tx } = useLanguage();
+  return (
+    <button
+      type="button"
+      aria-label={tx(
+        'Original answer list. Select an option.',
+        'قائمة الإجابات الأصلية. اختار إجابة.',
+      )}
+      onClick={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        onSelect(
+          Math.max(
+            0,
+            Math.min(
+              1000,
+              Math.round(((event.clientY - rect.top) / rect.height) * 1000),
+            ),
+          ),
+        );
+      }}
+      className="relative block max-w-full cursor-pointer overflow-hidden rounded-lg border bg-white text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+    >
+      <img
+        src={publicAsset(menu.image)}
+        alt={tx('Original dropdown options', 'اختيارات القائمة الأصلية')}
+        width={menu.width}
+        height={menu.height}
+        draggable={false}
+        className="h-auto max-h-72 max-w-full select-none object-contain object-left"
+      />
+      {selectedY >= 0 && (
+        <span
+          aria-hidden="true"
+          style={{ top: `${selectedY / 10}%` }}
+          className="pointer-events-none absolute right-2 grid size-5 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-primary text-[10px] font-bold text-white shadow-md"
+        >
+          ✓
+        </span>
+      )}
+    </button>
+  );
+}
+
+function VisualListManagedAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange: (value: number[]) => void;
+}) {
+  const { tx, language } = useLanguage();
+  const spec = visualControlData[question.id];
+  const [openSlot, setOpenSlot] = useState<number | null>(null);
+  if (!spec) return null;
+  const selections = Array.from(
+    { length: spec.slots },
+    (_, index) => value[index] ?? -1,
+  );
+
+  function select(slotIndex: number, selectedY: number) {
+    const next = [...selections];
+    next[slotIndex] = selectedY;
+    onChange(next);
+    setOpenSlot(null);
+  }
+
+  return (
+    <div className="rounded-xl border bg-muted/25 p-4">
+      <p className="text-sm font-semibold">
+        {tx('Answer Area', 'منطقة الإجابة')}
+      </p>
+      <p
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+        className="mt-1 text-xs leading-5 text-muted-foreground"
+      >
+        {tx(
+          'Open each list, then select the required row from the original source options.',
+          'افتح كل قائمة، وبعدها اختار الصف المطلوب من اختيارات المصدر الأصلية.',
+        )}
+      </p>
+      <div className="mt-4 grid gap-4">
+        {selections.map((selectedY, slotIndex) => {
+          const menu = spec.menus[Math.min(slotIndex, spec.menus.length - 1)];
+          const isOpen = openSlot === slotIndex;
+          return (
+            <div key={slotIndex} className="rounded-xl border bg-card p-3">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-sm font-medium">
+                  {tx(`Answer ${slotIndex + 1}`, `الإجابة ${slotIndex + 1}`)}
+                </span>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenSlot(isOpen ? null : slotIndex)}
+                  className="flex min-h-10 min-w-48 items-center justify-between gap-3 rounded-lg border bg-background px-3 text-sm hover:border-primary"
+                >
+                  <span>
+                    {selectedY >= 0
+                      ? tx('Option selected', 'تم اختيار إجابة')
+                      : tx('Select an answer', 'اختار إجابة')}
+                  </span>
+                  <ChevronDown
+                    className={`size-4 transition ${isOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </div>
+              {isOpen && (
+                <div className="mt-3 flex justify-end" dir="ltr">
+                  <VisualMenuManagedImage
+                    menu={menu}
+                    selectedY={selectedY}
+                    onSelect={(choiceY) => select(slotIndex, choiceY)}
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function VisualPointManagedAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange: (value: number[]) => void;
+}) {
+  const { tx, language } = useLanguage();
+  if (!question.image) return null;
+
+  function addPoint(x: number, y: number) {
+    const safeX = Math.max(20, Math.min(980, Math.round(x * 1000)));
+    const safeY = Math.max(20, Math.min(980, Math.round(y * 1000)));
+    onChange([...value, safeX * 1001 + safeY]);
+  }
+
+  return (
+    <div className="overflow-hidden rounded-xl border bg-card">
+      <div
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+        className="border-b bg-primary/5 px-4 py-3 text-sm leading-6"
+      >
+        <strong>{tx('Select on the image', 'اختار من الصورة')}</strong>
+        <span className="ms-2 text-muted-foreground">
+          {tx(
+            'Click each answer inside the Answer Area. Markers are numbered in selection order.',
+            'اضغط على كل إجابة داخل Answer Area. العلامات بتترقم حسب ترتيب اختيارك.',
+          )}
+        </span>
+      </div>
+      <button
+        type="button"
+        aria-label={tx(
+          `Interactive answer image for question ${question.sourceNumber}`,
+          `صورة الإجابة التفاعلية للسؤال ${question.sourceNumber}`,
+        )}
+        onClick={(event) => {
+          const rect = event.currentTarget.getBoundingClientRect();
+          addPoint(
+            (event.clientX - rect.left) / rect.width,
+            (event.clientY - rect.top) / rect.height,
+          );
+        }}
+        className="relative block w-full cursor-crosshair overflow-hidden bg-white outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      >
+        <img
+          src={publicAsset(question.image)}
+          alt={tx('Interactive answer area', 'منطقة الإجابة التفاعلية')}
+          draggable={false}
+          className="h-auto w-full select-none object-contain"
+        />
+        {value.map((encoded, index) => {
+          const x = Math.floor(encoded / 1001) / 10;
+          const y = (encoded % 1001) / 10;
+          return (
+            <span
+              key={`${encoded}-${index}`}
+              aria-hidden="true"
+              style={{ left: `${x}%`, top: `${y}%` }}
+              className="pointer-events-none absolute grid size-7 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-primary text-xs font-bold text-primary-foreground shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
+            >
+              {index + 1}
+            </span>
+          );
+        })}
+      </button>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3">
+        <span className="text-xs text-muted-foreground">
+          {tx(
+            `${value.length} selection${value.length === 1 ? '' : 's'} recorded for instructor review.`,
+            `تم تسجيل ${value.length} اختيار للمراجعة مع المدرس.`,
+          )}
+        </span>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={value.length === 0}
+            onClick={() => onChange(value.slice(0, -1))}
+          >
+            <RotateCcw className="size-4" />{' '}
+            {tx('Undo last', 'امسح آخر اختيار')}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            disabled={value.length === 0}
+            onClick={() => onChange([])}
+          >
+            <X className="size-4" /> {tx('Clear', 'امسح الكل')}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ManagedAnswer({
   question,
   answer,
@@ -2650,39 +2885,11 @@ function ManagedAnswer({
     );
   if (visualSpec)
     return (
-      <div className="space-y-3">
-        {Array.from({ length: visualSpec.slots }, (_, slot) => (
-          <div
-            key={slot}
-            className="grid gap-2 rounded-xl border p-4 sm:grid-cols-[180px_1fr] sm:items-center"
-          >
-            <span className="text-sm font-semibold">
-              {tx(`Answer list ${slot + 1}`, `قائمة الإجابة ${slot + 1}`)}
-            </span>
-            <select
-              className="h-10 rounded-lg border bg-background px-3 text-sm"
-              value={answer[slot] ?? ''}
-              onChange={(event) => {
-                const next = Array.from(
-                  { length: visualSpec.slots },
-                  (_, index) => answer[index] ?? -1,
-                );
-                next[slot] = Number(event.target.value);
-                onChange(next);
-              }}
-            >
-              <option value="">
-                {tx('Select from the source menu', 'اختار من القائمة الأصلية')}
-              </option>
-              {Array.from({ length: 6 }, (_, index) => (
-                <option key={index} value={index}>
-                  {tx(`Menu choice ${index + 1}`, `اختيار رقم ${index + 1}`)}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-      </div>
+      <VisualListManagedAnswer
+        question={question}
+        value={answer}
+        onChange={onChange}
+      />
     );
   if (isYesNoQuestion(question))
     return (
@@ -2732,26 +2939,10 @@ function ManagedAnswer({
       </div>
     );
   return (
-    <button
-      type="button"
-      onClick={() => onChange(answer.length ? [] : [0])}
-      className={`w-full rounded-2xl border-2 border-dashed p-6 text-center ${answer.length ? 'border-emerald-400 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/30 dark:text-emerald-200' : 'border-border text-muted-foreground'}`}
-    >
-      <Eye className="mx-auto mb-2 size-5" />
-      <strong className="block">
-        {answer.length
-          ? tx('Marked for manual review', 'اتسجل للمراجعة اليدوية')
-          : tx(
-              'Mark this visual answer as completed',
-              'سجّل إنك جاوبت السؤال البصري',
-            )}
-      </strong>
-      <span className="mt-1 block text-xs">
-        {tx(
-          'The instructor will review the source answer area after submission.',
-          'المدرس هيراجع منطقة الإجابة الأصلية بعد التسليم.',
-        )}
-      </span>
-    </button>
+    <VisualPointManagedAnswer
+      question={question}
+      value={answer}
+      onChange={onChange}
+    />
   );
 }
