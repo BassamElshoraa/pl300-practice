@@ -17,9 +17,11 @@ Core practice requires no registration. The learner name, active session, attemp
 - **494 independently reviewed active questions** from the two owner-supplied collections. The full 509-item source inventory is retained in the audit trail; 15 items with missing source context or answer areas are quarantined from practice, mocks, and scoring.
 - **Four 50-question mock exams**, each with a 100-minute timer and balanced skill-area coverage.
 - **Four non-overlapping bank parts** for working through the complete source collection.
+- A production **Managed Exam Center**: private student email/password accounts, one administrator account, scheduled exams, access codes, server-controlled timers, autosave/resume, attempt limits, central results, and CSV export.
+- Microsoft-style candidate check-in screens, numbered navigation, flagging, a final review screen, and non-returnable item-series questions that lock after the learner moves on.
 - A dedicated **monthly dump-practice area**, starting with one untimed August 2026 session containing all 494 verified questions from the latest two source files; the structure is ready for future months.
 - Single-choice, multiple-response, matching, hotspot, and visual answer-area interactions from the supplied bank. The interaction engine also supports ordering/drag-and-drop-style questions when future source items include them.
-- **324 automatically graded questions** and **185 visual/manual-review questions**.
+- **321 automatically graded questions** and **173 visual/manual-review questions**.
 - Source exhibits and tables displayed with the questions that reference them.
 - Question navigator, progress indicator, flags, unanswered-question warning, and resumable local progress.
 - Learner-name setup with a saved local profile that can be renamed without losing progress.
@@ -40,10 +42,10 @@ Core practice requires no registration. The learner name, active session, attemp
 
 ## Practice structure
 
-| Session                   |    Questions | Practice mode             | Exam mode                                         |
-| ------------------------- | -----------: | ------------------------- | ------------------------------------------------- |
-| Mock 01–04                |      50 each | Untimed, instant feedback | 100 minutes, feedback after submission            |
-| Bank Part 01–04           | 127–128 each | Untimed, instant feedback | 2 minutes per question, feedback after submission |
+| Session                   |    Questions | Practice mode             | Exam mode                                          |
+| ------------------------- | -----------: | ------------------------- | -------------------------------------------------- |
+| Mock 01–04                |      50 each | Untimed, instant feedback | 100 minutes, feedback after submission             |
+| Bank Part 01–04           | 123–124 each | Untimed, instant feedback | 2 minutes per question, feedback after submission  |
 | August 2026 dump practice |          494 | Untimed, instant feedback | Practice only; 15 incomplete source items excluded |
 
 The mock-exam builder targets the four PL-300 skill areas used by the simulator:
@@ -72,6 +74,7 @@ Visual items are separated from automatically graded items because their answers
 - Tailwind CSS and shadcn-based UI components
 - Lucide icons
 - Puter.js for browser-based AI chat without project API keys
+- Cloudflare Worker API and D1 database for managed exams and student accounts
 - Privacy-aware Google Analytics 4 integration for GitHub Pages
 - Optional Cloudflare Workers AI gateway with Supabase email authentication
 - GitHub Actions deployment to GitHub Pages
@@ -115,6 +118,19 @@ An optional self-managed gateway is also included:
 
 The answer key and official answer image are not included in the tutor context before the learner presses **Check Answer**. The optional Worker stores no chat transcript.
 
+## Managed Exam Center
+
+The public site remains a static GitHub Pages deployment, while `/managed/` connects to a separate Cloudflare Worker and D1 database. This keeps authentication, schedules, attempt limits, timers, results, password hashes, and answer keys on the server instead of exposing them in the static bundle.
+
+- Students create their own account with a unique email and password.
+- The first administrator account is created once with a private bootstrap code; further administrator registration is then closed.
+- Passwords are salted and hashed with PBKDF2-SHA-256 before storage. Session tokens are random, expire after 12 hours, and only their hashes are stored.
+- Exam questions are selected on the server. The student payload excludes correct-answer indexes, explanations, and answer images.
+- The server enforces the opening/closing window, access code, maximum attempts, countdown deadline, autosave, resume, and final scoring.
+- Secure mode records copy, context-menu, tab-hidden, focus-loss, and fullscreen-exit events. It also adds a learner watermark. A normal website cannot guarantee prevention of operating-system or phone screenshots; that requires a separately managed secure-browser environment.
+
+Deployment and operations are documented in [`exam-api-worker/README.md`](exam-api-worker/README.md).
+
 ## GitHub Pages deployment
 
 Publishing is automated by [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). A push to `main` builds the static site with the `/pl300-practice/` base path and deploys `dist/client` to GitHub Pages.
@@ -146,6 +162,7 @@ lib/                  Question bank, grading, exam builder, explanations
 public/               Source exhibits, answer images, static assets, and monthly PDF downloads
 scripts/              Extraction, repair, audit, and full QA utilities
 ai-tutor-worker/       Authenticated Cloudflare Workers AI gateway
+exam-api-worker/       Student accounts, managed exams, D1 schema, and server-side grading
 .github/workflows/    GitHub Pages deployment workflow
 ```
 

@@ -229,6 +229,9 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
 const APP_VERSION = '2.6.0';
 const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const MANAGED_EXAMS_LIVE = Boolean(
+  process.env.NEXT_PUBLIC_MANAGED_EXAMS_API_URL,
+);
 const questionById = new Map(
   questions.map((question) => [question.id, question]),
 );
@@ -1529,6 +1532,54 @@ function HomeScreen({
                 </CardContent>
               </Card>
             )}
+
+            <section className="mb-8">
+              <Card className="exam-balance-card overflow-hidden rounded-[1.6rem] text-white">
+                <CardContent className="grid gap-6 p-6 sm:p-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+                  <div className="flex items-start gap-4">
+                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl border border-white/15 bg-white/10 text-[#f4cf2f]">
+                      <ShieldCheck className="size-6" />
+                    </span>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge className="rounded-lg bg-[#f4cf2f] text-[#111c33] shadow-none hover:bg-[#f4cf2f]">
+                          {MANAGED_EXAMS_LIVE
+                            ? tx('LIVE · EXAM CENTER', 'مباشر · مركز الامتحانات')
+                            : tx('NEW · LOCAL PREVIEW', 'جديد · معاينة محلية')}
+                        </Badge>
+                        <Badge className="rounded-lg border border-white/15 bg-white/10 text-white shadow-none hover:bg-white/10">
+                          {tx('Instructor + Student', 'مدرس + طالب')}
+                        </Badge>
+                      </div>
+                      <h2 className="mt-4 text-2xl font-bold tracking-tight">
+                        {tx(
+                          'Managed exams for your students',
+                          'امتحانات مُدارة لطلابك',
+                        )}
+                      </h2>
+                      <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                        {tx(
+                          'Create timed exams with an access code, autosave and resume, secure-mode event logging, a results dashboard, and CSV export.',
+                          'كوّن امتحانات بوقت وكود دخول، وحفظ واستكمال تلقائي، وتسجيل أحداث وضع الامتحان، وداشبورد نتائج وتصدير CSV.',
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    size="lg"
+                    className="border border-[#ffe77a]/70 bg-[#f4cf2f] text-[#111c33] hover:bg-[#ffe16b]"
+                    onClick={() => {
+                      window.location.href = publicAsset('/managed/');
+                    }}
+                  >
+                    {tx('Open exam portal', 'افتح بوابة الامتحانات')}
+                    <ArrowRight
+                      className={`size-4 ${language === 'ar' ? 'rotate-180' : ''}`}
+                    />
+                  </Button>
+                </CardContent>
+              </Card>
+            </section>
 
             <section className="mb-11">
               <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -5804,7 +5855,10 @@ function SiteFooter() {
               )}
             />
             <ReleaseNote
-              title={tx('A complete Shaabouly guide', 'شعبولي الدنيا بقى شرح كامل')}
+              title={tx(
+                'A complete Shaabouly guide',
+                'شعبولي الدنيا بقى شرح كامل',
+              )}
               text={tx(
                 'Every reviewed question can now show a full translation, scenario explanation, key terms, reasoning steps, option-by-option analysis, exam traps, and review sources.',
                 'كل سؤال بعد التصحيح يقدر يعرض ترجمة وشرح السيناريو والمصطلحات وخطوات التفكير وتحليل كل اختيار وفخ الامتحان والمراجع.',
