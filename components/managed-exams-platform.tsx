@@ -6,6 +6,8 @@ import {
   useMemo,
   useState,
   type FormEvent,
+  type DragEvent as ReactDragEvent,
+  type PointerEvent as ReactPointerEvent,
 } from 'react';
 import {
   ArrowLeft,
@@ -22,6 +24,7 @@ import {
   Flag,
   Fullscreen,
   GraduationCap,
+  GripVertical,
   Home,
   KeyRound,
   Languages,
@@ -38,6 +41,7 @@ import {
   Sun,
   UserRound,
   Users,
+  X,
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -60,7 +64,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/lib/i18n';
 import { questions, type Domain, type Question } from '@/lib/questions';
 import { isAnswered, isYesNoQuestion } from '@/lib/exam-utils';
-import { dragDropData } from '@/lib/drag-drop-data';
+import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData } from '@/lib/visual-control-data';
 import {
   DEMO_ACCOUNTS,
@@ -1770,7 +1774,11 @@ export function ManagedExamPlayer({
           </div>
           <div className="p-5 sm:p-7">
             <QuestionContext question={currentQuestion} />
-            <p className="whitespace-pre-line text-[15px] font-medium leading-7 sm:text-base">
+            <p
+              dir="ltr"
+              lang="en"
+              className="whitespace-pre-line text-left text-[15px] font-medium leading-7 sm:text-base"
+            >
               {currentQuestion.prompt}
             </p>
             {currentQuestion.image && (
@@ -1962,7 +1970,593 @@ function QuestionContext({ question }: { question: Question }) {
       <p className="mb-2 font-bold text-primary">
         {tx('Case study context', 'سياق الـ Case Study')}
       </p>
-      <p className="whitespace-pre-line">{question.context}</p>
+      <p dir="ltr" lang="en" className="whitespace-pre-line text-left">
+        {question.context}
+      </p>
+    </div>
+  );
+}
+
+type DragChoicePayload = { choice: number; fromSlot: number | null };
+type PointerDragState = DragChoicePayload & { x: number; y: number };
+
+function DragChoiceImage({
+  option,
+  choice,
+}: {
+  option: DragDropOption;
+  choice: number;
+}) {
+  const { tx } = useLanguage();
+  return (
+    <img
+      src={publicAsset(option.image)}
+      alt={tx(`Choice ${choice + 1}`, `الاختيار ${choice + 1}`)}
+      width={option.width}
+      height={option.height}
+      draggable={false}
+      className="h-auto max-h-24 w-full select-none object-contain object-left"
+    />
+  );
+}
+
+function DragDropManagedAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange: (value: number[]) => void;
+}) {
+  const { tx, language } = useLanguage();
+  const spec = dragDropData[question.id];
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const [pointerDrag, setPointerDrag] = useState<PointerDragState | null>(null);
+  const slots = useMemo(
+    () =>
+      Array.from(
+        { length: spec?.slots ?? 0 },
+        (_, index) => value[index] ?? -1,
+      ),
+    [spec?.slots, value],
+  );
+
+  const placeChoice = useCallback(
+    (payload: DragChoicePayload, targetSlot: number) => {
+      if (!spec) return;
+      const next = Array.from(
+        { length: spec.slots },
+        (_, index) => value[index] ?? -1,
+      );
+      const displaced = next[targetSlot];
+      if (payload.fromSlot != null) next[payload.fromSlot] = -1;
+      if (!spec.allowReuse) {
+        next.forEach((choice, index) => {
+          if (choice === payload.choice && index !== targetSlot)
+            next[index] = -1;
+        });
+      }
+      next[targetSlot] = payload.choice;
+      if (
+        payload.fromSlot != null &&
+        payload.fromSlot !== targetSlot &&
+        displaced >= 0
+      ) {
+        next[payload.fromSlot] = displaced;
+      }
+      onChange(next);
+      setSelectedChoice(null);
+    },
+    [onChange, spec, value],
+  );
+
+  useEffect(() => {
+    if (!pointerDrag) return;
+    const movePointer = (event: PointerEvent) => {
+      event.preventDefault();
+      setPointerDrag((current) =>
+        current ? { ...current, x: event.clientX, y: event.clientY } : null,
+      );
+    };
+    const finishPointer = (event: PointerEvent) => {
+      const element = document.elementFromPoint(event.clientX, event.clientY);
+      const target = element?.closest<HTMLElement>('[data-drop-slot]');
+      const board = target?.closest<HTMLElement>('[data-drag-question]');
+      if (target && board?.dataset.dragQuestion === question.id) {
+        placeChoice(pointerDrag, Number(target.dataset.dropSlot));
+      }
+      setPointerDrag(null);
+    };
+    document.addEventListener('pointermove', movePointer, { passive: false });
+    document.addEventListener('pointerup', finishPointer, { once: true });
+    document.addEventListener('pointercancel', finishPointer, { once: true });
+    return () => {
+      document.removeEventListener('pointermove', movePointer);
+      document.removeEventListener('pointerup', finishPointer);
+      document.removeEventListener('pointercancel', finishPointer);
+    };
+  }, [placeChoice, pointerDrag, question.id]);
+
+  if (!spec) return null;
+  const usedChoices = new Set(slots.filter((choice) => choice >= 0));
+  const availableChoices = spec.options
+    .map((_, index) => index)
+    .filter((index) => spec.allowReuse || !usedChoices.has(index));
+
+  function setNativePayload(
+    event: ReactDragEvent<HTMLElement>,
+    payload: DragChoicePayload,
+  ) {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData(
+      'application/x-pl300-choice',
+      JSON.stringify(payload),
+    );
+  }
+
+  function receiveNativeDrop(
+    event: ReactDragEvent<HTMLElement>,
+    targetSlot: number,
+  ) {
+    event.preventDefault();
+    try {
+      placeChoice(
+        JSON.parse(
+          event.dataTransfer.getData('application/x-pl300-choice'),
+        ) as DragChoicePayload,
+        targetSlot,
+      );
+    } catch {
+      // Ignore drags that did not originate from this question board.
+    }
+  }
+
+  function beginPointerDrag(
+    event: ReactPointerEvent<HTMLElement>,
+    payload: DragChoicePayload,
+  ) {
+    event.preventDefault();
+    setPointerDrag({ ...payload, x: event.clientX, y: event.clientY });
+  }
+
+  function removeFromSlot(slotIndex: number) {
+    const next = [...slots];
+    next[slotIndex] = -1;
+    onChange(next);
+    setSelectedChoice(null);
+  }
+
+  return (
+    <div data-drag-question={question.id} className="space-y-5">
+      <div
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+        className="rounded-xl border border-primary/25 bg-primary/[0.035] px-4 py-3 text-sm leading-6"
+      >
+        <span className="font-semibold">
+          {tx('Drag is enabled.', 'السحب شغّال فعليًا.')}
+        </span>{' '}
+        <span className="text-muted-foreground">
+          {tx(
+            'Drag using the grip, or select a choice and then select its destination. You can drag an assigned choice to another slot to swap them.',
+            'اسحب من علامة المسكة، أو اختار إجابة وبعدها اختار مكانها. وتقدر تسحب إجابة محطوطة لخانة تانية عشان تبدّلهم.',
+          )}
+        </span>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-2">
+        <section aria-label={tx('Available choices', 'الاختيارات المتاحة')}>
+          <p className="mb-2 text-sm font-semibold">
+            {tx('Available choices', 'الاختيارات المتاحة')}
+          </p>
+          <div className="grid min-h-24 content-start gap-2 rounded-xl border bg-muted/30 p-3">
+            {availableChoices.length === 0 && (
+              <p className="p-3 text-sm text-muted-foreground">
+                {tx('All choices are placed.', 'كل الاختيارات اتحطّت.')}
+              </p>
+            )}
+            {availableChoices.map((choice) => (
+              <button
+                key={choice}
+                type="button"
+                draggable
+                onDragStart={(event) =>
+                  setNativePayload(event, { choice, fromSlot: null })
+                }
+                onClick={() =>
+                  setSelectedChoice((current) =>
+                    current === choice ? null : choice,
+                  )
+                }
+                className={`group flex min-h-14 items-center gap-2 rounded-xl border bg-card p-2 text-left shadow-sm transition hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${selectedChoice === choice ? 'border-primary ring-2 ring-primary/25' : ''}`}
+              >
+                <span
+                  role="presentation"
+                  onPointerDown={(event) =>
+                    beginPointerDrag(event, { choice, fromSlot: null })
+                  }
+                  className="grid min-h-10 w-9 shrink-0 touch-none cursor-grab place-items-center rounded-lg bg-muted text-muted-foreground active:cursor-grabbing"
+                >
+                  <GripVertical className="size-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <DragChoiceImage
+                    option={spec.options[choice]}
+                    choice={choice}
+                  />
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section aria-label={tx('Answer area', 'منطقة الإجابة')}>
+          <p className="mb-2 text-sm font-semibold">
+            {spec.mode === 'sequence'
+              ? tx('Correct order', 'الترتيب الصحيح')
+              : tx('Answer area', 'منطقة الإجابة')}
+          </p>
+          <div className="grid gap-2 rounded-xl border bg-muted/30 p-3">
+            {slots.map((choice, slotIndex) => (
+              <div
+                key={slotIndex}
+                data-drop-slot={slotIndex}
+                onDragOver={(event) => {
+                  event.preventDefault();
+                  event.dataTransfer.dropEffect = 'move';
+                }}
+                onDrop={(event) => receiveNativeDrop(event, slotIndex)}
+                className={`min-h-20 rounded-xl border-2 border-dashed p-2 transition ${pointerDrag || selectedChoice != null ? 'border-primary/60 bg-primary/5' : 'border-border bg-card/70'}`}
+              >
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="inline-flex min-w-16 items-center justify-center rounded-lg bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
+                    {spec.mode === 'sequence'
+                      ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                      : tx(
+                          `Target ${slotIndex + 1}`,
+                          `الخانة ${slotIndex + 1}`,
+                        )}
+                  </span>
+                  {choice >= 0 && (
+                    <button
+                      type="button"
+                      onClick={() => removeFromSlot(slotIndex)}
+                      aria-label={tx('Remove choice', 'امسح الاختيار')}
+                      className="grid size-8 place-items-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  )}
+                </div>
+                {choice >= 0 ? (
+                  <div
+                    draggable
+                    onDragStart={(event) =>
+                      setNativePayload(event, { choice, fromSlot: slotIndex })
+                    }
+                    className="flex items-center gap-2 rounded-xl border bg-card p-2 shadow-sm"
+                  >
+                    <span
+                      role="presentation"
+                      onPointerDown={(event) =>
+                        beginPointerDrag(event, {
+                          choice,
+                          fromSlot: slotIndex,
+                        })
+                      }
+                      className="grid min-h-10 w-9 shrink-0 touch-none cursor-grab place-items-center rounded-lg bg-muted text-muted-foreground active:cursor-grabbing"
+                    >
+                      <GripVertical className="size-5" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <DragChoiceImage
+                        option={spec.options[choice]}
+                        choice={choice}
+                      />
+                    </span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={selectedChoice == null}
+                    onClick={() =>
+                      selectedChoice != null &&
+                      placeChoice(
+                        { choice: selectedChoice, fromSlot: null },
+                        slotIndex,
+                      )
+                    }
+                    className="grid min-h-14 w-full place-items-center rounded-lg text-center text-sm text-muted-foreground enabled:cursor-pointer enabled:hover:bg-primary/5 enabled:hover:text-foreground"
+                  >
+                    {selectedChoice == null
+                      ? tx('Drop a choice here', 'اسحب الاختيار هنا')
+                      : tx(
+                          'Place selected choice here',
+                          'حط الاختيار المحدد هنا',
+                        )}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {pointerDrag && (
+        <div
+          aria-hidden="true"
+          style={{
+            left: pointerDrag.x + 14,
+            top: pointerDrag.y + 14,
+            width: 280,
+          }}
+          className="pointer-events-none fixed z-[100] rounded-xl border border-primary bg-card p-2 opacity-95 shadow-2xl"
+        >
+          <DragChoiceImage
+            option={spec.options[pointerDrag.choice]}
+            choice={pointerDrag.choice}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SequenceManagedAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange: (value: number[]) => void;
+}) {
+  const { tx, language } = useLanguage();
+  const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
+  const ordered =
+    value.length === question.choices.length
+      ? value
+      : question.choices.map((_, index) => index);
+
+  function move(from: number, to: number) {
+    if (from === to || to < 0 || to >= ordered.length) return;
+    const next = [...ordered];
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    onChange(next);
+    setSelectedPosition(null);
+  }
+
+  function dropAt(event: ReactDragEvent<HTMLElement>, target: number) {
+    event.preventDefault();
+    const raw = event.dataTransfer.getData('application/x-pl300-sequence');
+    const from = Number(raw);
+    if (Number.isInteger(from)) move(from, target);
+  }
+
+  return (
+    <div className="space-y-3">
+      <p
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+        className="rounded-xl border border-primary/25 bg-primary/[0.035] px-4 py-3 text-sm text-muted-foreground"
+      >
+        {tx(
+          'Drag each row into the required order. You can also select one row, then select another position.',
+          'اسحب كل سطر لمكانه في الترتيب المطلوب. وينفع كمان تختار سطر وبعدها تختار المكان اللي عايز تنقله له.',
+        )}
+      </p>
+      {ordered.map((originalIndex, position) => (
+        <div
+          key={originalIndex}
+          draggable
+          role="button"
+          tabIndex={0}
+          onDragStart={(event) => {
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData(
+              'application/x-pl300-sequence',
+              String(position),
+            );
+          }}
+          onDragOver={(event) => event.preventDefault()}
+          onDrop={(event) => dropAt(event, position)}
+          onClick={() => {
+            if (selectedPosition == null) setSelectedPosition(position);
+            else move(selectedPosition, position);
+          }}
+          onKeyDown={(event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            if (selectedPosition == null) setSelectedPosition(position);
+            else move(selectedPosition, position);
+          }}
+          className={`flex cursor-grab items-center gap-3 rounded-xl border p-3 transition active:cursor-grabbing ${selectedPosition === position ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'hover:border-primary/50'}`}
+        >
+          <GripVertical className="size-5 shrink-0 text-muted-foreground" />
+          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+            {position + 1}
+          </span>
+          <span
+            dir="ltr"
+            lang="en"
+            className="flex-1 text-left text-sm leading-6"
+          >
+            {question.choices[originalIndex]}
+          </span>
+          <div
+            className="flex gap-1"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              disabled={position === 0}
+              aria-label={tx('Move up', 'حرّك لفوق')}
+              onClick={() => move(position, position - 1)}
+            >
+              ↑
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              disabled={position === ordered.length - 1}
+              aria-label={tx('Move down', 'حرّك لتحت')}
+              onClick={() => move(position, position + 1)}
+            >
+              ↓
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MatchingManagedAnswer({
+  question,
+  value,
+  onChange,
+}: {
+  question: Question;
+  value: number[];
+  onChange: (value: number[]) => void;
+}) {
+  const { tx, language } = useLanguage();
+  const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
+  const rows = question.rows ?? [];
+  const assignments = Array.from(
+    { length: rows.length },
+    (_, index) => value[index] ?? -1,
+  );
+
+  function place(choice: number, rowIndex: number) {
+    const next = [...assignments];
+    next[rowIndex] = choice;
+    onChange(next);
+    setSelectedChoice(null);
+  }
+
+  function dropAt(event: ReactDragEvent<HTMLElement>, rowIndex: number) {
+    event.preventDefault();
+    const choice = Number(
+      event.dataTransfer.getData('application/x-pl300-matching'),
+    );
+    if (Number.isInteger(choice)) place(choice, rowIndex);
+  }
+
+  return (
+    <div className="space-y-5">
+      <p
+        dir={language === 'ar' ? 'rtl' : 'ltr'}
+        className="rounded-xl border border-primary/25 bg-primary/[0.035] px-4 py-3 text-sm text-muted-foreground"
+      >
+        {tx(
+          'Drag an answer to each matching row, or select an answer and then select its row.',
+          'اسحب كل إجابة قدام السطر المناسب، أو اختار الإجابة وبعدها اختار السطر بتاعها.',
+        )}
+      </p>
+      <div className="grid gap-5 lg:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.2fr)]">
+        <section>
+          <p className="mb-2 text-sm font-semibold">
+            {tx('Available answers', 'الإجابات المتاحة')}
+          </p>
+          <div className="space-y-2 rounded-xl border bg-muted/30 p-3">
+            {question.choices.map((choice, index) => (
+              <button
+                key={`${choice}-${index}`}
+                type="button"
+                draggable
+                onDragStart={(event) => {
+                  event.dataTransfer.effectAllowed = 'copy';
+                  event.dataTransfer.setData(
+                    'application/x-pl300-matching',
+                    String(index),
+                  );
+                }}
+                onClick={() =>
+                  setSelectedChoice((current) =>
+                    current === index ? null : index,
+                  )
+                }
+                className={`flex w-full cursor-grab items-center gap-2 rounded-xl border bg-card p-3 text-left text-sm shadow-sm active:cursor-grabbing ${selectedChoice === index ? 'border-primary ring-2 ring-primary/25' : 'hover:border-primary/50'}`}
+              >
+                <GripVertical className="size-4 shrink-0 text-muted-foreground" />
+                <span dir="ltr" lang="en" className="text-left leading-6">
+                  {choice}
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+        <section>
+          <p className="mb-2 text-sm font-semibold">
+            {tx('Match each row', 'طابق كل سطر')}
+          </p>
+          <div className="space-y-3">
+            {rows.map((row, rowIndex) => {
+              const choiceIndex = assignments[rowIndex];
+              return (
+                <div
+                  key={row}
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={(event) => dropAt(event, rowIndex)}
+                  className={`rounded-xl border-2 border-dashed p-4 transition ${selectedChoice != null ? 'border-primary/60 bg-primary/5' : 'border-border'}`}
+                >
+                  <p
+                    dir="ltr"
+                    lang="en"
+                    className="mb-3 text-left text-sm font-semibold leading-6"
+                  >
+                    {row}
+                  </p>
+                  {choiceIndex >= 0 ? (
+                    <div className="flex items-center justify-between gap-3 rounded-lg border bg-card p-3">
+                      <span
+                        dir="ltr"
+                        lang="en"
+                        className="text-left text-sm leading-6"
+                      >
+                        {question.choices[choiceIndex]}
+                      </span>
+                      <button
+                        type="button"
+                        aria-label={tx('Remove answer', 'امسح الإجابة')}
+                        onClick={() => {
+                          const next = [...assignments];
+                          next[rowIndex] = -1;
+                          onChange(next);
+                        }}
+                        className="grid size-8 shrink-0 place-items-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"
+                      >
+                        <X className="size-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={selectedChoice == null}
+                      onClick={() =>
+                        selectedChoice != null &&
+                        place(selectedChoice, rowIndex)
+                      }
+                      className="grid min-h-12 w-full place-items-center rounded-lg bg-muted/40 text-sm text-muted-foreground enabled:hover:bg-primary/10 enabled:hover:text-foreground"
+                    >
+                      {selectedChoice == null
+                        ? tx('Drop an answer here', 'اسحب الإجابة هنا')
+                        : tx(
+                            'Place selected answer here',
+                            'حط الإجابة المحددة هنا',
+                          )}
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
@@ -1992,7 +2586,9 @@ function ManagedAnswer({
             className="flex cursor-pointer items-start gap-3 rounded-xl border p-4 hover:border-primary/50 hover:bg-primary/5"
           >
             <RadioGroupItem value={String(originalIndex)} className="mt-0.5" />
-            <span className="leading-6">{question.choices[originalIndex]}</span>
+            <span dir="ltr" lang="en" className="text-left leading-6">
+              {question.choices[originalIndex]}
+            </span>
           </Label>
         ))}
       </RadioGroup>
@@ -2018,7 +2614,7 @@ function ManagedAnswer({
                 }
                 className="mt-0.5"
               />
-              <span className="leading-6">
+              <span dir="ltr" lang="en" className="text-left leading-6">
                 {question.choices[originalIndex]}
               </span>
             </Label>
@@ -2026,130 +2622,31 @@ function ManagedAnswer({
         })}
       </div>
     );
-  if (question.type === 'sequence') {
-    const ordered =
-      answer.length === question.choices.length
-        ? answer
-        : question.choices.map((_, index) => index);
+  if (question.type === 'sequence')
     return (
-      <div className="space-y-2">
-        {ordered.map((originalIndex, position) => (
-          <div
-            key={`${originalIndex}-${position}`}
-            className="flex items-center gap-3 rounded-xl border p-3"
-          >
-            <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-              {position + 1}
-            </span>
-            <span className="flex-1 text-sm leading-6">
-              {question.choices[originalIndex]}
-            </span>
-            <div className="flex gap-1">
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={position === 0}
-                onClick={() => {
-                  const next = [...ordered];
-                  [next[position - 1], next[position]] = [
-                    next[position],
-                    next[position - 1],
-                  ];
-                  onChange(next);
-                }}
-              >
-                ↑
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                disabled={position === ordered.length - 1}
-                onClick={() => {
-                  const next = [...ordered];
-                  [next[position + 1], next[position]] = [
-                    next[position],
-                    next[position + 1],
-                  ];
-                  onChange(next);
-                }}
-              >
-                ↓
-              </Button>
-            </div>
-          </div>
-        ))}
-      </div>
+      <SequenceManagedAnswer
+        question={question}
+        value={answer}
+        onChange={onChange}
+      />
     );
-  }
   if (question.type === 'matching')
     return (
-      <div className="space-y-3">
-        {(question.rows ?? []).map((row, rowIndex) => (
-          <div
-            key={row}
-            className="grid gap-2 rounded-xl border p-4 sm:grid-cols-[1fr_1fr] sm:items-center"
-          >
-            <span className="text-sm font-medium">{row}</span>
-            <select
-              className="h-10 rounded-lg border bg-background px-3 text-sm"
-              value={answer[rowIndex] ?? ''}
-              onChange={(event) => {
-                const next = Array.from(
-                  { length: question.rows?.length ?? 0 },
-                  (_, index) => answer[index] ?? -1,
-                );
-                next[rowIndex] = Number(event.target.value);
-                onChange(next);
-              }}
-            >
-              <option value="">{tx('Select an answer', 'اختار إجابة')}</option>
-              {question.choices.map((choice, index) => (
-                <option key={choice} value={index}>
-                  {choice}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-      </div>
+      <MatchingManagedAnswer
+        question={question}
+        value={answer}
+        onChange={onChange}
+      />
     );
   const dragSpec = dragDropData[question.id];
   const visualSpec = visualControlData[question.id];
   if (dragSpec)
     return (
-      <div className="space-y-3">
-        {Array.from({ length: dragSpec.slots }, (_, slot) => (
-          <div
-            key={slot}
-            className="grid gap-2 rounded-xl border p-4 sm:grid-cols-[180px_1fr] sm:items-center"
-          >
-            <span className="text-sm font-semibold">
-              {tx(`Answer slot ${slot + 1}`, `مكان الإجابة ${slot + 1}`)}
-            </span>
-            <select
-              className="h-10 rounded-lg border bg-background px-3 text-sm"
-              value={answer[slot] ?? ''}
-              onChange={(event) => {
-                const next = Array.from(
-                  { length: dragSpec.slots },
-                  (_, index) => answer[index] ?? -1,
-                );
-                next[slot] = Number(event.target.value);
-                onChange(next);
-              }}
-            >
-              <option value="">
-                {tx('Choose the item to place', 'اختار العنصر اللي هيتحط')}
-              </option>
-              {dragSpec.options.map((_, index) => (
-                <option key={index} value={index}>
-                  {tx(`Source option ${index + 1}`, `الاختيار ${index + 1}`)}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-      </div>
+      <DragDropManagedAnswer
+        question={question}
+        value={answer}
+        onChange={onChange}
+      />
     );
   if (visualSpec)
     return (
