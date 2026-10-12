@@ -745,7 +745,9 @@ function InstructorDashboard({
                     <th className="px-5 py-3">{tx('Exam', 'الامتحان')}</th>
                     <th className="px-5 py-3">{tx('Status', 'الحالة')}</th>
                     <th className="px-5 py-3">{tx('Score', 'الدرجة')}</th>
-                    <th className="px-5 py-3">{tx('Manual', 'يدوي')}</th>
+                    <th className="px-5 py-3">
+                      {tx('Visual responses', 'الإجابات البصرية')}
+                    </th>
                     <th className="px-5 py-3">{tx('Events', 'الأحداث')}</th>
                     <th className="px-5 py-3">{tx('Submitted', 'التسليم')}</th>
                   </tr>
@@ -1608,8 +1610,8 @@ export function ManagedExamPlayer({
               <p className="mt-3 rounded-xl bg-amber-400/10 p-3 text-sm text-amber-700 dark:text-amber-300">
                 {currentAttempt.manualPending}{' '}
                 {tx(
-                  'completed visual answers are pending instructor review.',
-                  'إجابة بصرية مكتملة مستنية مراجعة المدرس.',
+                  'completed visual responses were stored and are not included in automatic scoring.',
+                  'إجابة بصرية مكتملة اتحفظت ومش داخلة في التصحيح التلقائي.',
                 )}
                 <span className="mt-1 block text-xs">
                   {tx(

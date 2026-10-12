@@ -479,7 +479,7 @@ export function managedResultsCsv(state: ManagedExamState) {
     'Correct',
     'Incorrect',
     'Unanswered',
-    'Manual pending',
+    'Visual responses',
     'Violations',
     'Started at',
     'Submitted at',
