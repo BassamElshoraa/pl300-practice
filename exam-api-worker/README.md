@@ -29,6 +29,6 @@ node scripts/managed-api-integration-qa.mjs
 3. Import `seed-question-bank.sql` into the remote database.
 4. Store a long random `ADMIN_BOOTSTRAP_CODE` with Wrangler secrets.
 5. Deploy the Worker and set the resulting URL as `NEXT_PUBLIC_MANAGED_EXAMS_API_URL` in the GitHub Pages build.
-6. Open `/managed/`, choose **First-time administrator setup**, and create the owner account. The bootstrap endpoint permanently refuses a second administrator.
+6. Open `/managed`, choose **First-time administrator setup**, and create the owner account. The bootstrap endpoint permanently refuses a second administrator.
 
 Never commit the administrator setup code, student passwords, session tokens, or Cloudflare credentials.

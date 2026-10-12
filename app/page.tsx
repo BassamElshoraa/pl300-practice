@@ -1569,7 +1569,7 @@ function HomeScreen({
                     size="lg"
                     className="border border-[#ffe77a]/70 bg-[#f4cf2f] text-[#111c33] hover:bg-[#ffe16b]"
                     onClick={() => {
-                      window.location.href = publicAsset('/managed/');
+                      window.location.href = publicAsset('/managed');
                     }}
                   >
                     {tx('Open exam portal', 'افتح بوابة الامتحانات')}

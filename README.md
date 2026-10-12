@@ -120,7 +120,7 @@ The answer key and official answer image are not included in the tutor context b
 
 ## Managed Exam Center
 
-The public site remains a static GitHub Pages deployment, while `/managed/` connects to a separate Cloudflare Worker and D1 database. This keeps authentication, schedules, attempt limits, timers, results, password hashes, and answer keys on the server instead of exposing them in the static bundle.
+The public site remains a static GitHub Pages deployment, while `/managed` connects to a separate Cloudflare Worker and D1 database. This keeps authentication, schedules, attempt limits, timers, results, password hashes, and answer keys on the server instead of exposing them in the static bundle.
 
 - Students create their own account with a unique email and password.
 - The first administrator account is created once with a private bootstrap code; further administrator registration is then closed.
