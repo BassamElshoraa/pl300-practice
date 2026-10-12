@@ -1,6 +1,7 @@
 import type { Question } from './questions';
 import { dragDropData } from './drag-drop-data.ts';
 import { visualControlData } from './visual-control-data.ts';
+import { managedAutoGradingKeys } from './managed-auto-grading-keys.ts';
 
 export type Answers = Record<string, number[]>;
 
@@ -14,7 +15,11 @@ export function calculateScore(exam: Question[], answers: Answers) {
   let unanswered = 0;
   let manual = 0;
   exam.forEach((question) => {
-    if (question.type === 'manual') manual += 1;
+    if (
+      question.type === 'manual' &&
+      !managedAutoGradingKeys[question.id]?.length
+    )
+      manual += 1;
     else if (!isAnswered(question, answers[question.id])) unanswered += 1;
     else if (isCorrect(question, answers[question.id])) correct += 1;
     else incorrect += 1;
@@ -44,8 +49,9 @@ export function isAnswered(question: Question, answer?: number[]) {
 }
 
 export function isCorrect(question: Question, answer?: number[]) {
-  if (question.type === 'manual') return false;
+  const expected = managedAutoGradingKeys[question.id] ?? question.correct;
+  if (question.type === 'manual' && !expected.length) return false;
   if (!isAnswered(question, answer) || !answer) return false;
-  if (question.type === 'multi') return [...answer].sort((a, b) => a - b).join(',') === [...question.correct].sort((a, b) => a - b).join(',');
-  return answer.join(',') === question.correct.join(',');
+  if (question.type === 'multi') return [...answer].sort((a, b) => a - b).join(',') === [...expected].sort((a, b) => a - b).join(',');
+  return answer.join(',') === expected.join(',');
 }

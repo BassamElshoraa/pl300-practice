@@ -462,3 +462,17 @@
     animation-duration: 0.01ms !important;
   }
 }
+
+@media print {
+  body.secure-exam-active * {
+    display: none !important;
+  }
+
+  body.secure-exam-active::before {
+    content: 'Printing is disabled during this exam.';
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    font: 700 22px/1.5 Cairo, sans-serif;
+  }
+}

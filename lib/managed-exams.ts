@@ -1,5 +1,6 @@
 import type { Question } from './questions.ts';
 import { isAnswered, isCorrect, type Answers } from './exam-utils.ts';
+import { managedAutoGradingKeys } from './managed-auto-grading-keys.ts';
 
 export type ManagedRole = 'instructor' | 'student';
 export type ManagedExamStatus = 'draft' | 'published' | 'archived';
@@ -27,6 +28,7 @@ export type ManagedExam = {
   shuffleQuestions: boolean;
   shuffleChoices: boolean;
   secureMode: boolean;
+  violationLimit: number;
   showScoreAfterSubmit: boolean;
   status: ManagedExamStatus;
   createdAt: string;
@@ -40,6 +42,9 @@ export type ManagedAttemptEvent = {
     | 'tab_hidden'
     | 'window_blur'
     | 'fullscreen_exit'
+    | 'screenshot_blocked'
+    | 'print_blocked'
+    | 'shortcut_blocked'
     | 'question_locked';
   at: string;
   detail?: string;
@@ -184,6 +189,7 @@ export function createSeedManagedState(
         shuffleQuestions: true,
         shuffleChoices: true,
         secureMode: true,
+        violationLimit: 5,
         showScoreAfterSubmit: true,
         status: 'published',
         createdAt: now.toISOString(),
@@ -411,7 +417,10 @@ export function submitManagedAttempt(
   for (const questionId of attempt.questionOrder) {
     const question = questionsById.get(questionId);
     if (!question) continue;
-    if (question.type === 'manual') {
+    if (
+      question.type === 'manual' &&
+      !managedAutoGradingKeys[question.id]?.length
+    ) {
       manualPending += 1;
     } else if (!isAnswered(question, attempt.answers[questionId])) {
       unanswered += 1;

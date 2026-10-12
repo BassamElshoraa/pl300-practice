@@ -1,4 +1,7 @@
 import assert from 'node:assert/strict';
+import { dragDropData } from '../lib/drag-drop-data.ts';
+import { isCorrect } from '../lib/exam-utils.ts';
+import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 import { questions } from '../lib/questions.ts';
 import {
   addManagedAttemptEvent,
@@ -15,6 +18,54 @@ const now = new Date('2026-10-11T10:00:00.000Z');
 const questionById = new Map(
   questions.map((question) => [question.id, question]),
 );
+const managedKeyEntries = Object.entries(managedAutoGradingKeys);
+const managedEligibleQuestions = questions.filter(
+  (question) =>
+    question.type !== 'manual' ||
+    Boolean(managedAutoGradingKeys[question.id]?.length),
+);
+
+assert.equal(
+  managedKeyEntries.length,
+  41,
+  'The reviewed visual auto-grading bank changed unexpectedly.',
+);
+assert.equal(
+  managedEligibleQuestions.length,
+  362,
+  'Managed exams should contain exactly 362 fully auto-graded questions.',
+);
+for (const [questionId, key] of managedKeyEntries) {
+  const question = questionById.get(questionId);
+  const spec = dragDropData[questionId];
+  assert.ok(question, `Managed answer key references missing question ${questionId}.`);
+  assert.equal(question.type, 'manual', `${questionId} is not a visual question.`);
+  assert.ok(spec, `Managed answer key ${questionId} has no drag-and-drop spec.`);
+  assert.equal(
+    key.length,
+    spec.slots,
+    `${questionId} answer count does not match its target slots.`,
+  );
+  assert.ok(
+    key.every(
+      (choice) =>
+        Number.isInteger(choice) && choice >= 0 && choice < spec.options.length,
+    ),
+    `${questionId} contains an invalid choice index.`,
+  );
+  if (!spec.allowReuse) {
+    assert.equal(
+      new Set(key).size,
+      key.length,
+      `${questionId} repeats a choice even though reuse is disabled.`,
+    );
+  }
+  assert.equal(
+    isCorrect(question, key),
+    true,
+    `${questionId} cannot be scored with its reviewed answer key.`,
+  );
+}
 const autoQuestions = questions
   .filter((question) => question.type !== 'manual')
   .slice(0, 5);
@@ -50,6 +101,7 @@ const created = createManagedExam(
     shuffleQuestions: false,
     shuffleChoices: true,
     secureMode: true,
+    violationLimit: 5,
     showScoreAfterSubmit: true,
     status: 'published',
   },
@@ -166,5 +218,5 @@ assert.equal(
 );
 
 console.log(
-  'Managed exams QA passed: auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.',
+  'Managed exams QA passed: 362 automatic questions (including 41 reviewed visual keys), auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.',
 );

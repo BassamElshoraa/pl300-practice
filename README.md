@@ -17,7 +17,7 @@ Core practice requires no registration. The learner name, active session, attemp
 - **494 independently reviewed active questions** from the two owner-supplied collections. The full 509-item source inventory is retained in the audit trail; 15 items with missing source context or answer areas are quarantined from practice, mocks, and scoring.
 - **Four 50-question mock exams**, each with a 100-minute timer and balanced skill-area coverage.
 - **Four non-overlapping bank parts** for working through the complete source collection.
-- A production **Managed Exam Center**: private student email/password accounts, one administrator account, scheduled exams, access codes, server-controlled timers, autosave/resume, attempt limits, central results, and CSV export.
+- A production **Managed Exam Center**: private student email/password accounts, one administrator account, scheduled exams, access codes, server-controlled timers, autosave/resume, attempt limits, central results, and CSV export. Managed exams draw from **362 fully auto-graded questions**, including 41 reviewed visual drag/order interactions; unresolved visual items are excluded rather than graded from an uncertain key.
 - Microsoft-style candidate check-in screens, numbered navigation, flagging, a final review screen, and non-returnable item-series questions that lock after the learner moves on.
 - A dedicated **monthly dump-practice area**, starting with one untimed August 2026 session containing all 494 verified questions from the latest two source files; the structure is ready for future months.
 - Single-choice, multiple-response, matching, hotspot, and visual answer-area interactions from the supplied bank. The interaction engine also supports ordering/drag-and-drop-style questions when future source items include them.
@@ -127,7 +127,8 @@ The public site remains a static GitHub Pages deployment, while `/managed/` conn
 - Passwords are salted and hashed with PBKDF2-SHA-256 before storage. Session tokens are random, expire after 12 hours, and only their hashes are stored.
 - Exam questions are selected on the server. The student payload excludes correct-answer indexes, explanations, and answer images.
 - The server enforces the opening/closing window, access code, maximum attempts, countdown deadline, autosave, resume, and final scoring.
-- Secure mode records copy, context-menu, tab-hidden, focus-loss, and fullscreen-exit events. It also adds a learner watermark. A normal website cannot guarantee prevention of operating-system or phone screenshots; that requires a separately managed secure-browser environment.
+- Secure mode requires fullscreen, locks an active attempt to the browser that started it, blocks common copy/print/save/developer-tool and screenshot shortcuts, records focus/fullscreen/security events, overlays the learner's name and email, and can submit the attempt automatically after an administrator-defined violation limit. The server enforces the same violation threshold.
+- A normal website cannot guarantee prevention of operating-system capture tools or a phone camera. Guaranteed lockdown requires a separately managed secure browser or supervised testing environment.
 
 Deployment and operations are documented in [`exam-api-worker/README.md`](exam-api-worker/README.md).
 

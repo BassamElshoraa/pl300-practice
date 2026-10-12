@@ -1,5 +1,6 @@
 const baseUrl = process.env.QA_API_URL ?? 'http://127.0.0.1:8788';
 const bootstrapCode = process.env.QA_BOOTSTRAP_CODE ?? 'LOCAL-ADMIN-SETUP-2026';
+const examClientId = 'qa-browser-client-2026';
 const admin = {
   name: 'Bassam QA Admin',
   email: 'admin.qa@pl300.local',
@@ -11,6 +12,7 @@ async function request(path, options = {}, token = '') {
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      'X-Exam-Client': examClientId,
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options.headers ?? {}),
     },
@@ -87,6 +89,7 @@ const examResult = await request(
       shuffleChoices: true,
       secureMode: true,
       showScoreAfterSubmit: false,
+      violationLimit: 5,
     }),
   },
   adminToken,
@@ -177,6 +180,23 @@ for (const question of started.data.questions) {
 }
 
 const attempt = started.data.attempt;
+const blockedDevice = await request(
+  '/api/attempts/start',
+  {
+    method: 'POST',
+    headers: { 'X-Exam-Client': 'qa-second-browser-2026' },
+    body: JSON.stringify({
+      examId: examResult.data.exam.id,
+      accessCode: 'QA-CODE',
+    }),
+  },
+  studentToken,
+);
+assert(
+  blockedDevice.response.status === 409 &&
+    blockedDevice.data.error === 'device_locked',
+  'Secure attempt was not locked to its original browser.',
+);
 const firstQuestionId = attempt.questionOrder[0];
 const saved = await request(
   `/api/attempts/${attempt.id}`,
@@ -271,6 +291,75 @@ assert(
   'Submitted result is missing from admin dashboard state.',
 );
 
+const violationExamResult = await request(
+  '/api/exams',
+  {
+    method: 'POST',
+    body: JSON.stringify({
+      title: `PL-300 violation QA ${now}`,
+      description: 'Automatic submission after security violations',
+      domain: 'all',
+      questionCount: 3,
+      durationMinutes: 20,
+      opensAt: new Date(now - 60_000).toISOString(),
+      closesAt: new Date(now + 3_600_000).toISOString(),
+      accessCode: 'LOCK-CODE',
+      passScore: 70,
+      maxAttempts: 1,
+      shuffleQuestions: true,
+      shuffleChoices: true,
+      secureMode: true,
+      showScoreAfterSubmit: true,
+      violationLimit: 2,
+    }),
+  },
+  adminToken,
+);
+assert(violationExamResult.response.ok, 'Violation exam creation failed.');
+
+const violationAttemptResult = await request(
+  '/api/attempts/start',
+  {
+    method: 'POST',
+    body: JSON.stringify({
+      examId: violationExamResult.data.exam.id,
+      accessCode: 'LOCK-CODE',
+    }),
+  },
+  studentToken,
+);
+assert(violationAttemptResult.response.ok, 'Violation attempt start failed.');
+const violationAttempt = violationAttemptResult.data.attempt;
+const automaticSubmission = await request(
+  `/api/attempts/${violationAttempt.id}`,
+  {
+    method: 'PUT',
+    body: JSON.stringify({
+      answers: {},
+      flags: [],
+      current: 0,
+      events: [
+        { id: 'violation-1', type: 'window_blur', at: new Date().toISOString() },
+        { id: 'violation-2', type: 'print_blocked', at: new Date().toISOString() },
+      ],
+    }),
+  },
+  studentToken,
+);
+assert(
+  automaticSubmission.response.ok &&
+    automaticSubmission.data.attempt.status === 'submitted',
+  'Security violation limit did not submit the attempt automatically.',
+);
+assert(
+  automaticSubmission.data.attempt.manualPending === 0,
+  'A managed exam unexpectedly required manual grading.',
+);
+assert(
+  automaticSubmission.data.attempt.autoGraded === 3,
+  'The managed exam did not grade every included question automatically.',
+);
+
 console.log(
   JSON.stringify(
     {
@@ -284,6 +373,9 @@ console.log(
       autosaveAndResume: true,
       serverScoring: true,
       maxAttemptsEnforced: true,
+      deviceLockEnforced: true,
+      violationAutoSubmit: true,
+      fullyAutomaticScoring: true,
       adminDashboardState: true,
     },
     null,

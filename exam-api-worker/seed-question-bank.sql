@@ -230,7 +230,7 @@ scroll to view content.
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[]', 'Box 1: Inner -
+Select and Place:', '[]', '[1,3]', 'Box 1: Inner -
 
 Every Product has a ProductSubCategory.
 
@@ -312,7 +312,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'From Power BI Desktop, import data from Excel, and select Table 1 and Table 2.
+Select and Place:', '[]', '[3,4,1]', 'From Power BI Desktop, import data from Excel, and select Table 1 and Table 2.
 
 From Power Query Editor, append Table 2 to Table 1.
 
@@ -463,7 +463,7 @@ Which three actions should you perform in sequence. To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', '1. Get data and select folder.
+Select and Place:', '[]', '[0,2,1]', '1. Get data and select folder.
 
 2. Remove the content column
 
@@ -522,7 +522,7 @@ You need to ensure that the Power BI service can connect to the database and ref
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', 'Configure an on premises data gateway.
+actions to the answer area and arrange them in the correct order.', '[]', '[1,3,0,4]', 'Configure an on premises data gateway.
 
 Add a data source.
 
@@ -578,7 +578,7 @@ You need to create a report that meets the following requirements:
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', 'Select the Month and Month Number Columns.
+actions to the answer area and arrange them in the correct order.', '[]', '[0,1,2]', 'Select the Month and Month Number Columns.
 
 Select Unpivot Other Columns
 
@@ -770,7 +770,7 @@ to the correct files. Each mode may be used once, more than once, or not at all.
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Independent correction:
+NOTE: Each correct selection is worth one point.', '[]', '[2,1]', 'Independent correction:
 
 Report file: Live connection.
 
@@ -1669,7 +1669,7 @@ Which four actions should you perform in sequence? To answer, move the appropria
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'With respect, you can not assign users to a role until AFTER the report has been published to the Power BI
+Select and Place:', '[]', '[4,3,0,1]', 'With respect, you can not assign users to a role until AFTER the report has been published to the Power BI
 Service. Those posting that you create the role and then assign users to the role BEFORE publishing are
 incorrect. Roles are created in Power BI Desktop. Desktop does not have any way to assign users to the roles.
 They are empty when created. Role assignment happens in the service.
@@ -1716,7 +1716,7 @@ NOTE: More than one order of answer choices is correct. You will receive credit 
 
 select.
 
-Select and Place:', '[]', '[]', '1.Merge [Region_Manager] and [Manager] by using an inner join.
+Select and Place:', '[]', '[0,2,5]', '1.Merge [Region_Manager] and [Manager] by using an inner join.
 
 3.Merge [Sales_Region] and [Sales_Manager] by using an inner join.
 
@@ -1913,7 +1913,7 @@ Which four actions should you perform in sequence? To answer, move the appropria
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', '1. Use first row as header
+Select and Place:', '[]', '[2,4,1,5]', '1. Use first row as header
 
 2. Unpivot all columns other than "Measure"
 
@@ -2389,7 +2389,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'Correct Sequence = 2>3>4
+Select and Place:', '[]', '[1,2,3]', 'Correct Sequence = 2>3>4
 
 Select Use First Row as Headers
 Select Department and Product and Unpivot Other Column
@@ -2487,7 +2487,7 @@ Each value may be used once, more than once, or not at all. You may need to drag
 
 scroll to view content.
 
-Select and Place:', '[]', '[]', 'Box 1: TOPN -
+Select and Place:', '[]', '[5,1]', 'Box 1: TOPN -
 TOPN returns the top N rows of the specified table.
 Syntax: TOPN(<n_value>, <table>, <orderBy_expression>, [<order>[, <orderBy_expression>, [<order>]]�])
 
@@ -2596,7 +2596,7 @@ How should you complete the DAX expression? To answer, select the appropriate op
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[]', 'Box 1: YEAR -
+Select and Place:', '[]', '[5,4,0]', 'Box 1: YEAR -
 
 Get the current year.
 
@@ -2717,7 +2717,7 @@ You may need to drag the split bar between panes or scroll to view content.
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[]', 'Box 1: FILTER
+Select and Place:', '[]', '[3,1,2]', 'Box 1: FILTER
 
 Box 2: AND
 
@@ -2956,7 +2956,7 @@ targets. Each function may be used once, more than once, or not at all. You may 
 
 panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '1.Calculate
+NOTE: Each correct selection is worth one point.', '[]', '[2,1]', '1.Calculate
 
 2. ALLSELECTED.
 
@@ -3546,7 +3546,7 @@ expressions to the correct targets. Each expression may be used once, more than 
 
 to drag the split bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Human Resources > False ()
+NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'Human Resources > False ()
 
 Country > [Email] = USERPRINCIPALNAME ()
 
@@ -4172,7 +4172,7 @@ correct operations. Each join type may be used once, more than once, or not at a
 
 bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '1. Join Customers with Address: Left Outer.
+NOTE: Each correct selection is worth one point.', '[]', '[2,0]', '1. Join Customers with Address: Left Outer.
 
 A Left Outer Join includes all records from the "Customers" table and matches records from the "Address"
 table. If no match is found, the result still includes the customer but with NULL values for the unmatched
@@ -5093,7 +5093,7 @@ Each function may be used once, more than once, or not at all. You may need to d
 
 or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE.
+NOTE: Each correct selection is worth one point.', '[]', '[1,2]', 'CALCULATE.
 
 Used to modify the filter context.
 
@@ -5347,7 +5347,7 @@ Which three actions should you perform in sequence in Power Query Editor? To ans
 
 actions from the list of actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'Step 1: Select the [Department] and [Stage] columns and unpivot the other columns.
+Select and Place:', '[]', '[0,3,2]', 'Step 1: Select the [Department] and [Stage] columns and unpivot the other columns.
 We unpivot the School1, School2, School3, and the School4 columns.
 You might want to unpivot data, sometimes called flattening the data, to put it in a matrix format so that all
 similar values are in one column.
@@ -5578,7 +5578,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', '3>2>1
+Select and Place:', '[]', '[2,1,0]', '3>2>1
 
 1. From DashboardA, select the TilaA options, and then select View Insights
 
@@ -5636,7 +5636,7 @@ Which four actions should you perform in sequence? To answer, move the appropria
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'Pin -> open -> edit -> rearrange
+Select and Place:', '[]', '[0,1,3,4]', 'Pin -> open -> edit -> rearrange
 
 Step 1: Pin items from the reports to the dashboard
 
@@ -5793,7 +5793,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'Step 1: ["The solution must minimize development time", so:] format the data as a table
+Select and Place:', '[]', '[1,2,3]', 'Step 1: ["The solution must minimize development time", so:] format the data as a table
 
 Step 2: From powerbi.com, import Excel1 as a dataset.
 
@@ -6577,7 +6577,7 @@ range shown in the following table.
 
 Which three actions should you perform in sequence in Power BI Desktop? To answer, move the appropriate
 
-actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[]', 'To apply conditional formatting to the Revenue column in Power BI, follow these steps:
+actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[3,0,1]', 'To apply conditional formatting to the Revenue column in Power BI, follow these steps:
 
 Open the Background color dialog: Click on the Revenue column and open the formatting options.
 Set Format style to Rules: This allows you to create rules for different value ranges.
@@ -6616,7 +6616,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct
 
-order.', '[]', '[]', '1. From Power BI Desktop, get the Word Cloud visual from Microsoft AppSource
+order.', '[]', '[2,4,1]', '1. From Power BI Desktop, get the Word Cloud visual from Microsoft AppSource
 
 2. Populate the Category, Value, and Excludes fields
 
@@ -6658,7 +6658,7 @@ be used once, more than once, or not at all. You may need to drag the split bar 
 
 content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Second step: Group the three bookmarks
+NOTE: Each correct selection is worth one point.', '[]', '[0,3,1]', 'Second step: Group the three bookmarks
 
 Third step: Change the Bookmark property for the button.', 'Final', '244', '/dump-assets/f1-244-243-question.webp', '/dump-assets/f1-244-243-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-245-244', 'Visualize and analyze the data', 'single', 'You plan to use Power BI to create sales invoices for customers. The solution must meet the following
@@ -6702,7 +6702,7 @@ requirement. Each task may be used once, more than once, or not at all. You may 
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '- Configure the Country slicer to sync across all the pages
+NOTE: Each correct selection is worth one point.', '[]', '[1,3]', '- Configure the Country slicer to sync across all the pages
 
 - Hide the Country slicer on the second and third pages
 
@@ -6787,7 +6787,7 @@ outputs. Each service may be used once, more than once, or not at all. You may n
 
 panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Key Phrase Extraction
+NOTE: Each correct selection is worth one point.', '[]', '[1,3,2]', 'Key Phrase Extraction
 
 Sentiment Analysis
 
@@ -7053,7 +7053,7 @@ requirements. Each visual may be used once, more than once, or not at all. You m
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Pie Chart.
+NOTE: Each correct selection is worth one point.', '[]', '[3,4]', 'Pie Chart.
 
 Stacked Bar Chart.', 'Final', '262', '/dump-assets/f1-262-261-question.webp', '/dump-assets/f1-262-261-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-263-262', 'Prepare the data', 'single', 'You have the CSV file shown in the following table.
@@ -7469,7 +7469,7 @@ Each visual type may be used once, more than once, or not at all. You may need t
 
 or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Treemap is for hierarchical data and slicer is for filtering', 'Final', '280', '/dump-assets/f1-280-279-question.webp', '/dump-assets/f1-280-279-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[4,1]', 'Treemap is for hierarchical data and slicer is for filtering', 'Final', '280', '/dump-assets/f1-280-279-question.webp', '/dump-assets/f1-280-279-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-281-280', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -7696,7 +7696,7 @@ requirements. Each option may be used once, more than once, or not at all. You m
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Column quality: Shows the percentage of valid, error, and empty values for each column.
+NOTE: Each correct selection is worth one point.', '[]', '[1,3]', 'Column quality: Shows the percentage of valid, error, and empty values for each column.
 
 Column profile: Provides a more detailed statistical profile for a selected column, including min/max values,
 average, standard deviation, count of empty/error/distinct/unique values, and a value distribution chart.', 'Final', '290', '/dump-assets/f1-290-289-question.webp', '/dump-assets/f1-290-289-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -7876,7 +7876,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', 'An entire report page can be pinned to a dashboard, which is called pinning a live tile. It''s called a live tile
+Select and Place:', '[]', '[3,4,1]', 'An entire report page can be pinned to a dashboard, which is called pinning a live tile. It''s called a live tile
 because you can interact with the tile on the dashboard.
 Unlike with individual visualization tiles, changes made in the report are automatically synced with the
 
@@ -8044,7 +8044,7 @@ role may be used once, more than once, or not at all. You may need to drag the s
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[]', 'Box 1: Member -
+Select and Place:', '[]', '[2,1]', 'Box 1: Member -
 
 Only Admin and Member can publish, unpublish, and change permissions for an app.
 
@@ -8352,7 +8352,7 @@ bar between panes or scroll to view content.
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[]', 'Calculate
+Select and Place:', '[]', '[1,2,0]', 'Calculate
 
 Countrows
 
@@ -8369,7 +8369,7 @@ You need to ensure that the Power BI service can connect to the database and ref
 
 Which four actions should you perform n sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', '1.Configure an on-premises data gateway
+actions to the answer area and arrange them in the correct order.', '[]', '[4,3,2,0]', '1.Configure an on-premises data gateway
 
 The gateway serves as a bridge between the Power BI service and the on-premises SQL Server database.
 
@@ -8801,7 +8801,7 @@ You need to configure row-level security (RLS) to restrict data access for users
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', '1. From Microsoft Power BI Desktop, create a new RLS role by using a DAX filter.
+actions to the answer area and arrange them in the correct order.', '[]', '[3,0,2]', '1. From Microsoft Power BI Desktop, create a new RLS role by using a DAX filter.
 
 You must first define the RLS roles and the corresponding DAX filters in Power BI Desktop to determine how
 data is restricted for different users.
@@ -9690,7 +9690,7 @@ business unit analysts see the appropriate profit and loss data? To answer, move
 
 list of actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[]', '1) Create four roles
+Select and Place:', '[]', '[3,1,4,2]', '1) Create four roles
 
 2) add DAX filters
 
@@ -12596,7 +12596,7 @@ You need to restrict access to individual rows of the data on a per region-basis
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', '', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', '/dump-assets/f2-059-397-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[1,3,0,4]', '', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', '/dump-assets/f2-059-397-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-061-398', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are creating a query to be used as a Country dimension in a star schema. A snapshot of the source data is shown in the following table.
@@ -12968,7 +12968,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 correct order.
 
-NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', '* 1.Merge [Region_Manager] and [Manager] by using an inner join. 3.Merge [Sales_Region] and [Sales_Manager] by using an inner join. 6.Merge [Sales_Region]
+NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[0,2,5]', '* 1.Merge [Region_Manager] and [Manager] by using an inner join. 3.Merge [Sales_Region] and [Sales_Manager] by using an inner join. 6.Merge [Sales_Region]
 and [Region_Manager] by using an inner join.', 'Final 2', '157', '/dump-assets/f2-157-426-question.webp', '/dump-assets/f2-157-426-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-161-427', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
@@ -13105,7 +13105,7 @@ may be used once, more than once, or not at all. You may need to drag the split 
 
 scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', '/dump-assets/f2-177-434-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[3,1]', '', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', '/dump-assets/f2-177-434-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-180-435', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI dashboard that monitors the quality of manufacturing processes. The dashboard contains the following elements:
@@ -13188,7 +13188,7 @@ You need to prepare the data to support the following:
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', '', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', '/dump-assets/f2-201-443-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[2,4,0,6]', '', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', '/dump-assets/f2-201-443-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-202-444', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are profiling data by using Power Query Editor.
@@ -13570,7 +13570,7 @@ How should you complete the DAX measure? To answer drag the appropriate DAX func
 
 once, or not at all the spirt bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point', '[]', '[]', '', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', '/dump-assets/f2-318-479-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point', '[]', '[2,1]', '', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', '/dump-assets/f2-318-479-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-323-480', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl report that contains three pages. The pages are used to analyze sales across various countries.
@@ -13587,7 +13587,7 @@ Which task should you perform for each requirement? To answer, drag the appropri
 
 once, or not at all. You may need to drag the split bar between panes or scroll to view content.Ther
 
-NOTE Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', '/dump-assets/f2-323-480-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE Each correct selection is worth one point.', '[]', '[1,3]', '', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', '/dump-assets/f2-323-480-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-327-481', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a prospective customer list that contains 1,500 rows of data. The list contains the following fields:

@@ -240,9 +240,20 @@ export function ManagedExamsProduction() {
           setDark={setDark}
           questionsMap={questionsMap}
           onPersistAttempt={(attempt) => {
-            void saveManagedApiAttempt(attempt).catch((error) =>
-              setNotice(apiMessage(error, tx)),
-            );
+            void saveManagedApiAttempt(attempt)
+              .then((result) => {
+                if (result.attempt.status === 'in_progress') return;
+                setState((current) => ({
+                  ...current,
+                  attempts: current.attempts.map((item) =>
+                    item.id === result.attempt.id ? result.attempt : item,
+                  ),
+                }));
+                setBundle((current) =>
+                  current ? { ...current, attempt: result.attempt } : current,
+                );
+              })
+              .catch((error) => setNotice(apiMessage(error, tx)));
           }}
           onSubmitAttempt={async (attempt) => {
             await saveManagedApiAttempt(attempt);
@@ -1044,6 +1055,7 @@ function ProductionCreateExam({
     shuffleQuestions: true,
     shuffleChoices: true,
     secureMode: true,
+    violationLimit: 5,
     showScoreAfterSubmit: true,
   });
   const [busy, setBusy] = useState(false);
@@ -1170,6 +1182,22 @@ function ProductionCreateExam({
               max={20}
               value={form.maxAttempts}
               onChange={(e) => update('maxAttempts', Number(e.target.value))}
+            />
+          </Field>
+          <Field
+            label={tx(
+              'Auto-submit after violations',
+              'التسليم التلقائي بعد عدد مخالفات',
+            )}
+          >
+            <Input
+              type="number"
+              min={1}
+              max={20}
+              value={form.violationLimit}
+              onChange={(e) =>
+                update('violationLimit', Number(e.target.value))
+              }
             />
           </Field>
           <div className="grid gap-3 rounded-2xl border bg-muted/25 p-4 sm:col-span-2 sm:grid-cols-2">
@@ -1395,6 +1423,7 @@ function ExamCheckIn({
   const [page, setPage] = useState(0);
   const [accepted, setAccepted] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [startError, setStartError] = useState('');
   const pages = [
     {
       icon: GraduationCap,
@@ -1519,8 +1548,18 @@ function ExamCheckIn({
 
   async function beginExam() {
     setBusy(true);
+    setStartError('');
     try {
+      if (exam.secureMode && !document.fullscreenElement)
+        await document.documentElement.requestFullscreen();
       await onStart();
+    } catch {
+      setStartError(
+        tx(
+          'Full-screen access is required to start this secure exam.',
+          'لازم توافق على ملء الشاشة علشان تبدأ الامتحان الآمن.',
+        ),
+      );
     } finally {
       setBusy(false);
     }
@@ -1547,6 +1586,11 @@ function ExamCheckIn({
           <Progress value={((page + 1) / pages.length) * 100} />
         </DialogHeader>
         <div className="min-h-48 py-5 leading-7">{current.body}</div>
+        {startError && (
+          <p className="mb-3 rounded-xl bg-destructive/10 p-3 text-sm text-destructive">
+            {startError}
+          </p>
+        )}
         <DialogFooter className="flex-row justify-between sm:justify-between">
           <Button
             variant="outline"

@@ -1,6 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { questions } from '../lib/questions.ts';
+import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 
 function sql(value) {
   if (value === undefined || value === null) return 'NULL';
@@ -15,7 +16,7 @@ const statements = questions.map((question) => {
     question.type,
     question.prompt,
     JSON.stringify(question.choices),
-    JSON.stringify(question.correct),
+    JSON.stringify(managedAutoGradingKeys[question.id] ?? question.correct),
     question.explanation,
     question.source,
     question.sourceNumber,

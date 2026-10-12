@@ -32,6 +32,7 @@ type ExamRow = {
   shuffle_questions: number;
   shuffle_choices: number;
   secure_mode: number;
+  violation_limit: number;
   show_score_after_submit: number;
   status: 'draft' | 'published' | 'archived';
   created_at: string;
@@ -60,6 +61,7 @@ type AttemptRow = {
   manual_pending_count: number | null;
   auto_graded_count: number | null;
   percent: number | null;
+  client_id: string | null;
 };
 
 type QuestionRow = {
@@ -92,7 +94,7 @@ function allowedOrigin(request: Request, env: Env) {
 function responseHeaders(request: Request, env: Env) {
   return {
     'Access-Control-Allow-Origin': allowedOrigin(request, env),
-    'Access-Control-Allow-Headers': 'authorization, content-type',
+    'Access-Control-Allow-Headers': 'authorization, content-type, x-exam-client',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
     'Access-Control-Max-Age': '86400',
     'Cache-Control': 'no-store',
@@ -289,6 +291,7 @@ function examView(row: ExamRow, questionIds: string[] = []) {
     shuffleQuestions: Boolean(row.shuffle_questions),
     shuffleChoices: Boolean(row.shuffle_choices),
     secureMode: Boolean(row.secure_mode),
+    violationLimit: row.violation_limit ?? 5,
     showScoreAfterSubmit: Boolean(row.show_score_after_submit),
     status: row.status,
     createdAt: row.created_at,
@@ -325,6 +328,11 @@ function attemptView(row: AttemptRow, includeScore = true) {
         }
       : {}),
   };
+}
+
+function requestClientId(request: Request) {
+  const value = request.headers.get('X-Exam-Client')?.trim() ?? '';
+  return /^[a-zA-Z0-9-]{8,100}$/.test(value) ? value : '';
 }
 
 function questionView(row: QuestionRow) {
@@ -607,7 +615,9 @@ async function createExam(request: Request, env: Env, user: UserRow) {
       'Access code must contain 4–40 characters.',
     );
   const selected = await env.DB.prepare(
-    `SELECT id FROM question_bank WHERE (?1 = 'all' OR domain = ?1) ORDER BY RANDOM() LIMIT ?2`,
+    `SELECT id FROM question_bank
+     WHERE correct_json <> '[]' AND (?1 = 'all' OR domain = ?1)
+     ORDER BY RANDOM() LIMIT ?2`,
   )
     .bind(domain, questionCount)
     .all<{ id: string }>();
@@ -625,8 +635,8 @@ async function createExam(request: Request, env: Env, user: UserRow) {
     env.DB.prepare(
       `INSERT INTO exams (id, owner_id, title, description, question_count, duration_minutes, opens_at, closes_at,
        access_code_hash, pass_score, max_attempts, shuffle_questions, shuffle_choices, secure_mode,
-       show_score_after_submit, status, created_at, updated_at)
-       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, 'published', ?16, ?16)`,
+       show_score_after_submit, violation_limit, status, created_at, updated_at)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, 'published', ?17, ?17)`,
     ).bind(
       examId,
       user.id,
@@ -643,6 +653,7 @@ async function createExam(request: Request, env: Env, user: UserRow) {
       input.shuffleChoices === false ? 0 : 1,
       input.secureMode === false ? 0 : 1,
       input.showScoreAfterSubmit === false ? 0 : 1,
+      Math.min(20, Math.max(1, Number(input.violationLimit ?? 5))),
       now,
     ),
     ...(selected.results ?? []).map((question, index) =>
@@ -713,11 +724,37 @@ async function startAttempt(request: Request, env: Env, user: UserRow) {
     )
   )
     return fail(request, env, 401, 'bad_code', 'The access code is incorrect.');
+  const clientId = requestClientId(request);
+  if (exam.secure_mode && !clientId)
+    return fail(
+      request,
+      env,
+      400,
+      'client_required',
+      'A secure browser identity is required for this exam.',
+    );
   const active = await env.DB.prepare(
     "SELECT * FROM attempts WHERE exam_id = ?1 AND student_id = ?2 AND status = 'in_progress' ORDER BY started_at DESC LIMIT 1",
   )
     .bind(exam.id, user.id)
     .first<AttemptRow>();
+  if (
+    active &&
+    exam.secure_mode &&
+    active.client_id &&
+    active.client_id !== clientId
+  )
+    return fail(
+      request,
+      env,
+      409,
+      'device_locked',
+      'This secure attempt is locked to the browser that started it.',
+    );
+  if (active && !active.client_id && clientId)
+    await env.DB.prepare('UPDATE attempts SET client_id = ?2 WHERE id = ?1')
+      .bind(active.id, clientId)
+      .run();
   if (active && now < new Date(active.expires_at))
     return json(request, env, await getAttemptBundle(env, active));
   if (active)
@@ -777,7 +814,7 @@ async function startAttempt(request: Request, env: Env, user: UserRow) {
   );
   await env.DB.prepare(
     `INSERT INTO attempts (id, exam_id, student_id, attempt_number, started_at, updated_at, expires_at,
-     question_order_json, choice_orders_json) VALUES (?1, ?2, ?3, ?4, ?5, ?5, ?6, ?7, ?8)`,
+     question_order_json, choice_orders_json, client_id) VALUES (?1, ?2, ?3, ?4, ?5, ?5, ?6, ?7, ?8, ?9)`,
   )
     .bind(
       attemptId,
@@ -788,6 +825,7 @@ async function startAttempt(request: Request, env: Env, user: UserRow) {
       expiresAt.toISOString(),
       JSON.stringify(order),
       JSON.stringify(choiceOrders),
+      clientId || null,
     )
     .run();
   const attempt = await env.DB.prepare('SELECT * FROM attempts WHERE id = ?1')
@@ -809,12 +847,26 @@ async function loadAuthorizedAttempt(
   env: Env,
   attemptId: string,
   user: UserRow,
+  request?: Request,
 ) {
   const attempt = await env.DB.prepare('SELECT * FROM attempts WHERE id = ?1')
     .bind(attemptId)
     .first<AttemptRow>();
   if (!attempt) return null;
   if (user.role === 'student' && attempt.student_id !== user.id) return null;
+  if (user.role === 'student' && request) {
+    const exam = await env.DB.prepare(
+      'SELECT secure_mode FROM exams WHERE id = ?1',
+    )
+      .bind(attempt.exam_id)
+      .first<{ secure_mode: number }>();
+    if (
+      exam?.secure_mode &&
+      attempt.client_id &&
+      attempt.client_id !== requestClientId(request)
+    )
+      return null;
+  }
   if (user.role === 'admin') {
     const owned = await env.DB.prepare(
       'SELECT id FROM exams WHERE id = ?1 AND owner_id = ?2',
@@ -832,7 +884,7 @@ async function saveAttempt(
   user: UserRow,
   attemptId: string,
 ) {
-  const attempt = await loadAuthorizedAttempt(env, attemptId, user);
+  const attempt = await loadAuthorizedAttempt(env, attemptId, user, request);
   if (!attempt || user.role !== 'student')
     return fail(request, env, 404, 'not_found', 'Attempt not found.');
   if (attempt.status !== 'in_progress')
@@ -889,6 +941,22 @@ async function saveAttempt(
   const saved = await env.DB.prepare('SELECT * FROM attempts WHERE id = ?1')
     .bind(attempt.id)
     .first<AttemptRow>();
+  const exam = await env.DB.prepare(
+    'SELECT secure_mode, violation_limit FROM exams WHERE id = ?1',
+  )
+    .bind(attempt.exam_id)
+    .first<{ secure_mode: number; violation_limit: number }>();
+  const violationCount = events.filter(
+    (event) =>
+      event &&
+      typeof event === 'object' &&
+      (event as { type?: string }).type !== 'question_locked',
+  ).length;
+  if (
+    exam?.secure_mode &&
+    violationCount >= Math.max(1, exam.violation_limit ?? 5)
+  )
+    return submitAttempt(request, env, user, attemptId);
   return json(request, env, { attempt: attemptView(saved!) });
 }
 
@@ -904,7 +972,7 @@ async function submitAttempt(
   user: UserRow,
   attemptId: string,
 ) {
-  const attempt = await loadAuthorizedAttempt(env, attemptId, user);
+  const attempt = await loadAuthorizedAttempt(env, attemptId, user, request);
   if (!attempt || user.role !== 'student')
     return fail(request, env, 404, 'not_found', 'Attempt not found.');
   const exam = await env.DB.prepare('SELECT * FROM exams WHERE id = ?1')
@@ -930,7 +998,8 @@ async function submitAttempt(
     const question = byId.get(id);
     if (!question) continue;
     const answer = answers[id];
-    if (question.type === 'manual') {
+    const expected = parseJson<number[]>(question.correct_json, []);
+    if (!expected.length) {
       if (
         answer?.length &&
         answer.every((value) => Number.isInteger(value) && value >= 0)
@@ -943,7 +1012,6 @@ async function submitAttempt(
       unanswered += 1;
       continue;
     }
-    const expected = parseJson<number[]>(question.correct_json, []);
     if (arraysEqual(answer, expected, question.type === 'multi')) correct += 1;
     else incorrect += 1;
   }
@@ -1021,7 +1089,12 @@ async function route(request: Request, env: Env) {
     /^\/api\/attempts\/([^/]+)(?:\/(submit))?$/,
   );
   if (attemptMatch && request.method === 'GET') {
-    const attempt = await loadAuthorizedAttempt(env, attemptMatch[1], user);
+    const attempt = await loadAuthorizedAttempt(
+      env,
+      attemptMatch[1],
+      user,
+      request,
+    );
     if (!attempt)
       return fail(request, env, 404, 'not_found', 'Attempt not found.');
     const exam = await env.DB.prepare('SELECT * FROM exams WHERE id = ?1')

@@ -11,6 +11,17 @@ export const MANAGED_API_URL = (
 ).replace(/\/$/, '');
 
 const TOKEN_KEY = 'pl300-managed-api-token';
+const CLIENT_KEY = 'pl300-managed-exam-client';
+
+export function getManagedClientId() {
+  if (typeof window === 'undefined') return '';
+  let value = window.localStorage.getItem(CLIENT_KEY) ?? '';
+  if (!value) {
+    value = crypto.randomUUID();
+    window.localStorage.setItem(CLIENT_KEY, value);
+  }
+  return value;
+}
 
 export class ManagedApiError extends Error {
   status: number;
@@ -51,6 +62,7 @@ async function api<T>(
     headers: {
       'Content-Type': 'application/json',
       ...(authenticated && token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(authenticated ? { 'X-Exam-Client': getManagedClientId() } : {}),
       ...(options.headers ?? {}),
     },
   });
@@ -143,6 +155,7 @@ export type CreateManagedApiExamInput = {
   shuffleQuestions: boolean;
   shuffleChoices: boolean;
   secureMode: boolean;
+  violationLimit: number;
   showScoreAfterSubmit: boolean;
 };
 

@@ -66,6 +66,7 @@ import { questions, type Domain, type Question } from '@/lib/questions';
 import { isAnswered, isYesNoQuestion } from '@/lib/exam-utils';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
+import { hasManagedAutoGradingKey } from '@/lib/managed-auto-grading-keys';
 import {
   DEMO_ACCOUNTS,
   MANAGED_EXAMS_STORAGE_KEY,
@@ -925,10 +926,14 @@ function CreateExamDialog({
   const [shuffleChoices, setShuffleChoices] = useState(true);
   const [secureMode, setSecureMode] = useState(true);
   const [showScoreAfterSubmit, setShowScoreAfterSubmit] = useState(true);
+  const autoGradable = questions.filter(
+    (question) =>
+      question.type !== 'manual' || hasManagedAutoGradingKey(question.id),
+  );
   const eligible =
     domain === 'all'
-      ? questions
-      : questions.filter((question) => question.domain === domain);
+      ? autoGradable
+      : autoGradable.filter((question) => question.domain === domain);
 
   function create() {
     if (!title.trim() || !accessCode.trim() || eligible.length === 0) return;
@@ -948,6 +953,7 @@ function CreateExamDialog({
       shuffleQuestions,
       shuffleChoices,
       secureMode,
+      violationLimit: 5,
       showScoreAfterSubmit,
       status: 'published',
     });
@@ -1360,6 +1366,8 @@ export function ManagedExamPlayer({
   const [submitOpen, setSubmitOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [privacyShield, setPrivacyShield] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const currentAttempt =
     state.attempts.find((item) => item.id === attempt.id) ?? attempt;
   const currentQuestion = questionsMap.get(
@@ -1544,27 +1552,94 @@ export function ManagedExamPlayer({
       recordEvent('context_menu_blocked');
     };
     const visibility = () => {
-      if (document.hidden) recordEvent('tab_hidden');
+      if (document.hidden) {
+        setPrivacyShield(true);
+        recordEvent('tab_hidden');
+      } else {
+        window.setTimeout(() => setPrivacyShield(false), 350);
+      }
     };
-    const blur = () => recordEvent('window_blur');
+    const blur = () => {
+      setPrivacyShield(true);
+      recordEvent('window_blur');
+    };
+    const focus = () => window.setTimeout(() => setPrivacyShield(false), 350);
     const fullscreen = () => {
-      if (!document.fullscreenElement) recordEvent('fullscreen_exit');
+      const active = Boolean(document.fullscreenElement);
+      setIsFullscreen(active);
+      if (!active) {
+        setPrivacyShield(true);
+        recordEvent('fullscreen_exit');
+      }
     };
+    const keydown = (event: KeyboardEvent) => {
+      const key = event.key.toLowerCase();
+      if (event.key === 'PrintScreen') {
+        event.preventDefault();
+        setPrivacyShield(true);
+        recordEvent('screenshot_blocked');
+        void navigator.clipboard?.writeText('Screenshot blocked during exam.');
+        return;
+      }
+      if ((event.ctrlKey || event.metaKey) && ['p', 's', 'u'].includes(key)) {
+        event.preventDefault();
+        setPrivacyShield(true);
+        recordEvent(key === 'p' ? 'print_blocked' : 'shortcut_blocked', key);
+      }
+      if (
+        event.key === 'F12' ||
+        ((event.ctrlKey || event.metaKey) &&
+          event.shiftKey &&
+          ['i', 'j', 'c'].includes(key))
+      ) {
+        event.preventDefault();
+        setPrivacyShield(true);
+        recordEvent('shortcut_blocked', 'developer-tools');
+      }
+    };
+    const beforePrint = () => {
+      setPrivacyShield(true);
+      recordEvent('print_blocked');
+    };
+    setIsFullscreen(Boolean(document.fullscreenElement));
+    document.body.classList.add('secure-exam-active');
     document.addEventListener('copy', blockCopy);
     document.addEventListener('cut', blockCopy);
     document.addEventListener('contextmenu', blockContext);
     document.addEventListener('visibilitychange', visibility);
     document.addEventListener('fullscreenchange', fullscreen);
+    document.addEventListener('keydown', keydown, true);
     window.addEventListener('blur', blur);
+    window.addEventListener('focus', focus);
+    window.addEventListener('beforeprint', beforePrint);
     return () => {
+      document.body.classList.remove('secure-exam-active');
       document.removeEventListener('copy', blockCopy);
       document.removeEventListener('cut', blockCopy);
       document.removeEventListener('contextmenu', blockContext);
       document.removeEventListener('visibilitychange', visibility);
       document.removeEventListener('fullscreenchange', fullscreen);
+      document.removeEventListener('keydown', keydown, true);
       window.removeEventListener('blur', blur);
+      window.removeEventListener('focus', focus);
+      window.removeEventListener('beforeprint', beforePrint);
     };
   }, [currentAttempt.status, exam.secureMode, recordEvent]);
+
+  useEffect(() => {
+    if (
+      exam.secureMode &&
+      currentAttempt.status === 'in_progress' &&
+      securityEventCount >= Math.max(1, exam.violationLimit ?? 5)
+    )
+      void submit();
+  }, [
+    currentAttempt.status,
+    exam.secureMode,
+    exam.violationLimit,
+    securityEventCount,
+    submit,
+  ]);
 
   if (currentAttempt.status !== 'in_progress') {
     const passed = (currentAttempt.percent ?? 0) >= exam.passScore;
@@ -1634,6 +1709,39 @@ export function ManagedExamPlayer({
   if (!currentQuestion) return null;
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#eef3f8] text-[#172033] dark:bg-[#08111f] dark:text-slate-100">
+      {exam.secureMode && (privacyShield || !isFullscreen) && (
+        <div className="fixed inset-0 z-[200] grid place-items-center bg-[#07101f] p-6 text-center text-white">
+          <div className="max-w-lg rounded-3xl border border-white/15 bg-white/5 p-8 shadow-2xl">
+            <ShieldAlert className="mx-auto size-12 text-[#f4cf2f]" />
+            <h2 className="mt-5 text-2xl font-bold">
+              {tx('Secure exam paused', 'الامتحان الآمن متوقف مؤقتًا')}
+            </h2>
+            <p className="mt-3 leading-7 text-slate-300">
+              {tx(
+                'Return to this window and continue in full screen. Leaving the exam window is recorded and the attempt is submitted automatically when the violation limit is reached.',
+                'ارجع لنافذة الامتحان وكمل بوضع ملء الشاشة. الخروج من النافذة بيتسجل، والمحاولة بتتسلم تلقائيًا عند الوصول لحد المخالفات.',
+              )}
+            </p>
+            <Button
+              className="mt-6"
+              onClick={async () => {
+                await document.documentElement.requestFullscreen?.();
+                setPrivacyShield(false);
+                setIsFullscreen(Boolean(document.fullscreenElement));
+              }}
+            >
+              <Fullscreen className="size-4" />{' '}
+              {tx('Return to full screen', 'ارجع لملء الشاشة')}
+            </Button>
+            <p className="mt-4 text-xs text-slate-400">
+              {tx(
+                `${securityEventCount}/${exam.violationLimit ?? 5} security events`,
+                `${securityEventCount}/${exam.violationLimit ?? 5} أحداث حماية`,
+              )}
+            </p>
+          </div>
+        </div>
+      )}
       <div
         className="pointer-events-none fixed inset-0 z-30 flex select-none flex-wrap content-start gap-x-24 gap-y-20 overflow-hidden p-12 opacity-[0.035]"
         aria-hidden="true"
@@ -1737,8 +1845,8 @@ export function ManagedExamPlayer({
             </p>
             <p>
               {tx(
-                'Copy, right-click, tab switching, and focus changes are logged in this preview.',
-                'النسخ والكليك يمين وتغيير التاب وفقدان التركيز بيتسجلوا في المعاينة.',
+                `Copy, printing, screenshots, tab switching, and focus changes are logged. The attempt is submitted at ${exam.violationLimit ?? 5} violations.`,
+                `النسخ والطباعة ومحاولات تصوير الشاشة وتغيير التاب وفقدان التركيز بيتسجلوا. المحاولة بتتسلم عند ${exam.violationLimit ?? 5} مخالفات.`,
               )}
             </p>
             {lockedCount > 0 && (
