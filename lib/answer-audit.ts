@@ -1,4 +1,5 @@
 import type { Question } from './questions';
+import { answerCompletenessCorrections } from './answer-completeness.ts';
 
 export type AnswerAuditStatus =
   | 'independently-reviewed'
@@ -19,7 +20,7 @@ export type AnswerAudit = {
   excluded?: boolean;
 };
 
-type QuestionCorrection = AnswerAudit & {
+export type QuestionCorrection = AnswerAudit & {
   correct?: number[];
   choices?: string[];
   type?: Question['type'];
@@ -65,6 +66,7 @@ const isCurrentBankQuestion = (id: string) => {
 };
 
 const corrections: Record<string, QuestionCorrection> = {
+  ...answerCompletenessCorrections,
   'f1-028-27': {
     status: 'corrected',
     reviewedAnswer:
@@ -338,8 +340,7 @@ const corrections: Record<string, QuestionCorrection> = {
     status: 'corrected',
     correct: [3],
     reviewedAnswer: 'RUNNINGSUM([Sales]).',
-    originalAnswer:
-      "CALCULATE([Sales], 'Date'[Year] <= MAX('Date'[Year])).",
+    originalAnswer: "CALCULATE([Sales], 'Date'[Year] <= MAX('Date'[Year])).",
     reason:
       'The question explicitly asks for a visual calculation. RUNNINGSUM is the visual-calculation function designed for a cumulative total over the visual axis.',
     reasonAr:
@@ -374,50 +375,66 @@ const corrections: Record<string, QuestionCorrection> = {
   'f2-001-369': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The question refers to case-study reporting requirements that are absent from both the simulator prompt and the supplied PDF page.',
-    reasonAr: 'السؤال يعتمد على متطلبات Case Study غير موجودة في نص الموقع ولا في صفحة الـPDF المرفقة، لذلك لا يمكن للطالب استنتاج الإجابة بثقة.',
+    reason:
+      'The question refers to case-study reporting requirements that are absent from both the simulator prompt and the supplied PDF page.',
+    reasonAr:
+      'السؤال يعتمد على متطلبات Case Study غير موجودة في نص الموقع ولا في صفحة الـPDF المرفقة، لذلك لا يمكن للطالب استنتاج الإجابة بثقة.',
   },
   'f2-004-372': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The required case-study model, roles, and answer actions are missing from the supplied source.',
-    reasonAr: 'بيانات الـCase Study وخيارات الترتيب اللازمة للحل غير موجودة في المصدر، فتم استبعاده بدل عرضه كسؤال تخمين.',
+    reason:
+      'The required case-study model, roles, and answer actions are missing from the supplied source.',
+    reasonAr:
+      'بيانات الـCase Study وخيارات الترتيب اللازمة للحل غير موجودة في المصدر، فتم استبعاده بدل عرضه كسؤال تخمين.',
   },
   'f2-007-375': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The item asks which visuals meet reporting goals, but those goals are not included in the supplied source.',
-    reasonAr: 'السؤال يطلب اختيار Visuals تحقق Reporting Goals غير مذكورة، لذلك لا توجد إجابة قابلة للتحقق من النص المتاح.',
+    reason:
+      'The item asks which visuals meet reporting goals, but those goals are not included in the supplied source.',
+    reasonAr:
+      'السؤال يطلب اختيار Visuals تحقق Reporting Goals غير مذكورة، لذلك لا توجد إجابة قابلة للتحقق من النص المتاح.',
   },
   'f2-008-376': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The case-study report requirements needed to choose the filter are missing.',
-    reasonAr: 'متطلبات تقرير Top Customers الأصلية غير معروضة للطالب، فالإجابة تصبح مبنية على شرح المصدر لا على السؤال نفسه.',
+    reason:
+      'The case-study report requirements needed to choose the filter are missing.',
+    reasonAr:
+      'متطلبات تقرير Top Customers الأصلية غير معروضة للطالب، فالإجابة تصبح مبنية على شرح المصدر لا على السؤال نفسه.',
   },
   'f2-009-377': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The Customer Details worksheet, Orders data, and report requirements are absent.',
-    reasonAr: 'تفاصيل الجداول ومتطلبات التقرير التي تحدد العلاقات غير موجودة، لذلك السؤال غير مكتمل.',
+    reason:
+      'The Customer Details worksheet, Orders data, and report requirements are absent.',
+    reasonAr:
+      'تفاصيل الجداول ومتطلبات التقرير التي تحدد العلاقات غير موجودة، لذلك السؤال غير مكتمل.',
   },
   'f2-010-378': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The warehouse notification requirements are absent from the supplied source.',
-    reasonAr: 'متطلبات الإشعار الخاصة بالمخزن غير موجودة، فلا يمكن تحديد الحل المطلوب من نص السؤال.',
+    reason:
+      'The warehouse notification requirements are absent from the supplied source.',
+    reasonAr:
+      'متطلبات الإشعار الخاصة بالمخزن غير موجودة، فلا يمكن تحديد الحل المطلوب من نص السؤال.',
   },
   'f2-010-379': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The late-order definition and full case-study context are not included in the supplied source.',
-    reasonAr: 'تعريف Late Order وسياق الـCase Study غير موجودين في السؤال المعروض، لذلك لا يمكن بناء الـMeasure بشكل مؤكد.',
+    reason:
+      'The late-order definition and full case-study context are not included in the supplied source.',
+    reasonAr:
+      'تعريف Late Order وسياق الـCase Study غير موجودين في السؤال المعروض، لذلك لا يمكن بناء الـMeasure بشكل مؤكد.',
   },
   'f2-012-380': {
     status: 'incomplete-source',
     excluded: true,
-    reason: 'The source omits the data-volume and connectivity requirements needed to choose a model mode.',
-    reasonAr: 'اختيار Import أو DirectQuery أو Composite يعتمد على حجم البيانات ومتطلبات الاتصال، وهذه التفاصيل غير موجودة.',
+    reason:
+      'The source omits the data-volume and connectivity requirements needed to choose a model mode.',
+    reasonAr:
+      'اختيار Import أو DirectQuery أو Composite يعتمد على حجم البيانات ومتطلبات الاتصال، وهذه التفاصيل غير موجودة.',
   },
   'f2-041-391': {
     status: 'incomplete-source',
@@ -526,8 +543,10 @@ const corrections: Record<string, QuestionCorrection> = {
   'f2-042-392': {
     status: 'corrected',
     correct: [2],
-    reviewedAnswer: 'Pin a card visual to a dashboard and set an alert on the tile.',
-    originalAnswer: 'Pin a report page to a dashboard and set an alert on the page.',
+    reviewedAnswer:
+      'Pin a card visual to a dashboard and set an alert on the tile.',
+    originalAnswer:
+      'Pin a report page to a dashboard and set an alert on the page.',
     reason:
       'Power BI alerts are configured on dashboard gauge, KPI, or card tiles, not on a pinned live report page or directly on a report visual.',
     reasonAr:
@@ -563,7 +582,8 @@ const corrections: Record<string, QuestionCorrection> = {
     status: 'corrected',
     correct: [2],
     reviewedAnswer: 'Set the report Export data setting to None.',
-    originalAnswer: 'Enable summarized, current-layout, and underlying-data export.',
+    originalAnswer:
+      'Enable summarized, current-layout, and underlying-data export.',
     reason:
       'Build permission is sufficient for Analyze in Excel. Export settings govern exporting data from report visuals and are not required for a direct semantic-model connection; setting None avoids unnecessary export capability.',
     reasonAr:
@@ -695,7 +715,8 @@ const corrections: Record<string, QuestionCorrection> = {
   'f2-227-452': {
     status: 'corrected',
     correct: [3],
-    reviewedAnswer: 'Connect to the existing Power BI semantic model (dataset).',
+    reviewedAnswer:
+      'Connect to the existing Power BI semantic model (dataset).',
     originalAnswer: 'Connect to the SharePoint folder.',
     reason:
       'The published semantic model already contains the imported data and measures. A thin report reuses it and avoids rebuilding the model.',
@@ -896,7 +917,10 @@ const corrections: Record<string, QuestionCorrection> = {
 export function getAnswerAudit(question: Pick<Question, 'id'>): AnswerAudit {
   const correction = corrections[question.id];
   if (correction) return correction;
-  if (explicitlyReviewedIds.has(question.id) || isCurrentBankQuestion(question.id))
+  if (
+    explicitlyReviewedIds.has(question.id) ||
+    isCurrentBankQuestion(question.id)
+  )
     return { status: 'independently-reviewed' };
   return { status: 'source-key' };
 }

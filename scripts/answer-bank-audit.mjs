@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { existsSync, statSync } from 'node:fs';
+import path from 'node:path';
 import {
   auditedQuestionBank,
   excludedQuestions,
@@ -11,7 +13,11 @@ assert.equal(
   509,
   'The expected 509-question source inventory changed.',
 );
-assert.equal(questions.length, 494, 'The verified active bank should contain 494 questions.');
+assert.equal(
+  questions.length,
+  494,
+  'The verified active bank should contain 494 questions.',
+);
 assert.equal(
   excludedQuestions.length,
   15,
@@ -29,9 +35,25 @@ for (const question of questions) {
   if (!question.prompt.trim()) fail('empty prompt');
   if (!question.source.trim()) fail('empty source');
   if (!Number.isInteger(question.sourceNumber)) fail('invalid source number');
+  if (!question.explanation.trim()) fail('missing reviewed explanation');
 
   if (question.type === 'manual') {
     if (question.correct.length) fail('manual item contains an automatic key');
+    const audit = getAnswerAudit(question);
+    if (question.answerImage) {
+      const answerAsset = path.join(
+        process.cwd(),
+        'public',
+        question.answerImage.replace(/^\//, ''),
+      );
+      if (!existsSync(answerAsset)) fail('answer image asset is missing');
+      else if (statSync(answerAsset).size < 1_000)
+        fail('answer image is a placeholder without visible selections');
+    } else if (!audit.reviewedAnswer?.trim()) {
+      fail(
+        'manual item has neither a usable answer image nor a reviewed answer',
+      );
+    }
   } else {
     if (!question.choices.length) fail('auto-graded item has no choices');
     if (!question.correct.length) fail('auto-graded item has no answer');
