@@ -27,13 +27,13 @@ const managedEligibleQuestions = questions.filter(
 
 assert.equal(
   managedKeyEntries.length,
-  41,
+  42,
   'The reviewed visual auto-grading bank changed unexpectedly.',
 );
 assert.equal(
   managedEligibleQuestions.length,
-  362,
-  'Managed exams should contain exactly 362 fully auto-graded questions.',
+  363,
+  'Managed exams should contain exactly 363 fully auto-graded questions.',
 );
 for (const [questionId, key] of managedKeyEntries) {
   const question = questionById.get(questionId);
@@ -218,5 +218,5 @@ assert.equal(
 );
 
 console.log(
-  'Managed exams QA passed: 362 automatic questions (including 41 reviewed visual keys), auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.',
+  'Managed exams QA passed: 363 automatic questions (including 42 reviewed visual keys), auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.',
 );

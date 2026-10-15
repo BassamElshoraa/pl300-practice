@@ -43,6 +43,7 @@ export const managedAutoGradingKeys: Record<string, number[]> = {
   'f2-201-443': [2, 4, 0, 6],
   'f2-318-479': [2, 1],
   'f2-323-480': [1, 3],
+  'f2-403-506': [3, 1],
 };
 
 export function hasManagedAutoGradingKey(questionId: string) {

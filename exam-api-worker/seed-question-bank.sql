@@ -640,17 +640,7 @@ You plan to build a single PBIX file to meet the following requirements:
 
 What should you do? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'To meet the requirements specified, we can use a single parameter in the PBIX file that controls which
-database is used for data consumption based on the stage of the development lifecycle.
-
-We can use a Text parameter type in Power BI to achieve this. The parameter can be used to switch between
-the different database connections when a user interacts with the report. The text parameter could include
-values such as "Development", "Staging", and "Production", which correspond to the different databases
-shown in the table.
-
-The parameter can then be used in the queries to dynamically filter the data based on the selected stage of
-the development lifecycle. By using a single parameter, we can minimize administrative effort and ensure that
-the report works with each stage of the development lifecycle.', 'Final', '21', '/dump-assets/f1-021-20-question.webp', '/dump-assets/f1-021-20-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Reviewed answer: One parameter; Text. Create one text parameter such as Environment with Development, Test, and Production values. Reference that parameter in Power Query to select the matching server URL and database name. This changes the connection source; it does not filter rows.', 'Final', '21', '/dump-assets/f1-021-20-question.webp', '/dump-assets/f1-021-20-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-022-21', 'Model the data', 'multi', 'You are creating a query to be used as a Country dimension in a star schema.
 
 A snapshot of the source data is shown in the following table.
@@ -679,11 +669,7 @@ discount column are replaced with a discount of 0.05. The solution must minimize
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', 'Select the discount Column
-
-Select Replace Errors to replace each error value with 0.05
-
-For the discount column ,Change Data Type to Decimal Number.', 'Final', '23', '/dump-assets/f1-023-22-question.webp', '/dump-assets/f1-023-22-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+actions to the answer area and arrange them in the correct order.', '[]', '[]', 'Reviewed sequence: (1) select the discount column, (2) use Replace Errors and enter 0.05, and (3) set the column type to Decimal Number. This preserves every row, replaces the errors already visible in the preview, and stores the replacement as a decimal value.', 'Final', '23', '/dump-assets/f1-023-22-question.webp', '/dump-assets/f1-023-22-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-024-23', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -3546,27 +3532,7 @@ expressions to the correct targets. Each expression may be used once, more than 
 
 to drag the split bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'Human Resources > False ()
-
-Country > [Email] = USERPRINCIPALNAME ()
-
-Explanation:
-
-I would create 2 RLS:
-
-1st with Human Resources > False ()
-
-Add CFO user
-
-• The CFO must be prevented from seeing the data in the Human Resources table.
-
-• The CFO must see the sales data of all countries.
-
-2nd with Country > [Email] = USERPRINCIPALNAME ()
-
-Add manger users:
-
-•Each manager must see only the data in the Sales and Human Resources tables for their own country.', 'Final', '122', '/dump-assets/f1-122-121-question.webp', '/dump-assets/f1-122-121-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'Reviewed answer: Human Resources = FALSE(); Country = [Email] = USERPRINCIPALNAME(). FALSE() prevents the CFO from seeing any Human Resources rows while leaving Sales unrestricted. The Country expression identifies the signed-in manager, and the active relationships propagate that country filter to Sales and Human Resources.', 'Final', '122', '/dump-assets/f1-122-121-question.webp', '/dump-assets/f1-122-121-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-123-122', 'Prepare the data', 'multi', 'You have a Power BI data model that imports data from a Microsoft Excel spreadsheet.
 
 You use Power Query to load a query that contains both renamed and custom columns.
@@ -12396,12 +12362,12 @@ You need to create a relationship between the Weekly_Returns table and the Date 
 you do?', '["In the Weekly.Returns table, create a new calculated column named date-id in a format of yyyymmdd and use the calculated column to create a relationship to the Date table.","Add the Weekly_Returns data to the Sales table by using related DAX functions.","Create a new table based on the Date table where date-id is unique, and then create a many-to-many relationship to Weekly_Return."]', '[0]', 'Scenario: Region managers require a visual to analyze weekly sales and returns. To relate the two tables we need a common column.', 'Final 2', '2', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-003-371', 'Prepare the data', 'single', '- (Topic 1)
 
-You need to create a calculated column to display the month based on the reporting requirements. Which DAX expression should you use?', '["FORMAT(''Date''[date], \"MMM YYYY\")","FORMAT(''Date'' [date], \"M YY\")","FORMAT(''Date''[date_id], \"MMM\") & \"\" & FORMAT(''Date''[year], \"#\")","FORMAT(''Date'' [date_id], \"MMM YYYY\")"]', '[0]', '', 'Final 2', '3', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to create a calculated column to display the month based on the reporting requirements. Which DAX expression should you use?', '["FORMAT(''Date''[date], \"MMM YYYY\")","FORMAT(''Date'' [date], \"M YY\")","FORMAT(''Date''[date_id], \"MMM\") & \"\" & FORMAT(''Date''[year], \"#\")","FORMAT(''Date'' [date_id], \"MMM YYYY\")"]', '[0]', 'FORMAT(''Date''[date], "MMM YYYY") returns a text label such as Oct 2026 from each date. The format string supplies the abbreviated month and four-digit year required by the report.', 'Final 2', '3', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-005-373', 'Model the data', 'single', '- (Topic 2)
 
 You need to recommend a strategy to consistently define the business unit, department, and product category data and make the data usable across reports.
 
-What should you recommend?', '["Create a shared dataset for each standardized entity.","Create dataflows for the standardized data and make the dataflows available for use in all imported datasets.","For every report, create and use a single shared dataset that contains the standardized data.","For the three entities, create exports of the data from the Power Bl model to Excel and store the data in Microsoft OneDrive for others to use as a source."]', '[1]', '', 'Final 2', '5', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you recommend?', '["Create a shared dataset for each standardized entity.","Create dataflows for the standardized data and make the dataflows available for use in all imported datasets.","For every report, create and use a single shared dataset that contains the standardized data.","For the three entities, create exports of the data from the Power Bl model to Excel and store the data in Microsoft OneDrive for others to use as a source."]', '[1]', 'Create reusable dataflows for the standardized Business Unit, Department, and Product Category entities. Multiple imported semantic models can then consume the same governed definitions instead of repeating transformation logic.', 'Final 2', '5', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-006-374', 'Model the data', 'single', '- (Topic 2)
 
 Which DAX expression should you use to get the ending balances in the balance sheet reports?', '["CALCULATE (SUM( BalanceSheet [BalanceAmount] ), DATESQTD( ''Date''[Date] ))","CALCULATE (SUM( BalanceSheet [BalanceAmount] ), LASTDATE( ''Date''[Date] ))","FIRSTNONBLANK ( ''Date'' [Date]SUM( BalanceSheet[BalanceAmount] ))","CALCULATE (MAX( BalanceSheet[BalanceAmount] ), LASTDATE( ''Date'' [Date] ))"]', '[1]', 'Independent correction: B. CALCULATE(SUM(BalanceSheet[BalanceAmount]), LASTDATE(''Date''[Date])). Ending balance is a semi-additive calculation: aggregate accounts for the last date in the selected quarter. DATESQTD is appropriate for additive flows, not snapshot balances.', 'Final 2', '6', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -12462,18 +12428,14 @@ The indicator color for Total Sales will be based on % Growth to Last Year. The 
 
 How should you configure the visual? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: Background color
-To format the Color column based on its field values, select Conditional formatting for the Color field, and then select Background color or Font color.
-In the Background color or Font color dialog box, select Field value from the Format by drop-down field.
-Box 2: Field value
-With conditional formatting for tables in Power BI Desktop, you can specify customized cell colors, including color gradients, based on field values.', 'Final 2', '20', '/dump-assets/f2-020-384-question.webp', '/dump-assets/f2-020-384-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Reviewed answer: Background color, then Rules. Apply conditional formatting to the Total Sales cell background and define rules based on % Growth to Last Year. Field value is for a field or measure that already returns color names or color codes.', 'Final 2', '20', '/dump-assets/f2-020-384-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-021-385', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are creating a Power Bl report by using Power Bi Desktop.
 
 You need to include a visual that shows trends and other useful information automatically. The visual must update based on selections in other visuals.
 
-Which type of visual should you use?', '["key influencers","decomposition tree","Q&A","smart narrative"]', '[3]', '', 'Final 2', '21', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of visual should you use?', '["key influencers","decomposition tree","Q&A","smart narrative"]', '[3]', 'A Smart narrative visual automatically generates a natural-language summary of trends and important values, and recalculates that narrative when selections in other visuals change the filter context.', 'Final 2', '21', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-026-386', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You build a report about warehouse inventory data. The dataset has more than 10 million product records from 200 warehouses worldwide. You have a table
@@ -12490,14 +12452,14 @@ must minimize the model size.
 
 Which three actions should you perform in sequence? To answer, move the appropriate
 
-actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[]', '', 'Final 2', '26', '/dump-assets/f2-026-386-question.webp', '/dump-assets/f2-026-386-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[]', 'The fourth segment of ProductDescription is the product name. Extract it first, then build the hierarchy from broad category to detailed specification, and finally replace the long description field in report visuals with that hierarchy.', 'Final 2', '26', '/dump-assets/f2-026-386-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-027-387', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have the Power Bl model shown in the following exhibit.
 
 There are four departments in the Departments table.
 
-You need to ensure that users can see the data of their respective department only. What should you do?', '["Create a row-level security (RLS) role for each department, and then define the membership of the role.","Create a DepartmentID parameter to filter the Departments table.","To the ConfidentialData table, add a calculated measure that uses the currentgroup DAX function.","Create a slicer that filters Departments based on DepartmentID."]', '[0]', '', 'Final 2', '27', '/exhibit-assets/f2-027-387.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that users can see the data of their respective department only. What should you do?', '["Create a row-level security (RLS) role for each department, and then define the membership of the role.","Create a DepartmentID parameter to filter the Departments table.","To the ConfidentialData table, add a calculated measure that uses the currentgroup DAX function.","Create a slicer that filters Departments based on DepartmentID."]', '[0]', 'Create row-level security roles that filter each department and assign the corresponding users to those roles in the Power BI service. RLS enforces the restriction at the semantic-model level rather than relying on editable report filters.', 'Final 2', '27', '/exhibit-assets/f2-027-387.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-030-388', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a report that contains three pages. One of the pages contains a KPI visualization. You need to filter all the visualizations in the report except for the KPI
@@ -12530,7 +12492,7 @@ You have the following requirements:
 
 • Data used for financial decisions must be reviewed and approved before use.
 
-For each of the following statements, select Yes if the statement is true. Otherwise select No. NOTE: Each correct selection is worth one point', '[]', '[]', '', 'Final 2', '38', '/dump-assets/f2-038-390-question.webp', '/dump-assets/f2-038-390-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+For each of the following statements, select Yes if the statement is true. Otherwise select No. NOTE: Each correct selection is worth one point', '[]', '[]', 'Apply the appropriate sensitivity labels and protection settings to the semantic models. A label can travel with supported exports and protection can restrict export, while endorsement is used to mark trusted data for decision-making. The three statements evaluate to Yes, No, and Yes in the order shown.', 'Final 2', '38', '/dump-assets/f2-038-390-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-042-392', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You build a Power Bl report that displays 10T temperature data streaming from a refrigerator.
@@ -12544,14 +12506,14 @@ You have a collection of reports for the HR department of your company.
 
 You need to create a visualization for the HR department that shows historical employee counts and predicts trends during the next six months.
 
-Which type of visualization should you use?', '["key influences","ribbon chart","line chart","scatter chart"]', '[2]', '', 'Final 2', '44', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of visualization should you use?', '["key influences","ribbon chart","line chart","scatter chart"]', '[2]', 'Use a line chart with the historical date on the axis, then add Forecast from the Analytics pane for the next six months. A line chart is the supported time-series visual for forecasting.', 'Final 2', '44', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-048-394', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You open powerbi.com as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'References: https://docs.microsoft.com/en-us/power-bi/service-data-classification', 'Final 2', '48', '/dump-assets/f2-048-394-question.webp', '/dump-assets/f2-048-394-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The breadcrumb shows Insurance Data as the workspace and Customers as the dashboard. The visible Sale badge is the data-classification shorthand. The Q&A suggestions are grouped under INSURANCE, which identifies the dataset used by the dashboard.', 'Final 2', '48', '/dump-assets/f2-048-394-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-050-395', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are creating an analytics report that will consume data from the tables shown in the following table.
@@ -12560,11 +12522,7 @@ There is a relationship between the tables.
 
 There are no reporting requirements on employeejd and employee_photo. You need to optimize the data model
 
-What should you configure for employeejd and employee.photo? To answer, select the appropriate options in the answer area.', '[]', '[]', 'Box 1: Hide
-Optimize data by hiding fields and sorting visualization data
-Box 2: Delete
-The fastest way to optimize your Power BI report is to limit the number of columns to only the ones you need in your data model. Go through your tables in Power
-Query and determine what fields are being used. Delete these columns if they are not being used in any of your reports or calculations.', 'Final 2', '50', '/dump-assets/f2-050-395-question.webp', '/dump-assets/f2-050-395-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure for employeejd and employee.photo? To answer, select the appropriate options in the answer area.', '[]', '[]', 'employee_id remains necessary for the relationship, so hide it from report authors instead of removing it. employee_photo has no reporting or relationship use, so removing it reduces model size.', 'Final 2', '50', '/dump-assets/f2-050-395-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-054-396', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bi model mat contains a table named Date. The Date table contains the fallowing columns:
@@ -12587,7 +12545,7 @@ You have a Power Bi model mat contains a table named Date. The Date table contai
 
 You need to create a calculated table based on the Date table. The calculated tab*e must contain only unique combinations of values for Calendar Year. Calendar
 
-Quarter and Calendar Month. Which DAX function should you include in the table deflation?', '["DATATABLE","ADDCOLUMS","SUMMARIZE","CALCULATE"]', '[2]', '', 'Final 2', '54', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Quarter and Calendar Month. Which DAX function should you include in the table deflation?', '["DATATABLE","ADDCOLUMS","SUMMARIZE","CALCULATE"]', '[2]', 'SUMMARIZE groups the Date table by Calendar Year, Calendar Quarter, and Calendar Month and returns one row per unique combination, which is the required calculated table grain.', 'Final 2', '54', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-059-397', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You plan to create a report that will display sales data from the last year for multiple regions
@@ -12596,7 +12554,7 @@ You need to restrict access to individual rows of the data on a per region-basis
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[1,3,0,4]', '', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', '/dump-assets/f2-059-397-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[1,3,0,4]', 'Role definitions are authored in Desktop, but user membership is assigned only after publishing in the service. This order creates and then activates row-level security correctly.', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-061-398', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are creating a query to be used as a Country dimension in a star schema. A snapshot of the source data is shown in the following table.
@@ -12627,8 +12585,7 @@ appropriate
 
 options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'References:
-https://docs.microsoft.com/en-us/powerquery-m/text-replace https://docs.microsoft.com/en-us/powerquery-m/text-end', 'Final 2', '76', '/dump-assets/f2-076-401-question.webp', '/dump-assets/f2-076-401-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Text.End keeps the final 12 characters, which removes the optional leading country code. Text.Replace then changes spaces to hyphens so every result has the nnn-nnn-nnnn format.', 'Final 2', '76', '/dump-assets/f2-076-401-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-081-402', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -12653,7 +12610,7 @@ Solution; You create measures that use the uSEREIATIOHSHIP DAX function to filte
 
 table.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', '', 'Final 2', '81', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'No. USERELATIONSHIP activates one inactive relationship inside a measure, but one shared Date table still cannot filter Due Date, Order Date, and Delivery Date simultaneously for independent analysis. Use separate role-playing date tables when all three date roles must be available at the same time.', 'Final 2', '81', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-083-403', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have two CSV files named Products and Categories. The Products file contains the following columns:
@@ -12692,7 +12649,7 @@ You need to create a Power BI dataset that will contain a single table named Pro
 
 How should you combine the queries, and what should you do on the Categories query? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '83', '/dump-assets/f2-083-403-question.webp', '/dump-assets/f2-083-403-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Merge adds the category columns to Products by matching CategoryID. The helper query must remain available to the merge, but disabling its load prevents an unnecessary standalone model table.', 'Final 2', '83', '/dump-assets/f2-083-403-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-088-404', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a large dataset that contains more than 1 million rows. The table has a datetime column named
@@ -12735,10 +12692,7 @@ Microsoft Power BI reports.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', '1- Convert list to table 2- Expand Column
-3- Set Date type
-Here is an example: https://youtu.be/B4kzyxnhQfI
-The definition of the function which expand columns: https://docs.microsoft.com/en-us/powerquery-m/table-expandrecordcolumn', 'Final 2', '100', '/dump-assets/f2-100-407-question.webp', '/dump-assets/f2-100-407-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[]', 'A JSON array arrives as a list. Convert it to a table, expand each record into columns, and only then assign types so date attributes can support date hierarchies.', 'Final 2', '100', '/dump-assets/f2-100-407-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-102-408', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a BI dataset and a connected report.
@@ -12772,7 +12726,7 @@ You need to create a relationship between the Order table and the Store table on
 
 Store_ID column.
 
-What should you do before you create the relationship?', '["In the Order table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformColumnTypes function.","In the Order table query, use the Table.TrasformColumnTypes function."]', '[2]', '', 'Final 2', '105', '/exhibit-assets/f2-105-409.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do before you create the relationship?', '["In the Order table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformColumnTypes function.","In the Order table query, use the Table.TrasformColumnTypes function."]', '[2]', 'Use Table.TransformColumnTypes in the Store query so Store[Store_ID] has the same data type as Order[Store_ID] before the relationship is created. Relationship keys must have compatible data types; transforming rows does not solve that requirement.', 'Final 2', '105', '/exhibit-assets/f2-105-409.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-106-410', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You need to create a Power Bl report. The first page or the report must contain the following two views:
@@ -12783,7 +12737,7 @@ You need to create a Power Bl report. The first page or the report must contain 
 
 Both views must display a slicer to select a value for a field named Chain.
 
-The Sales By Postal Code view must display a map visual as shown in the following exhibit.', '[]', '[]', '', 'Final 2', '106', '/dump-assets/f2-106-410-question.webp', '/dump-assets/f2-106-410-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+The Sales By Postal Code view must display a map visual as shown in the following exhibit.', '[]', '[]', 'One bookmark shows the postal-code map and the other shows the monthly visual. Capture Display so the bookmarks change visual visibility without resetting the Chain slicer selection.', 'Final 2', '106', '/dump-assets/f2-106-410-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-111-411', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have data in a Microsoft Excel worksheet as shown in the following table.
@@ -12794,7 +12748,7 @@ You need to use Power Query to clean and transform the dataset. The solution mus
 
 • All the rows of data must be maintained.
 
-• Administrative effort must be minimized. What should you do in Power Query Editor?', '["Select Keep Errors","Edit the query in the Query Errors group.","Select Replace Errors","Select Remove Errors."]', '[2]', '', 'Final 2', '111', '/exhibit-assets/f2-111-411.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+• Administrative effort must be minimized. What should you do in Power Query Editor?', '["Select Keep Errors","Edit the query in the Query Errors group.","Select Replace Errors","Select Remove Errors."]', '[2]', 'Select Replace Errors and enter 0.05. This replaces only the error cells and preserves every row, meeting the requirement with one transformation step.', 'Final 2', '111', '/exhibit-assets/f2-111-411.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-113-412', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Your company has training videos that are published to Microsoft Stream. You need to surface the videos directly in a Microsoft Power BI dashboard. Which type
@@ -12805,7 +12759,7 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You have a Power BI report that uses a dataset based on an Azure Analysis Services live connection.
 
-You need to ensure that users can use Q&A from the Power BI service for the dataset. What should you do?', '["From the Power BI service, add an enterprise gateway to the dataset.","From Power BI Desktop, add synonyms and suggested questions.","From Power BI Desktop, add a Q&A visual to the report.","From the Power Bi service, select Turn on Q& A for this dataset."]', '[3]', '', 'Final 2', '118', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that users can use Q&A from the Power BI service for the dataset. What should you do?', '["From the Power BI service, add an enterprise gateway to the dataset.","From Power BI Desktop, add synonyms and suggested questions.","From Power BI Desktop, add a Q&A visual to the report.","From the Power Bi service, select Turn on Q& A for this dataset."]', '[3]', 'Enable Q&A for the live-connected semantic model in the Power BI service. The service setting controls whether users can ask natural-language questions against that dataset.', 'Final 2', '118', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-122-414', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Microsoft Power Bl dashboard.
@@ -12852,16 +12806,7 @@ You get data from the folder and select Combine & Load. The Combine Files dialog
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Graphical user interface, text, application
-Description automatically generated
-Box 1: Yes
-The four columns used in the 2018 transactions are already displayed.
-Box 2: Yes
-The columns used are based on the entire dataset. The additional columns in the 2019 files will be detected.
-Box 3: Yes
-Note: Under the hoods, Power BI will automatically detect which delimiter to use, and may even promote the first row as headers. You can manually change the
-delimiter, or define how Power BI should handle data types. You can set it to automatically detect data types based on first 200 rows, or the entire dataset or you
-can even opt out the detection of data types.', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', '/dump-assets/f2-130-417-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The sample file exposes the 2018 schema, which includes the columns needed by the 2019 files. The combined query therefore contains the 2018 columns and all 2019 columns. Limiting type detection to the first 200 rows reduces profiling work and improves import time.', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-135-418', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are reviewing a query that produces 10,000 rows in the Power Query Editor. You need to identify whether a column contains only unique values.
@@ -12883,7 +12828,7 @@ You need to create a calculated table named Numbers that will contain all the in
 
 -100 to 100. How should you complete the DAX calculation? To answer, select the appropriate options in the answer area. NOTE Each correct selection is worth
 
-one point.', '[]', '[]', '', 'Final 2', '136', '/dump-assets/f2-136-419-question.webp', '/dump-assets/f2-136-419-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+one point.', '[]', '[]', 'GENERATESERIES returns one row for each value from -100 through 100 inclusive, incrementing by 1, which is exactly the required calculated table.', 'Final 2', '136', '/dump-assets/f2-136-419-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-137-420', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is a part of a series of questions that present the same scenario. For your convenience, the scenario is repeated in each question. Each
@@ -12926,7 +12871,7 @@ Total Sales = SUM(Sales[Sale])
 
 You need to create another measure named Previous Quarter to display the sales one quarter before the selected period.
 
-Which DAX calculation should you use?', '["CALCULATE < [Total Sales], OATEADD (Date[Date], -1, QUARTER))","CALCULATE ([Total Sales], DATESQTD (Date[Date]))","TOTALQTD ([Total Sales], Date[Date])","CALCULATE < [Total Sales], PARALLELPERIOO (Date[Date], 1, QUARTER))"]', '[0]', '', 'Final 2', '143', '/exhibit-assets/f2-143-422.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX calculation should you use?', '["CALCULATE < [Total Sales], OATEADD (Date[Date], -1, QUARTER))","CALCULATE ([Total Sales], DATESQTD (Date[Date]))","TOTALQTD ([Total Sales], Date[Date])","CALCULATE < [Total Sales], PARALLELPERIOO (Date[Date], 1, QUARTER))"]', '[0]', 'CALCULATE([Total Sales], DATEADD(Date[Date], -1, QUARTER)) shifts the current date filter context back by one quarter and reevaluates Total Sales. DATESQTD returns quarter-to-date dates, while the positive PARALLELPERIOD option moves forward.', 'Final 2', '143', '/exhibit-assets/f2-143-422.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-144-423', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a Power Bl workspace named Inventory that contains a dataset a report and a dashboard.
@@ -12935,7 +12880,7 @@ You need to add an additional tile to the dashboard. The tile must show inventor
 
 minimize the impact on the report.
 
-Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Use quick insights on the dashboard.","Hide the report page.","Ask a question by using Q&A.","Add the visual to the report.","Pin the visual to the dashboard."]', '[2,4]', '', 'Final 2', '144', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Use quick insights on the dashboard.","Hide the report page.","Ask a question by using Q&A.","Add the visual to the report.","Pin the visual to the dashboard."]', '[2,4]', 'Use Q&A to ask for inventory by location, then pin the generated visual to the dashboard. This creates the new dashboard tile without modifying the existing report.', 'Final 2', '144', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-147-424', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 From Power Query Editor, you attempt to execute a query and receive the following error message.
@@ -12947,7 +12892,7 @@ What are two possible causes of the error? Each correct answer presents a comple
 NOTE: Each correct selection is worth one point.', '["The file is locked","An incorrect privacy level was used for the data source.","The referenced file was moved to a new location","You do not have permissions to the file."]', '[2,3]', 'Independent correction: C and D. The path can be stale because the file moved, or access can fail because the user lacks permission. A privacy-level mismatch does not normally surface as a file-not-found error.', 'Final 2', '147', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-152-425', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
-You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', '', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', '/dump-assets/f2-152-425-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', 'Reviewed answer: Matrix; Set Switch values to rows to On. A table cannot place multiple measures as row headers. The matrix Values-on-rows setting performs that layout change; turning Stepped layout off does not.', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-157-426', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You create a data model in Power BI.
@@ -12968,15 +12913,14 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 correct order.
 
-NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[0,2,5]', '* 1.Merge [Region_Manager] and [Manager] by using an inner join. 3.Merge [Sales_Region] and [Sales_Manager] by using an inner join. 6.Merge [Sales_Region]
-and [Region_Manager] by using an inner join.', 'Final 2', '157', '/dump-assets/f2-157-426-question.webp', '/dump-assets/f2-157-426-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[0,2,5]', 'The three inner joins flatten the lookup information into the sales-region query and keep only matching records, simplifying the model presented to report authors.', 'Final 2', '157', '/dump-assets/f2-157-426-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-161-427', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are building a data model for a Power Bl report. You have data formatted as shown in the following table.
 
 You need to create a clustered bar chart as shown in the following exhibit.
 
-What should you do?', '["From Power Query Editor, split the Machine-User column by using a delimiter.","In a DAX function, create two calculated columns named Machine and User by using the substitute function.","From Power Query Editor, create a column that contains the last three digits of the Machine-User column.","in a DAX function, create two measures named Machine and User by using the substitute function."]', '[0]', '', 'Final 2', '161', '/exhibit-assets/f2-161-427.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["From Power Query Editor, split the Machine-User column by using a delimiter.","In a DAX function, create two calculated columns named Machine and User by using the substitute function.","From Power Query Editor, create a column that contains the last three digits of the Machine-User column.","in a DAX function, create two measures named Machine and User by using the substitute function."]', '[0]', 'Split Machine-User by its delimiter in Power Query to create separate Machine and User columns before loading. This is a source-shaping task, so it should not be implemented as measures.', 'Final 2', '161', '/exhibit-assets/f2-161-427.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-164-428', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a custom connector that returns ID, From, To, Subject, Body, and Has Attachments for every email sent during the past year. More than 10 million
@@ -12987,7 +12931,7 @@ You build a report analyzing the internal networks of employees based on whom th
 
 You need to prevent report recipients from reading the analyzed emails. The solution must minimize the model size.
 
-What should you do?', '["Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent.","Remove the Subject and Body columns during the import.","From Model view, set the Subject and Body columns to Hidden."]', '[1]', '', 'Final 2', '164', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent.","Remove the Subject and Body columns during the import.","From Model view, set the Subject and Body columns to Hidden."]', '[1]', 'Remove Subject and Body during import. They contain the readable email content and consume substantial model space, while From and To are sufficient for network analysis.', 'Final 2', '164', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-167-429', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a Power Bl query named Sates that imports the columns shown in the following table.
@@ -13057,16 +13001,7 @@ You need to develop a measure to support the visual.
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: CALCULATE
-Start with CALCULATE and use a SUMX.
-CALCULATE evaluates an expression in a modified filter context.
-Box 2: SUM
-Box 3: TOPN
-TOPN returns the top N rows of the specified table.
-Box 4: [TransactionDate]
-TOPN Syntax: TOPN(<n_value>, <table>, <orderBy_expression>, [<order>[,
-<orderBy_expression>, [<order>]]…])
-The orderBy_expression: Any DAX expression where the result value is used to sort the table and it is evaluated for each row of table.', 'Final 2', '174', '/dump-assets/f2-174-433-question.webp', '/dump-assets/f2-174-433-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates SUM(Transactions[Amount]) under the table filter returned by TOPN. TOPN keeps the latest 50 transaction rows by ordering Transactions[TransactionDate] descending.', 'Final 2', '174', '/dump-assets/f2-174-433-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-177-434', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have the Power Bl data model shown in the following exhibit.
@@ -13105,7 +13040,7 @@ may be used once, more than once, or not at all. You may need to drag the split 
 
 scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[3,1]', '', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', '/dump-assets/f2-177-434-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'The CFO role blocks Human Resources with FALSE() while leaving country sales unrestricted. The Manager role filters Country to the signed-in user; the model relationships propagate that filter to Sales and Human Resources.', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-180-435', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI dashboard that monitors the quality of manufacturing processes. The dashboard contains the following elements:
@@ -13116,7 +13051,7 @@ You have a Power BI dashboard that monitors the quality of manufacturing process
 
 You need to be notified when the daily percentage of defective products manufactured exceeds 3%.
 
-What should you create?', '["a Q&A visual","a subscription","a smart narrative visual","an alert"]', '[3]', '', 'Final 2', '180', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you create?', '["a Q&A visual","a subscription","a smart narrative visual","an alert"]', '[3]', 'Create a data alert on the KPI dashboard tile at the 3% threshold. Alerts notify the user when a supported dashboard tile crosses a configured value.', 'Final 2', '180', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-184-436', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -13150,14 +13085,14 @@ During the development process, you need to import a sample of the data from the
 
 Solution: From Power Query Editor, you import the table and then add a filter step to the query.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', '', 'Final 2', '187', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'No. Importing the full 100-million-row table and filtering afterward can still retrieve and process the entire source. Apply the sample limit as a source-side filter or parameter early enough for query folding.', 'Final 2', '187', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-191-438', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a dataset that has the permissions shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '191', '/dump-assets/f2-191-438-question.webp', '/dump-assets/f2-191-438-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Analyze in Excel requires Build permission. A user who can reshare the dataset can grant Build permission to another group without transferring ownership or deleting the dataset.', 'Final 2', '191', '/dump-assets/f2-191-438-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-194-440', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are developing a report page. Some users will navigate the report by using a keyboard, and some users will consume the report by using a screen reader.
@@ -13173,7 +13108,7 @@ You have the Power BI data model shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '197', '/dump-assets/f2-197-441-question.webp', '/dump-assets/f2-197-441-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'StoreID is a whole-number field and uses numeric aggregation when added alone to a table visual, so Power BI displays its sum. A filter placed on the many-side Sales table does not flow backward through the single-direction relationships, so it filters only Sales.', 'Final 2', '197', '/dump-assets/f2-197-441-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-201-443', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You are preparing a financial report in Power BI.
@@ -13188,7 +13123,7 @@ You need to prepare the data to support the following:
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[2,4,0,6]', '', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', '/dump-assets/f2-201-443-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[2,4,0,6]', 'Promote the header row, normalize the year columns into rows with Unpivot Other Columns, rename the generated attribute, and assign a date type so the model can use the year values correctly.', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-202-444', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are profiling data by using Power Query Editor.
@@ -13197,7 +13132,7 @@ The AddressLine2 column in a table named Address is shown in the following exhib
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', '/dump-assets/f2-202-444-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The column profile explicitly reports 12 distinct values and 11 unique values. Distinct counts the different values including the null category shown as Empty; unique counts non-null values that appear once.', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-204-445', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are configuring a Microsoft Power Bl data model to enable users to ask natural language questions by using Q&A. You have a table named Customer that has
@@ -13215,7 +13150,7 @@ You attempt to connect Purer 81 Desktop to a Cassandra database.
 
 From the Get Data connector list you discover that there is no specific connector for the Cassandra database,
 
-You need to select an alternate data connector that will connect to the database. Which of connector should you choose?', '["Microsoft SQL Server database","ODBC","OData","OLE DB"]', '[1]', '', 'Final 2', '205', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to select an alternate data connector that will connect to the database. Which of connector should you choose?', '["Microsoft SQL Server database","ODBC","OData","OLE DB"]', '[1]', 'Use ODBC. Cassandra can expose an ODBC driver even when Power BI has no dedicated native connector; ODBC supplies the generic standards-based connection path.', 'Final 2', '205', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-209-447', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a Power BI report.
@@ -13224,14 +13159,7 @@ You need to create a calculated table to return the 100 highest spending custome
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: TOPN
-TOPN returns the top N rows of the specified table.
-Box 2: SUMMARIZE
-SUMMARIZE returns a summary table for the requested totals over a set of groups.
-Box 3: DESC
-Sort in descending order.
-It is last in the TOPN command. TOPN syntax:
-TOPN(<n_value>, <table>, <orderBy_expression>, [<order>[, <orderBy_expression>, [<order>]]…])', 'Final 2', '209', '/dump-assets/f2-209-447-question.webp', '/dump-assets/f2-209-447-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'SUMMARIZE creates one row per customer with a Sales total. TOPN then returns 100 rows ordered by that Sales value in descending order, giving the highest-spending customers.', 'Final 2', '209', '/dump-assets/f2-209-447-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-214-448', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You are modeling data in table named SalesDetail by using Microsoft Power Bl.
@@ -13244,7 +13172,7 @@ distributions.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', '', 'Final 2', '214', '/dump-assets/f2-214-448-question.webp', '/dump-assets/f2-214-448-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[]', 'Table.Profile returns per-column statistics such as count, null count, minimum, maximum, average, and standard deviation. A blank query is used to call it, then the returned table can drive report visuals.', 'Final 2', '214', '/dump-assets/f2-214-448-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-217-449', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 In Power BI Desktop, you are building a sales report that contains two tables. Both tables
@@ -13298,8 +13226,7 @@ You need to identify which Power BI licenses are required for the tasks. The sol
 
 Which license should you identify for each task? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'https://docs.microsoft.com/en-us/power-bi/service-create-distribute-apps
-https://docs.microsoft.com/en-us/power-bi/service-collaborate-power-bi-workspace', 'Final 2', '228', '/dump-assets/f2-228-453-question.webp', '/dump-assets/f2-228-453-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The scenario does not state that the app is hosted in Premium/Fabric F64+ capacity, so viewing shared app content requires Pro. Editing workspace content and sharing content also require a paid Pro or PPU license.', 'Final 2', '228', '/dump-assets/f2-228-453-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-232-454', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Microsoft Excel spreadsheet that contains the data shown in the following table.
@@ -13310,7 +13237,7 @@ You need to prepare the data so that it is available to the model in the format 
 
 Which three actions should you perform in sequence in Power Query Editor? To answer, move the appropriate actions from the list of actions to the answer area
 
-and arrange them in the correct order.', '[]', '[]', '', 'Final 2', '232', '/dump-assets/f2-232-454-question.webp', '/dump-assets/f2-232-454-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+and arrange them in the correct order.', '[]', '[]', 'Unpivoting converts School1 through School4 into School/Score rows. Grouping by Department and School and averaging Score combines the two Stage rows into the requested result.', 'Final 2', '232', '/dump-assets/f2-232-454-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-239-456', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is a part of a series of questions that present the same scenario. For your convenience, the scenario is repeated in each question. Each
@@ -13348,7 +13275,7 @@ You have a report in Power Bl named report1 that is based on a shared dataset.
 
 You need to minimize the risk of data exfiltration for report1. The solution must prevent other reports from being affected.
 
-What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.","Apply row-level security (RLS) to the shared dataset."]', '[2]', '', 'Final 2', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.","Apply row-level security (RLS) to the shared dataset."]', '[2]', 'Set the report Export data option to prevent end users from exporting any data. This is scoped to report1, so other reports that use the same shared semantic model are not changed.', 'Final 2', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-252-460', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a column named UnitslnStock as shown in the following exhibit
@@ -13359,14 +13286,14 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 NOTE: Each correct
 
-selection is worth one point.', '[]', '[]', '', 'Final 2', '252', '/dump-assets/f2-252-460-question.webp', '/dump-assets/f2-252-460-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+selection is worth one point.', '[]', '[]', 'With UnitsInStock set to Do not summarize, the table can display the 75 non-null source values. Changing summarization to Sum aggregates those values, so the number of displayed rows is reduced.', 'Final 2', '252', '/dump-assets/f2-252-460-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-256-461', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a dataset that contains revenue data from the past year.
 
 You need to use anomaly detection in Power Bl to show anomalies in the dataset.
 
-What should you configure? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '256', '/dump-assets/f2-256-461-question.webp', '/dump-assets/f2-256-461-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.', '[]', '[]', 'Power BI anomaly detection requires a line chart with time-series data on a continuous date/time axis.', 'Final 2', '256', '/dump-assets/f2-256-461-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-260-462', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -13407,14 +13334,14 @@ You need to make the table available as an organizational data type In Microsoft
 
 How should you configure the properties of the table? To answer select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '266', '/dump-assets/f2-266-464-question.webp', '/dump-assets/f2-266-464-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Name is the human-readable row label, ID uniquely identifies each row for Excel, and the table must be marked as featured so users can discover it as an organizational data type.', 'Final 2', '266', '/dump-assets/f2-266-464-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-271-465', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a PBiX file that imports several tables from an Azure SQL database. The data will be migrated to another Azure SQL database.
 
 You need to change the connections in the PBIX file. The solution must minimize administrative effort.
 
-What should you do?', '["From Power Query Editor, modify the source of each query.","Create a PBiT file, open the file, and change the data sources when prompted","From Power Query Editor, create new queries.","Modify the Data source settings."]', '[3]', '', 'Final 2', '271', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["From Power Query Editor, modify the source of each query.","Create a PBiT file, open the file, and change the data sources when prompted","From Power Query Editor, create new queries.","Modify the Data source settings."]', '[3]', 'Use Data source settings in Power BI Desktop to edit the Azure SQL connection used by the PBIX. It updates the connection centrally instead of editing every query separately.', 'Final 2', '271', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-275-466', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -13438,7 +13365,7 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 From Power 61 Desktop, you publish a new dataset and report lo a Power Bl workspace. The dataset has a row-level security (RLS) role named HR. You need to
 
-ensure that the HR team members have RLS applied when they view reports based on the dataset. What should you do?', '["From Power Bl Desktop, change the Row-Level Security settings.","From Power Bl Desktop, import a table that contains the HR team members","From powerbi.com.add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members."]', '[2]', '', 'Final 2', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ensure that the HR team members have RLS applied when they view reports based on the dataset. What should you do?', '["From Power Bl Desktop, change the Row-Level Security settings.","From Power Bl Desktop, import a table that contains the HR team members","From powerbi.com.add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members."]', '[2]', 'After publishing, open the semantic model security settings in powerbi.com and add the HR users or group to the HR role. Role definitions are created in Desktop; membership is assigned in the service.', 'Final 2', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-281-468', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a folder that contains 100 CSV files.
@@ -13451,13 +13378,12 @@ Which three actions should you perform in sequence. To answer, mow the appropria
 
 correct order.
 
-NOTE; More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', 'From Power BI Desktop, select Get Data, and then select Folder. From Power Query Editor, remove the Content column.
-From Power Query Editor, expand the Attributes column.', 'Final 2', '281', '/dump-assets/f2-281-468-question.webp', '/dump-assets/f2-281-468-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE; More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', 'The Folder connector returns file metadata and binary Content. Removing Content prevents file contents from being stored, while expanding Attributes exposes the required metadata fields.', 'Final 2', '281', '/dump-assets/f2-281-468-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-284-469', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are creating a Power BI report to analyze consumer purchasing patterns from a table named Transactions. The Transactions table contains a numeric field
 
-named Spend. You need to include a visual that identifies which fields have the greatest impact on Spend. Which type of visual should you use?', '["decomposition tree","Q&A","smart narrative","key influences"]', '[3]', '', 'Final 2', '284', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+named Spend. You need to include a visual that identifies which fields have the greatest impact on Spend. Which type of visual should you use?', '["decomposition tree","Q&A","smart narrative","key influences"]', '[3]', 'Use the Key influencers visual. It analyzes candidate explanatory fields and ranks those that most strongly increase or decrease the numeric Spend outcome.', 'Final 2', '284', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-286-470', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI report. The report contains visualizations that have interactions. You need to identify which visualizations take the longest to complete. What
@@ -13478,7 +13404,7 @@ You have a Power Bl report named Orders that supports the following analysis:
 
 • New and repeat customer counts
 
-The data model size is nearing the limit for a dataset in shared capacity. The model view for the dataset is shown in the following exhibit.', '[]', '[]', '', 'Final 2', '287', '/dump-assets/f2-287-471-question.webp', '/dump-assets/f2-287-471-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+The data model size is nearing the limit for a dataset in shared capacity. The model view for the dataset is shown in the following exhibit.', '[]', '[]', 'Summarizing orders by their identifying columns would not preserve the required measures, and CustomerID is needed for new/repeat customer analysis. UnitPrice and Discount are not needed for the listed analyses when the required sales value is already available, so removing them reduces size.', 'Final 2', '287', '/dump-assets/f2-287-471-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-291-472', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a data model that contains many complex DAX expressions. The expressions contain frequent references to the RELATED and RELATEDTABLE
@@ -13519,7 +13445,7 @@ The IoT GUID and IoT ID columns are unique to each row in query.
 
 You need to analyze IoT events by the hour and day of the year. The solution must improve dataset performance.
 
-Solution: You remove the loT GUID column and retain the loT ID column. Does this meet the goal?', '["Yes","No"]', '[0]', '', 'Final 2', '300', '/exhibit-assets/f2-300-474.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Solution: You remove the loT GUID column and retain the loT ID column. Does this meet the goal?', '["Yes","No"]', '[0]', 'Yes. Keeping one unique integer identifier and removing the unused GUID reduces cardinality and model size while preserving a row key. The date/time column can then support hour and day-of-year analysis.', 'Final 2', '300', '/exhibit-assets/f2-300-474.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-303-475', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 The data model must support the following analysis:
@@ -13530,7 +13456,7 @@ The data model must support the following analysis:
 
 ? Number Of sales transactions by quarter in Which the order was placed
 
-For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[]', '', 'Final 2', '303', '/dump-assets/f2-303-475-question.webp', '/dump-assets/f2-303-475-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[]', 'LastUpdated is not required by any listed analysis and can be removed. ProductID is required for sales and quantity by product. ShipDate is not used because every requirement is based on OrderDate.', 'Final 2', '303', '/dump-assets/f2-303-475-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-307-476', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You manage a Power BI model has a table named Sales and product.
@@ -13570,7 +13496,7 @@ How should you complete the DAX measure? To answer drag the appropriate DAX func
 
 once, or not at all the spirt bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point', '[]', '[2,1]', '', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', '/dump-assets/f2-318-479-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point', '[]', '[2,1]', 'CALCULATE changes filter context for the percentage measure. ALLSELECTED removes the current product row filter while retaining external report and slicer filters, producing percent of the selected total.', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-323-480', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl report that contains three pages. The pages are used to analyze sales across various countries.
@@ -13587,7 +13513,7 @@ Which task should you perform for each requirement? To answer, drag the appropri
 
 once, or not at all. You may need to drag the split bar between panes or scroll to view content.Ther
 
-NOTE Each correct selection is worth one point.', '[]', '[1,3]', '', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', '/dump-assets/f2-323-480-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE Each correct selection is worth one point.', '[]', '[1,3]', 'Syncing applies the same selected country to every page. Hiding the synchronized slicer on pages two and three preserves the filter without repeating the control.', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-327-481', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a prospective customer list that contains 1,500 rows of data. The list contains the following fields:
@@ -13622,33 +13548,21 @@ Which type of visual should you use for each requirement? To answer, drag the ap
 
 more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '331', '/dump-assets/f2-331-482-question.webp', '/dump-assets/f2-331-482-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'A pie chart emphasizes part-to-whole contribution by region. A stacked bar chart can show quarterly values over time while also retaining category composition.', 'Final 2', '331', '/dump-assets/f2-331-482-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-336-483', 'Manage and secure Power BI', 'manual', 'FILL IN THE BLANK - (Topic 4)
 
 You are creating a line chart in a Power Bl report as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Answer as selected', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', '/dump-assets/f2-336-483-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The Analytics pane supplies a dynamic average reference line. Drill-down follows the hierarchy placed on the chart axis; it is not a drill-through action.', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-337-484', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a report page that contains the visuals shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic. NOTE: Each correct
 
-selection is worth one point.', '[]', '[]', 'Box 1: cross-filter
-By default, selecting a data point in one visual on a report page will cross-filter or cross- highlight the other visuals on the page.
-Box 2: cross-highlight Example:
-By default, selecting a data point in one visual on a report page will cross-filter or cross-
-highlight the other visuals on the page.
-
-* 1. Let''s see what happens when we select Moderation.
-
-* 2. Cross-filtering removes data that doesn''t apply. Selecting Moderation in the doughnut chart cross-filters the line chart. The line chart now only displays data
-points for the Moderation segment.
-* 3. Cross-highlighting retains all the original data points but dims the portion that does not apply to your selection. Selecting Moderation in the doughnut chart
-cross-highlights the column chart. The column chart dims all the data that applies to the Convenience segment and highlights all the data that applies to the
-Moderation segment.', 'Final 2', '337', '/dump-assets/f2-337-484-question.webp', '/dump-assets/f2-337-484-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+selection is worth one point.', '[]', '[]', 'Reviewed answer: selecting a quarter on the line chart cross-highlights the clustered column chart. Selecting a point on the line chart cross-filters the map. Power BI retains and dims unrelated columns during cross-highlighting, but line charts, scatter charts, and maps are cross-filter targets only.', 'Final 2', '337', '/dump-assets/f2-337-484-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-342-485', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have sales data in a star schema that contains four tables named Sales, Customer, Date, and Product.
@@ -13682,20 +13596,19 @@ You have a report in Power BI Desktop as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-Note: Each correct selection is worth one point.', '[]', '[]', '', 'Final 2', '349', '/dump-assets/f2-349-488-question.webp', '/dump-assets/f2-349-488-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Note: Each correct selection is worth one point.', '[]', '[]', 'The Target value field well in the exhibit is empty, so the gauge goal was entered in the visual formatting settings. A visual-level filter keeps this gauge on Canada regardless of other report content.', 'Final 2', '349', '/dump-assets/f2-349-488-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-353-489', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have the data lineage shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: CONTOSO BIKES report Box 2: three datasets
-Images, tweets and the Contoso datasets.', 'Final 2', '353', '/dump-assets/f2-353-489-question.webp', '/dump-assets/f2-353-489-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Following the lineage arrows identifies CONTOSO BIKES as the report in the requested path. The lineage view shows three separate datasets feeding the downstream content.', 'Final 2', '353', '/dump-assets/f2-353-489-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-355-490', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power B1 report that contains the visuals shown in the following table.
 
-You need to modify the location of each visual. What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', '', 'Final 2', '355', '/exhibit-assets/f2-355-490.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to modify the location of each visual. What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', 'Modify Position to change the X and Y coordinates of each visual on the report canvas. Layer order controls overlap, padding controls internal spacing, and tab order controls keyboard navigation.', 'Final 2', '355', '/exhibit-assets/f2-355-490.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-358-491', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You create a dataset sourced from dozens of flat files in Azure Blob storage. The dataset uses incremental refresh.
@@ -13747,7 +13660,7 @@ Each employee has one manager as shown in the ParentEmployeelD column, All repor
 
 You need to create a calculated column that returns the count of levels from each employee to the CEO.
 
-Which DAX expression should you use?', '["Option A","Option B","option C","Option D"]', '[1]', '', 'Final 2', '366', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX expression should you use?', '["PATH(Employees[EmployeeID], Employees[ParentEmployeeID])","PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]))","PATHITEM(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), 1)","PATHCONTAINS(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), Employees[EmployeeID])"]', '[1]', 'Reviewed answer: PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID])). PATH returns the hierarchy path for each employee; PATHLENGTH counts the employee and every ancestor through the CEO.', 'Final 2', '366', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-368-495', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl workspace that contains a single-page report named Sales.
@@ -13758,8 +13671,7 @@ dashboard.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'Open powerbi.com Select sales report
-Pin the page', 'Final 2', '368', '/dump-assets/f2-368-495-question.webp', '/dump-assets/f2-368-495-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[]', 'Pinning the entire report page creates a live page tile. Unlike pinning the visuals one by one, later report changes remain synchronized with the dashboard tile.', 'Final 2', '368', '/dump-assets/f2-368-495-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-370-496', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 In the Power BI service, you create an app workplace that contains several dashboards.
@@ -13787,19 +13699,7 @@ You need to create a measure that calculates the relative change in sales as com
 
 How should you complete the measure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: CALCULATE
-Box 2: DATEADD
-Box 3: DIVIDE
-Example: NET_SALES QoQ% = IF(
-ISFILTERED(''Calendar''[Date]),
-ERROR("Time intelligence quick measures can only be grouped or filtered by the Power BI-provided date hierarchy or primary date column."),
-VAR PREV_QUARTER = CALCULATE(
-SUM(''research ra_qtr_template''[NET_SALES]), DATEADD(''Calendar''[Date].[Date], -1, QUARTER)
-) RETURN DIVIDE(
-SUM(''research ra_qtr_template''[NET_SALES]) - PREV_QUARTER,
-PREV_QUARTER
-)
-)', 'Final 2', '378', '/dump-assets/f2-378-498-question.webp', '/dump-assets/f2-378-498-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates sales under the prior-quarter date context produced by DATEADD. DIVIDE safely calculates the relative change and handles a zero denominator.', 'Final 2', '378', '/dump-assets/f2-378-498-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-381-499', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have the dataset shown in the following exhibit.
@@ -13860,10 +13760,7 @@ You need to remove any columns that have a suffix of sourceid.
 
 How should you complete the Power Query M code? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box 1: Table.RemoveColumns
-When you do “Remove Columns” Power Query uses the Table.RemoveColumns function
-Box 2: List.Select Get a list of columns.
-Box 3: Text.EndsWith', 'Final 2', '389', '/dump-assets/f2-389-501-question.webp', '/dump-assets/f2-389-501-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Table.RemoveColumns removes a dynamically generated list of unwanted columns. List.Select filters Table.ColumnNames(rawData), and Text.EndsWith keeps the names whose suffix is sourceid.', 'Final 2', '389', '/dump-assets/f2-389-501-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-391-502', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You create the following step by using Power Query Editor.
@@ -13894,11 +13791,7 @@ How should you complete the OAX expression for the calculated column? To answer,
 
 once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'You are to count the number of rows having same email address.
-* 1. Declare a variable and call it any name you prefer
-* 2. Calculate the row count on the table
-* 3. Apply filter to ALL of the values in the table under the column name email address and equate it to the variable.
-You may need to read up filter functions for a proper understanding of how it works.', 'Final 2', '396', '/dump-assets/f2-396-504-question.webp', '/dump-assets/f2-396-504-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates COUNTROWS(Customer) after ALL removes the current row filter from the Email Address column. The explicit equality filter then reapplies the current email and counts its duplicates.', 'Final 2', '396', '/dump-assets/f2-396-504-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-398-505', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bl workspace named Workspace1 that contains a dataset named DS1 and a report named RPT1.
@@ -13912,7 +13805,9 @@ permission for the dataset. For datasets in the original workspace, if you have 
 workspace role. https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final 2', '398', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-403-506', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
-You have the Power BI data model shown in the following exhibit.', '[]', '[]', '', 'Final 2', '403', '/dump-assets/f2-403-506-question.webp', '/dump-assets/f2-403-506-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+You have the Power BI data model shown in the following exhibit.
+
+You create two row-level security (RLS) roles named Manager and CFO. Each manager must see only Sales and Human Resources data for their own country. The CFO must see Sales for all countries but must not see any Human Resources rows. Complete the two RLS filters for Human Resources and Country.', '[]', '[3,1]', 'The CFO role uses FALSE() on Human Resources to deny every row while leaving country sales available. The Manager role filters Country to the signed-in manager, and the relationships propagate that country filter.', 'Final 2', '403', '/dump-assets/f2-403-506-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-407-507', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are building a Power Bl report that uses data from an Azure SQL database named erp1.

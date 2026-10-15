@@ -125,6 +125,10 @@ import { AiStudyExplanation } from '@/components/ai-study-explanation';
 import { buildTutorContext } from '@/lib/ai-tutor';
 import { LanguageProvider, useLanguage } from '@/lib/i18n';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
+import {
+  hasManagedAutoGradingKey,
+  managedAutoGradingKeys,
+} from '@/lib/managed-auto-grading-keys';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import { DUMP_PRACTICE_COLLECTIONS } from '@/lib/dump-practice';
 import { analyticsSessionType, trackAnalyticsEvent } from '@/lib/analytics';
@@ -5050,6 +5054,54 @@ function QuestionInput({
   );
 }
 
+function DragDropReviewPanel({
+  question,
+  value,
+  title,
+  good,
+}: {
+  question: Question;
+  value: number[];
+  title: string;
+  good: boolean;
+}) {
+  const { tx } = useLanguage();
+  const spec = dragDropData[question.id];
+  if (!spec) return null;
+
+  return (
+    <div
+      className={`rounded-sm border p-4 ${good ? 'border-emerald-500/40 bg-emerald-500/5' : 'border-red-500/40 bg-red-500/5'}`}
+    >
+      <p className="mb-3 text-sm font-semibold">{title}</p>
+      <div className="grid gap-2">
+        {Array.from({ length: spec.slots }, (_, slotIndex) => {
+          const choice = value[slotIndex] ?? -1;
+          return (
+            <div key={slotIndex} className="rounded-sm border bg-card/90 p-3">
+              <p className="mb-2 text-xs font-semibold text-muted-foreground">
+                {spec.mode === 'sequence'
+                  ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                  : tx(`Target ${slotIndex + 1}`, `الخانة ${slotIndex + 1}`)}
+              </p>
+              {choice >= 0 && spec.options[choice] ? (
+                <DragChoiceImage
+                  option={spec.options[choice]}
+                  choice={choice}
+                />
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  {tx('Not answered', 'بدون إجابة')}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function PracticeFeedback({
   question,
   answer,
@@ -5060,15 +5112,17 @@ function PracticeFeedback({
   const { language, tx } = useLanguage();
   const correct = isCorrect(question, answer);
   const manual = question.type === 'manual';
+  const autoGradedManual = manual && hasManagedAutoGradingKey(question.id);
+  const requiresManualReview = manual && !autoGradedManual;
   const audit = getAnswerAudit(question);
   return (
     <div
-      className={`mt-6 rounded-sm border-l-4 p-5 ${manual ? 'border-l-sky-500 bg-sky-500/5' : correct ? 'border-l-emerald-600 bg-emerald-500/5' : 'border-l-red-600 bg-red-500/5'}`}
+      className={`mt-6 rounded-sm border-l-4 p-5 ${requiresManualReview ? 'border-l-sky-500 bg-sky-500/5' : correct ? 'border-l-emerald-600 bg-emerald-500/5' : 'border-l-red-600 bg-red-500/5'}`}
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold">
-            {manual
+            {requiresManualReview
               ? audit.status !== 'source-key'
                 ? tx(
                     'Compare with the reviewed answer',
@@ -5090,9 +5144,15 @@ function PracticeFeedback({
           </p>
         </div>
         <Badge
-          variant={manual ? 'secondary' : correct ? 'default' : 'destructive'}
+          variant={
+            requiresManualReview
+              ? 'secondary'
+              : correct
+                ? 'default'
+                : 'destructive'
+          }
         >
-          {manual
+          {requiresManualReview
             ? tx('Manual check', 'مراجعة يدوية')
             : correct
               ? tx('Correct', 'صحيح')
@@ -5100,7 +5160,22 @@ function PracticeFeedback({
         </Badge>
       </div>
       <AnswerAuditNotice question={question} />
-      {manual ? (
+      {autoGradedManual ? (
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <DragDropReviewPanel
+            question={question}
+            value={answer ?? []}
+            title={tx('Your answer', 'إجابتك')}
+            good={correct}
+          />
+          <DragDropReviewPanel
+            question={question}
+            value={managedAutoGradingKeys[question.id] ?? []}
+            title={tx('Correct answer', 'الإجابة الصحيحة')}
+            good
+          />
+        </div>
+      ) : manual ? (
         question.answerImage && (
           <Image
             src={publicAsset(question.answerImage)}
@@ -5558,6 +5633,9 @@ function ReviewScreen({
   const answer = answers[question.id];
   const answered = isAnswered(question, answer);
   const correct = isCorrect(question, answer);
+  const autoGradedManual =
+    question.type === 'manual' && hasManagedAutoGradingKey(question.id);
+  const requiresManualReview = question.type === 'manual' && !autoGradedManual;
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Header
@@ -5608,7 +5686,7 @@ function ReviewScreen({
               )}
               <Badge
                 variant={
-                  question.type === 'manual'
+                  requiresManualReview
                     ? 'secondary'
                     : correct
                       ? 'default'
@@ -5617,7 +5695,7 @@ function ReviewScreen({
                         : 'secondary'
                 }
               >
-                {question.type === 'manual'
+                {requiresManualReview
                   ? tx('Manual review', 'مراجعة يدوية')
                   : correct
                     ? tx('Correct', 'صحيح')
@@ -5677,7 +5755,22 @@ function ReviewScreen({
                 className="mt-6 h-auto w-full rounded-sm border bg-white object-contain"
               />
             ) : null}
-            {question.type === 'manual' && question.answerImage ? (
+            {autoGradedManual ? (
+              <div className="mt-7 grid gap-5 md:grid-cols-2">
+                <DragDropReviewPanel
+                  question={question}
+                  value={answer ?? []}
+                  title={tx('Your answer', 'إجابتك')}
+                  good={correct}
+                />
+                <DragDropReviewPanel
+                  question={question}
+                  value={managedAutoGradingKeys[question.id] ?? []}
+                  title={tx('Correct answer', 'الإجابة الصحيحة')}
+                  good
+                />
+              </div>
+            ) : question.type === 'manual' && question.answerImage ? (
               <div className="mt-7 rounded-sm border border-emerald-500/40 bg-emerald-500/5 p-4">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {tx('Source answer', 'إجابة المصدر')}

@@ -6,7 +6,7 @@ Cloudflare Worker + D1 backend for the PL-300 Managed Exam Center.
 
 - One administrator and registered student accounts
 - Salted PBKDF2 password hashes and hashed session tokens
-- The 494-question server-side bank; new managed exams are selected only from the 362 questions with a verified automatic grading key
+- The 494-question server-side bank; new managed exams are selected only from the 363 questions with a verified automatic grading key
 - Published exam settings and selected question IDs
 - Attempts, answers, flags, locked item-series questions, browser identity, security events, violation thresholds, deadlines, and results
 

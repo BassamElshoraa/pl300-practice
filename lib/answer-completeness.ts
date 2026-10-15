@@ -62,6 +62,17 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
         },
       ],
     },
+    'f1-122-121': {
+      status: 'independently-reviewed',
+      reviewedAnswer:
+        'Human Resources: FALSE(). Country: [Email] = USERPRINCIPALNAME().',
+      reason:
+        'The CFO role must deny every Human Resources row without restricting Sales, while the Manager role must match the signed-in user to Country[Email].',
+      reasonAr:
+        'دور CFO يمنع كل صفوف Human Resources باستخدام FALSE() من غير ما يفلتر Sales. ودور Manager يطابق بريد المستخدم الحالي مع Country[Email] عشان يشوف دولته فقط.',
+      explanation:
+        'Reviewed answer: Human Resources = FALSE(); Country = [Email] = USERPRINCIPALNAME(). FALSE() prevents the CFO from seeing any Human Resources rows while leaving Sales unrestricted. The Country expression identifies the signed-in manager, and the active relationships propagate that country filter to Sales and Human Resources.',
+    },
     'f2-020-384': {
       status: 'corrected',
       reviewedAnswer: 'Background color; Rules.',
@@ -342,11 +353,15 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'CALCULATE evaluates COUNTROWS(Customer) after ALL removes the current row filter from the Email Address column. The explicit equality filter then reapplies the current email and counts its duplicates.',
       'CALCULATE تشغّل COUNTROWS بعد أن تزيل ALL فلتر الصف الحالي، ثم يعاد فلتر البريد الحالي لحساب مرات تكراره.',
     ),
-    'f2-403-506': placeholderReview(
-      'Human Resources: FALSE(). Country: [Email] = USERPRINCIPALNAME().',
-      'The CFO role uses FALSE() on Human Resources to deny every row while leaving country sales available. The Manager role filters Country to the signed-in manager, and the relationships propagate that country filter.',
-      'دور CFO يمنع كل صفوف Human Resources باستخدام FALSE(). دور Manager يفلتر Country ببريد المستخدم الحالي، والعلاقات تنقل الفلتر لباقي الجداول.',
-    ),
+    'f2-403-506': {
+      ...placeholderReview(
+        'Human Resources: FALSE(). Country: [Email] = USERPRINCIPALNAME().',
+        'The CFO role uses FALSE() on Human Resources to deny every row while leaving country sales available. The Manager role filters Country to the signed-in manager, and the relationships propagate that country filter.',
+        'دور CFO يمنع كل صفوف Human Resources باستخدام FALSE(). دور Manager يفلتر Country ببريد المستخدم الحالي، والعلاقات تنقل الفلتر لباقي الجداول.',
+      ),
+      promptAppend:
+        '\n\nYou create two row-level security (RLS) roles named Manager and CFO. Each manager must see only Sales and Human Resources data for their own country. The CFO must see Sales for all countries but must not see any Human Resources rows. Complete the two RLS filters for Human Resources and Country.',
+    },
 
     'f2-003-371': explanationOnly(
       'FORMAT(\'Date\'[date], "MMM YYYY") returns a text label such as Oct 2026 from each date. The format string supplies the abbreviated month and four-digit year required by the report.',
