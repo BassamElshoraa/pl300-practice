@@ -1421,14 +1421,9 @@ memory.”
 
 You need to resolve the error and ensure that query response times are minimized for end users.
 
-What should you do?', '["Merge the Sales person and invoice tables based on the SalesPersonId column.","Change the invoice table to a DirectQuery table and read the data live from the source, retaining only the dimension tables as import tables.","Reduce the size of the invoice table by summarizing sales by Product, Sales person, Calendar, and Customer.","Change the invoice table to a composite table that contains historical data as a DirectQuery table and hot data as an import table, and then partition the table."]', '[3]', 'D. Change the invoice table to a composite table that contains historical data as a DirectQuery table and hot
-data as an import table, and then partition the table.
+What should you do?', '["Merge the Sales person and invoice tables based on the SalesPersonId column.","Change the invoice table to a DirectQuery table and read the data live from the source, retaining only the dimension tables as import tables.","Reduce the size of the invoice table by summarizing sales by Product, Sales person, Calendar, and Customer.","Change the invoice table to a composite table that contains historical data as a DirectQuery table and hot data as an import table, and then partition the table."]', '[2]', 'Independent correction:
 
-Combines Import (fast performance) with DirectQuery (real-time, but slower).
-
-Hot data (recent, frequently queried) is kept in Import mode for performance.
-
-Historical data (older, less frequently queried) is kept in DirectQuery to reduce memory usage.', 'Final', '52', '/exhibit-assets/f1-052-51.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Summarize the Invoice fact table by Product, Sales person, Calendar, and Customer before loading it. The report needs analysis at this summarized grain, so the 12 million detailed rows are unnecessary. Fewer imported rows resolve the refresh memory failure and normally provide the lowest query latency. Merging the salesperson dimension into the fact increases duplication, while switching the fact to DirectQuery trades the memory problem for slower user queries. The proposed hot-Import/historical-DirectQuery option is both more complex and the reverse of the usual Hybrid-table pattern.', 'Final', '52', '/exhibit-assets/f1-052-51.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-053-52', 'Prepare the data', 'multi', 'You have a table named DIMCountries that contains a column named Country as shown in the following table.
 
 You plan to use DIMCountries as a dimension in a report.
@@ -12806,7 +12801,7 @@ You get data from the folder and select Combine & Load. The Combine Files dialog
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The sample file exposes the 2018 schema, which includes the columns needed by the 2019 files. The combined query therefore contains the 2018 columns and all 2019 columns. Limiting type detection to the first 200 rows reduces profiling work and improves import time.', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Combine Files builds the transformation function from the selected sample file. Because the first file uses the older 2018 layout, the generated expansion contains the 2018 columns but does not automatically add the extra columns that exist only in 2019 files. Limiting type detection to the first 200 rows reduces profiling work and can improve import time.', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-135-418', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are reviewing a query that produces 10,000 rows in the Power Query Editor. You need to identify whether a column contains only unique values.

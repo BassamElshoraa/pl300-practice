@@ -153,9 +153,19 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'نحتاج Bookmark لكل View، يعني 2. ونحفظ Display فقط حتى نبدّل ظهور الرسومات من غير ما نرجّع اختيار الـChain slicer.',
     ),
     'f2-130-417': placeholderReview(
-      'Yes; Yes; Yes.',
-      'The sample file exposes the 2018 schema, which includes the columns needed by the 2019 files. The combined query therefore contains the 2018 columns and all 2019 columns. Limiting type detection to the first 200 rows reduces profiling work and improves import time.',
-      'الإجابات الثلاثة Yes. ملف العينة يحتوي أعمدة 2018 الأوسع، فتظهر أعمدة 2018 و2019 في الناتج، وفحص أول 200 صف فقط يقلل وقت اكتشاف الأنواع.',
+      'Yes; No; Yes.',
+      'Combine Files builds the transformation function from the selected sample file. Because the first file uses the older 2018 layout, the generated expansion contains the 2018 columns but does not automatically add the extra columns that exist only in 2019 files. Limiting type detection to the first 200 rows reduces profiling work and can improve import time.',
+      'الإجابات: Yes ثم No ثم Yes. Power Query يبني دالة الدمج من ملف العينة الأول، وهو هنا ملف 2018 ذو الأعمدة الأقدم. لذلك أعمدة 2018 تظهر في الناتج، لكن الأعمدة الإضافية الموجودة فقط في ملفات 2019 لا تُضاف تلقائيًا. وفحص أول 200 صف فقط يقلل وقت اكتشاف أنواع البيانات.',
+      [
+        {
+          label: 'Power Query combine files overview',
+          url: 'https://learn.microsoft.com/en-us/power-query/combine-files-overview',
+        },
+        {
+          label: 'Power Query text and CSV connector',
+          url: 'https://learn.microsoft.com/en-us/power-query/connectors/text-csv',
+        },
+      ],
     ),
     'f2-136-419': placeholderReview(
       'Numbers = GENERATESERIES(-100, 100, 1)',

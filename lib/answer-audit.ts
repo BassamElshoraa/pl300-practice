@@ -36,6 +36,7 @@ const explicitlyReviewedIds = new Set([
   'f1-028-27',
   'f1-037-36',
   'f1-047-46',
+  'f1-052-51',
   'f1-053-52',
   'f1-058-57',
   'f1-062-61',
@@ -67,6 +68,27 @@ const isCurrentBankQuestion = (id: string) => {
 
 const corrections: Record<string, QuestionCorrection> = {
   ...answerCompletenessCorrections,
+  'f1-052-51': {
+    status: 'corrected',
+    correct: [2],
+    reviewedAnswer:
+      'Summarize Invoice by Product, Sales person, Calendar, and Customer before loading it.',
+    originalAnswer:
+      'Store historical Invoice data in DirectQuery and hot data in Import partitions.',
+    reason:
+      'Pre-aggregating the 12-million-row fact table reduces its row count and memory footprint while preserving the grain needed by the listed dimensions. It also keeps the model in Import mode for the fastest user queries. The source answer describes a reversed and unnecessarily complex hybrid pattern.',
+    reasonAr:
+      'نلخص جدول Invoice قبل تحميله حسب Product وSales person وCalendar وCustomer. كده نقلل عدد صفوف جدول الـfact واستهلاك الذاكرة، ونحتفظ بموديل Import سريع للمستخدم. إجابة المصدر اقترحت Hybrid مع وضع Historical في DirectQuery وHot في Import، وده ترتيب معكوس عن النمط المعتاد وحل أعقد من المطلوب.',
+    explanation:
+      'Independent correction:\n\nSummarize the Invoice fact table by Product, Sales person, Calendar, and Customer before loading it. The report needs analysis at this summarized grain, so the 12 million detailed rows are unnecessary. Fewer imported rows resolve the refresh memory failure and normally provide the lowest query latency. Merging the salesperson dimension into the fact increases duplication, while switching the fact to DirectQuery trades the memory problem for slower user queries. The proposed hot-Import/historical-DirectQuery option is both more complex and the reverse of the usual Hybrid-table pattern.',
+    suppressSourceAnswerImage: true,
+    evidence: [
+      {
+        label: 'Power BI import model data reduction techniques',
+        url: 'https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction',
+      },
+    ],
+  },
   'f1-028-27': {
     status: 'corrected',
     reviewedAnswer:
