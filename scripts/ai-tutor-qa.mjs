@@ -160,6 +160,22 @@ assert.ok(
       attempt.normalize === true,
   ),
 );
+let catalogCalls=0;
+const catalogAttempts=[];
+globalThis.window.puter.ai.listModels=async()=>{
+  catalogCalls+=1;
+  return [{id:PUTER_TUTOR_MODELS[1],aliases:[]}];
+};
+globalThis.window.puter.ai.chat=async(_messages,options)=>{
+  catalogAttempts.push(options.model);
+  return {message:{content:'Catalog-approved response'}};
+};
+for(let attempt=0;attempt<2;attempt++){
+  const response=await chatWithPuter({context:hidden,messages:[{role:'user',content:'Explain this question'}]});
+  assert.equal(response.model,PUTER_TUTOR_MODELS[1]);
+}
+assert.deepEqual(catalogAttempts,[PUTER_TUTOR_MODELS[1],PUTER_TUTOR_MODELS[1]]);
+assert.equal(catalogCalls,1,'model availability should be cached, not requested for every message');
 delete globalThis.window;
 
 assert.equal(getTutorQuickPrompts(false).length, 3);

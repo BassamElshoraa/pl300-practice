@@ -13,6 +13,7 @@
 - Bank 432 and 470 also have unusable source answer areas; unrelated menu crops are disabled and their source-answer images are suppressed.
 - Practice answers, checking and flags follow the stable question ID across practice sets. Timed exams start fresh. Backups include this progress. Separate online/offline origins require backup export/import; this is not cloud synchronization.
 - Tutor retry remains usable after provider errors, and explicitly labelled built-in guidance works without a network. Native answer labels, statements and typed tables are included in tutor context.
+- The live provider catalog was queried read-only: both previously configured free model IDs were absent. Replaced them with listed free IDs and added a five-minute catalog availability check so absent models are skipped. Authenticated generation remains unverified.
 
 ## Verification boundaries / remaining work
 

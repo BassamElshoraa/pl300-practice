@@ -6,7 +6,7 @@ type PuterChat = (
 ) => Promise<unknown>;
 
 type PuterSdk = {
-  ai?: { chat?: PuterChat };
+  ai?: { chat?: PuterChat; listModels?: () => Promise<unknown> };
   auth?: {
     isSignedIn?: () => boolean;
     signIn?: (options?: {
@@ -17,10 +17,56 @@ type PuterSdk = {
 };
 
 export const PUTER_TUTOR_MODELS = [
-  'openrouter:qwen/qwen3.8-27b:free',
-  'infron:deepseek/deepseek-v4-flash:free',
+  'infron:deepseek/deepseek-v4.1-flash:free',
+  'infron:apodex/apodex-1.1-mini:free',
   'gpt-5-nano',
 ] as const;
+
+let catalogCache: { expiresAt: number; models: string[] } | undefined;
+
+/** Availability changes independently of this website. Keep curated priorities,
+ * but do not spend a chat timeout on a model absent from the provider catalog.
+ * An unavailable catalog is not evidence that all models are unavailable. */
+async function availableTutorModels(ai: NonNullable<PuterSdk['ai']>) {
+  if (!ai.listModels) return [...PUTER_TUTOR_MODELS];
+  if (catalogCache && catalogCache.expiresAt > Date.now())
+    return catalogCache.models;
+  try {
+    const result = await withTimeout(ai.listModels(), 4000, 'en');
+    const models = Array.isArray(result)
+      ? result
+      : isRecord(result) && Array.isArray(result.models)
+        ? result.models
+        : [];
+    if (!models.length) return [...PUTER_TUTOR_MODELS];
+    const names = new Set(
+      models.flatMap((model) =>
+        typeof model === 'string'
+          ? [model]
+          : isRecord(model)
+            ? [
+                model.id,
+                ...(Array.isArray(model.aliases) ? model.aliases : []),
+              ].filter((name): name is string => typeof name === 'string')
+            : [],
+      ),
+    );
+    const available = PUTER_TUTOR_MODELS.filter((model) => names.has(model));
+    if (!available.length)
+      throw Error(
+        'No configured tutor model is currently listed by the provider.',
+      );
+    catalogCache = { expiresAt: Date.now() + 300_000, models: available };
+    return available;
+  } catch (error) {
+    if (
+      error instanceof Error &&
+      error.message.startsWith('No configured tutor model')
+    )
+      throw error;
+    return [...PUTER_TUTOR_MODELS];
+  }
+}
 
 export const PUTER_TUTOR_MAX_TOKENS = 1600;
 
@@ -100,7 +146,7 @@ export async function chatWithPuter(request: TutorChatRequest) {
   ];
   let lastError: unknown;
 
-  for (const model of PUTER_TUTOR_MODELS) {
+  for (const model of await availableTutorModels(ai!)) {
     try {
       const response = await withTimeout(
         chat(messages, {
