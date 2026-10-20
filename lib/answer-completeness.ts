@@ -29,6 +29,26 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f2-202-444': {
+      status: 'incomplete-source',
+      reviewedAnswer:
+        'Answer selection unavailable: the saved dropdown crops belong to a different question.',
+      explanation:
+        'The profile shows 12 distinct and 11 unique values. However, the complete readable answer options have not been recovered. Do not use the unrelated menu crops as an answer key.',
+      reasonAr:
+        'قصاصات الاختيارات تخص سؤالًا آخر، ولذلك أوقفناها بدل عرض اختيارات مضللة. نحتاج نسخة واضحة من الاختيارات الأصلية.',
+      suppressSourceAnswerImage: true,
+    },
+    'f2-336-483': {
+      status: 'incomplete-source',
+      reviewedAnswer:
+        'Cannot determine: the source omits the answer area and statements.',
+      explanation:
+        'The source provides a line chart but not the statements or answer area. Previously reused menu crops have been disabled; no answer is inferred.',
+      reasonAr:
+        'الرسم موجود لكن عبارات السؤال ومنطقة الإجابة ناقصان. لا نعتمد الاختيارات القديمة لأنها لا تخص السؤال.',
+      suppressSourceAnswerImage: true,
+    },
     'f1-021-20': {
       status: 'independently-reviewed',
       reviewedAnswer: 'Create one Text parameter for the lifecycle stage.',
@@ -173,15 +193,16 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'GENERATESERIES تنشئ صفًا لكل رقم من -100 إلى 100 شاملًا وبخطوة 1.',
     ),
     'f2-152-425': {
-      status: 'corrected',
-      reviewedAnswer: 'Matrix; Set Switch values to rows to On.',
+      status: 'incomplete-source',
+      reviewedAnswer:
+        'Cannot determine: the required output/layout is missing from the source.',
       originalAnswer: 'Matrix; Set Stepped layout to Off.',
       reason:
-        'The target layout places Total Sales and Total Cost as row labels. That requires a Matrix with values displayed on rows; Stepped layout controls hierarchy indentation, not measure orientation.',
+        'Only the existing table and a list of available settings are supplied. The original question does not state the required output. A prior correction assumed values-on-rows without source evidence; that assumption is withdrawn.',
       reasonAr:
-        'المطلوب تحويل المقاييس من أعمدة إلى صفوف. لذلك نستخدم Matrix ونفعّل Switch values to rows. Stepped layout يغيّر شكل مستويات الـrow hierarchy فقط.',
+        'المصدر بيعرض الجدول الحالي والاختيارات فقط، لكن مش كاتب شكل الناتج المطلوب. الشرح القديم افترض تحويل المقاييس لصفوف من غير دليل، لذلك لا نعتمد إجابة لحد استكمال المطلوب.',
       explanation:
-        'Reviewed answer: Matrix; Set Switch values to rows to On. A table cannot place multiple measures as row headers. The matrix Values-on-rows setting performs that layout change; turning Stepped layout off does not.',
+        'Incomplete source: no unique answer can be determined. If a later source supplies a requirement to place measures on rows, use Matrix with values on rows; if it requests a different layout, a different setting may be required. Do not treat that conditional example as the answer to this incomplete item.',
       suppressSourceAnswerImage: true,
       evidence: [
         {
@@ -219,11 +240,6 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'Use First Row as Headers; unpivot all columns other than Measure; rename Attribute to Year; change Year to the Date data type.',
       'Promote the header row, normalize the year columns into rows with Unpivot Other Columns, rename the generated attribute, and assign a date type so the model can use the year values correctly.',
       'نرفع أول صف كعناوين، نعمل Unpivot لكل الأعمدة ماعدا Measure، نعيد تسمية Attribute إلى Year، ثم نحوله Date.',
-    ),
-    'f2-202-444': placeholderReview(
-      '12 different values including null; 11 non-null values that occur only once.',
-      'The column profile explicitly reports 12 distinct values and 11 unique values. Distinct counts the different values including the null category shown as Empty; unique counts non-null values that appear once.',
-      'Column profile يعرض 12 Distinct و11 Unique؛ لذلك عدد القيم المختلفة شامل null هو 12، والقيم غير الفارغة التي ظهرت مرة واحدة هي 11.',
     ),
     'f2-209-447': placeholderReview(
       'TOPN; SUMMARIZE; DESC.',
@@ -307,11 +323,6 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'Percentage contribution by region: Pie chart. Profit over time: Stacked bar chart.',
       'A pie chart emphasizes part-to-whole contribution by region. A stacked bar chart can show quarterly values over time while also retaining category composition.',
       'Pie chart توضح نسبة مساهمة كل Region من الإجمالي، وStacked bar chart تعرض الربح عبر الأرباع مع المقارنة بين المكونات.',
-    ),
-    'f2-336-483': placeholderReview(
-      'Add an average reference line; drill down by using the Axis hierarchy.',
-      'The Analytics pane supplies a dynamic average reference line. Drill-down follows the hierarchy placed on the chart axis; it is not a drill-through action.',
-      'نضيف Average reference line من Analytics pane، والـdrill-down يتم عبر Hierarchy الموجودة على Axis.',
     ),
     'f2-337-484': {
       status: 'corrected',

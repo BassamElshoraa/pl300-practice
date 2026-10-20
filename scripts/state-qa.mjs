@@ -155,9 +155,37 @@ const mastered = updateMistakeRecords(
 );
 assert.equal(mastered[autoQuestion.id]?.status, 'mastered');
 
+const studyState = createDefaultLearnerState();
+studyState.studyProgress[autoQuestion.id] = {
+  answer: autoQuestion.correct,
+  checked: true,
+  flagged: true,
+  updatedAt: now,
+};
+const studyRestored = parseLearnerBackup(
+  serializeLearnerBackup(studyState),
+).state;
+assert.deepEqual(
+  studyRestored.studyProgress,
+  studyState.studyProgress,
+  'Study progress must survive backup/restore by question ID',
+);
+const newerStudy = createDefaultLearnerState();
+newerStudy.studyProgress[autoQuestion.id] = {
+  answer: [],
+  checked: false,
+  flagged: false,
+  updatedAt: '2099-01-01T00:00:00.000Z',
+};
+assert.deepEqual(
+  mergeLearnerStates(studyState, newerStudy).studyProgress[autoQuestion.id],
+  newerStudy.studyProgress[autoQuestion.id],
+  'Latest study action must win when backups merge',
+);
+
 console.log(
   JSON.stringify(
-    { status: 'PASS', schemaVersion: LEARNER_STATE_VERSION, checks: 34 },
+    { status: 'PASS', schemaVersion: LEARNER_STATE_VERSION, checks: 36 },
     null,
     2,
   ),

@@ -77,6 +77,14 @@ export type LearnerState = {
   attempts: AttemptRecord[];
   bookmarks: string[];
   mistakes: Record<string, MistakeRecord>;
+  studyProgress: Record<string, StudyProgress>;
+};
+
+export type StudyProgress = {
+  answer: number[];
+  checked: boolean;
+  flagged: boolean;
+  updatedAt: string;
 };
 
 export type LearnerBackup = {
@@ -103,6 +111,7 @@ export function createDefaultLearnerState(): LearnerState {
     attempts: [],
     bookmarks: [],
     mistakes: {},
+    studyProgress: {},
   };
 }
 
@@ -205,6 +214,11 @@ export function mergeLearnerStates(
   }
 
   const mistakes = { ...incoming.mistakes };
+  const studyProgress = { ...incoming.studyProgress };
+  for (const [id, record] of Object.entries(current.studyProgress)) {
+    if (!studyProgress[id] || record.updatedAt >= studyProgress[id].updatedAt)
+      studyProgress[id] = record;
+  }
   for (const [id, record] of Object.entries(current.mistakes)) {
     const existing = mistakes[id];
     if (!existing || record.lastSeenAt >= existing.lastSeenAt)
@@ -221,6 +235,7 @@ export function mergeLearnerStates(
       .slice(0, 100),
     bookmarks: [...new Set([...current.bookmarks, ...incoming.bookmarks])],
     mistakes,
+    studyProgress,
   };
 }
 
@@ -306,6 +321,23 @@ function migrateState(input: unknown, fallback: LearnerState): LearnerState {
     attempts,
     bookmarks: stringArray(input.bookmarks),
     mistakes,
+    studyProgress: isRecord(input.studyProgress)
+      ? Object.fromEntries(
+          Object.entries(input.studyProgress).filter(
+            (entry): entry is [string, StudyProgress] => {
+              const record = entry[1];
+              return (
+                isRecord(record) &&
+                Array.isArray(record.answer) &&
+                record.answer.every((n) => Number.isInteger(n)) &&
+                typeof record.checked === 'boolean' &&
+                typeof record.flagged === 'boolean' &&
+                typeof record.updatedAt === 'string'
+              );
+            },
+          ),
+        )
+      : {},
   };
 }
 

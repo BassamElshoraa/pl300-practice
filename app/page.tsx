@@ -103,6 +103,7 @@ import {
   type LearnerState,
   type MasteryStatus,
   type MistakeRecord,
+  type StudyProgress,
   type SessionMode,
   updateMistakeRecords,
 } from '@/lib/learner-state';
@@ -121,6 +122,15 @@ import {
 import { buildOptionExplanations } from '@/lib/option-explanations';
 import { getAnswerAudit } from '@/lib/answer-audit';
 import { AiTutor } from '@/components/ai-tutor';
+import { CaseStudy } from '@/components/case-study';
+import { SourceExhibit } from '@/components/source-exhibit';
+import {
+  QuestionExhibits,
+  hasNativeExhibits,
+} from '@/components/question-exhibits';
+import { TextAnswerLists } from '@/components/text-answer-lists';
+import { getQuestionPresentation } from '@/lib/question-presentation';
+import { textAnswerData, statementData } from '@/lib/text-answer-data';
 import { AiStudyExplanation } from '@/components/ai-study-explanation';
 import { buildTutorContext } from '@/lib/ai-tutor';
 import { LanguageProvider, useLanguage } from '@/lib/i18n';
@@ -204,6 +214,10 @@ const instructionsArabic: Record<Question['type'], string> = {
 };
 
 function questionInstruction(question: Question, language: 'en' | 'ar') {
+  if (getQuestionPresentation(question)?.warning)
+    return language === 'ar'
+      ? 'المصدر ناقص: اقرأ الملاحظة؛ السؤال غير قابل للتصحيح قبل استكمال المطلوب.'
+      : 'Incomplete source: read the warning. This item cannot be graded until its missing requirement is supplied.';
   const dragSpec = dragDropData[question.id];
   if (dragSpec) {
     if (language === 'ar') {
@@ -222,8 +236,8 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
   }
   if (isYesNoQuestion(question)) {
     return language === 'ar'
-      ? 'طريقة الإجابة: اختار Yes أو No لكل عبارة ظاهرة في صورة السؤال.'
-      : 'How to answer: Select Yes or No for every statement shown in the source image.';
+      ? 'طريقة الإجابة: اقرأ كل عبارة مكتوبة، واختار Yes أو No قدامها.'
+      : 'How to answer: Read each statement below and select Yes or No.';
   }
   return language === 'ar'
     ? instructionsArabic[question.type]
@@ -231,7 +245,7 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
 }
 
 const LINKEDIN_URL = 'https://www.linkedin.com/in/bassam-elshoraa/';
-const APP_VERSION = '2.6.0';
+const APP_VERSION = '2.7.0';
 const ASSET_BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 const MANAGED_EXAMS_LIVE = Boolean(
   process.env.NEXT_PUBLIC_MANAGED_EXAMS_API_URL,
@@ -274,6 +288,9 @@ function Simulator() {
   const [learnerName, setLearnerName] = useState('');
   const [attempts, setAttempts] = useState<AttemptRecord[]>([]);
   const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [studyProgress, setStudyProgress] = useState<
+    Record<string, StudyProgress>
+  >({});
   const [mistakes, setMistakes] = useState<Record<string, MistakeRecord>>({});
   const [hydrated, setHydrated] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
@@ -446,6 +463,7 @@ function Simulator() {
         setLearnerName(state.learner.name);
         setAttempts(state.attempts);
         setBookmarks(state.bookmarks);
+        setStudyProgress(state.studyProgress);
         setMistakes(state.mistakes);
         setDark(state.preferences.theme === 'dark');
       } catch {
@@ -495,6 +513,7 @@ function Simulator() {
         attempts,
         bookmarks,
         mistakes,
+        studyProgress,
       });
     } catch {
       // Device storage can be unavailable in private browsing; the active screen still works.
@@ -504,6 +523,7 @@ function Simulator() {
     attemptId,
     attempts,
     bookmarks,
+    studyProgress,
     checked,
     current,
     dark,
@@ -665,6 +685,31 @@ function Simulator() {
             selectedQuestionIds.length || buildExam(selectedModel).length,
           )
         : 0;
+    // Study state follows the question ID across bank, bookmarks and custom
+    // practice. Timed assessments always start fresh; never prefill their key.
+    const ids = selectedQuestionIds.length
+      ? selectedQuestionIds
+      : buildExam(selectedModel).map((q) => q.id);
+    const studyEntries =
+      selectedMode === 'practice'
+        ? ids
+            .filter((id) => studyProgress[id])
+            .map((id) => [id, studyProgress[id]] as const)
+        : [];
+    const initialAnswers = Object.fromEntries(
+      studyEntries.map(([id, record]) => [id, record.answer]),
+    );
+    const initialFlags = studyEntries
+      .filter(([, record]) => record.flagged)
+      .map(([id]) => id);
+    const initialChecked = studyEntries
+      .filter(
+        ([id, record]) =>
+          record.checked &&
+          questionById.has(id) &&
+          isAnswered(questionById.get(id)!, record.answer),
+      )
+      .map(([id]) => id);
     setLearnerName(cleanName);
     setModel(selectedModel);
     setSessionMode(selectedMode);
@@ -672,9 +717,9 @@ function Simulator() {
     setSessionLabel(selectedLabel);
     setAttemptId(id);
     setStartedAt(now);
-    setAnswers({});
-    setFlags([]);
-    setChecked([]);
+    setAnswers(initialAnswers);
+    setFlags(initialFlags);
+    setChecked(initialChecked);
     setCurrent(0);
     setTimeLeft(initialTime);
     setSaved({
@@ -682,9 +727,9 @@ function Simulator() {
       model: selectedModel,
       mode: selectedMode,
       learnerName: cleanName,
-      answers: {},
-      flags: [],
-      checked: [],
+      answers: initialAnswers,
+      flags: initialFlags,
+      checked: initialChecked,
       questionIds: selectedQuestionIds,
       sessionLabel: selectedLabel,
       current: 0,
@@ -714,7 +759,13 @@ function Simulator() {
     if (!learnerName && saved.learnerName) setLearnerName(saved.learnerName);
     setAnswers(saved.answers);
     setFlags(saved.flags);
-    setChecked(saved.checked);
+    setChecked(
+      saved.checked.filter(
+        (id) =>
+          questionById.has(id) &&
+          isAnswered(questionById.get(id)!, saved.answers[id]),
+      ),
+    );
     setQuestionIds(saved.questionIds);
     setSessionLabel(saved.sessionLabel);
     setCurrent(saved.current);
@@ -733,9 +784,29 @@ function Simulator() {
 
   function updateAnswer(value: number[]) {
     setAnswers((previous) => ({ ...previous, [question.id]: value }));
+    if (sessionMode === 'practice')
+      setStudyProgress((previous) => ({
+        ...previous,
+        [question.id]: {
+          answer: value,
+          checked: false,
+          flagged: flags.includes(question.id),
+          updatedAt: new Date().toISOString(),
+        },
+      }));
   }
 
   function toggleFlag() {
+    if (sessionMode === 'practice')
+      setStudyProgress((previous) => ({
+        ...previous,
+        [question.id]: {
+          answer: answers[question.id] ?? [],
+          checked: checked.includes(question.id),
+          flagged: !flags.includes(question.id),
+          updatedAt: new Date().toISOString(),
+        },
+      }));
     setFlags((previous) =>
       previous.includes(question.id)
         ? previous.filter((id) => id !== question.id)
@@ -766,6 +837,16 @@ function Simulator() {
   }
 
   function checkPracticeAnswer() {
+    if (getQuestionPresentation(question)?.warning) return;
+    setStudyProgress((previous) => ({
+      ...previous,
+      [question.id]: {
+        answer: answers[question.id] ?? [],
+        checked: true,
+        flagged: flags.includes(question.id),
+        updatedAt: new Date().toISOString(),
+      },
+    }));
     if (!checked.includes(question.id))
       setChecked((previous) => [...previous, question.id]);
   }
@@ -794,6 +875,7 @@ function Simulator() {
       attempts,
       bookmarks,
       mistakes,
+      studyProgress,
     };
   }
 
@@ -804,6 +886,7 @@ function Simulator() {
     setAttempts(state.attempts);
     setBookmarks(state.bookmarks);
     setMistakes(state.mistakes);
+    setStudyProgress(state.studyProgress);
   }
 
   if (screen === 'home') {
@@ -1055,18 +1138,10 @@ function Simulator() {
             </div>
 
             {question.context && (
-              <div className="mt-7 border-l-4 border-primary bg-muted p-4 text-[15px] leading-7">
-                <p className="mb-1 font-semibold">
-                  {tx('Scenario', 'السيناريو')}
-                </p>
-                <p
-                  dir="ltr"
-                  lang="en"
-                  className="whitespace-pre-line text-left"
-                >
-                  {displayText(question.context)}
-                </p>
-              </div>
+              <CaseStudy
+                key={question.id}
+                text={displayText(question.context)}
+              />
             )}
 
             <h1
@@ -1078,21 +1153,18 @@ function Simulator() {
             </h1>
 
             <div className="mt-7 max-w-5xl">
-              {question.image && question.type !== 'manual' && (
-                <figure className="mb-6">
-                  <figcaption className="mb-2 text-sm font-semibold text-muted-foreground">
-                    {tx('Source exhibit / table', 'الصورة أو الجدول المرفق')}
-                  </figcaption>
-                  <Image
-                    src={publicAsset(question.image)}
-                    alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
-                    width={1000}
-                    height={1200}
-                    unoptimized
-                    className="h-auto w-full rounded-sm border bg-white object-contain"
-                  />
-                </figure>
-              )}
+              <QuestionExhibits question={question} />
+              {question.image &&
+                question.type !== 'manual' &&
+                !hasNativeExhibits(question) &&
+                !getQuestionPresentation(question)?.hideSourceImage && (
+                  <figure className="mb-6">
+                    <figcaption className="mb-2 text-sm font-semibold text-muted-foreground">
+                      {tx('Source exhibit / table', 'الصورة أو الجدول المرفق')}
+                    </figcaption>
+                    <SourceExhibit question={question} />
+                  </figure>
+                )}
               <fieldset
                 disabled={
                   sessionMode === 'practice' && checked.includes(question.id)
@@ -1141,6 +1213,20 @@ function Simulator() {
                       onClick={checkPracticeAnswer}
                     >
                       {tx('Check answer', 'صحّح الإجابة')}
+                    </Button>
+                  )}
+                {sessionMode === 'practice' &&
+                  checked.includes(question.id) && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setChecked((previous) =>
+                          previous.filter((id) => id !== question.id),
+                        );
+                        updateAnswer([]);
+                      }}
+                    >
+                      {tx('Try this question again', 'جرّب السؤال من جديد')}
                     </Button>
                   )}
                 {current < exam.length - 1 ? (
@@ -4350,7 +4436,7 @@ function DragDropAnswer({
       lang="en"
       className="space-y-5 text-left"
     >
-      {question.image && (
+      {question.image && !hasNativeExhibits(question) && (
         <details className="overflow-hidden rounded-sm border bg-card" open>
           <summary className="cursor-pointer border-b bg-muted/45 px-4 py-3 text-sm font-semibold">
             {tx('Original question exhibit', 'صورة السؤال الأصلية')}
@@ -4617,6 +4703,7 @@ function VisualListAnswer({
   const spec = visualControlData[question.id];
   const [openSlot, setOpenSlot] = useState<number | null>(null);
   if (!spec) return null;
+  const textRows = textAnswerData[question.id];
   const selections = Array.from(
     { length: spec.slots },
     (_, index) => value[index] ?? -1,
@@ -4629,6 +4716,28 @@ function VisualListAnswer({
     onChange(next);
     setOpenSlot(null);
   }
+
+  if (textRows)
+    return (
+      <div className="space-y-5" dir="ltr" lang="en">
+        {question.image && !hasNativeExhibits(question) && (
+          <details className="rounded-lg border bg-card">
+            <summary className="cursor-pointer px-4 py-3 font-semibold">
+              {tx('View source exhibit / chart', 'اعرض الرسم أو الجدول الأصلي')}
+            </summary>
+            <Image
+              src={publicAsset(question.image)}
+              alt={`Source exhibit for ${question.id}`}
+              width={1000}
+              height={1200}
+              unoptimized
+              className="h-auto w-full bg-white object-contain"
+            />
+          </details>
+        )}
+        <TextAnswerLists id={question.id} value={value} onChange={onChange} />
+      </div>
+    );
 
   return (
     <div className="space-y-5" dir="ltr" lang="en">
@@ -4718,8 +4827,9 @@ function YesNoAnswer({
   onChange?: (value: number[]) => void;
 }) {
   const { tx } = useLanguage();
+  const statements = statementData[question.id];
   const selections = Array.from(
-    { length: 3 },
+    { length: statements?.length ?? 3 },
     (_, index) => value[index] ?? -1,
   );
 
@@ -4732,8 +4842,11 @@ function YesNoAnswer({
 
   return (
     <div className="space-y-5" dir="ltr" lang="en">
-      {question.image && (
-        <div className="overflow-hidden rounded-sm border bg-white">
+      {question.image && !hasNativeExhibits(question) && (
+        <details className="overflow-hidden rounded-sm border bg-white">
+          <summary className="cursor-pointer bg-muted p-3 font-semibold text-foreground">
+            {tx('View source exhibit / table', 'اعرض الرسم أو الجدول الأصلي')}
+          </summary>
           <Image
             src={publicAsset(question.image)}
             alt={`Statements for ${question.source} question ${question.sourceNumber}`}
@@ -4743,13 +4856,11 @@ function YesNoAnswer({
             draggable={false}
             className="h-auto w-full object-contain"
           />
-        </div>
+        </details>
       )}
       <div className="overflow-hidden rounded-sm border bg-card">
         <div className="grid grid-cols-[minmax(0,1fr)_80px_80px] border-b bg-muted/55 text-sm font-semibold">
-          <span className="p-3">
-            {tx('Statement in the source image', 'العبارة في صورة السؤال')}
-          </span>
+          <span className="p-3">{tx('Statement', 'العبارة')}</span>
           <span className="border-l p-3 text-center">Yes</span>
           <span className="border-l p-3 text-center">No</span>
         </div>
@@ -4759,7 +4870,11 @@ function YesNoAnswer({
             className="grid grid-cols-[minmax(0,1fr)_80px_80px] border-b last:border-b-0"
           >
             <span className="p-3 text-sm font-medium">
-              {tx(`Statement ${rowIndex + 1}`, `العبارة ${rowIndex + 1}`)}
+              {statements?.[rowIndex] ??
+                tx(
+                  `Statement ${rowIndex + 1} — see the source exhibit`,
+                  `العبارة ${rowIndex + 1} — راجع الصورة الأصلية`,
+                )}
             </span>
             {[1, 0].map((answer) => (
               <button
@@ -4793,6 +4908,7 @@ function QuestionInput({
   onChange: (value: number[]) => void;
 }) {
   const { tx } = useLanguage();
+  if (getQuestionPresentation(question)?.warning) return null;
   if (question.type === 'manual') {
     if (dragDropData[question.id]) {
       return (
@@ -5575,6 +5691,7 @@ function ManualReviewResponse({
   value: number[];
 }) {
   const { tx } = useLanguage();
+  if (getQuestionPresentation(question)?.warning) return null;
   if (dragDropData[question.id]) {
     return <DragDropAnswer question={question} value={value} />;
   }
@@ -5720,16 +5837,10 @@ function ReviewScreen({
               </Button>
             </div>
             {question.context && (
-              <div className="mt-6 border-l-4 border-primary bg-muted p-4 text-sm leading-7">
-                <strong>{tx('Scenario: ', 'السيناريو: ')}</strong>
-                <p
-                  dir="ltr"
-                  lang="en"
-                  className="mt-1 whitespace-pre-line text-left"
-                >
-                  {displayText(question.context)}
-                </p>
-              </div>
+              <CaseStudy
+                key={question.id}
+                text={displayText(question.context)}
+              />
             )}
             <h1
               dir="ltr"
@@ -5738,6 +5849,7 @@ function ReviewScreen({
             >
               {current + 1}. {displayText(question.prompt)}
             </h1>
+            <QuestionExhibits question={question} />
             {question.type === 'manual' ? (
               <div className="mt-6">
                 <ManualReviewResponse
@@ -5745,15 +5857,10 @@ function ReviewScreen({
                   value={answer ?? []}
                 />
               </div>
-            ) : question.image ? (
-              <Image
-                src={publicAsset(question.image)}
-                alt={`Original visual for ${question.source} question ${question.sourceNumber}`}
-                width={1000}
-                height={1200}
-                unoptimized
-                className="mt-6 h-auto w-full rounded-sm border bg-white object-contain"
-              />
+            ) : question.image &&
+              !hasNativeExhibits(question) &&
+              !getQuestionPresentation(question)?.hideSourceImage ? (
+              <SourceExhibit question={question} />
             ) : null}
             {autoGradedManual ? (
               <div className="mt-7 grid gap-5 md:grid-cols-2">
@@ -5934,34 +6041,34 @@ function SiteFooter() {
             </DialogTitle>
             <DialogDescription>
               {tx(
-                'October 8, 2026 · Full-bank answer audit and expanded study explanations',
-                '8 أكتوبر 2026 · مراجعة كاملة لبنك الأسئلة وتطوير الشرح التفصيلي',
+                'October 20, 2026 · Readable answer areas and offline typography',
+                '20 أكتوبر 2026 · اختيارات مكتوبة وخط محلي للأوفلاين',
               )}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 text-sm leading-6">
             <ReleaseNote
-              title={tx('Reviewed corrections', 'تصحيحات بعد مراجعة مستقلة')}
+              title={tx('Text answer areas', 'اختيارات وعبارات مكتوبة')}
               text={tx(
-                `All ${questions.length} active questions were reviewed. Incorrect dump keys are replaced by reviewed answers, and ${excludedQuestions.length} incomplete source items are quarantined from scoring.`,
-                `اتراجع كل الـ${questions.length} سؤال النشطين، واتصححت مفاتيح الدامب الخاطئة، واتعزل ${excludedQuestions.length} أسئلة ناقصة من التصحيح والامتحانات.`,
+                '30 dropdown questions now use real text options, and 11 Yes/No grids show their full statements. Incomplete answer areas are marked instead of guessed.',
+                '30 سؤال قوائم بقوا باختيارات نصية حقيقية، و11 سؤال Yes/No بعباراتها كاملة. مناطق الإجابة الناقصة متعلّم عليها بدل تخمين المطلوب.',
               )}
             />
             <ReleaseNote
               title={tx(
-                'A complete Shaabouly guide',
-                'شعبولي الدنيا بقى شرح كامل',
+                'Clearer source exhibits and case studies',
+                'صور أوضح وكيس ستادي منظمة',
               )}
               text={tx(
-                'Every reviewed question can now show a full translation, scenario explanation, key terms, reasoning steps, option-by-option analysis, exam traps, and review sources.',
-                'كل سؤال بعد التصحيح يقدر يعرض ترجمة وشرح السيناريو والمصطلحات وخطوات التفكير وتحليل كل اختيار وفخ الامتحان والمراجع.',
+                'Reviewed original figures are extracted losslessly and support full-size viewing. Case studies share one readable layout across practice and managed exams.',
+                'المعروضات الأصلية المراجعة متستخرجة من غير ضغط إضافي ومعاها تكبير. عرض الكيس ستادي موحد وواضح في التدريب والامتحانات.',
               )}
             />
             <ReleaseNote
               title={tx('Faster repeat study', 'مراجعة أسرع في المرات الجاية')}
               text={tx(
-                'AI explanations are cached on the learner’s device and can use either the site tutor session or an already connected Puter account.',
-                'شرح الـAI بيتحفظ على جهاز الطالب، ويقدر يستخدم جلسة مدرس الموقع أو حساب Puter المتوصل بالفعل.',
+                'Study answers and flags follow the same question across practice sections. Timed exams start fresh. Cairo is bundled locally, and built-in guidance stays available if live AI cannot connect.',
+                'إجابات التدريب والعلامات بتتبع نفس السؤال بين الأقسام، والامتحان المؤقت بيبدأ من جديد. خط Cairo محلي، وفيه شرح مدمج لو الـAI المباشر مش متاح.',
               )}
             />
           </div>

@@ -1,0 +1,9 @@
+PL-300 Offline
+
+Open Open-PL300.cmd to start the local website in Edge.
+Requires Node.js 22 or newer installed once on the computer.
+Questions, figures, fonts, PDFs, bookmarks and study progress work without Internet.
+Live AI and centrally managed student exams require Internet and their external services.
+The built-in guidance option remains available without Internet. It is not live AI.
+Local browser progress is separate from the online site. Use Backup & Restore to transfer it.
+Keep the whole folder together. Do not open site/index.html directly.

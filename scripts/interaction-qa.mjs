@@ -5,6 +5,12 @@ import { auditedQuestionBank, questions } from '../lib/questions.ts';
 import { dragDropData } from '../lib/drag-drop-data.ts';
 import { visualControlData } from '../lib/visual-control-data.ts';
 import { isAnswered, isYesNoQuestion } from '../lib/exam-utils.ts';
+import {
+  textAnswerData,
+  statementData,
+  TEXT_ANSWER_OFFSET,
+} from '../lib/text-answer-data.ts';
+import { getQuestionPresentation } from '../lib/question-presentation.ts';
 
 const projectRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -70,13 +76,41 @@ for (const [id, spec] of Object.entries(visualControlData)) {
       fail(id, 'empty list answer counted as complete');
     if (isAnswered(question, Array(spec.slots).fill(-1)))
       fail(id, 'blank lists counted as complete');
-    if (!isAnswered(question, Array(spec.slots).fill(500)))
+    const textRows = textAnswerData[id];
+    if (getQuestionPresentation(question)?.warning) {
+      if (isAnswered(question, Array(spec.slots).fill(500)))
+        fail(id, 'incomplete source counted as answered');
+    } else if (textRows) {
+      if (
+        textRows.length !== spec.slots ||
+        textRows.some((row) => !row.label || row.options.length < 2)
+      )
+        fail(id, 'incomplete text dropdown transcription');
+      if (
+        !isAnswered(
+          question,
+          textRows.map(() => TEXT_ANSWER_OFFSET),
+        )
+      )
+        fail(id, 'completed text dropdowns did not count as answered');
+      if (isAnswered(question, Array(spec.slots).fill(500)))
+        fail(id, 'old image coordinates were interpreted as text choices');
+      if (
+        isAnswered(
+          question,
+          textRows.map(() => TEXT_ANSWER_OFFSET + 999),
+        )
+      )
+        fail(id, 'out-of-range text option counted as answered');
+    } else if (!isAnswered(question, Array(spec.slots).fill(500)))
       fail(id, 'completed lists did not count as answered');
   }
 }
 
 const yesNoQuestions = questions.filter(isYesNoQuestion);
 for (const question of yesNoQuestions) {
+  if (statementData[question.id]?.length !== 3)
+    fail(question.id, 'missing statement text');
   if (isAnswered(question, []))
     fail(question.id, 'empty Yes/No grid counted as complete');
   if (isAnswered(question, [1, -1, 0]))

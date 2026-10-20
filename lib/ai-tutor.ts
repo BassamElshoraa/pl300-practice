@@ -1,5 +1,11 @@
 import type { Question } from './questions.ts';
 import { getAnswerAudit, type AnswerAuditStatus } from './answer-audit.ts';
+import { getQuestionPresentation } from './question-presentation.ts';
+import {
+  textAnswerData,
+  textAnswerLabel,
+  statementData,
+} from './text-answer-data.ts';
 
 export const AI_TUTOR_SESSION_KEY = 'pl300-ai-tutor-session';
 export const AI_TUTOR_DAILY_KEY = 'pl300-ai-tutor-daily-usage';
@@ -72,16 +78,34 @@ export function buildTutorContext({
   answerImageUrl?: string;
   responseLanguage?: 'ar-EG' | 'en';
 }): TutorQuestionContext {
+  const presentation = getQuestionPresentation(question);
+  const exhibitText = presentation?.tables
+    ?.map(
+      (table) =>
+        `${table.caption}\n${table.columns.join(' | ')}\n${table.rows.map((row) => row.join(' | ')).join('\n')}`,
+    )
+    .join('\n\n');
   const context: TutorQuestionContext = {
     questionId: question.id,
     domain: question.domain,
     topic,
     type: question.type,
-    prompt: cleanText(question.prompt),
+    prompt: cleanText(
+      [question.prompt, exhibitText, presentation?.warning]
+        .filter(Boolean)
+        .join('\n\n'),
+    ),
     scenario: question.context ? cleanText(question.context) : undefined,
-    choices: question.choices,
-    rows: question.rows,
-    learnerAnswer: formatSelections(question, answer),
+    choices:
+      textAnswerData[question.id]?.flatMap((row) => row.options) ??
+      question.choices,
+    rows:
+      textAnswerData[question.id]?.map((row) => row.label) ??
+      statementData[question.id] ??
+      question.rows,
+    learnerAnswer:
+      textAnswerLabel(question.id, answer) ??
+      formatSelections(question, answer),
     checked,
     sourceLabel: `${question.source} · Q${question.sourceNumber}`,
     responseLanguage,
@@ -319,6 +343,11 @@ export function consumeDailyTutorMessage(storage: Storage, now = new Date()) {
 
 function formatSelections(question: Question, answer?: number[]) {
   if (!answer || answer.length === 0) return [];
+  if (statementData[question.id])
+    return statementData[question.id].map(
+      (statement, index) =>
+        `${statement}: ${answer[index] === 1 ? 'Yes' : answer[index] === 0 ? 'No' : 'Not selected'}`,
+    );
   if (question.type === 'matching')
     return (question.rows ?? []).map((row, index) => {
       const choice = answer[index];

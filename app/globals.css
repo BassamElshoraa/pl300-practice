@@ -1,7 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
+
+/* Relative URL is rebased by Vite for both Pages and the offline build. */
+@font-face {
+  font-family: 'Cairo';
+  src: url('../public/fonts/Cairo-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+.case-study-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media print {
+  .case-study-body {
+    max-height: none;
+    overflow: visible;
+  }
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -473,6 +499,8 @@
     display: grid;
     min-height: 100vh;
     place-items: center;
-    font: 700 22px/1.5 Cairo, sans-serif;
+    font:
+      700 22px/1.5 Cairo,
+      sans-serif;
   }
 }

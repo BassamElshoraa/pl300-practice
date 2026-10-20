@@ -77,6 +77,7 @@ export function AiTutor({
   );
   const [puterReady, setPuterReady] = useState(false);
   const [puterSignedIn, setPuterSignedIn] = useState(false);
+  const [builtInMode, setBuiltInMode] = useState(false);
   const isArabic = conversationLanguage === 'ar-EG';
   const tx = (english: string, arabic: string) => (isArabic ? arabic : english);
   const [messages, setMessages] = useState<TutorMessage[]>([
@@ -91,7 +92,7 @@ export function AiTutor({
   const workerConnected = Boolean(apiUrl);
   const canChat = workerConnected
     ? Boolean(session)
-    : puterReady && puterSignedIn;
+    : builtInMode || (puterReady && puterSignedIn);
   const quickPrompts = useMemo(
     () => getTutorQuickPrompts(context.checked, conversationLanguage),
     [context.checked, conversationLanguage],
@@ -268,6 +269,7 @@ export function AiTutor({
         );
       setPuterReady(true);
       setPuterSignedIn(true);
+      setBuiltInMode(false);
     } catch (error) {
       setAuthError(readError(error));
     } finally {
@@ -293,12 +295,13 @@ export function AiTutor({
     trackAnalyticsEvent('pl300_ai_tutor_message_sent', {
       language: messageLanguage,
       answer_checked: context.checked,
-      provider: workerConnected ? 'worker' : 'puter',
+      provider: builtInMode ? 'built-in' : workerConnected ? 'worker' : 'puter',
     });
     setConversationLanguage(messageLanguage);
     let usage = { allowed: true, remaining };
     try {
-      usage = consumeDailyTutorMessage(localStorage);
+      if (!builtInMode && navigator.onLine)
+        usage = consumeDailyTutorMessage(localStorage);
     } catch {
       // A blocked storage API should not make the learning surface unusable.
     }
@@ -333,10 +336,14 @@ export function AiTutor({
           messages: history.map(({ role, content }) => ({ role, content })),
         };
         try {
-          reply = (await chatWithPuter(request)).reply;
+          reply =
+            builtInMode || !navigator.onLine
+              ? `${buildLocalTutorReply(requestContext, clean)}\n\n${messageLanguage === 'ar-EG' ? 'ده شرح مدمج من الموقع، مش رد AI مباشر.' : 'This is built-in guidance, not a live AI response.'}`
+              : (await chatWithPuter(request)).reply;
           setPuterReady(true);
         } catch (error) {
-          setPuterReady(false);
+          // A provider/model error does not unload the SDK. Keep the chat and
+          // retry button usable instead of trapping the learner at Loading AI.
           const fallback = buildLocalTutorReply(requestContext, clean);
           const reason = readError(error);
           reply =
@@ -413,13 +420,15 @@ export function AiTutor({
                         : 'secondary'
                     }
                   >
-                    {workerConnected
-                      ? tx('Connected', 'متصل')
-                      : puterReady && puterSignedIn
-                        ? tx('AI ready', 'الـAI جاهز')
-                        : puterReady
-                          ? tx('Connect AI', 'وصّل الـAI')
-                          : tx('Loading AI', 'بيحمّل الـAI')}
+                    {builtInMode
+                      ? tx('Built-in guidance', 'شرح مدمج')
+                      : workerConnected
+                        ? tx('Connected', 'متصل')
+                        : puterReady && puterSignedIn
+                          ? tx('AI ready', 'الـAI جاهز')
+                          : puterReady
+                            ? tx('Connect AI', 'وصّل الـAI')
+                            : tx('Loading AI', 'بيحمّل الـAI')}
                   </Badge>
                 </SheetTitle>
                 <SheetDescription className="mt-1 truncate">
@@ -507,7 +516,9 @@ export function AiTutor({
                 </Button>
               </div>
             </div>
-          ) : !workerConnected && (!puterReady || !puterSignedIn) ? (
+          ) : !workerConnected &&
+            !builtInMode &&
+            (!puterReady || !puterSignedIn) ? (
             <div
               className="flex-1 overflow-y-auto p-5"
               lang={isArabic ? 'ar-EG' : 'en'}
@@ -531,17 +542,27 @@ export function AiTutor({
                 <Button
                   className="mt-5 w-full"
                   size="lg"
-                  disabled={authBusy || !puterReady}
+                  disabled={authBusy}
                   onClick={connectPuter}
                 >
-                  {authBusy || !puterReady ? (
+                  {authBusy ? (
                     <LoaderCircle className="size-4 animate-spin" />
                   ) : (
                     <LogIn className="size-4" />
                   )}
                   {!puterReady
-                    ? tx('Loading AI…', 'بيحمّل الـAI…')
+                    ? tx('Retry AI connection', 'إعادة محاولة توصيل الـAI')
                     : tx('Connect and start chatting', 'وصّل وابدأ الشرح')}
+                </Button>
+                <Button
+                  className="mt-3 w-full"
+                  variant="outline"
+                  onClick={() => setBuiltInMode(true)}
+                >
+                  {tx(
+                    'Use built-in guidance (works offline)',
+                    'استخدم الشرح المدمج — بيشتغل أوفلاين',
+                  )}
                 </Button>
                 <p className="mt-3 text-xs leading-5 text-muted-foreground">
                   {tx(
@@ -560,10 +581,13 @@ export function AiTutor({
                       <UserRound className="size-3.5 shrink-0" />
                       <span className="truncate">{session.email}</span>
                     </>
-                  ) : workerConnected ? (
+                  ) : builtInMode || workerConnected ? (
                     <>
                       <Lightbulb className="size-3.5" />{' '}
-                      {tx('Preview without cloud AI', 'تجربة بدون AI سحابي')}
+                      {tx(
+                        'Built-in guidance — not live AI',
+                        'شرح مدمج — مش AI مباشر',
+                      )}
                     </>
                   ) : (
                     <>
@@ -572,6 +596,16 @@ export function AiTutor({
                     </>
                   )}
                 </span>
+                {builtInMode && (
+                  <Button
+                    variant="ghost"
+                    size="xs"
+                    onClick={connectPuter}
+                    disabled={authBusy}
+                  >
+                    {tx('Retry live AI', 'جرّب الـAI المباشر')}
+                  </Button>
+                )}
                 {session && (
                   <Button variant="ghost" size="xs" onClick={signOut}>
                     <LogOut className="size-3.5" />{' '}
@@ -622,7 +656,7 @@ export function AiTutor({
                       variant="outline"
                       size="sm"
                       className="shrink-0 rounded-full"
-                      disabled={sending || remaining === 0}
+                      disabled={sending || (!builtInMode && remaining === 0)}
                       onClick={() => sendMessage(prompt)}
                     >
                       {context.checked ? (
@@ -656,7 +690,11 @@ export function AiTutor({
                   <Button
                     size="icon"
                     className="size-11 shrink-0"
-                    disabled={!input.trim() || sending || remaining === 0}
+                    disabled={
+                      !input.trim() ||
+                      sending ||
+                      (!builtInMode && remaining === 0)
+                    }
                     onClick={() => sendMessage()}
                     aria-label={tx('Send message', 'إرسال الرسالة')}
                   >

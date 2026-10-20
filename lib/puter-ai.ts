@@ -123,7 +123,7 @@ export async function chatWithPuter(request: TutorChatRequest) {
   throw new Error(
     request.context.responseLanguage === 'ar-EG'
       ? 'الموديلات المجانية مش متاحة دلوقتي. استنى دقيقة وجرّب تاني.'
-      : 'The free AI models are temporarily unavailable. Wait a minute and try again.',
+      : 'The AI providers are temporarily unavailable. Retry or use built-in guidance.',
     { cause: lastError },
   );
 }

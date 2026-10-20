@@ -63,6 +63,15 @@ import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { useLanguage } from '@/lib/i18n';
 import { questions, type Domain, type Question } from '@/lib/questions';
+import { CaseStudy } from '@/components/case-study';
+import { SourceExhibit } from '@/components/source-exhibit';
+import {
+  QuestionExhibits,
+  hasNativeExhibits,
+} from '@/components/question-exhibits';
+import { TextAnswerLists } from '@/components/text-answer-lists';
+import { getQuestionPresentation } from '@/lib/question-presentation';
+import { textAnswerData, statementData } from '@/lib/text-answer-data';
 import { isAnswered, isYesNoQuestion } from '@/lib/exam-utils';
 import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
@@ -1897,16 +1906,14 @@ export function ManagedExamPlayer({
             >
               {currentQuestion.prompt}
             </p>
-            {currentQuestion.image && (
-              <div className="mt-5 overflow-auto rounded-xl border bg-white p-3">
-                <img
-                  src={publicAsset(currentQuestion.image)}
-                  alt={tx('Question exhibit', 'صورة السؤال')}
-                  className="mx-auto max-h-[620px] w-auto max-w-full"
-                  draggable={false}
-                />
-              </div>
-            )}
+            <QuestionExhibits question={currentQuestion} />
+            {currentQuestion.image &&
+              !getQuestionPresentation(currentQuestion)?.hideSourceImage &&
+              !hasNativeExhibits(currentQuestion) && (
+                <div className="mt-5">
+                  <SourceExhibit question={currentQuestion} />
+                </div>
+              )}
             <div className="mt-6">
               <ManagedAnswer
                 question={currentQuestion}
@@ -2079,18 +2086,8 @@ export function ManagedExamPlayer({
 }
 
 function QuestionContext({ question }: { question: Question }) {
-  const { tx } = useLanguage();
   if (!question.context) return null;
-  return (
-    <div className="mb-5 rounded-2xl border border-blue-300/40 bg-blue-50/75 p-4 text-sm leading-7 text-slate-800 dark:bg-blue-950/20 dark:text-blue-100">
-      <p className="mb-2 font-bold text-primary">
-        {tx('Case study context', 'سياق الـ Case Study')}
-      </p>
-      <p dir="ltr" lang="en" className="whitespace-pre-line text-left">
-        {question.context}
-      </p>
-    </div>
-  );
+  return <CaseStudy key={question.id} text={question.context} />;
 }
 
 type DragChoicePayload = { choice: number; fromSlot: number | null };
@@ -2924,6 +2921,11 @@ function ManagedAnswer({
   onChange: (answer: number[]) => void;
 }) {
   const { tx } = useLanguage();
+  if (getQuestionPresentation(question)?.warning) return null;
+  if (textAnswerData[question.id])
+    return (
+      <TextAnswerLists id={question.id} value={answer} onChange={onChange} />
+    );
   if (question.type === 'single')
     return (
       <RadioGroup
@@ -3016,7 +3018,8 @@ function ManagedAnswer({
             className="flex items-center justify-between rounded-xl border p-4"
           >
             <span className="font-medium">
-              {tx(`Statement ${row + 1}`, `العبارة ${row + 1}`)}
+              {statementData[question.id]?.[row] ??
+                tx(`Statement ${row + 1}`, `العبارة ${row + 1}`)}
             </span>
             <div className="flex gap-2">
               <Button
