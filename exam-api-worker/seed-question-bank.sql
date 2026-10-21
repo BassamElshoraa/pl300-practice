@@ -1166,29 +1166,7 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You need to change the Date column to contain only the year. The solution must minimize administrative effort.
 
-What should you do?', '["Split the column by delimiter.","Split the column by number of characters.","Extract the text after the delimiter.","Transform the column to contain only the year."]', '[3]', 'Transform the column to contain only the year.
-
-Minimal Administrative Effort:
-
-By adding a new column, you preserve the original Date column while introducing a new column that contains
-just the year. This way, no data is lost, and the transformation is straightforward.
-
-Using Power Query:
-
-In Power Query, you can Add Column > Date > Year, which is an easy and direct way to extract the year from
-the date. This is typically a minimal-effort approach because it doesn''t require complex formulas or additional
-steps.
-
-Preserving Original Data:
-
-Adding a new column ensures that you retain the original date data, which could be useful for other
-transformations or analysis.
-
-Conclusion:
-
-Option D is correct because it provides a simple way to add a column that contains the year, offering a non-
-invasive solution while keeping the original data intact. This aligns with the requirement for minimal
-administrative effort.', 'Final', '41', '/exhibit-assets/f1-041-40.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Split the column by delimiter.","Split the column by number of characters.","Extract the text after the delimiter.","Transform the column to contain only the year."]', '[3]', 'Choose Transform > Date > Year > Year to replace the existing Date column with its year. Add Column would preserve Date and add a separate Year column, which is a different operation from the requested transformation. If Date is text, first interpret it as a date using the correct locale.', 'Final', '41', '/exhibit-assets/f1-041-40.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-042-41', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -1258,21 +1236,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '1. Before you can transform the date column to show only the day, you must:
-
-Change the data type.
-
-To extract only the day from a date column, you typically need to ensure that the column is in a date or
-datetime data type. If the column is not already in a date format, you will need to change its data type to a
-date or datetime format before performing any date-specific transformations.
-
-2. To fix the error displayed for the data entries, menu Amount column, you must:
-
-Change the data type.
-
-If the menu Amount column contains errors, it might be due to an incorrect data type. For example, if the
-column is supposed to contain numeric values but is set as text, you would need to change the data type to
-numeric (e.g., integer or decimal) to resolve the errors.', 'Final', '44', '/dump-assets/f1-044-43-question.webp', '/dump-assets/f1-044-43-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Change the data type in both cases. The date column is shown as Any and needs a date-compatible type before extracting Day. The menuAmount column is incorrectly typed as Date; edit the step that imposed that type and use the appropriate numeric type. An Error created upstream is not necessarily repaired by appending another type-conversion step after it. Renaming and conditional formatting do not repair the conversion.', 'Final', '44', '/dump-assets/f1-044-43-question.webp', '/dump-assets/f1-044-43-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-045-44', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -1289,34 +1253,14 @@ How should you modify the CustomerID column and the PurchaseDateTime column? To 
 
 appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Customer ID : Remove the column.
-
-The CustomerID field is typically a unique identifier for customers in a dataset.
-
-Removing this column suggests that the CustomerID is not necessary for the analysis being performed.
-
-This might be applicable in cases where the dataset is being anonymized, or if the column does not contribute
-to the required insights.
-
-PurchaseDateTime :Split the column into separate date and time columns.
-
-The PurchaseDateTime field likely contains a timestamp, which includes both date and time information.
-
-Splitting it into separate date and time columns makes it easier to analyze trends based on dates (e.g., daily
-sales) or time (e.g., peak purchasing hours).
-
-This transformation is commonly performed in data preprocessing to facilitate time-based analysis.', 'Final', '45', '/dump-assets/f1-045-44-question.webp', '/dump-assets/f1-045-44-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'CustomerID: Remove the column, because the stated report only needs weekly sales by region and no use of that ID is specified. Do not remove duplicate customers from a transaction fact: that would discard real sales. PurchaseDateTime: Split into date and time is the best available option because it retains the required date and separates a high-cardinality timestamp. For the smallest practical model, do not load the unused time component. Splitting alone does not guarantee the minimum size for every dataset. Removing the entire timestamp would prevent weekly analysis.', 'Final', '45', '/dump-assets/f1-045-44-question.webp', '/dump-assets/f1-045-44-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-046-45', 'Prepare the data', 'single', 'You have a Microsoft Power BI Desktop report named Report1 that uses an Azure SQL database as a data source.
 
 A user named User1 plans to create a report by using the same data source as Report1.
 
 You need to simplify the connection to the data source for User1.
 
-Which type of file should you create?', '["PBIDS","XLSX","PBIT","PBIX"]', '[0]', 'A. PBIDS.
-
-A .pbids (Power BI data source) file is specifically designed to simplify connections to a data source. If the
-user double-clicks the .pbids file, Power BI Desktop opens and automatically connects them to the specified
-data source—making it easy for someone else (User1) to reuse the same Azure SQL connection as in Report1.', 'Final', '46', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of file should you create?', '["PBIDS","XLSX","PBIT","PBIX"]', '[0]', 'Create a PBIDS data source file to simplify connecting to the same Azure SQL source. PBIDS does not contain authentication information or grant database access: the other user authenticates with their own credentials and selects tables in Navigator. PBIT shares a report/model template; PBIX shares the saved report/model and potentially imported data. Neither is the specialized connection-only file requested.', 'Final', '46', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-047-46', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -1346,12 +1290,7 @@ Model1 must show updated data within two minutes of the data being updated in DB
 
 You need to select a connectivity mode for the connection to DB1.
 
-What should you choose?', '["DirectQuery","live connection","import"]', '[0]', 'A. Direct Query.
-
-Direct Query Mode – Queries are sent to the data source in real-time without importing data.
-
-DirectQuery mode ensures that Power BI always retrieves the latest data directly from DB1 every time a user
-interacts with a report.', 'Final', '48', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you choose?', '["DirectQuery","live connection","import"]', '[0]', 'DirectQuery is the appropriate connectivity mode for querying recent Azure SQL data without waiting for an Import refresh. It does not by itself guarantee that an already-open report screen updates within two minutes. Configure and test the query/display refresh cycle, supported automatic page refresh interval, capacity limits, caching and source query latency to meet that operational requirement.', 'Final', '48', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-049-48', 'Prepare the data', 'multi', 'You need to create a semantic model in Power BI Desktop. The solution must meet the following requirements:
 
 •The model must contain a table named Orders that has one row per order. Each row will contain the total amount
@@ -1400,17 +1339,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Customer Name.
-
-Extract the last 12 characters.
-
-Customer Name because it has a greater number of distinct vs unique values in the column. This implies that
-there are repeating values in it. -Second statement requires 10 digits in the phone number. If choose "extract
-the text after the ")" delimiter", it will leave a leading whitespace for certain rows since there is a space after
-the ")" in certain rows and this counts as a digit which would make it 11 digits which does NOT meet the
-requirement.BUT, if we use the other option "Extract the last 12 characters", then it will NOT include the
-leading whitespace and correctly satisfy the 10 digit requirement as well as not including whitespace which
-can throw off calculations, sort orders, etc.', 'Final', '51', '/dump-assets/f1-051-50-question.webp', '/dump-assets/f1-051-50-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Customer Name has repeated values according to its distinct/unique profile, unlike the displayed Customer ID and Customer Key columns. Extract the last 12 characters is the intended phone transformation for the shown formats: 500-555-0169 contains ten digits plus two hyphens. It removes the optional country prefix and leading separator space. It does not produce a string of exactly ten characters; if that is required, remove the hyphens as an additional step. This fixed-width method must not be generalized to phone formats with different national-number lengths.', 'Final', '51', '/dump-assets/f1-051-50-question.webp', '/dump-assets/f1-051-50-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-052-51', 'Model the data', 'single', 'You have a Power BI report named Report that contains the following tables.
 
 For the last three days, refresh in Power BI has failed, and you receive the following error message: “You have
@@ -1546,26 +1475,7 @@ area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1:Row label: Name
-
-See: https://www.myonlinetraininghub.com/power-bi-organizational-data-types-in-
-
-excel#:~:text=Power%20BI%20Organizational%20Data%20Types%20in%20Excel%20allow%20you
-
-%20to,company%2C%20to%20name%20a%20few.
-
-Box 2: ID -
-
-The Key column field value provides the unique ID for the row. This value enables Excel to link a cell to a
-specific row in the table.
-
-Box 3: Yes -
-
-In the Data Types Gallery in Excel, your users can find data from featured tables in your Power BI datasets.
-
-Reference:
-
-https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-excel-featured-tables', 'Final', '61', '/dump-assets/f1-061-60-question.webp', '/dump-assets/f1-061-60-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Hot Area:', '[]', '[]', 'Historical settings: Name is the human-readable Row label; ID is the unique Key column; Is featured table is Yes. This question describes an old feature: Microsoft states it was removed from Power BI Desktop in June 2026. Do not treat the screenshot as a current Desktop setup instruction.', 'Final', '61', '/dump-assets/f1-061-60-question.webp', '/dump-assets/f1-061-60-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-062-61', 'Model the data', 'single', 'You have the Power BI model shown in the following exhibit.
 
 A manager can represent only a single country.
@@ -1810,11 +1720,7 @@ During the development process, you need to import a sample of the data from the
 
 Solution: From Power Query Editor, you import the table and then add a filter step to the query.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'This would load the entire table in the first step.
-Instead: You add a WHERE clause to the SQL statement.
-
-Reference:
-https://docs.microsoft.com/en-us/power-query/native-database-query', 'Final', '70', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'Reviewed answer: Yes under the normal interpretation of a foldable SQL Server row filter added before final Import load. Query folding can push that filter to SQL. No is appropriate if all rows have already been retrieved or the filter cannot fold; the source does not specify those conditions. The original claim that Source must first transfer every row is not generally true. Verify the emitted query. This is a conditional interpretation, not a guarantee for every M filter.', 'Final', '70', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-071-70', 'Model the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -2023,28 +1929,7 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: 75 rows -
-
-Is nullable allows NULL values in the column.
-
-Box 2: reduce -
-
-We''re not dealing with a matric here, we''re dealing with a simple table. In simple tables values that occur
-more than once won''t be shown in the rows multiple times. Since you''re they tell you you have 51 unique
-values (and the other ones aren''t null values) you can be sure it''s more than 51. Since you''ll already have 51
-rows of unique values.
-
-So the first is answer is 75.
-
-Furthermore, when you add another table, change the sign to summarize, you will add up all the values of the
-51 unique values and all the rest. Which means you will get one single row, displaying the sum of all these
-values.
-
-Therefore, the second answer is reduce.
-
-Reference:
-
-https://blog.crossjoin.co.uk/2019/01/20/is-nullable-column-property-power-bi/', 'Final', '78', '/dump-assets/f1-078-77-question.webp', '/dump-assets/f1-078-77-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Hot Area:', '[]', '[]', 'A non-aggregated table visual with one column groups identical values. If 51 unique means 51 distinct values, it shows 51 rows, not the 75 source records. Sum without any other grouping gives one total row and reduces the row count. If unique means once-occurring values in Power Query profiling, the full distinct count is unknown. Is nullable does not force one visual row per source row.', 'Final', '78', '/dump-assets/f1-078-77-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-079-78', 'Model the data', 'manual', 'HOTSPOT -
 
 You have a Power BI report.
@@ -12887,7 +12772,7 @@ What are two possible causes of the error? Each correct answer presents a comple
 NOTE: Each correct selection is worth one point.', '["The file is locked","An incorrect privacy level was used for the data source.","The referenced file was moved to a new location","You do not have permissions to the file."]', '[2,3]', 'Independent correction: C and D. The path can be stale because the file moved, or access can fail because the user lacks permission. A privacy-level mismatch does not normally surface as a file-not-found error.', 'Final 2', '147', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-152-425', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
-You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', 'Reviewed answer: Matrix; Set Switch values to rows to On. A table cannot place multiple measures as row headers. The matrix Values-on-rows setting performs that layout change; turning Stepped layout off does not.', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', 'Incomplete source: no unique answer can be determined. If a later source supplies a requirement to place measures on rows, use Matrix with values on rows; if it requests a different layout, a different setting may be required. Do not treat that conditional example as the answer to this incomplete item.', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-157-426', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You create a data model in Power BI.
@@ -13127,7 +13012,7 @@ The AddressLine2 column in a table named Address is shown in the following exhib
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The column profile explicitly reports 12 distinct values and 11 unique values. Distinct counts the different values including the null category shown as Empty; unique counts non-null values that appear once.', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The profile shows 12 distinct and 11 unique values. However, the complete readable answer options have not been recovered. Do not use the unrelated menu crops as an answer key.', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-204-445', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are configuring a Microsoft Power Bl data model to enable users to ask natural language questions by using Q&A. You have a table named Customer that has
@@ -13281,7 +13166,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 NOTE: Each correct
 
-selection is worth one point.', '[]', '[]', 'With UnitsInStock set to Do not summarize, the table can display the 75 non-null source values. Changing summarization to Sum aggregates those values, so the number of displayed rows is reduced.', 'Final 2', '252', '/dump-assets/f2-252-460-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+selection is worth one point.', '[]', '[]', 'A single-column table groups identical values: 51 distinct values yield 51 rows. Sum without grouping yields one total row. If unique means once-occurring values, the initial row count is not determined. Do not summarize does not force display of all 75 source records.', 'Final 2', '252', '/dump-assets/f2-252-460-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-256-461', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a dataset that contains revenue data from the past year.
@@ -13543,14 +13428,14 @@ Which type of visual should you use for each requirement? To answer, drag the ap
 
 more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'A pie chart emphasizes part-to-whole contribution by region. A stacked bar chart can show quarterly values over time while also retaining category composition.', 'Final 2', '331', '/dump-assets/f2-331-482-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'A pie chart shows each product category as a share of total profit; its labels can display both the amount and percentage of total. Of the available choices, a stacked bar chart compares profit margins across regions. The second requirement is a comparison between regions, not a time-series requirement.', 'Final 2', '331', '/dump-assets/f2-331-482-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-336-483', 'Manage and secure Power BI', 'manual', 'FILL IN THE BLANK - (Topic 4)
 
 You are creating a line chart in a Power Bl report as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The Analytics pane supplies a dynamic average reference line. Drill-down follows the hierarchy placed on the chart axis; it is not a drill-through action.', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'The source provides a line chart but not the statements or answer area. Previously reused menu crops have been disabled; no answer is inferred.', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-337-484', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a report page that contains the visuals shown in the following exhibit.

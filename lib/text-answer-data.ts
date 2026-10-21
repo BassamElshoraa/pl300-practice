@@ -40,6 +40,24 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-074-73': [
+    row('employee_id:', ['Change Type', 'Delete', 'Hide', 'Sort']),
+    row('employee_photo:', ['Change Type', 'Delete', 'Hide', 'Sort']),
+  ],
+  'f1-075-74': [
+    row('Teacher First Name:', [
+      'Attendance fact',
+      'Class dimension',
+      'Teacher dimension',
+      'Teacher fact',
+    ]),
+    row('Period Number:', [
+      'Attendance fact',
+      'Class dimension',
+      'Teacher dimension',
+      'Teacher fact',
+    ]),
+  ],
   'f1-061-60': [
     row('Row label:', ['Cost Center', 'Headcount', 'ID', 'Name']),
     row('Key column:', ['Cost Center', 'Headcount', 'ID', 'Name']),

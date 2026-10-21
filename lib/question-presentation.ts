@@ -12,6 +12,85 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-074-73': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Sales: source columns',
+        columns: ['Column', 'Data type'],
+        rows: [
+          ['sales_id', 'Integer'],
+          ['sales_date', 'Datetime'],
+          ['Customer_id', 'Integer'],
+          ['sales_amount', 'Floating'],
+          ['employee_id', 'Integer'],
+          ['sales_ship_date', 'Datetime'],
+          ['store_id', 'Varchar(100)'],
+        ],
+      },
+      {
+        caption: 'Employee: source columns',
+        columns: ['Column', 'Data type'],
+        rows: [
+          ['employee_id', 'Integer'],
+          ['first_name', 'Varchar(100)'],
+          ['last_name', 'Varchar(100)'],
+          ['employee_photo', 'Binary'],
+        ],
+      },
+    ],
+  },
+  'f1-075-74': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'View1: source columns',
+        columns: ['Column', 'Data type'],
+        rows: [
+          ['Attendance Date', 'Date'],
+          ['Student ID', 'Bigint'],
+          ['Period Number', 'Tinyint'],
+          ['Class ID', 'Int'],
+        ],
+      },
+      {
+        caption: 'View2: source columns',
+        columns: ['Column', 'Data type'],
+        rows: [
+          ['Class ID', 'Bigint'],
+          ['Class Name', 'Varchar(200)'],
+          ['Class Subject', 'Varchar(100)'],
+          ['Teacher ID', 'Int'],
+          ['Teacher First Name', 'Varchar(100)'],
+          ['Teacher Last Name', 'Varchar(100)'],
+          ['Period Number', 'Tinyint'],
+          ['School Year', 'Varchar(50)'],
+          ['Period Start Time', 'Time'],
+          ['Period End Time', 'Time'],
+        ],
+      },
+    ],
+  },
+  'f1-079-78': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Source tables',
+        columns: ['Table', 'Description'],
+        rows: [
+          [
+            'Balances',
+            'Daily closing-balance records for each active account, for every day it is live including its last day.',
+          ],
+          [
+            'Date',
+            'One row per day for calendar years 2000–2025, with financial year, quarter, month and day hierarchy.',
+          ],
+        ],
+      },
+    ],
+    code: "Accounts :=\nCALCULATE(\n  DISTINCTCOUNT(Balances[AccountID]),\n  LASTDATE('Date'[Date])\n)",
+  },
   'f1-061-60': {
     hideSourceImage: true,
     tables: [

@@ -5,6 +5,7 @@ import { lessons001 } from './reviewed-lessons/001-020.ts';
 import { lessons021 } from './reviewed-lessons/021-040.ts';
 import { lessons041 } from './reviewed-lessons/041-060.ts';
 import { lessons061 } from './reviewed-lessons/061-069.ts';
+import { lessons070 } from './reviewed-lessons/070-079.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 export const reviewedLessons = {
@@ -12,6 +13,7 @@ export const reviewedLessons = {
   ...lessons021,
   ...lessons041,
   ...lessons061,
+  ...lessons070,
   ...repairedDragLessons,
 };
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

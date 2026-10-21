@@ -29,6 +29,41 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f1-070-69': {
+      status: 'corrected',
+      correct: [0],
+      originalAnswer: 'No: Source must first transfer every row.',
+      reviewedAnswer:
+        'Yes for a foldable SQL row filter applied before final Import load.',
+      reason:
+        'SQL Server supports folding suitable Power Query filters to the source. No requires non-folding or already-retrieved data, which the original does not specify.',
+      reasonAr:
+        'Yes لفلتر SQL قابل للـfolding قبل التحميل. No إذا كانت التصفية محلية بعد جلب الكل؛ المصدر لم ينص على هذا الشرط.',
+      explanation:
+        'Reviewed answer: Yes under the normal interpretation of a foldable SQL Server row filter added before final Import load. Query folding can push that filter to SQL. No is appropriate if all rows have already been retrieved or the filter cannot fold; the source does not specify those conditions. The original claim that Source must first transfer every row is not generally true. Verify the emitted query. This is a conditional interpretation, not a guarantee for every M filter.',
+      evidence: [
+        {
+          label: 'Query folding',
+          url: 'https://learn.microsoft.com/en-us/power-query/query-folding-basics',
+        },
+      ],
+    },
+    'f1-078-77': {
+      status: 'corrected',
+      reviewedAnswer: '51 rows; reduce, if unique means distinct values.',
+      originalAnswer: '75 rows; reduce.',
+      reasonAr:
+        'جدول بعمود واحد يعرض القيم المختلفة، لا كل سجلات المصدر.51 صحيح لو unique بمعنى distinct؛ لو إحصاء الظهور الواحد فالعدد غير محدد.',
+      explanation:
+        'A non-aggregated table visual with one column groups identical values. If 51 unique means 51 distinct values, it shows 51 rows, not the 75 source records. Sum without any other grouping gives one total row and reduces the row count. If unique means once-occurring values in Power Query profiling, the full distinct count is unknown. Is nullable does not force one visual row per source row.',
+      suppressSourceAnswerImage: true,
+      evidence: [
+        {
+          label: 'Aggregates and grouping',
+          url: 'https://learn.microsoft.com/en-us/power-bi/create-reports/service-aggregates',
+        },
+      ],
+    },
     'f1-061-60': {
       status: 'outdated',
       reviewedAnswer:
@@ -309,9 +344,9 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'نثبت Department وStage ونعمل Unpivot لباقي الأعمدة، نسمي Attribute إلى School وValue إلى Score، ثم Group By على Department وSchool مع Average للـScore.',
     ),
     'f2-252-460': placeholderReview(
-      '75 rows; reduce.',
-      'With UnitsInStock set to Do not summarize, the table can display the 75 non-null source values. Changing summarization to Sum aggregates those values, so the number of displayed rows is reduced.',
-      'بدون Summarization تظهر 75 قيمة غير فارغة. عند تغييرها إلى Sum تتجمع القيم، فيقل عدد الصفوف المعروضة.',
+      '51 rows; reduce, if unique means distinct.',
+      'A single-column table groups identical values: 51 distinct values yield 51 rows. Sum without grouping yields one total row. If unique means once-occurring values, the initial row count is not determined. Do not summarize does not force display of all 75 source records.',
+      '51 صفًا لو unique تعني distinct، ثم يقل العرض لإجمالي واحد مع Sum. لو المقصود القيم ذات الظهور الواحد فالعدد الأول غير محدد؛ لا نساويه75 تلقائيًا.',
     ),
     'f2-256-461': placeholderReview(
       'Use a line chart; populate the axis with a date field.',

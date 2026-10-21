@@ -97,6 +97,7 @@ export const dragTextData: Record<string, DragTextSpec> = {
       'Transpose the table.',
       'Unpivot all the columns other than Measure.',
       'Change the data type of the Year column to Date.',
+      'Rename the Measure column as Year.',
     ],
   },
   'f1-088-87': {
