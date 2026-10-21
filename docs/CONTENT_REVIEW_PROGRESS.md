@@ -1,0 +1,19 @@
+# Detailed Arabic explanation review
+
+Updated: 2026-10-21.
+
+This records the scope of this content pass, not a claim that the whole answer bank has been revalidated.
+
+- Active bank: 494 questions.
+- Individually authored explanations: 44 (banks 1–40, 442, 455, 469, 481).
+- Still requiring this depth of explanation: 450.
+- Each authored lesson includes scenario translation, an intuitive explanation, a worked example, reasoning, alternatives, and feature-documentation references.
+- Conditional source assumptions are explicitly identified in 9 lessons. Feature documentation is not represented as an official Microsoft answer key for these questions.
+- All 53 drag interactions now have reviewed text choices (277 choices). OCR drafts were checked against original source images, not imported automatically.
+- Four damaged drag menus were reconstructed: banks 442, 455, 469, 481. These use a new answer namespace so old responses cannot silently select different new options. They remain manually reviewed questions, not newly auto-graded items.
+- Bank 442's illustrated output shows only School1; the available three-step unpivot/rename/group solution also produces other schools. The explanation flags the missing-filter ambiguity rather than claiming the exact two-row output is reproduced.
+- Bank 469 compares profit margins across regions, not profit across time; both English and Arabic answer notes were corrected.
+- The new explanations are bundled locally and do not depend on a successful AI connection.
+- Authenticated live AI response: **not yet verified**. Automated routing/fallback checks are not a substitute for this test. Existing signed-in Edge is not accessible through the available automation tools; no browser credentials were copied or debug settings changed.
+
+Verification: `qa:all`, `qa:lessons`, TypeScript, static production build, and Edge presentation tests. Local browser checks include the four repaired menus, invalidation notice, static Arabic lesson, option rationales, references, mobile overflow, and zero page errors. These are behavior/consistency tests, not proof of every answer's correctness.

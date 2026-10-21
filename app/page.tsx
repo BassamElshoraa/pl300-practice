@@ -132,9 +132,16 @@ import { TextAnswerLists } from '@/components/text-answer-lists';
 import { getQuestionPresentation } from '@/lib/question-presentation';
 import { textAnswerData, statementData } from '@/lib/text-answer-data';
 import { AiStudyExplanation } from '@/components/ai-study-explanation';
+import { ReviewedStudyExplanation } from '@/components/reviewed-study-explanation';
+import { getReviewedLesson } from '@/lib/reviewed-lessons';
 import { buildTutorContext } from '@/lib/ai-tutor';
 import { LanguageProvider, useLanguage } from '@/lib/i18n';
-import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
+import {
+  dragDropData,
+  decodeDragAnswer,
+  encodeDragAnswer,
+  type DragDropOption,
+} from '@/lib/drag-drop-data';
 import {
   hasManagedAutoGradingKey,
   managedAutoGradingKeys,
@@ -4282,6 +4289,16 @@ function DragChoiceImage({
   choice: number;
 }) {
   const { tx } = useLanguage();
+  if (option.text)
+    return (
+      <span
+        dir="ltr"
+        lang="en"
+        className="block whitespace-pre-wrap break-words py-2 text-left text-sm font-medium leading-7"
+      >
+        {option.text}
+      </span>
+    );
   return (
     <Image
       src={publicAsset(option.image)}
@@ -4297,8 +4314,8 @@ function DragChoiceImage({
 
 function DragDropAnswer({
   question,
-  value,
-  onChange,
+  value: encodedValue,
+  onChange: onEncodedChange,
 }: {
   question: Question;
   value: number[];
@@ -4306,6 +4323,14 @@ function DragDropAnswer({
 }) {
   const { tx } = useLanguage();
   const spec = dragDropData[question.id];
+  const value = useMemo(
+    () => decodeDragAnswer(question.id, encodedValue),
+    [question.id, encodedValue],
+  );
+  const onChange = onEncodedChange
+    ? (answer: number[]) =>
+        onEncodedChange(encodeDragAnswer(question.id, answer))
+    : undefined;
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [pointerDrag, setPointerDrag] = useState<PointerDragState | null>(null);
   const slots = useMemo(
@@ -4436,8 +4461,19 @@ function DragDropAnswer({
       lang="en"
       className="space-y-5 text-left"
     >
+      {!!spec.answerOffset && (
+        <p
+          role="note"
+          className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-3 text-sm leading-7"
+        >
+          {tx(
+            'These source choices were repaired. Please select your answers again; selections saved against the old incomplete choices are not reused.',
+            'اختيارات السؤال الأصلي اتصلحت. اختار إجاباتك من جديد؛ الاختيارات المحفوظة على القائمة القديمة الناقصة مش هتتحسب على القائمة الجديدة.',
+          )}
+        </p>
+      )}
       {question.image && !hasNativeExhibits(question) && (
-        <details className="overflow-hidden rounded-sm border bg-card" open>
+        <details className="overflow-hidden rounded-sm border bg-card">
           <summary className="cursor-pointer border-b bg-muted/45 px-4 py-3 text-sm font-semibold">
             {tx('Original question exhibit', 'صورة السؤال الأصلية')}
           </summary>
@@ -4536,12 +4572,13 @@ function DragDropAnswer({
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <span className="inline-flex min-w-16 items-center justify-center rounded-sm bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
-                    {spec.mode === 'sequence'
-                      ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
-                      : tx(
-                          `Target ${slotIndex + 1}`,
-                          `الخانة ${slotIndex + 1}`,
-                        )}
+                    {spec.slotLabels?.[slotIndex] ??
+                      (spec.mode === 'sequence'
+                        ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                        : tx(
+                            `Target ${slotIndex + 1}`,
+                            `الخانة ${slotIndex + 1}`,
+                          ))}
                   </span>
                   {choice >= 0 && onChange && (
                     <button
@@ -5172,7 +5209,7 @@ function QuestionInput({
 
 function DragDropReviewPanel({
   question,
-  value,
+  value: encodedValue,
   title,
   good,
 }: {
@@ -5183,6 +5220,7 @@ function DragDropReviewPanel({
 }) {
   const { tx } = useLanguage();
   const spec = dragDropData[question.id];
+  const value = decodeDragAnswer(question.id, encodedValue);
   if (!spec) return null;
 
   return (
@@ -5196,9 +5234,10 @@ function DragDropReviewPanel({
           return (
             <div key={slotIndex} className="rounded-sm border bg-card/90 p-3">
               <p className="mb-2 text-xs font-semibold text-muted-foreground">
-                {spec.mode === 'sequence'
-                  ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
-                  : tx(`Target ${slotIndex + 1}`, `الخانة ${slotIndex + 1}`)}
+                {spec.slotLabels?.[slotIndex] ??
+                  (spec.mode === 'sequence'
+                    ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                    : tx(`Target ${slotIndex + 1}`, `الخانة ${slotIndex + 1}`))}
               </p>
               {choice >= 0 && spec.options[choice] ? (
                 <DragChoiceImage
@@ -5374,6 +5413,8 @@ function OptionBreakdown({
       ? `${items
           .map((item) => {
             const choice = question.choices[item.choiceIndex];
+            if (item.textAr)
+              return `${item.isCorrect ? '✓' : '✕'} ${choice}\n${item.textAr}`;
             return item.isCorrect
               ? `✓ ${choice}\nالاختيار ده موجود في ${audit.status === 'source-key' ? 'مفتاح المصدر' : 'الإجابة بعد المراجعة'} وبيحقق المطلوب في السؤال.`
               : `✕ ${choice}\nالاختيار ده مش موجود في ${audit.status === 'source-key' ? 'مفتاح المصدر' : 'الإجابة بعد المراجعة'} ومش بيحقق كل شروط السؤال.`;
@@ -5452,11 +5493,11 @@ function OptionBreakdown({
               </Badge>
             </summary>
             <p
-              dir="ltr"
-              lang="en"
-              className="border-t px-4 py-3 text-left text-sm leading-7 text-muted-foreground"
+              dir={language === 'ar' && item.textAr ? 'rtl' : 'ltr'}
+              lang={language === 'ar' && item.textAr ? 'ar-EG' : 'en'}
+              className={`border-t px-4 py-3 text-sm leading-7 text-muted-foreground ${language === 'ar' && item.textAr ? 'text-right' : 'text-left'}`}
             >
-              {item.text}
+              {language === 'ar' && item.textAr ? item.textAr : item.text}
             </p>
           </details>
         ))}
@@ -6260,16 +6301,20 @@ function EgyptianExplanation({ question }: { question: Question }) {
           lang={language === 'ar' ? 'ar-EG' : 'en'}
           className={`mt-3 rounded-xl border border-primary/25 bg-accent/25 p-3 text-sm leading-8 ${language === 'ar' ? 'border-r-4 border-r-primary text-right' : 'border-l-4 border-l-primary text-left'}`}
         >
-          <AiStudyExplanation
-            context={tutorContext}
-            kind="shaabouly"
-            fallback={
-              language === 'ar'
-                ? buildEgyptianExplanation(question)
-                : displayText(question.explanation) ||
-                  'Use the verified answer above and compare it with each requirement in the question.'
-            }
-          />
+          {getReviewedLesson(question) ? (
+            <ReviewedStudyExplanation question={question} />
+          ) : (
+            <AiStudyExplanation
+              context={tutorContext}
+              kind="shaabouly"
+              fallback={
+                language === 'ar'
+                  ? buildEgyptianExplanation(question)
+                  : displayText(question.explanation) ||
+                    'Use the verified answer above and compare it with each requirement in the question.'
+              }
+            />
+          )}
         </div>
       )}
     </div>

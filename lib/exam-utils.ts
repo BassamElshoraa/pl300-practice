@@ -52,7 +52,13 @@ export function isAnswered(question: Question, answer?: number[]) {
     const dragSpec = dragDropData[question.id];
     if (dragSpec) {
       return (
-        answer.length === dragSpec.slots && answer.every((item) => item >= 0)
+        answer.length === dragSpec.slots &&
+        answer.every(
+          (item) =>
+            Number.isInteger(item) &&
+            item >= (dragSpec.answerOffset ?? 0) &&
+            item < (dragSpec.answerOffset ?? 0) + dragSpec.options.length,
+        )
       );
     }
     const visualControlSpec = visualControlData[question.id];

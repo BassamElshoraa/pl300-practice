@@ -50,7 +50,10 @@ const question = questions.find(
 assert.ok(question, 'An auto-graded question is required for tutor QA.');
 
 const profilingQuestion = questions.find((item) => item.id === 'f1-256-255');
-assert.ok(profilingQuestion, 'The Data Profiling regression question is missing.');
+assert.ok(
+  profilingQuestion,
+  'The Data Profiling regression question is missing.',
+);
 const profilingExplanation = buildEgyptianExplanation(profilingQuestion);
 assert.match(profilingExplanation, /Data profiling|Column quality/i);
 assert.doesNotMatch(profilingExplanation, /RLS بيخفي|sensitivity label/i);
@@ -76,12 +79,13 @@ assert.deepEqual(
 );
 assert.ok(revealed.sourceExplanation?.length);
 assert.ok(
-  revealed.sourceExplanation.includes(
-    question.explanation
-      .split('\n')
-      .find((line) => line.trim())
-      ?.trim() ?? '',
-  ),
+  revealed.sourceExplanation.includes('ليه كل اختيار صح أو غلط') ||
+    revealed.sourceExplanation.includes(
+      question.explanation
+        .split('\n')
+        .find((line) => line.trim())
+        ?.trim() ?? '',
+    ),
 );
 assert.equal(revealed.answerImageUrl, question.answerImage);
 
@@ -160,22 +164,32 @@ assert.ok(
       attempt.normalize === true,
   ),
 );
-let catalogCalls=0;
-const catalogAttempts=[];
-globalThis.window.puter.ai.listModels=async()=>{
-  catalogCalls+=1;
-  return [{id:PUTER_TUTOR_MODELS[1],aliases:[]}];
+let catalogCalls = 0;
+const catalogAttempts = [];
+globalThis.window.puter.ai.listModels = async () => {
+  catalogCalls += 1;
+  return [{ id: PUTER_TUTOR_MODELS[1], aliases: [] }];
 };
-globalThis.window.puter.ai.chat=async(_messages,options)=>{
+globalThis.window.puter.ai.chat = async (_messages, options) => {
   catalogAttempts.push(options.model);
-  return {message:{content:'Catalog-approved response'}};
+  return { message: { content: 'Catalog-approved response' } };
 };
-for(let attempt=0;attempt<2;attempt++){
-  const response=await chatWithPuter({context:hidden,messages:[{role:'user',content:'Explain this question'}]});
-  assert.equal(response.model,PUTER_TUTOR_MODELS[1]);
+for (let attempt = 0; attempt < 2; attempt++) {
+  const response = await chatWithPuter({
+    context: hidden,
+    messages: [{ role: 'user', content: 'Explain this question' }],
+  });
+  assert.equal(response.model, PUTER_TUTOR_MODELS[1]);
 }
-assert.deepEqual(catalogAttempts,[PUTER_TUTOR_MODELS[1],PUTER_TUTOR_MODELS[1]]);
-assert.equal(catalogCalls,1,'model availability should be cached, not requested for every message');
+assert.deepEqual(catalogAttempts, [
+  PUTER_TUTOR_MODELS[1],
+  PUTER_TUTOR_MODELS[1],
+]);
+assert.equal(
+  catalogCalls,
+  1,
+  'model availability should be cached, not requested for every message',
+);
 delete globalThis.window;
 
 assert.equal(getTutorQuickPrompts(false).length, 3);

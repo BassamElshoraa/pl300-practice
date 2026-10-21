@@ -1,5 +1,6 @@
 import type { Question } from './questions.ts';
 import { getAnswerAudit } from './answer-audit.ts';
+import { buildReviewedExplanation } from './reviewed-lessons.ts';
 
 type TopicGuide = {
   matches: string[];
@@ -527,9 +528,7 @@ function matchesTopicTerm(source: string, term: string) {
   // end of the word "tools" in a Data Profiling reference URL.
   if (/^[a-z0-9]+$/.test(normalized) && normalized.length <= 4) {
     const escaped = normalized.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i').test(
-      source,
-    );
+    return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i').test(source);
   }
   return source.includes(normalized);
 }
@@ -628,6 +627,8 @@ function examTrap(question: Question) {
 }
 
 export function buildEgyptianExplanation(question: Question) {
+  const reviewed = buildReviewedExplanation(question);
+  if (reviewed) return reviewed;
   const audit = getAnswerAudit(question);
   const steps = solvingSteps(question)
     .map((step, index) => `${index + 1}. ${step}`)
@@ -642,7 +643,10 @@ export function buildEgyptianExplanation(question: Question) {
         .join('\n')
     : 'راجع Microsoft Learn باسم الميزة المذكورة في الإجابة قبل الاعتماد على سؤال قديم.';
 
-  return `ترجمة السؤال بالعربي
+  return `ملاحظة قبل الشرح
+ده شرح تمهيدي عام، ولسه مش مراجعة تعليمية مفصلة لكل اختيار في السؤال ده. ما تعتبرش الجمل العامة أدلة مستقلة على صحة المفتاح.
+
+ترجمة السؤال بالعربي
 السؤال موجود بالنص الإنجليزي كاملًا فوق. معناه العملي: أنت داخل سيناريو من مجال ${question.domain}، والمطلوب إنك تطابق كل شرط مذكور مع ميزة Power BI التي تنفذه من غير خطوة زائدة. ${questionTypeMeaning(question)}
 
 القصة والمعنى
@@ -718,7 +722,7 @@ function importantTerms(question: Question) {
 
 function optionWalkthrough(question: Question) {
   if (question.type === 'manual')
-    return 'مفيش اختيارات نصية منفصلة في السؤال ده. راجع كل Box أو موضع في صورة الإجابة، وطبّق نفس المنطق على كل خانة. الشرح الذكي المباشر يقرأ صورة السؤال والحل ويشرح كل خانة بالتفصيل.';
+    return 'السؤال بصري. لو الاختيارات لسه مش مفرغة نصيًا، لازم نرجع للصورة الأصلية؛ وجود رابط الصورة في المحادثة مش دليل إن نموذج الـAI شايف تفاصيلها. الشرح العام هنا لا يحل محل قراءة كل خانة.';
   if (question.choices.length === 0)
     return 'الاختيارات موجودة داخل الـExhibit؛ حلّل كل خانة على حدة.';
   return question.choices

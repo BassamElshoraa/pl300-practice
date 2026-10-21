@@ -23,6 +23,10 @@ const questionById = new Map(
 const fail = (id, issue) => failures.push({ id, issue });
 
 function checkAsset(id, asset) {
+  if (asset.text) {
+    if (!asset.text.trim()) fail(id, 'empty text choice');
+    return;
+  }
   const localPath = path.join(
     projectRoot,
     'public',
@@ -51,8 +55,10 @@ for (const [id, spec] of Object.entries(dragDropData)) {
       fail(id, 'empty drag answer counted as complete');
     if (isAnswered(question, Array(spec.slots).fill(-1)))
       fail(id, 'blank drag slots counted as complete');
-    if (!isAnswered(question, Array(spec.slots).fill(0)))
+    if (!isAnswered(question, Array(spec.slots).fill(spec.answerOffset ?? 0)))
       fail(id, 'filled drag slots did not count as complete');
+    if (spec.answerOffset && isAnswered(question, Array(spec.slots).fill(0)))
+      fail(id, 'legacy corrupt choices were reused as new text answers');
   }
 }
 

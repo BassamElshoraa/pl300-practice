@@ -1,6 +1,8 @@
 import type { Question } from './questions.ts';
 import { getAnswerAudit, type AnswerAuditStatus } from './answer-audit.ts';
 import { getQuestionPresentation } from './question-presentation.ts';
+import { buildReviewedExplanation } from './reviewed-lessons.ts';
+import { dragDropData, decodeDragAnswer } from './drag-drop-data.ts';
 import {
   textAnswerData,
   textAnswerLabel,
@@ -98,10 +100,14 @@ export function buildTutorContext({
     scenario: question.context ? cleanText(question.context) : undefined,
     choices:
       textAnswerData[question.id]?.flatMap((row) => row.options) ??
+      dragDropData[question.id]?.options.map(
+        (option, i) => option.text ?? `Untranscribed image option ${i + 1}`,
+      ) ??
       question.choices,
     rows:
       textAnswerData[question.id]?.map((row) => row.label) ??
       statementData[question.id] ??
+      dragDropData[question.id]?.slotLabels ??
       question.rows,
     learnerAnswer:
       textAnswerLabel(question.id, answer) ??
@@ -116,7 +122,9 @@ export function buildTutorContext({
   if (checked) {
     const audit = getAnswerAudit(question);
     context.correctAnswer = formatSelections(question, question.correct);
-    context.sourceExplanation = cleanText(question.explanation);
+    context.sourceExplanation = cleanText(
+      buildReviewedExplanation(question) ?? question.explanation,
+    );
     context.answerImageUrl = answerImageUrl;
     context.answerReviewStatus = audit.status;
     context.answerReviewNote = audit.reason;
@@ -343,6 +351,12 @@ export function consumeDailyTutorMessage(storage: Storage, now = new Date()) {
 
 function formatSelections(question: Question, answer?: number[]) {
   if (!answer || answer.length === 0) return [];
+  const drag = dragDropData[question.id];
+  if (drag)
+    return decodeDragAnswer(question.id, answer).map(
+      (i, slot) =>
+        `${drag.slotLabels?.[slot] ?? `Step/target ${slot + 1}`}: ${drag.options[i]?.text ?? 'Not selected / old source answer'}`,
+    );
   if (statementData[question.id])
     return statementData[question.id].map(
       (statement, index) =>

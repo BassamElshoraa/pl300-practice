@@ -73,7 +73,12 @@ import { TextAnswerLists } from '@/components/text-answer-lists';
 import { getQuestionPresentation } from '@/lib/question-presentation';
 import { textAnswerData, statementData } from '@/lib/text-answer-data';
 import { isAnswered, isYesNoQuestion } from '@/lib/exam-utils';
-import { dragDropData, type DragDropOption } from '@/lib/drag-drop-data';
+import {
+  dragDropData,
+  decodeDragAnswer,
+  encodeDragAnswer,
+  type DragDropOption,
+} from '@/lib/drag-drop-data';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import { hasManagedAutoGradingKey } from '@/lib/managed-auto-grading-keys';
 import {
@@ -2101,6 +2106,16 @@ function DragChoiceImage({
   choice: number;
 }) {
   const { tx } = useLanguage();
+  if (option.text)
+    return (
+      <span
+        dir="ltr"
+        lang="en"
+        className="block whitespace-pre-wrap break-words py-2 text-left text-sm font-medium leading-7"
+      >
+        {option.text}
+      </span>
+    );
   return (
     <img
       src={publicAsset(option.image)}
@@ -2115,8 +2130,8 @@ function DragChoiceImage({
 
 function DragDropManagedAnswer({
   question,
-  value,
-  onChange,
+  value: encodedValue,
+  onChange: onEncodedChange,
 }: {
   question: Question;
   value: number[];
@@ -2124,6 +2139,12 @@ function DragDropManagedAnswer({
 }) {
   const { tx, language } = useLanguage();
   const spec = dragDropData[question.id];
+  const value = useMemo(
+    () => decodeDragAnswer(question.id, encodedValue),
+    [question.id, encodedValue],
+  );
+  const onChange = (answer: number[]) =>
+    onEncodedChange(encodeDragAnswer(question.id, answer));
   const [selectedChoice, setSelectedChoice] = useState<number | null>(null);
   const [pointerDrag, setPointerDrag] = useState<PointerDragState | null>(null);
   const slots = useMemo(
@@ -2323,12 +2344,13 @@ function DragDropManagedAnswer({
               >
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <span className="inline-flex min-w-16 items-center justify-center rounded-lg bg-primary px-2 py-1 text-xs font-bold text-primary-foreground">
-                    {spec.mode === 'sequence'
-                      ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
-                      : tx(
-                          `Target ${slotIndex + 1}`,
-                          `الخانة ${slotIndex + 1}`,
-                        )}
+                    {spec.slotLabels?.[slotIndex] ??
+                      (spec.mode === 'sequence'
+                        ? tx(`Step ${slotIndex + 1}`, `الخطوة ${slotIndex + 1}`)
+                        : tx(
+                            `Target ${slotIndex + 1}`,
+                            `الخانة ${slotIndex + 1}`,
+                          ))}
                   </span>
                   {choice >= 0 && (
                     <button

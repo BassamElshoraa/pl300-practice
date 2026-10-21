@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {questions} from '../lib/questions.ts';
+import {dragDropData} from '../lib/drag-drop-data.ts';
+import {getAnswerAudit} from '../lib/answer-audit.ts';
+const root=process.cwd();
+await fs.mkdir('.openai/content-review',{recursive:true});
+const records=questions.map((q,index)=>({bank:index+1,id:q.id,type:q.type,prompt:q.prompt,choices:q.choices,correct:q.correct,explanation:q.explanation,image:q.image,answerImage:q.answerImage,audit:getAnswerAudit(q)}));
+for(let i=0;i<records.length;i+=20)await fs.writeFile(`.openai/content-review/batch-${Math.floor(i/20)+1}.json`,JSON.stringify(records.slice(i,i+20),null,2));
+const images=Object.entries(dragDropData).flatMap(([id,spec])=>spec.options.map((option,i)=>({id:`${id}:${i}`,path:path.resolve(root,'public'+option.image)})));
+await fs.writeFile('.openai/content-review/drag-ocr-input.json',JSON.stringify(images));
+console.log({questions:records.length,dragOptions:images.length});

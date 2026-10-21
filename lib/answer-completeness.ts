@@ -320,9 +320,9 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'نفعّل Sync للـCountry slicer على كل الصفحات، ثم نخفيه في الثانية والثالثة؛ الفلتر يظل مطبقًا من غير تكرار الـslicer.',
     ),
     'f2-331-482': placeholderReview(
-      'Percentage contribution by region: Pie chart. Profit over time: Stacked bar chart.',
-      'A pie chart emphasizes part-to-whole contribution by region. A stacked bar chart can show quarterly values over time while also retaining category composition.',
-      'Pie chart توضح نسبة مساهمة كل Region من الإجمالي، وStacked bar chart تعرض الربح عبر الأرباع مع المقارنة بين المكونات.',
+      'Profit contribution by product category, shown as an amount and percentage: Pie chart. Compare profit margins across regions: Stacked bar chart.',
+      'A pie chart shows each product category as a share of total profit; its labels can display both the amount and percentage of total. Of the available choices, a stacked bar chart compares profit margins across regions. The second requirement is a comparison between regions, not a time-series requirement.',
+      'Pie chart توضح مساهمة كل فئة منتجات في إجمالي الربح بالقيمة والنسبة، وStacked bar chart تقارن هوامش الربح بين مناطق البيع؛ المطلوب الثاني ليس تغير الربح بمرور الزمن.',
     ),
     'f2-337-484': {
       status: 'corrected',

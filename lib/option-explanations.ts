@@ -1,16 +1,19 @@
 import type { Question } from './questions';
 import { getAnswerAudit } from './answer-audit.ts';
+import { getReviewedLesson } from './reviewed-lessons.ts';
 
 export type OptionExplanation = {
   choiceIndex: number;
   isCorrect: boolean;
   text: string;
+  textAr?: string;
 };
 
 export function buildOptionExplanations(
   question: Question,
 ): OptionExplanation[] {
   if (question.type === 'manual') return [];
+  const lesson = getReviewedLesson(question);
   const keyedAnswers = question.correct
     .map((index) => question.choices[index])
     .filter(Boolean);
@@ -31,12 +34,14 @@ export function buildOptionExplanations(
         text: directEvidence
           ? `This option is included in ${answerLabel}. ${directEvidence}`
           : `This option satisfies the requirement and is included in ${answerLabel}.${sourceSummary ? ` ${sourceSummary}` : ''}`,
+        textAr: lesson?.optionsAr[choiceIndex],
       };
     }
     return {
       choiceIndex,
       isCorrect: false,
       text: `This option is not included in ${answerLabel}. The requirement is met by ${formatList(keyedAnswers)}.${directEvidence ? ` The explanation mentions this option in context: ${directEvidence}` : sourceSummary ? ` ${sourceSummary}` : ''}`,
+      textAr: lesson?.optionsAr[choiceIndex],
     };
   });
 }
