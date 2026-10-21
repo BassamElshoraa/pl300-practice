@@ -34,8 +34,8 @@ for (const [id, lesson] of Object.entries(reviewedLessons)) {
     );
   if (lesson.correctIndices)
     assert.deepEqual(
-      [...lesson.correctIndices].sort(),
-      [...q.correct].sort(),
+      [...lesson.correctIndices].sort((a,b)=>a-b),
+      [...q.correct].sort((a,b)=>a-b),
       `${id}: lesson answer differs from the bank key`,
     );
   assert.ok(lesson.references.length, `${id}: no supporting references`);
