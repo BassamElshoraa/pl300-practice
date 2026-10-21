@@ -5,10 +5,12 @@ Updated: 2026-10-21.
 This records the scope of this content pass, not a claim that the whole answer bank has been revalidated.
 
 - Active bank: 494 questions.
-- Individually authored explanations: 64 (banks 1–60, 442, 455, 469, 481).
-- Still requiring this depth of explanation: 430.
+- Individually authored explanations: 73 (banks 1–69, 442, 455, 469, 481).
+- Still requiring this depth of explanation: 421.
 - Each authored lesson includes scenario translation, an intuitive explanation, a worked example, reasoning, alternatives, and feature-documentation references.
-- Conditional source assumptions are explicitly identified in 16 lessons. Feature documentation is not represented as an official Microsoft answer key for these questions.
+- Conditional source assumptions are explicitly identified in 19 lessons. Feature documentation is not represented as an official Microsoft answer key for these questions.
+- Banks 61 and 64 now have text dropdowns; total text-dropdown questions: 36. Bank 61 is explicitly marked outdated: Microsoft documents removal of the featured-table functionality from Desktop in June 2026. Historical answer settings are retained for interpreting the source.
+- Bank 70 is not included in this explanation batch: the original blanket claim that a later Power Query filter must first import the entire SQL table conflicts with query folding. Its wording and grading need a separate ambiguity review before treating either answer as unconditional.
 - Text dropdown questions: 34. Banks 42, 45, 47, 54 were transcribed from their original answer areas in this batch. Banks 42 and 45 also have typed source tables, without duplicating the full image.
 - Banks 42 and 59 have scalable, horizontally scrollable relationship diagrams in the checked-answer explanation only. These are teaching diagrams, not original question exhibits.
 - The source explanations for banks 41, 44, 45, 46, 48 and 51 were clarified: Transform vs Add Column, upstream type errors, avoiding unnecessary timestamp detail, PBIDS authentication, DirectQuery display-refresh limits, and ten phone digits versus twelve formatted characters.

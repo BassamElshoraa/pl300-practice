@@ -80,6 +80,14 @@ export function QuestionExhibits({
           </table>
         </div>
       ))}
+      {spec?.code && (
+        <pre
+          className="overflow-x-auto rounded-lg border bg-muted/30 p-4 text-sm leading-8"
+          aria-label="Original calculation with answer placeholders"
+        >
+          <code>{spec.code}</code>
+        </pre>
+      )}
       {figures.map((figure, i) => (
         <figure
           key={figure.src}

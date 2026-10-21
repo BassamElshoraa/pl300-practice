@@ -40,6 +40,30 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-061-60': [
+    row('Row label:', ['Cost Center', 'Headcount', 'ID', 'Name']),
+    row('Key column:', ['Cost Center', 'Headcount', 'ID', 'Name']),
+    row('Is featured table (historical question):', ['No', 'Yes']),
+  ],
+  'f1-064-63': [
+    row('Sales Previous Year: outer function:', [
+      'CALCULATE',
+      'EVALUATE',
+      'SUM',
+      'SUMX',
+    ]),
+    row('Date filter function:', [
+      'DATESMTD',
+      'PARALLELPERIOD',
+      'SAMEPERIODLASTYEAR',
+      'TOTALMTD',
+    ]),
+    row('Argument to the date filter:', [
+      '[Date]',
+      "'Date'[Date]",
+      "'Date'[Month]",
+    ]),
+  ],
   'f1-042-41': [
     row('Fact table:', ['Date', 'Patient', 'Test', 'Test Result']),
     row('Surrogate key in Patient:', [

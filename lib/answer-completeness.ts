@@ -29,6 +29,23 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f1-061-60': {
+      status: 'outdated',
+      reviewedAnswer:
+        'Historical answer: Row label Name; Key column ID; Is featured table Yes.',
+      reason:
+        'Microsoft documents that this functionality was removed from Power BI Desktop in the June 2026 release.',
+      reasonAr:
+        'الإجابة تخص الواجهة القديمة. Microsoft أزالت الوظيفة من Power BI Desktop في يونيو 2026، فلا نقدمها كخطوة متاحة حاليًا.',
+      explanation:
+        'Historical settings: Name is the human-readable Row label; ID is the unique Key column; Is featured table is Yes. This question describes an old feature: Microsoft states it was removed from Power BI Desktop in June 2026. Do not treat the screenshot as a current Desktop setup instruction.',
+      evidence: [
+        {
+          label: 'Featured tables: removal notice and historical settings',
+          url: 'https://learn.microsoft.com/en-us/power-bi/collaborate-share/office-integration/service-create-excel-featured-tables',
+        },
+      ],
+    },
     'f1-041-40': explanationOnly(
       'Choose Transform > Date > Year > Year to replace the existing Date column with its year. Add Column would preserve Date and add a separate Year column, which is a different operation from the requested transformation. If Date is text, first interpret it as a date using the correct locale.',
     ),

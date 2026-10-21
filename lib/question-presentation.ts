@@ -8,9 +8,24 @@ export type QuestionPresentation = {
   statements?: string[];
   hideSourceImage?: boolean;
   warning?: string;
+  code?: string;
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-061-60': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Business Unit: source table columns',
+        columns: ['Column'],
+        rows: [['Cost Center'], ['Headcount'], ['ID'], ['Name']],
+      },
+    ],
+  },
+  'f1-064-63': {
+    hideSourceImage: true,
+    code: 'Sales Previous Year =\n  [Answer 1](\n    [Total Sales],\n    [Answer 2]( [Answer 3] )\n  )',
+  },
   'f1-042-41': {
     hideSourceImage: true,
     tables: [
