@@ -236,7 +236,7 @@ function questionInstruction(question: Question, language: 'en' | 'ar') {
       ? 'How to answer: Drag each action into the correct step. You can also select a choice, then select its slot.'
       : 'How to answer: Drag each choice from the left into its matching target. You can also select a choice, then select its slot.';
   }
-  if (visualControlData[question.id]) {
+  if (visualControlData[question.id] || textAnswerData[question.id]) {
     return language === 'ar'
       ? 'طريقة الإجابة: افتح كل قائمة واختار إجابة واحدة من الاختيارات الأصلية الظاهرة.'
       : 'How to answer: Open every answer list and select one option from the original source choices.';
@@ -4739,10 +4739,10 @@ function VisualListAnswer({
   const { tx } = useLanguage();
   const spec = visualControlData[question.id];
   const [openSlot, setOpenSlot] = useState<number | null>(null);
-  if (!spec) return null;
   const textRows = textAnswerData[question.id];
+  if (!spec && !textRows) return null;
   const selections = Array.from(
-    { length: spec.slots },
+    { length: spec?.slots ?? textRows?.length ?? 0 },
     (_, index) => value[index] ?? -1,
   );
 
@@ -4757,25 +4757,31 @@ function VisualListAnswer({
   if (textRows)
     return (
       <div className="space-y-5" dir="ltr" lang="en">
-        {question.image && !hasNativeExhibits(question) && (
-          <details className="rounded-lg border bg-card">
-            <summary className="cursor-pointer px-4 py-3 font-semibold">
-              {tx('View source exhibit / chart', 'اعرض الرسم أو الجدول الأصلي')}
-            </summary>
-            <Image
-              src={publicAsset(question.image)}
-              alt={`Source exhibit for ${question.id}`}
-              width={1000}
-              height={1200}
-              unoptimized
-              className="h-auto w-full bg-white object-contain"
-            />
-          </details>
-        )}
+        {question.image &&
+          !hasNativeExhibits(question) &&
+          !getQuestionPresentation(question)?.hideSourceImage && (
+            <details className="rounded-lg border bg-card">
+              <summary className="cursor-pointer px-4 py-3 font-semibold">
+                {tx(
+                  'View source exhibit / chart',
+                  'اعرض الرسم أو الجدول الأصلي',
+                )}
+              </summary>
+              <Image
+                src={publicAsset(question.image)}
+                alt={`Source exhibit for ${question.id}`}
+                width={1000}
+                height={1200}
+                unoptimized
+                className="h-auto w-full bg-white object-contain"
+              />
+            </details>
+          )}
         <TextAnswerLists id={question.id} value={value} onChange={onChange} />
       </div>
     );
 
+  if (!spec) return null;
   return (
     <div className="space-y-5" dir="ltr" lang="en">
       {question.image && (
@@ -4952,7 +4958,7 @@ function QuestionInput({
         <DragDropAnswer question={question} value={value} onChange={onChange} />
       );
     }
-    if (visualControlData[question.id]) {
+    if (visualControlData[question.id] || textAnswerData[question.id]) {
       return (
         <VisualListAnswer
           question={question}
@@ -5736,7 +5742,7 @@ function ManualReviewResponse({
   if (dragDropData[question.id]) {
     return <DragDropAnswer question={question} value={value} />;
   }
-  if (visualControlData[question.id]) {
+  if (visualControlData[question.id] || textAnswerData[question.id]) {
     return <VisualListAnswer question={question} value={value} />;
   }
   if (isYesNoQuestion(question)) {

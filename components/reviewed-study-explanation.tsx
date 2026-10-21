@@ -2,6 +2,7 @@
 import type { Question } from '@/lib/questions';
 import { getReviewedLesson, reviewedChoiceTexts } from '@/lib/reviewed-lessons';
 import { Badge } from '@/components/ui/badge';
+import { ReviewedSchemaDiagram } from '@/components/reviewed-schema-diagram';
 export function ReviewedStudyExplanation({ question }: { question: Question }) {
   const lesson = getReviewedLesson(question);
   if (!lesson) return null;
@@ -32,6 +33,7 @@ export function ReviewedStudyExplanation({ question }: { question: Question }) {
             : 'سبب الاختيار + مثال + تحليل البدائل'}
         </Badge>
       </div>
+      <ReviewedSchemaDiagram id={question.id} />
       {sections.map(([title, body]) => (
         <section key={title} className="rounded-lg border bg-card p-4">
           <h3 className="mb-2 font-bold text-primary">{title}</h3>

@@ -11,6 +11,57 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-042-41': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Tables in the star schema (source exhibit)',
+        columns: ['Table', 'One row represents', 'Columns / identifier'],
+        rows: [
+          [
+            'Date',
+            'Each day from the last five years',
+            'Date (unique identifier), year, quarter, month, week of year, day of week',
+          ],
+          [
+            'Patient',
+            'One patient',
+            'Patient key (unique identifier), patient source ID, first name, last name, date of birth, gender, address, city, state, country',
+          ],
+          [
+            'Test',
+            'One test definition',
+            'Test key (unique identifier), test source ID, type, name',
+          ],
+          [
+            'Test Result',
+            'One administered test',
+            'Date administered, test key, patient key, result value, comments',
+          ],
+        ],
+      },
+    ],
+  },
+  'f1-045-44': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Sales: 10 million records (source exhibit)',
+        columns: ['Column', 'Data type', 'Description'],
+        rows: [
+          ['PurchaseID', 'Text', 'Unique ID for each order'],
+          ['CustomerID', 'Text', 'Unique ID for each customer'],
+          [
+            'PurchaseDateTime',
+            'Date/Time/Timezone',
+            'Date and time each order occurred',
+          ],
+          ['Region', 'Text', 'Region where each order occurred'],
+          ['TotalAmount', 'Decimal number', 'Total cost of each order'],
+        ],
+      },
+    ],
+  },
   'f1-059-58': {
     hideSourceImage: true,
     tables: [

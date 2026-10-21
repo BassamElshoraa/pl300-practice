@@ -29,6 +29,24 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f1-041-40': explanationOnly(
+      'Choose Transform > Date > Year > Year to replace the existing Date column with its year. Add Column would preserve Date and add a separate Year column, which is a different operation from the requested transformation. If Date is text, first interpret it as a date using the correct locale.',
+    ),
+    'f1-044-43': explanationOnly(
+      'Change the data type in both cases. The date column is shown as Any and needs a date-compatible type before extracting Day. The menuAmount column is incorrectly typed as Date; edit the step that imposed that type and use the appropriate numeric type. An Error created upstream is not necessarily repaired by appending another type-conversion step after it. Renaming and conditional formatting do not repair the conversion.',
+    ),
+    'f1-045-44': explanationOnly(
+      'CustomerID: Remove the column, because the stated report only needs weekly sales by region and no use of that ID is specified. Do not remove duplicate customers from a transaction fact: that would discard real sales. PurchaseDateTime: Split into date and time is the best available option because it retains the required date and separates a high-cardinality timestamp. For the smallest practical model, do not load the unused time component. Splitting alone does not guarantee the minimum size for every dataset. Removing the entire timestamp would prevent weekly analysis.',
+    ),
+    'f1-046-45': explanationOnly(
+      'Create a PBIDS data source file to simplify connecting to the same Azure SQL source. PBIDS does not contain authentication information or grant database access: the other user authenticates with their own credentials and selects tables in Navigator. PBIT shares a report/model template; PBIX shares the saved report/model and potentially imported data. Neither is the specialized connection-only file requested.',
+    ),
+    'f1-048-47': explanationOnly(
+      'DirectQuery is the appropriate connectivity mode for querying recent Azure SQL data without waiting for an Import refresh. It does not by itself guarantee that an already-open report screen updates within two minutes. Configure and test the query/display refresh cycle, supported automatic page refresh interval, capacity limits, caching and source query latency to meet that operational requirement.',
+    ),
+    'f1-051-50': explanationOnly(
+      'Customer Name has repeated values according to its distinct/unique profile, unlike the displayed Customer ID and Customer Key columns. Extract the last 12 characters is the intended phone transformation for the shown formats: 500-555-0169 contains ten digits plus two hyphens. It removes the optional country prefix and leading separator space. It does not produce a string of exactly ten characters; if that is required, remove the hyphens as an additional step. This fixed-width method must not be generalized to phone formats with different national-number lengths.',
+    ),
     'f2-202-444': {
       status: 'incomplete-source',
       reviewedAnswer:

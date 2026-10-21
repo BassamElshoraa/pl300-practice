@@ -40,6 +40,50 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-042-41': [
+    row('Fact table:', ['Date', 'Patient', 'Test', 'Test Result']),
+    row('Surrogate key in Patient:', [
+      'Date of birth',
+      'Last name',
+      'Patient key',
+      'Patient source ID',
+    ]),
+  ],
+  'f1-045-44': [
+    row('CustomerID:', [
+      'Change the data type to Binary.',
+      'Remove any duplicate values.',
+      'Remove the column.',
+    ]),
+    row('PurchaseDateTime:', [
+      'Change the data type to Duration.',
+      'Remove the column.',
+      'Split the column into separate date and time columns.',
+    ]),
+  ],
+  'f1-047-46': [
+    row('To gain insight, select:', [
+      'Column distribution',
+      'Column quality',
+      'Formula Bar',
+      'Monospaced',
+    ]),
+    row('To resolve the errors, select:', [
+      'Keep Errors',
+      'Remove Duplicates',
+      'Remove Empty',
+      'Replace Errors',
+    ]),
+  ],
+  'f1-054-53': [
+    row('Data source:', ['Dataflows', 'JSON', 'OData', 'Web']),
+    row('Authentication:', [
+      'Anonymous',
+      'Basic',
+      'Organizational account',
+      'Web API',
+    ]),
+  ],
   'f1-012-11': [
     row('Different values in State, including nulls:', numbers),
     row('Non-null values occurring only once in State:', numbers),

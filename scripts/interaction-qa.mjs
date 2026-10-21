@@ -113,6 +113,35 @@ for (const [id, spec] of Object.entries(visualControlData)) {
   }
 }
 
+for (const [id, rows] of Object.entries(textAnswerData)) {
+  const q = questionById.get(id);
+  if (!q) {
+    fail(id, 'text rows point to a missing question');
+    continue;
+  }
+  if (isAnswered(q, [])) fail(id, 'empty text rows counted as answered');
+  if (
+    !isAnswered(
+      q,
+      rows.map(() => TEXT_ANSWER_OFFSET),
+    )
+  )
+    fail(id, 'text rows without legacy menu crops did not count as answered');
+  if (
+    isAnswered(
+      q,
+      rows.map(() => 500),
+    )
+  )
+    fail(id, 'legacy coordinates counted as new text responses');
+  if (
+    isAnswered(
+      q,
+      rows.map(() => TEXT_ANSWER_OFFSET + 999),
+    )
+  )
+    fail(id, 'invalid text choice accepted');
+}
 const yesNoQuestions = questions.filter(isYesNoQuestion);
 for (const question of yesNoQuestions) {
   if (statementData[question.id]?.length !== 3)
@@ -141,7 +170,10 @@ const unresolvedListQuestions = questions
       question.type === 'manual' &&
       /drop-?down|FILL IN THE BLANK/i.test(question.prompt),
   )
-  .filter((question) => !visualControlData[question.id])
+  .filter(
+    (question) =>
+      !visualControlData[question.id] && !textAnswerData[question.id],
+  )
   .map((question) => question.id);
 
 const report = {

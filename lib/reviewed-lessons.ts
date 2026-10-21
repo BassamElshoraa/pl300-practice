@@ -1,18 +1,27 @@
 import type { Question } from './questions';
 import { dragDropData } from './drag-drop-data.ts';
+import { textAnswerData } from './text-answer-data.ts';
 import { lessons001 } from './reviewed-lessons/001-020.ts';
 import { lessons021 } from './reviewed-lessons/021-040.ts';
+import { lessons041 } from './reviewed-lessons/041-060.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 export const reviewedLessons = {
   ...lessons001,
   ...lessons021,
+  ...lessons041,
   ...repairedDragLessons,
 };
 export function getReviewedLesson(question: Pick<Question, 'id'>) {
   return reviewedLessons[question.id];
 }
 export function reviewedChoiceTexts(question: Question) {
+  const rows = textAnswerData[question.id];
+  const rowChoices = rows?.flatMap((row) =>
+    row.options.map((option) => `${row.label} ${option}`),
+  );
+  if (rowChoices?.length === getReviewedLesson(question)?.optionsAr.length)
+    return rowChoices;
   return question.choices.length
     ? question.choices
     : (dragDropData[question.id]?.options.map((option) => option.text ?? '') ??
