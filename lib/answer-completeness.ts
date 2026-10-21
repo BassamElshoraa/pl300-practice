@@ -29,6 +29,95 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f1-142-141': {
+      status: 'corrected',
+      correct: [2],
+      originalAnswer:
+        'A: Table.Buffer in Query1 shares a cache between referencing queries.',
+      reviewedAnswer: 'C: Reconfigure Query1 as a dataflow entity.',
+      reasonAr:
+        'Table.Buffer لا تشارك نتيجتها بين تنفيذات الاستعلامات المرجعية المستقلة. Dataflow تحفظ نتيجة التحضير لإعادة استخدامها؛ هذا ما توصي به Microsoft لنفس السيناريو.',
+      explanation:
+        'Corrected answer: C, reconfigure Query1 as a dataflow entity. Microsoft documents this same Query1/Query2/Query3/Query4 scenario: Table.Buffer only buffers within one query execution and does not eliminate additional retrieval by independently evaluated referencing queries. Buffering can add memory work and prevent downstream folding. A dataflow persists source preparation for reuse. Choose an option supported by the existing license; Gen2 and legacy dataflows have different licensing requirements. Do not claim every dataflow is free or every buffer improves performance.',
+      evidence: [
+        {
+          label: 'Microsoft: referencing queries and dataflows',
+          url: 'https://learn.microsoft.com/en-us/power-bi/guidance/power-query-referenced-queries',
+        },
+        {
+          label: 'Table.Buffer scope and cautions',
+          url: 'https://learn.microsoft.com/en-us/powerquery-m/table-buffer',
+        },
+      ],
+    },
+    'f1-103-102': {
+      status: 'independently-reviewed',
+      promptAppend:
+        'Recovered original error message: ERROR [08001] timeout expired.',
+      explanation:
+        'The recovered source PDF page 127 shows ERROR [08001] timeout expired, not an out-of-memory error. The intended answers are A and B. Reducing rows/columns can reduce query and transfer time; splitting long queries and merging is conditional on an effective execution plan and a safe unique join key. Neither is guaranteed to fix a connection timeout before query execution. Diagnose connectivity versus query execution, timeout settings and folding before implementing a fix. Disabling folding or blindly combining all slow queries is not a general remedy.',
+    },
+    'f1-132-131': {
+      status: 'corrected',
+      reviewedAnswer: "COUNTROWS('Headcount'); LASTDATE('Headcount'[DateKey]).",
+      originalAnswer: "COUNTROWS('Headcount'); LASTDATE('Date'[Date]).",
+      reasonAr:
+        'اللقطة في أول الشهر والتقويم يمتد2030. آخر تاريخ بيانات فيHeadcount هوالمطلوب، لا آخر يوم فيالتقويم الذي قد يكون بلا لقطة.',
+      explanation:
+        "Use CALCULATE(COUNTROWS('Headcount'), LASTDATE('Headcount'[DateKey])). The question specifies monthly snapshots keyed to the first day of each month. LASTDATE('Date'[Date]) can pick month-end or a future calendar date with no snapshot, producing blank instead of the last available headcount. LASTDATE on the fact's date-valued DateKey selects the latest snapshot date visible in the current period. COUNTROWS then counts one row per employee in that snapshot. This returns the latest snapshot within the selected period, not a carry-forward from an earlier period with no snapshot.",
+      suppressSourceAnswerImage: true,
+      evidence: [
+        {
+          label: 'LASTDATE: last date in the current column context',
+          url: 'https://learn.microsoft.com/en-us/dax/lastdate-function-dax',
+        },
+      ],
+    },
+    'f1-128-127': explanationOnly(
+      'SUMMARIZE; Date[Year]. The source fields use Sales[Sale], so the completed expression is SUMMARIZE(Sales, Date[Year], "Sales", SUM(Sales[Sale])). Do not replace Sale with an invented SalesAmount column. This is a refresh-time calculated summary table, not a dynamic measure that recomputes its stored rows on every slicer change.',
+    ),
+    'f1-134-133': explanationOnly(
+      'Use CALCULATE([Total Sales], DATEADD(Date[Date], -1, QUARTER)). Negative one shifts the current period one quarter backward. The offered PARALLELPERIOD uses positive 1, which shifts forward, not backward; with date-column input it also expands to full quarters. DATESQTD and TOTALQTD calculate quarter-to-date, not the previous quarter.',
+    ),
+    'f1-137-136': explanationOnly(
+      'Place the measures in Values. A matrix can show measure labels on rows through the Show on rows formatting setting; a field parameter is not required merely to obtain that layout. Rows and Columns hold grouping fields, while Values evaluates measures in each intersection context.',
+    ),
+    'f1-080-79': explanationOnly(
+      'Use suitable one-to-many dimension relationships and group Impressions by Ad_id, Site_name and daily Impression_date with Count Rows before loading. Sum the stored count for impression totals; COUNTROWS of the summary counts groups instead of original events. Relationships are not storage-free, and a calculated table does not automatically remove the original fact.',
+    ),
+    'f1-083-82': explanationOnly(
+      'The blanks are CALCULATE, SUM and DATESBETWEEN. DATESBETWEEN takes three arguments: dates, start date and end date. The source endpoint LASTDATE(Sales[Date])-365 is not a universally correct prior-year calendar endpoint: leap years and missing sales on selected dates can change the intended range. The blank selections fit the shown template; validate its boundaries before treating it as a general PYTD formula.',
+    ),
+    'f1-089-88': explanationOnly(
+      'No; No; Yes under the displayed grain and materialized SalesTotal assumption. Grouping by CustomerID, OrderID and OrderDate does not guarantee fewer rows when OrderID already identifies each shown record. Grouping does not inherently increase detail or always prevent sales totals. Keep CustomerID for the relationship and repeat-customer analysis. Remove UnitPrice and Discount only if stored SalesTotal suffices and does not depend on those columns remaining in the model.',
+    ),
+    'f1-090-89': explanationOnly(
+      'CALCULATE; DATEADD; DIVIDE. DATEADD with -1 QUARTER shifts a quarter, not one month. Relative growth is (current minus previous)/previous. DIVIDE handles a zero or blank denominator safely; partial-period selections follow the selected date context rather than guaranteeing full-quarter totals.',
+    ),
+    'f1-091-90': explanationOnly(
+      'TOPN; DESC. TOPN selects the highest eight by Total Sales, but ties at the eighth position can return more than eight rows. Add a unique secondary sort key if exactly eight are required. TOPN does not guarantee the final display order of returned rows.',
+    ),
+    'f1-096-95': explanationOnly(
+      'No for the proposed solution restricted to the active relationship: that alone does not cover all three date roles. The original reason is wrong: USERELATIONSHIP can use an existing active or inactive relationship. To analyze other date roles, target the corresponding existing relationships in suitable calculations, or use separate role-playing dimensions with active relationships. USERELATIONSHIP does not create a missing relationship.',
+    ),
+    'f1-098-97': explanationOnly(
+      'FILTER; AND; CALCULATE. Select Transaction Size rows where Min <= the row sales amount AND Max >= it, then evaluate the distinct category within that filter. The source field list calls the amount Sales Amount but its printed code refers to Sales[Sales]; fix that inconsistent column name before running it. The inclusive integer ranges must not overlap, and the amount must match one category; decimals between the shown integer bounds can be uncovered.',
+    ),
+    'f1-099-98': explanationOnly(
+      'Remove LineItems[Description], which is not required by the displayed visuals. Do not remove historical records because two visuals have no last-month restriction. Grouping can reduce row count, contrary to the old explanation, but the offered grouping by Invoice ID and Invoice Date does not preserve Supplier ID, required for supplier and country analysis. Do not claim grouping never affects size.',
+    ),
+    'f1-100-99': explanationOnly(
+      'Keep Traffic rows whose URL Visited contains blog, and remove Posts[Full Text] and Posts[Summary]. Preserve Referring URL for the external-referral visual. Removing Posts published in the last seven days discards recent posts, not old history, and breaks the requested analysis. Removing referring URLs that do not start with / would remove the external referrals the report explicitly needs.',
+    ),
+    'f1-105-104': explanationOnly(
+      'Yes. Remove the redundant high-cardinality text GUID while retaining the equally unique numeric IoT ID and the timestamp needed for hourly and daily analysis. The source claim that Power BI Whole Number is always a four-byte unsigned long is incorrect: its logical type is a 64-bit integer and storage is compressed. Verify relationships and dependencies before deleting an identifier in a real model.',
+    ),
+    'f1-109-108': explanationOnly(
+      'The intended source selections are A and C: create/mark an explicit Date table and relate it to Sales. Do not infer that marking one date table removes every hidden auto date/time table for other eligible columns. Order Date becomes the many side of a relationship, while unconnected Ship Date and Delivered Date can remain eligible when Auto date/time stays on. For guaranteed removal of all automatic tables, disable Auto date/time after building and wiring a replacement and migrating dependent visuals. The choose-two source is not a complete migration checklist.',
+    ),
+    'f1-116-115': explanationOnly(
+      'Split Logged using at, then verify the date part is trimmed and typed as Date. Splitting alone can leave text and does not by itself guarantee a built-in date hierarchy; Auto date/time and table eligibility also apply. The other offered actions do not explicitly normalize the stated nonstandard text format while preserving its full date.',
+    ),
     'f1-070-69': {
       status: 'corrected',
       correct: [0],

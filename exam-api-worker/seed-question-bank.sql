@@ -1976,19 +1976,7 @@ Minimize the data model size.
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["Create one-to-many relationships between the tables.","Group the Impressions query in Power Query by Ad_id, Site_name, and Impression_date. Aggregate by using the CountRows function.","Create a calculated table that contains Ad_id, Site_name, and Impression_date.","Create a calculated measure that aggregates by using the COUNTROWS function."]', '[0,1]', 'Incorrect:
-
-Not C: A calculated table would increase the data model size.
-
-Not D: Need Impression_date etc.
-
-Grouping in power query reduces the number of rows in the impression table that is gonna be loaded in the
-model. Creating relationships doesn''t increase the size of the model. Therefore, the answer AB is correct!
-
-Creating one-to-many relationships = optimizing the model. => A is correct.
-
-Group the Impressions query in Power Query = pre-summarizing the data which results in a smaller and more
-efficient data model => B is correct.', 'Final', '80', '/exhibit-assets/f1-080-79.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '["Create one-to-many relationships between the tables.","Group the Impressions query in Power Query by Ad_id, Site_name, and Impression_date. Aggregate by using the CountRows function.","Create a calculated table that contains Ad_id, Site_name, and Impression_date.","Create a calculated measure that aggregates by using the COUNTROWS function."]', '[0,1]', 'Use suitable one-to-many dimension relationships and group Impressions by Ad_id, Site_name and daily Impression_date with Count Rows before loading. Sum the stored count for impression totals; COUNTROWS of the summary counts groups instead of original events. Relationships are not storage-free, and a calculated table does not automatically remove the original fact.', 'Final', '80', '/exhibit-assets/f1-080-79.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-081-80', 'Model the data', 'manual', 'HOTSPOT -
 
 You are creating a Microsoft Power BI data model that has the tables shown in the following table.
@@ -2067,32 +2055,7 @@ Which DAX functions should you use? To answer, select the appropriate options in
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: CALCULATE -
-
-Example:
-
-Total sales on the last selected date =
-
-CALCULATE (
-
-SUM ( Sales[Sales Amount] ),
-
-''Sales''[OrderDateKey] = MAX ( ''Sales''[OrderDateKey] )
-
-)
-
-Box 2: SUM -
-
-Box 3: DatesBetween
-
-This is due to the expected parameters. DatesBetween expects two parameters as per the exhibit,
-SamePeriodLastYear expects one parameter (but two are used in the exhibit)
-
-Reference:
-
-https://docs.microsoft.com/en-us/dax/calculate-function-dax
-
-https://dax.guide/sameperiodlastyear/', 'Final', '83', '/dump-assets/f1-083-82-question.webp', '/dump-assets/f1-083-82-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Hot Area:', '[]', '[]', 'The blanks are CALCULATE, SUM and DATESBETWEEN. DATESBETWEEN takes three arguments: dates, start date and end date. The source endpoint LASTDATE(Sales[Date])-365 is not a universally correct prior-year calendar endpoint: leap years and missing sales on selected dates can change the intended range. The blank selections fit the shown template; validate its boundaries before treating it as a general PYTD formula.', 'Final', '83', '/dump-assets/f1-083-82-question.webp', '/dump-assets/f1-083-82-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-084-83', 'Prepare the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -2284,26 +2247,7 @@ For each of the following statements, select Yes if the statement is true, Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: No -
-
-Would not support total sales over time.
-
-Box 2: No -
-
-Would not support new and repeat customer counts
-
-Box 3: Yes
-
-No: Summarizing orders with these columns may actually increase the model size as creates a more detailed
-representation of the data. It will not reduce the model size.
-
-No: Since there''s a relationship between the Orders table and the Customers table using the CustomerID
-column, removing it might affect the ability to analyze data by customer, so it may not support the current
-analysis.
-
-Yes: Removing unnecessary columns like UnitPrice and Discount that are not used in the analysis will likely
-reduce the model size without affecting the ability to analyze total sales over time, order counts, and
-customer counts.', 'Final', '89', '/dump-assets/f1-089-88-question.webp', '/dump-assets/f1-089-88-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Hot Area:', '[]', '[]', 'No; No; Yes under the displayed grain and materialized SalesTotal assumption. Grouping by CustomerID, OrderID and OrderDate does not guarantee fewer rows when OrderID already identifies each shown record. Grouping does not inherently increase detail or always prevent sales totals. Keep CustomerID for the relationship and repeat-customer analysis. Remove UnitPrice and Discount only if stored SalesTotal suffices and does not depend on those columns remaining in the model.', 'Final', '89', '/dump-assets/f1-089-88-question.webp', '/dump-assets/f1-089-88-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-090-89', 'Model the data', 'manual', 'HOTSPOT -
 
 You are building a financial report by using Power BI.
@@ -2316,17 +2260,7 @@ How should you complete the measure? To answer, select the appropriate options i
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: CALCULATE -
-
-Calculate the sum.
-
-Box 2: DATEADD -
-
-DATEADD -1 QUARTER will give the previous month.
-
-Box 3: DIVIDE -
-
-Use DIVIDE to get the relative change.', 'Final', '90', '/dump-assets/f1-090-89-question.webp', '/dump-assets/f1-090-89-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Hot Area:', '[]', '[]', 'CALCULATE; DATEADD; DIVIDE. DATEADD with -1 QUARTER shifts a quarter, not one month. Relative growth is (current minus previous)/previous. DIVIDE handles a zero or blank denominator safely; partial-period selections follow the selected date context rather than guaranteeing full-quarter totals.', 'Final', '90', '/dump-assets/f1-090-89-question.webp', '/dump-assets/f1-090-89-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-091-90', 'Model the data', 'manual', 'DRAG DROP -
 
 You are creating a Power BI model and report.
@@ -2353,15 +2287,7 @@ Each value may be used once, more than once, or not at all. You may need to drag
 
 scroll to view content.
 
-Select and Place:', '[]', '[5,1]', 'Box 1: TOPN -
-TOPN returns the top N rows of the specified table.
-Syntax: TOPN(<n_value>, <table>, <orderBy_expression>, [<order>[, <orderBy_expression>, [<order>]]�])
-
-Box 2: DESC -
-Descending order to get the highest values first.
-
-Reference:
-https://docs.microsoft.com/en-us/dax/topn-function-dax', 'Final', '91', '/dump-assets/f1-091-90-question.webp', '/dump-assets/f1-091-90-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Select and Place:', '[]', '[5,1]', 'TOPN; DESC. TOPN selects the highest eight by Total Sales, but ties at the eighth position can return more than eight rows. Add a unique secondary sort key if exactly eight are required. TOPN does not guarantee the final display order of returned rows.', 'Final', '91', '/dump-assets/f1-091-90-question.webp', '/dump-assets/f1-091-90-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-092-91', 'Prepare the data', 'multi', 'You are creating a sales report in Power BI for the NorthWest region sales territory of your company. Data will
 
 come from a view in a Microsoft SQL Server database. A sample of the data is shown in the following table:
@@ -2512,15 +2438,7 @@ Solution: You create measures that use the USERELATIONSHIP DAX function to filte
 
 relationship between the sales table and the date table.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'You can''t use USERELATIONSHIP() to filter on an active relationship, but need additional innactive
-relationships
-
-Instead: Solution: From the Fields pane, you rename the date table as Due Date. You use a DAX expression to
-create Order Date and Delivery Date as calculated tables.
-
-Reference:
-
-https://docs.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive', 'Final', '96', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'No for the proposed solution restricted to the active relationship: that alone does not cover all three date roles. The original reason is wrong: USERELATIONSHIP can use an existing active or inactive relationship. To analyze other date roles, target the corresponding existing relationships in suitable calculations, or use separate role-playing dimensions with active relationships. USERELATIONSHIP does not create a missing relationship.', 'Final', '96', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-097-96', 'Model the data', 'manual', 'HOTSPOT -
 
 You have a Power BI report that contains a measure named Total Sales.
@@ -2583,23 +2501,7 @@ You may need to drag the split bar between panes or scroll to view content.
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[3,1,2]', 'Box 1: FILTER
-
-Box 2: AND
-
-Box 3: CALCULATE
-
-FILTER needs to followed by table reference ,
-
-AND is needed to check the limits , and
-
-CALCULATE because needs to be followed by expression such as distinct in this case
-
-Reference:
-
-https://docs.microsoft.com/en-us/dax/calculate-function-dax
-
-https://docs.microsoft.com/en-us/dax/filter-function-dax', 'Final', '98', '/dump-assets/f1-098-97-question.webp', '/dump-assets/f1-098-97-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+Select and Place:', '[]', '[3,1,2]', 'FILTER; AND; CALCULATE. Select Transaction Size rows where Min <= the row sales amount AND Max >= it, then evaluate the distinct category within that filter. The source field list calls the amount Sales Amount but its printed code refers to Sales[Sales]; fix that inconsistent column name before running it. The inclusive integer ranges must not overlap, and the amount must match one category; decimals between the shown integer bounds can be uncovered.', 'Final', '98', '/dump-assets/f1-098-97-question.webp', '/dump-assets/f1-098-97-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-099-98', 'Visualize and analyze the data', 'single', 'You have a Power BI report for the procurement department. The report contains data from the following tables.
 
 There is a one-to-many relationship from Suppliers to LineItems that uses the ID and Supplier ID columns.
@@ -2608,15 +2510,7 @@ The report contains the visuals shown in the following table.
 
 You need to minimize the size of the dataset without affecting the visuals.
 
-What should you do?', '["Merge Suppliers and LineItems.","Remove the LineItems[Description] column.","Remove the rows from LineItems where LineItems[Invoice Date] is before the beginning of last month.","Group LineItems by LineItems[Invoice ID] and LineItems[Invoice Date] with a sum of LineItems[Price]."]', '[1]', 'Remove a column that is not used in the visuals reduces the size of the dataset.
-
-Incorrect:
-
-Not A: Merging the tables would increase the dataset.
-
-Not C: Two of the visuals need historical data.
-
-Not D: Grouping would not affect size.', 'Final', '99', '/exhibit-assets/f1-099-98.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Merge Suppliers and LineItems.","Remove the LineItems[Description] column.","Remove the rows from LineItems where LineItems[Invoice Date] is before the beginning of last month.","Group LineItems by LineItems[Invoice ID] and LineItems[Invoice Date] with a sum of LineItems[Price]."]', '[1]', 'Remove LineItems[Description], which is not required by the displayed visuals. Do not remove historical records because two visuals have no last-month restriction. Grouping can reduce row count, contrary to the old explanation, but the offered grouping by Invoice ID and Invoice Date does not preserve Supplier ID, required for supplier and country analysis. Do not claim grouping never affects size.', 'Final', '99', '/exhibit-assets/f1-099-98.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-100-99', 'Model the data', 'multi', 'You have a Power BI report for the marketing department. The report reports on web traffic to a blog and contains
 
 data from the following tables.
@@ -2633,12 +2527,7 @@ Which two actions will reduce the load times? Each correct answer presents part 
 
 NOTE:
 
-Each correct selection is worth one point.', '["Remove the rows in Posts in which Posts[Publish Date] is in the last seven days.","Remove the rows in Traffic in which Traffic[URL Visited] does not contain blog.","Remove Traffic[IP Address], Traffic[Browser Agent], and Traffic[Referring URL].","Remove Posts[Full Text] and Posts[Summary].","Remove the rows in Traffic in which Traffic[Referring URL] does not start with /."]', '[1,3]', 'B: Only blog posts rows are useful for the visuals.
-D: These two columns are not used in the visuals and can be removed.
-Incorrect:
-Not A: Three visuals need historical data.
-Not C: Traffic[Referring URL] is used in one of the visuals and therefore cannot be removed.
-Not E: These rows are used in 3 visuals.', 'Final', '100', '/exhibit-assets/f1-100-99.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Each correct selection is worth one point.', '["Remove the rows in Posts in which Posts[Publish Date] is in the last seven days.","Remove the rows in Traffic in which Traffic[URL Visited] does not contain blog.","Remove Traffic[IP Address], Traffic[Browser Agent], and Traffic[Referring URL].","Remove Posts[Full Text] and Posts[Summary].","Remove the rows in Traffic in which Traffic[Referring URL] does not start with /."]', '[1,3]', 'Keep Traffic rows whose URL Visited contains blog, and remove Posts[Full Text] and Posts[Summary]. Preserve Referring URL for the external-referral visual. Removing Posts published in the last seven days discards recent posts, not old history, and breaks the requested analysis. Removing referring URLs that do not start with / would remove the external referrals the report explicitly needs.', 'Final', '100', '/exhibit-assets/f1-100-99.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-101-100', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -2671,41 +2560,7 @@ You need to resolve the error.
 
 What are two ways to achieve the goal? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["Reduce the number of rows and columns returned by each query.","Split log running queries into subsets of columns and use Power Query to merge the queries.","Use Power Query to combine log running queries into one query.","Disable query folding on long running queries."]', '[0,1]', 'A. Reduce the number of rows and columns returned by each query.
-
-B. Split log running queries into subsets of columns and use Power Query to merge the queries.
-
-A. Reduce the number of rows and columns returned by each query.
-
-Limiting the amount of data returned by the queries decreases the load on the Power BI engine and reduces
-the likelihood of memory or performance-related issues.
-
-Filtering the data at the source can optimize query execution and minimize processing time.
-
-B. Split long-running queries into subsets of columns and use Power Query to merge the queries.
-
-Dividing large or complex queries into smaller, manageable pieces reduces the strain on the system.
-
-Power Query can be used to combine these subsets later, allowing the system to process the data in chunks
-rather than a single large operation.
-
-Why the Other Options Are Incorrect:
-
-C. Use Power Query to combine long-running queries into one query.
-
-Combining queries into a single query increases complexity and processing load, which can exacerbate
-performance issues.
-
-D. Disable query folding on long-running queries.
-
-Query folding allows Power BI to push transformations back to the database server, which is more efficient.
-Disabling query folding can result in increased data transfer and slower performance.
-
-Explanation:
-
-The goal is to address the root cause of the error—likely caused by large datasets or complex queries—and
-ensure efficient data processing in Power BI. By reducing data size (A) and breaking queries into smaller
-subsets (B), the error can be resolved effectively.', 'Final', '103', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.Recovered original error message: ERROR [08001] timeout expired.', '["Reduce the number of rows and columns returned by each query.","Split log running queries into subsets of columns and use Power Query to merge the queries.","Use Power Query to combine log running queries into one query.","Disable query folding on long running queries."]', '[0,1]', 'The recovered source PDF page 127 shows ERROR [08001] timeout expired, not an out-of-memory error. The intended answers are A and B. Reducing rows/columns can reduce query and transfer time; splitting long queries and merging is conditional on an effective execution plan and a safe unique join key. Neither is guaranteed to fix a connection timeout before query execution. Diagnose connectivity versus query execution, timeout settings and folding before implementing a fix. Disabling folding or blindly combining all slow queries is not a general remedy.', 'Final', '103', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-104-103', 'Prepare the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -2744,22 +2599,7 @@ You need to analyze IoT events by the hour and day of the year. The solution mus
 
 Solution: You remove the IoT GUID column and retain the IoT ID column.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'yes is a correct.
-
-it says : The IoT GUID and IoT ID columns are unique to each row in the query.
-
-BOTH UNIQUES to EACH row...
-
-So basically each one can be used as primary key for the table.
-
-removing the guid column does improve performance.
-
-Better to remove the guid because it ''s a 16-byte binary data type compared to a unsigned long which is a 4-
-byte binary data type
-
-There are two requirements to the question - improve the performance and enable the required analysis.
-Removing the GUID column will do exactly that - it will improve the performance because it is one less column
-of data to load but it still enables the required analysis given the IOT ID column is equally unique.', 'Final', '105', '/exhibit-assets/f1-105-104.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'Yes. Remove the redundant high-cardinality text GUID while retaining the equally unique numeric IoT ID and the timestamp needed for hourly and daily analysis. The source claim that Power BI Whole Number is always a four-byte unsigned long is incorrect: its logical type is a 64-bit integer and storage is compressed. Verify relationships and dependencies before deleting an identifier in a real model.', 'Final', '105', '/exhibit-assets/f1-105-104.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-106-105', 'Prepare the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -2847,11 +2687,7 @@ quarter.
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct answer is worth one point.', '["Create a relationship between the Date table and the Sales table.","Disable the auto date/time option.","Create a Date table and select Mark as Date Table.","Disable the load on the Date table.","Remove the relationship between the Product table and the Sales table."]', '[0,2]', 'AC is the correct answer. B is not needed as: It''s important to note that when you specify your own date table,
-Power BI Desktop does not auto-create the hierarchies that it would otherwise build into your model on your
-behalf. If you later deselect your date table (and no longer have a manually set date table), Power BI Desktop
-recreates the automatically created built-in date tables for you, for the date columns in the table.
-https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-date-tables', 'Final', '109', '/exhibit-assets/f1-109-108.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct answer is worth one point.', '["Create a relationship between the Date table and the Sales table.","Disable the auto date/time option.","Create a Date table and select Mark as Date Table.","Disable the load on the Date table.","Remove the relationship between the Product table and the Sales table."]', '[0,2]', 'The intended source selections are A and C: create/mark an explicit Date table and relate it to Sales. Do not infer that marking one date table removes every hidden auto date/time table for other eligible columns. Order Date becomes the many side of a relationship, while unconnected Ship Date and Delivered Date can remain eligible when Auto date/time stays on. For guaranteed removal of all automatic tables, disable Auto date/time after building and wiring a replacement and migrating dependent visuals. The choose-two source is not a complete migration checklist.', 'Final', '109', '/exhibit-assets/f1-109-108.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-110-109', 'Visualize and analyze the data', 'single', 'You have a Microsoft Power BI report. The size of PBIX file is 550 MB. The report is accessed by using an App
 
 workspace in shared capacity of powerbi.com.
@@ -3137,65 +2973,7 @@ date and time each complaint occurred. The data in Logged is in the following fo
 
 You need to be able to analyze the complaints by the logged date and use a built-in date hierarchy.
 
-What should you do?', '["Change the data type of the Logged column to Date.","Split the Logged column by using at as the delimiter.","Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type of the new column to Whole Number.","Apply the Parse function from the Date transformations options to the Logged column."]', '[1]', 'Understanding the Problem:
-
-The Logged column contains data in the format:
-
-2018-12-31 at 08:59.
-
-To use Power BI''s built-in date hierarchy, the Logged column must be in a recognized DateTime format (e.g.,
-2018-12-31 08:59).
-
-The presence of the word "at" prevents Power BI from directly converting this text to a DateTime format.
-
-Why Option B Works:
-
-Splitting the Logged column using at as the delimiter separates the date (2018-12-31) and time (08:59) into two
-columns.
-
-Once the column is split:
-
-The first part (date) can be set to the Date data type.
-
-The second part (time) can be set to the Time data type if needed, or ignored if time is not relevant for
-analysis.
-
-This approach ensures the date portion is clean and ready to be analyzed using Power BI''s built-in date
-hierarchy.
-
-Why Other Options Are Incorrect:
-
-A. Change the data type of the Logged column to Date:
-
-This would fail because the text "at" in the column makes the data incompatible with the Date data type.
-Power BI will throw an error unless the text is removed or transformed first.
-
-C. Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type
-to Whole Number:
-
-Extracting only the year (e.g., 2018) does not help in analyzing the data by the full date or using the built-in
-hierarchy for year, quarter, month, and day.
-
-D. Apply the Parse function from the Date transformations options to the Logged column:
-
-The Parse function is helpful when the text is in a recognizable datetime format. However, the presence of "at"
-in the Logged column makes it unrecognizable as a date. Power BI will fail to parse the column without first
-removing or splitting out the "at" portion.
-
-Key Steps for Option B in Power BI:
-
-Open Power BI Desktop and go to Transform Data.
-Select the Logged column.
-Use the Split Column option:
-
-Choose By Delimiter.
-Set the delimiter as at.
-The column will split into two:
-The first column will contain the date (2018-12-31).
-The second column will contain the time (08:59).
-Set the first column''s data type to Date.
-(Optional) If the time column is needed, set its data type to Time or keep it as is.
-The first column will now support Power BI''s built-in date hierarchy.', 'Final', '116', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Change the data type of the Logged column to Date.","Split the Logged column by using at as the delimiter.","Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type of the new column to Whole Number.","Apply the Parse function from the Date transformations options to the Logged column."]', '[1]', 'Split Logged using at, then verify the date part is trimmed and typed as Date. Splitting alone can leave text and does not by itself guarantee a built-in date hierarchy; Auto date/time and table eligibility also apply. The other offered actions do not explicitly normalize the stated nonstandard text format while preserving its full date.', 'Final', '116', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-117-116', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -3560,23 +3338,7 @@ You need to create a calculated table that will contain the following:
 
 How should you complete the DAX calculation? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The question pertains to creating a calculated table in Power BI that includes a row for each year and a
-column displaying the total sales for that year. To achieve this, the Data Analysis Expressions (DAX) function
-SUMMARIZE is appropriate. This function returns a summary table for the requested groups, applying
-specified aggregations.
-
-The correct DAX expression to create the desired calculated table is:
-
-SalesSummary = SUMMARIZE( Sales, Date[Year], "Total Sales", SUM(Sales[SalesAmount]))
-
-Explanation:
-
-SUMMARIZE Function: This function groups the Sales table by the Date[Year] column.
-Grouping by Date[Year]: This ensures that the resulting table has one row per year.
-Defining "Total Sales": For each year, the expression calculates the sum of Sales[SalesAmount], resulting in a
-column named "Total Sales" that contains the total sales for each year.
-
-This approach aligns with the requirements: a row for each year and a column with the total sales per year.', 'Final', '128', '/dump-assets/f1-128-127-question.webp', '/dump-assets/f1-128-127-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'SUMMARIZE; Date[Year]. The source fields use Sales[Sale], so the completed expression is SUMMARIZE(Sales, Date[Year], "Sales", SUM(Sales[Sale])). Do not replace Sale with an invented SalesAmount column. This is a refresh-time calculated summary table, not a dynamic measure that recomputes its stored rows on every slicer change.', 'Final', '128', '/dump-assets/f1-128-127-question.webp', '/dump-assets/f1-128-127-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-129-128', 'Prepare the data', 'single', 'You use Power Query Editor to import and preview sales data from the years 2020 and 2021 in a Microsoft Excel
 
 file as shown in the following exhibit.
@@ -3702,18 +3464,7 @@ You need to create a semi-additive DAX measure that will return the count of emp
 
 in a year, quarter, or month.
 
-How should you complete the measure? To answer, select the appropriate options in the answer area.', '[]', '[]', 'Count Rows (''Headcount'')
-
-This part counts how many rows are in the ''Headcount'' table. Each row likely represents an individual
-employee, so this effectively gives us the total number of employees (i.e., the headcount).
-
-Last Date (''Date''[Date])
-
-This is a filter argument passed into the CALCULATE function. It returns the latest date in the current filter
-context from the ''Date''[Date] column.
-
-When used inside CALCULATE, it restricts the calculation to only that one date — the last one. That way, we
-get the headcount as of the most recent date in the dataset.', 'Final', '132', '/dump-assets/f1-132-131-question.webp', '/dump-assets/f1-132-131-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+How should you complete the measure? To answer, select the appropriate options in the answer area.', '[]', '[]', 'Use CALCULATE(COUNTROWS(''Headcount''), LASTDATE(''Headcount''[DateKey])). The question specifies monthly snapshots keyed to the first day of each month. LASTDATE(''Date''[Date]) can pick month-end or a future calendar date with no snapshot, producing blank instead of the last available headcount. LASTDATE on the fact''s date-valued DateKey selects the latest snapshot date visible in the current period. COUNTROWS then counts one row per employee in that snapshot. This returns the latest snapshot within the selected period, not a carry-forward from an earlier period with no snapshot.', 'Final', '132', '/dump-assets/f1-132-131-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-133-132', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -3759,8 +3510,7 @@ You need to create another measure named Previous Quarter to display the sales o
 
 period.
 
-Which DAX calculation should you use?', '["CALCULATE ( [Total Sales], DATEADD (Date[Date], -1, QUARTER ) )","CALCULATE ( [Total Sales], DATESQTD (Date[Date] ) )","TOTALQTD ( [Total Sales], Date[Date] )","CALCULATE ( [Total Sales], PARALLELPERIOD (Date[Date], 1, QUARTER ) )"]', '[0]', 'DATEADD is correct. PARALLELPERIOD also calculate one quarter before, but the out come is the total sales
-of three months of previous quarter not only one day or one month of previous quarter.', 'Final', '134', '/exhibit-assets/f1-134-133.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX calculation should you use?', '["CALCULATE ( [Total Sales], DATEADD (Date[Date], -1, QUARTER ) )","CALCULATE ( [Total Sales], DATESQTD (Date[Date] ) )","TOTALQTD ( [Total Sales], Date[Date] )","CALCULATE ( [Total Sales], PARALLELPERIOD (Date[Date], 1, QUARTER ) )"]', '[0]', 'Use CALCULATE([Total Sales], DATEADD(Date[Date], -1, QUARTER)). Negative one shifts the current period one quarter backward. The offered PARALLELPERIOD uses positive 1, which shifts forward, not backward; with date-column input it also expands to full quarters. DATESQTD and TOTALQTD calculate quarter-to-date, not the previous quarter.', 'Final', '134', '/exhibit-assets/f1-134-133.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-135-134', 'Model the data', 'single', 'You have a Microsoft Power BI report. The size of PBIX file is 550 MB. The report is accessed by using an App
 
 workspace in shared capacity of powerbi.com.
@@ -3851,16 +3601,7 @@ measures named Order Quantity, Product Cost, and Sales Amount.
 
 You need to create the visual shown in the following exhibit.
 
-In which section of the Fields well should you place the measures?', '["Columns","Rows","Values","Drill through"]', '[2]', 'The correct answer is C - Values.
-
-Firstly, this type of visualization is a MATRIX.
-
-If you do a simple test in PowerBI Desktop, you can see that in the "Rows" section, we can''t add measures!
-
-Most likely, the names of the measures in the rows of the matrix appear because the measures were put in
-
-"fields parameteres" that generated a Calculated Table, and the actual values of the measures appear by
-adding the measures (not from the Calculated Table) in the "Values" section.', 'Final', '137', '/exhibit-assets/f1-137-136.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+In which section of the Fields well should you place the measures?', '["Columns","Rows","Values","Drill through"]', '[2]', 'Place the measures in Values. A matrix can show measure labels on rows through the Show on rows formatting setting; a field parameter is not required merely to obtain that layout. Rows and Columns hold grouping fields, while Values evaluates measures in each intersection context.', 'Final', '137', '/exhibit-assets/f1-137-136.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-138-137', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -4040,39 +3781,7 @@ You discover that data refresh for the model is slow.
 
 You need to improve the data refresh time. The solution must minimize costs.
 
-What should you do?', '["Run the Table.buffer function in Query1.","Duplicate Query1 to all the other queries.","Reconfigure Query1 as a dataflow entity.","From the Power BI Admin portal, increase the Capacity settings."]', '[0]', 'Run the Table.buffer function in Query1.
-
-A. Table.Buffer in Query1
-
-The Table.Buffer function caches the data from Query1 into memory, preventing repeated loads when
-referenced by other queries. This improves refresh times and does not increase costs.
-
-Correct choice.
-
-B. Duplicate Query1 to all other queries
-
-Duplicating Query1 increases data load and slows down refresh times by processing the same data multiple
-times.
-
-Incorrect.
-
-C. Reconfigure Query1 as a dataflow entity
-
-Converting Query1 to a dataflow adds complexity and could increase costs. This is not the best option for
-improving refresh time while minimizing costs.
-
-Incorrect.
-
-D. Increase Capacity settings in Power BI Admin portal
-
-While scaling capacity improves performance, it increases costs, which goes against the goal of cost
-minimization.
-
-Incorrect.
-
-Final Answer: A
-
-Using the Table.Buffer function in Query1 optimizes refresh performance without incurring additional costs.', 'Final', '142', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Run the Table.buffer function in Query1.","Duplicate Query1 to all the other queries.","Reconfigure Query1 as a dataflow entity.","From the Power BI Admin portal, increase the Capacity settings."]', '[2]', 'Corrected answer: C, reconfigure Query1 as a dataflow entity. Microsoft documents this same Query1/Query2/Query3/Query4 scenario: Table.Buffer only buffers within one query execution and does not eliminate additional retrieval by independently evaluated referencing queries. Buffering can add memory work and prevent downstream folding. A dataflow persists source preparation for reuse. Choose an option supported by the existing license; Gen2 and legacy dataflows have different licensing requirements. Do not claim every dataflow is free or every buffer improves performance.', 'Final', '142', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-143-142', 'Prepare the data', 'manual', 'HOTSPOT
 
 -

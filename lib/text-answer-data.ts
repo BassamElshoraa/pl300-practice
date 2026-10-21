@@ -40,6 +40,150 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-125-124': [
+    row('Numbers: table function [1]', [
+      'GENERATE',
+      'GENERATEALL',
+      'GENERATESERIES',
+    ]),
+    row('Arguments [2]', [
+      '(100, 1, 200)',
+      '(-100, 100, 1)',
+      '(-1, -100, 100)',
+    ]),
+  ],
+  'f1-128-127': [
+    row('Summary table function [1]', ['ROLLUP', 'SELECTCOLUMNS', 'SUMMARIZE']),
+    row('Grouping column [2]', ['Date[Date]', 'Date[Year]', 'Sales[Date]']),
+  ],
+  'f1-130-129': [
+    row('Inventory measure function [1]', [
+      'ALLSELECTED',
+      'CALCULATE',
+      'CALCULATETABLE',
+    ]),
+    row('Date filter [2]', ['LASTDATE', 'LASTNONBLANKVALUE', 'MAX']),
+  ],
+  'f1-132-131': [
+    row('Headcount expression [1]', [
+      "APPROXIMATEDISTINCTCOUNT('Headcount'[EmployeeKey])",
+      "COUNTROWS('Headcount')",
+      "MAX('Headcount'[EmployeeKey])",
+      "SUM('Headcount'[EmployeeKey])",
+    ]),
+    row('Last snapshot filter [2]', [
+      "FIRSTDATE('Headcount'[DateKey])",
+      "LASTDATE('Date'[Date])",
+      "LASTDATE('Headcount'[DateKey])",
+      "LASTNONBLANK('Date'[Date])",
+    ]),
+  ],
+  'f1-133-132': [
+    row('To create Sales Fact:', [
+      'Duplicate the All Sales query.',
+      'Duplicate the Customer Dimension query.',
+      'Reference the All Sales query.',
+      'Reference the Customer Dimension query.',
+    ]),
+    row('Clear Enable load for:', [
+      'All Sales',
+      'Customer Dimension',
+      'Product Dimension',
+      'Sales Fact',
+    ]),
+  ],
+  'f1-111-110': [
+    row('Conditional function [1]', ['IF', 'SWITCH', 'TRUE']),
+    row('Operator [2]', ['&', '&&', '+']),
+  ],
+  'f1-117-116': [
+    row('Expression to count categories [1]', [
+      "DISTINCTCOUNT('Product'[ProductCategory])",
+      "COUNT('Product'[ProductCategory])",
+      "DISTINCTCOUNT('Sales'[ProductID])",
+      "SUM('Sales'[SalesQuantity])",
+    ]),
+    row('Filter argument [2]', [
+      "'Sales'",
+      "'Product'",
+      "'Product'[ProductCategory]",
+      "'Date'",
+    ]),
+  ],
+  'f1-081-80': [
+    row('ProductCategory to Products: cardinality', [
+      'One-to-many',
+      'One-to-one',
+      'Many-to-many',
+    ]),
+    row('Cross-filter direction', ['Single', 'Both']),
+  ],
+  'f1-083-82': [
+    row('Outer function [1]', [
+      'CALCULATE',
+      'DATESBETWEEN',
+      'SAMEPERIODLASTYEAR',
+      'SUM',
+    ]),
+    row('Sales aggregation [2]', [
+      'CALCULATE',
+      'DATESBETWEEN',
+      'SAMEPERIODLASTYEAR',
+      'SUM',
+    ]),
+    row('Date range [3]', [
+      'CALCULATE',
+      'DATESBETWEEN',
+      'SAMEPERIODLASTYEAR',
+      'SUM',
+    ]),
+  ],
+  'f1-090-89': [
+    row('PREV_QUARTER function [1]', [
+      'CALCULATE',
+      'CALCULATETABLE',
+      'DATEADD',
+      'DIVIDE',
+      'FILTER',
+      'FIND',
+    ]),
+    row('Previous quarter date filter [2]', [
+      'CALCULATE',
+      'CALCULATETABLE',
+      'DATEADD',
+      'DIVIDE',
+      'FILTER',
+      'FIND',
+    ]),
+    row('Growth ratio [3]', [
+      'CALCULATE',
+      'CALCULATETABLE',
+      'DATEADD',
+      'DIVIDE',
+      'FILTER',
+      'FIND',
+    ]),
+  ],
+  'f1-097-96': [
+    row('YTD function [1]', ['TOTALYTD', 'CALCULATE', 'SUM', 'EVALUATE']),
+    row('Dates argument [2]', [
+      "'Date'[Date]",
+      'TODAY()',
+      "EOMONTH('Date'[Date])",
+      "LASTDATE('Date'[Date])",
+    ]),
+  ],
+  'f1-101-100': [
+    row('Base value', [
+      'Month',
+      'Total Cost',
+      'Total Order Qty',
+      'Total Sales',
+      'Year',
+    ]),
+    row('Date', ['Date', 'Month', 'Total Sales', 'Year']),
+    row('Period', ['Days', 'Months', 'Quarters', 'Years']),
+  ],
   'f1-074-73': [
     row('employee_id:', ['Change Type', 'Delete', 'Hide', 'Sort']),
     row('employee_photo:', ['Change Type', 'Delete', 'Hide', 'Sort']),

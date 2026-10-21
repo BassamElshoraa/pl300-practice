@@ -6,6 +6,11 @@ import { lessons021 } from './reviewed-lessons/021-040.ts';
 import { lessons041 } from './reviewed-lessons/041-060.ts';
 import { lessons061 } from './reviewed-lessons/061-069.ts';
 import { lessons070 } from './reviewed-lessons/070-079.ts';
+import { lessons080 } from './reviewed-lessons/080-090.ts';
+import { lessons091 } from './reviewed-lessons/091-100.ts';
+import { lessons101 } from './reviewed-lessons/101-120.ts';
+import { lessons121 } from './reviewed-lessons/121-140.ts';
+import { referenceCacheLessons } from './reviewed-lessons/142-reference-cache.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 export const reviewedLessons = {
@@ -14,6 +19,11 @@ export const reviewedLessons = {
   ...lessons041,
   ...lessons061,
   ...lessons070,
+  ...lessons080,
+  ...lessons091,
+  ...lessons101,
+  ...lessons121,
+  ...referenceCacheLessons,
   ...repairedDragLessons,
 };
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

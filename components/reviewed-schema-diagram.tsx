@@ -1,5 +1,7 @@
 /** Teaching aid shown only inside the checked-answer explanation, not the question. */
 export function ReviewedSchemaDiagram({ id }: { id: string }) {
+  if (id === 'f1-081-80') return <CategorySchema id={id} />;
+  if (id === 'f1-117-116') return <ProductSalesSchema id={id} />;
   if (id !== 'f1-042-41' && id !== 'f1-059-58') return null;
   const medical = id === 'f1-042-41';
   const dimensions = medical
@@ -100,6 +102,159 @@ export function ReviewedSchemaDiagram({ id }: { id: string }) {
               {line}
             </text>
           ))}
+        </svg>
+      </div>
+    </figure>
+  );
+}
+
+function SchemaBox({
+  x,
+  y,
+  name,
+  columns,
+}: {
+  x: number;
+  y: number;
+  name: string;
+  columns: string[];
+}) {
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width="220"
+        height={64 + columns.length * 25}
+        rx="8"
+        fill="var(--muted)"
+        stroke="currentColor"
+      />
+      <text
+        x={x + 14}
+        y={y + 29}
+        fontSize="20"
+        fontWeight="700"
+        fill="currentColor"
+      >
+        {name}
+      </text>
+      {columns.map((column, index) => (
+        <text
+          key={column}
+          x={x + 14}
+          y={y + 59 + index * 25}
+          fontSize="15"
+          fill="currentColor"
+        >
+          {column}
+        </text>
+      ))}
+    </g>
+  );
+}
+function CategorySchema({ id }: { id: string }) {
+  return (
+    <figure className="rounded-lg border bg-card p-4" data-reviewed-schema={id}>
+      <figcaption className="mb-3 text-sm leading-7">
+        فلتر الفئة ينتقل إلى منتجاتها ثم مبيعاتها. هذه سلسلة أبعاد متفرعة
+        (snowflake)، وليست علاقة Many-to-many. الرسم للتوضيح داخل الشرح.
+      </figcaption>
+      <div className="overflow-x-auto" dir="ltr">
+        <svg
+          viewBox="0 0 820 220"
+          className="min-w-[760px] w-full text-foreground"
+          aria-label="ProductCategory one-to-many Products one-to-many Sales with single filter direction"
+        >
+          <SchemaBox
+            x={10}
+            y={20}
+            name="ProductCategory"
+            columns={['ProductCategoryID (unique)', 'CategoryName']}
+          />
+          <SchemaBox
+            x={300}
+            y={20}
+            name="Products"
+            columns={['ProductID (unique)', 'ProductCategoryID', 'ProductName']}
+          />
+          <SchemaBox
+            x={590}
+            y={20}
+            name="Sales"
+            columns={['SalesID', 'ProductID', 'DateKey; SalesAmount']}
+          />
+          <path
+            d="M230 95 H300 M520 95 H590"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+          <text x="239" y="84" fill="currentColor">
+            1 → *
+          </text>
+          <text x="529" y="84" fill="currentColor">
+            1 → *
+          </text>
+        </svg>
+      </div>
+    </figure>
+  );
+}
+function ProductSalesSchema({ id }: { id: string }) {
+  return (
+    <figure className="rounded-lg border bg-card p-4" data-reviewed-schema={id}>
+      <figcaption className="mb-3 text-sm leading-7">
+        Date وProduct بُعدان يفلتران Sales. عد الفئات المبيعة يحتاج ربط حساب
+        الفئات بصفوف مبيعات الفترة، وليس افتراض أن فلتر Sales يعود إلى Product
+        تلقائيًا.
+      </figcaption>
+      <div className="overflow-x-auto" dir="ltr">
+        <svg
+          viewBox="0 0 820 320"
+          className="min-w-[760px] w-full text-foreground"
+          aria-label="Product and Date dimensions filter Sales one-to-many"
+        >
+          <SchemaBox
+            x={10}
+            y={20}
+            name="Product"
+            columns={['ProductID (unique)', 'ProductCategory', 'ProductName']}
+          />
+          <SchemaBox
+            x={10}
+            y={185}
+            name="Date"
+            columns={['Date (unique)', 'Month; Quarter; Year']}
+          />
+          <SchemaBox
+            x={530}
+            y={60}
+            name="Sales"
+            columns={[
+              'InvoiceNumber',
+              'ProductID',
+              'SaleDate',
+              'SalesAmount; SalesQuantity',
+            ]}
+          />
+          <path
+            d="M230 95 H370 V125 H530 M230 230 H370 V180 H530"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+          <text x="245" y="85" fill="currentColor">
+            1 →
+          </text>
+          <text x="505" y="115" fill="currentColor">
+            *
+          </text>
+          <text x="245" y="220" fill="currentColor">
+            1 →
+          </text>
+          <text x="505" y="170" fill="currentColor">
+            *
+          </text>
         </svg>
       </div>
     </figure>
