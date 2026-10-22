@@ -200,6 +200,7 @@ export async function ensurePuterReady(timeoutMs = 12_000) {
     if (script.dataset.failed === 'true') return false;
     await new Promise((resolve) => window.setTimeout(resolve, 80));
   }
+  script.dataset.failed = 'true';
   return false;
 }
 
@@ -224,10 +225,22 @@ export async function signInToPuter(reconnect = false) {
   if (!auth?.signIn)
     throw new Error('Puter sign-in is not available. Refresh and try again.');
   if (auth.isSignedIn?.() && !reconnect) return true;
-  await auth.signIn({
-    attempt_temp_user_creation: true,
-    ...(reconnect ? { request_auth: true } : {}),
-  });
+  try {
+    await withTimeout(
+      auth.signIn({
+        attempt_temp_user_creation: true,
+        ...(reconnect ? { request_auth: true } : {}),
+      }),
+      60_000,
+      'en',
+    );
+  } catch (error) {
+    // A closed/blocked popup may never settle in some browser environments.
+    // The user can still complete a late sign-in; the UI rechecks on focus.
+    if (tutorFailureKind(error) === 'timeout')
+      throw new TutorProviderError('auth');
+    throw error;
+  }
   return auth.isSignedIn?.() === true;
 }
 

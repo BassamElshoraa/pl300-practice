@@ -27,6 +27,7 @@ import {
   signInToPuter,
   tutorFailureKind,
   tutorFailureMessage,
+  ensurePuterReady,
 } from '../lib/puter-ai.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
@@ -228,6 +229,67 @@ assert.equal(
   1,
   'Do not retry account quota errors on every model',
 );
+
+// Exercise the real timeout branches without waiting a minute in the suite.
+const originalSetTimeout = globalThis.setTimeout;
+globalThis.setTimeout = (callback, delay, ...args) =>
+  originalSetTimeout(
+    callback,
+    delay === 60_000 || delay === 25_000 ? 0 : delay,
+    ...args,
+  );
+try {
+  globalThis.window.puter.auth.signIn = () => new Promise(() => {});
+  await assert.rejects(
+    signInToPuter(true),
+    (error) => tutorFailureKind(error) === 'auth',
+  );
+  puterSignedIn = true;
+  let timeoutCalls = 0;
+  let cancelled = false;
+  globalThis.window.puter.ai.chat = (_messages, options) => {
+    timeoutCalls++;
+    options.signal.addEventListener('abort', () => {
+      cancelled = true;
+    });
+    return new Promise(() => {});
+  };
+  await assert.rejects(
+    chatWithPuter({ context: hidden, messages: [] }),
+    (error) => tutorFailureKind(error) === 'timeout',
+  );
+  assert.equal(timeoutCalls, 1);
+  assert.equal(cancelled, true);
+} finally {
+  globalThis.setTimeout = originalSetTimeout;
+}
+
+const sdkBeforeLoadTest = globalThis.window.puter;
+globalThis.window.puter = undefined;
+let scriptNode;
+let insertedScripts = 0;
+globalThis.document = {
+  querySelector: () => scriptNode,
+  createElement: () => ({
+    dataset: {},
+    addEventListener: () => {},
+    remove: () => {
+      scriptNode = undefined;
+    },
+  }),
+  head: {
+    appendChild: (node) => {
+      scriptNode = node;
+      insertedScripts++;
+    },
+  },
+};
+assert.equal(await ensurePuterReady(0), false);
+assert.equal(scriptNode.dataset.failed, 'true');
+assert.equal(await ensurePuterReady(0), false);
+assert.equal(insertedScripts, 2, 'A stalled SDK tag must be replaced on retry');
+delete globalThis.document;
+globalThis.window.puter = sdkBeforeLoadTest;
 puterSignedIn = false;
 await assert.rejects(
   chatWithPuter({ context: hidden, messages: [] }),

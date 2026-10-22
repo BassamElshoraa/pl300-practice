@@ -12,6 +12,31 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-001-0': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original model: tables and columns',
+        columns: ['Table', 'Columns shown in the exhibit'],
+        rows: [
+          ['Sales', 'CustomerKey; DueDateKey'],
+          ['Date', 'Date; DateKey'],
+          ['Customer', 'CustomerKey'],
+          ['SalesAggregate', 'CustomerKey; DueDateKey'],
+        ],
+      },
+      {
+        caption: 'Original model: one-to-many, single-direction relationships',
+        columns: ['One side (1)', 'Many side (*)', 'Filter direction'],
+        rows: [
+          ['Date', 'Sales', 'Date → Sales'],
+          ['Date', 'SalesAggregate', 'Date → SalesAggregate'],
+          ['Customer', 'Sales', 'Customer → Sales'],
+          ['Customer', 'SalesAggregate', 'Customer → SalesAggregate'],
+        ],
+      },
+    ],
+  },
   'f1-162-161': {
     tables: [
       {

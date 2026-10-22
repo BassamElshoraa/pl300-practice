@@ -40,6 +40,12 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-001-0': [
+    row('Customer storage mode:', ['DirectQuery', 'Dual', 'Import']),
+    row('Date storage mode:', ['DirectQuery', 'Dual', 'Import']),
+    row('Sales storage mode:', ['DirectQuery', 'Dual', 'Import']),
+    row('SalesAggregate storage mode:', ['DirectQuery', 'Dual', 'Import']),
+  ],
   'f1-163-162': [
     row('Products → OrderHistory:', [
       'Many-to-many',

@@ -78,6 +78,7 @@ export function AiTutor({
     context.responseLanguage,
   );
   const [puterReady, setPuterReady] = useState(false);
+  const [puterLoadFailed, setPuterLoadFailed] = useState(false);
   const [puterSignedIn, setPuterSignedIn] = useState(false);
   const [builtInMode, setBuiltInMode] = useState(false);
   const [liveError, setLiveError] = useState('');
@@ -125,6 +126,7 @@ export function AiTutor({
     void ensurePuterReady().then((ready) => {
       if (active) {
         setPuterReady(ready);
+        setPuterLoadFailed(!ready);
         setPuterSignedIn(ready && isPuterSignedIn());
       }
     });
@@ -278,6 +280,7 @@ export function AiTutor({
       if (!puterReady) {
         const ready = await ensurePuterReady();
         setPuterReady(ready);
+        setPuterLoadFailed(!ready);
         setAuthError(
           tx(
             ready
@@ -484,7 +487,9 @@ export function AiTutor({
                           ? tx('Puter connected', 'Puter متصل')
                           : puterReady
                             ? tx('Connect AI', 'وصّل الـAI')
-                            : tx('Loading AI', 'بيحمّل الـAI')}
+                            : puterLoadFailed
+                              ? tx('AI did not load', 'تحميل الـAI تعطل')
+                              : tx('Loading AI', 'بيحمّل الـAI')}
                   </Badge>
                 </SheetTitle>
                 <SheetDescription className="mt-1 truncate">

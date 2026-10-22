@@ -1,7 +1,10 @@
 import type { Question } from './questions.ts';
 import { getAnswerAudit, type AnswerAuditStatus } from './answer-audit.ts';
 import { getQuestionPresentation } from './question-presentation.ts';
-import { buildReviewedExplanation } from './reviewed-lessons.ts';
+import {
+  buildReviewedExplanation,
+  getReviewedLesson,
+} from './reviewed-lessons.ts';
 import { dragDropData, decodeDragAnswer } from './drag-drop-data.ts';
 import {
   textAnswerData,
@@ -131,7 +134,12 @@ export function buildTutorContext({
   // The answer key must never reach the model before the learner checks the answer.
   if (checked) {
     const audit = getAnswerAudit(question);
-    context.correctAnswer = formatSelections(question, question.correct);
+    const selections = formatSelections(question, question.correct);
+    context.correctAnswer = selections.length
+      ? selections
+      : getReviewedLesson(question)?.answer
+        ? [getReviewedLesson(question)!.answer]
+        : [];
     context.sourceExplanation = cleanText(
       buildReviewedExplanation(question) ?? question.explanation,
     );
