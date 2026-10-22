@@ -25,6 +25,8 @@ import {
   PUTER_TUTOR_MODELS,
   chatWithPuter,
   signInToPuter,
+  tutorFailureKind,
+  tutorFailureMessage,
 } from '../lib/puter-ai.ts';
 import { getQuestionTopic } from '../lib/question-topics.ts';
 
@@ -136,7 +138,7 @@ globalThis.window = {
         puterMessages = messages;
         puterAttempts.push(options);
         if (puterAttempts.length < PUTER_TUTOR_MODELS.length)
-          throw new Error('Simulated free-model quota limit.');
+          throw new Error('Simulated model unavailable.');
         return { message: { content: 'شرح مصري تجريبي' } };
       },
     },
@@ -189,6 +191,66 @@ assert.equal(
   catalogCalls,
   1,
   'model availability should be cached, not requested for every message',
+);
+
+assert.ok(
+  PUTER_TUTOR_MODELS.every((model) => model.endsWith(':free')),
+  'Never silently select a paid model',
+);
+for (const [error, kind] of [
+  [{ error: 'popup_blocked', msg: 'blocked' }, 'popup'],
+  [{ error: { code: 'insufficient_funds' } }, 'quota'],
+  [{ status: 401 }, 'auth'],
+  [{ code: 'auth_window_closed' }, 'cancelled'],
+  [new Error('Failed to fetch'), 'network'],
+]) {
+  assert.equal(tutorFailureKind(error), kind);
+  assert.ok(tutorFailureMessage(error, 'ar-EG').length > 10);
+}
+let blockedCalls = 0;
+globalThis.window.puter.ai.chat = async () => {
+  blockedCalls++;
+  throw {
+    error: { code: 'insufficient_funds', message: 'private-account-data' },
+  };
+};
+await assert.rejects(
+  chatWithPuter({
+    context: hidden,
+    messages: [{ role: 'user', content: 'Explain' }],
+  }),
+  (error) =>
+    tutorFailureKind(error) === 'quota' &&
+    !error.message.includes('private-account'),
+);
+assert.equal(
+  blockedCalls,
+  1,
+  'Do not retry account quota errors on every model',
+);
+puterSignedIn = false;
+await assert.rejects(
+  chatWithPuter({ context: hidden, messages: [] }),
+  (error) => tutorFailureKind(error) === 'auth',
+);
+assert.equal(
+  blockedCalls,
+  1,
+  'Never launch implicit auth from chat after losing the click gesture',
+);
+
+const daxQuestion = questions.find((item) => item.id === 'f1-144-143');
+const daxContext = buildTutorContext({
+  ...base,
+  question: daxQuestion,
+  checked: false,
+});
+assert.match(daxContext.prompt, /Original calculation:/);
+assert.match(daxContext.prompt, /Qualification/);
+assert.ok(daxContext.choices.every((choice) => choice.includes(':')));
+assert.match(
+  buildTutorSystemPrompt(daxContext, 'Explain'),
+  /not image pixels you have seen/,
 );
 delete globalThis.window;
 

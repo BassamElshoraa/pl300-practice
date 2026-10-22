@@ -44,6 +44,8 @@ import {
   ensurePuterReady,
   isPuterSignedIn,
   signInToPuter,
+  tutorFailureMessage,
+  tutorFailureKind,
 } from '@/lib/puter-ai';
 import { trackAnalyticsEvent } from '@/lib/analytics';
 
@@ -78,6 +80,7 @@ export function AiTutor({
   const [puterReady, setPuterReady] = useState(false);
   const [puterSignedIn, setPuterSignedIn] = useState(false);
   const [builtInMode, setBuiltInMode] = useState(false);
+  const [liveError, setLiveError] = useState('');
   const isArabic = conversationLanguage === 'ar-EG';
   const tx = (english: string, arabic: string) => (isArabic ? arabic : english);
   const [messages, setMessages] = useState<TutorMessage[]>([
@@ -131,6 +134,18 @@ export function AiTutor({
   }, [workerConnected]);
 
   useEffect(() => {
+    if (workerConnected || !open) return;
+    const sync = () => setPuterSignedIn(isPuterSignedIn());
+    window.addEventListener('focus', sync);
+    const timer = window.setInterval(sync, 2000);
+    sync();
+    return () => {
+      window.removeEventListener('focus', sync);
+      window.clearInterval(timer);
+    };
+  }, [workerConnected, open]);
+
+  useEffect(() => {
     if (questionRef.current === context.questionId) return;
     questionRef.current = context.questionId;
     checkedRef.current = context.checked;
@@ -143,6 +158,7 @@ export function AiTutor({
         ),
       ]);
       setInput('');
+      setLiveError('');
     }, 0);
     return () => window.clearTimeout(timer);
   }, [context.checked, context.questionId, context.responseLanguage]);
@@ -259,7 +275,22 @@ export function AiTutor({
     setAuthBusy(true);
     setAuthError('');
     try {
-      const signedIn = await signInToPuter();
+      if (!puterReady) {
+        const ready = await ensurePuterReady();
+        setPuterReady(ready);
+        setAuthError(
+          tx(
+            ready
+              ? 'AI loaded. Click Connect again to open secure sign-in.'
+              : 'AI could not load. Check your connection or browser content blocker.',
+            ready
+              ? 'الخدمة اتحمّلت. اضغط توصيل مرة كمان عشان تفتح نافذة الدخول الآمنة.'
+              : 'الخدمة ما اتحمّلتش. راجع الإنترنت أو مانع المحتوى في المتصفح.',
+          ),
+        );
+        return;
+      }
+      const signedIn = await signInToPuter(true);
       if (!signedIn)
         throw new Error(
           tx(
@@ -270,8 +301,11 @@ export function AiTutor({
       setPuterReady(true);
       setPuterSignedIn(true);
       setBuiltInMode(false);
+      setLiveError('');
     } catch (error) {
-      setAuthError(readError(error));
+      setAuthError(tutorFailureMessage(error, conversationLanguage));
+      if (builtInMode)
+        setLiveError(tutorFailureMessage(error, conversationLanguage));
     } finally {
       setAuthBusy(false);
     }
@@ -321,11 +355,14 @@ export function AiTutor({
 
     const user = userMessage(clean);
     const history = [...messages, user].slice(-10);
+    const originQuestion = context.questionId;
     setMessages(history);
     setInput('');
     setSending(true);
+    setLiveError('');
     try {
       let reply: string;
+      let source: TutorMessage['source'] = 'live';
       const requestContext = {
         ...resolveImageUrls(context),
         responseLanguage: messageLanguage,
@@ -333,19 +370,33 @@ export function AiTutor({
       if (!workerConnected) {
         const request: TutorChatRequest = {
           context: requestContext,
-          messages: history.map(({ role, content }) => ({ role, content })),
+          messages: history
+            .filter(
+              (message) =>
+                message.source !== 'built-in' && message.source !== 'notice',
+            )
+            .map(({ role, content }) => ({ role, content })),
         };
         try {
           reply =
             builtInMode || !navigator.onLine
               ? `${buildLocalTutorReply(requestContext, clean)}\n\n${messageLanguage === 'ar-EG' ? 'ده شرح مدمج من الموقع، مش رد AI مباشر.' : 'This is built-in guidance, not a live AI response.'}`
               : (await chatWithPuter(request)).reply;
+          if (builtInMode || !navigator.onLine) source = 'built-in';
           setPuterReady(true);
         } catch (error) {
           // A provider/model error does not unload the SDK. Keep the chat and
           // retry button usable instead of trapping the learner at Loading AI.
           const fallback = buildLocalTutorReply(requestContext, clean);
-          const reason = readError(error);
+          const reason = tutorFailureMessage(error, messageLanguage);
+          source = 'built-in';
+          if (questionRef.current === originQuestion) {
+            setLiveError(reason);
+            if (tutorFailureKind(error) === 'auth') {
+              setPuterSignedIn(false);
+              setAuthError(reason);
+            }
+          }
           reply =
             messageLanguage === 'ar-EG'
               ? `${fallback}\n\nملاحظة: الرد المباشر بالـAI مش متاح دلوقتي (${reason})، فده شرح احتياطي من الموقع.`
@@ -361,16 +412,21 @@ export function AiTutor({
       } else {
         return;
       }
-      setMessages((previous) => [...previous, assistantMessage(reply)]);
+      if (questionRef.current === originQuestion)
+        setMessages((previous) => [
+          ...previous,
+          assistantMessage(reply, source),
+        ]);
     } catch (error) {
-      setMessages((previous) => [
-        ...previous,
-        assistantMessage(
-          messageLanguage === 'ar-EG'
-            ? `حصلت مشكلة في الاتصال: ${readError(error)} جرّب تاني بعد لحظة.`
-            : `Connection problem: ${readError(error)} Please try again in a moment.`,
-        ),
-      ]);
+      if (questionRef.current === originQuestion)
+        setMessages((previous) => [
+          ...previous,
+          assistantMessage(
+            messageLanguage === 'ar-EG'
+              ? `حصلت مشكلة في الاتصال: ${readError(error)} جرّب تاني بعد لحظة.`
+              : `Connection problem: ${readError(error)} Please try again in a moment.`,
+          ),
+        ]);
     } finally {
       setSending(false);
     }
@@ -425,7 +481,7 @@ export function AiTutor({
                       : workerConnected
                         ? tx('Connected', 'متصل')
                         : puterReady && puterSignedIn
-                          ? tx('AI ready', 'الـAI جاهز')
+                          ? tx('Puter connected', 'Puter متصل')
                           : puterReady
                             ? tx('Connect AI', 'وصّل الـAI')
                             : tx('Loading AI', 'بيحمّل الـAI')}
@@ -566,8 +622,8 @@ export function AiTutor({
                 </Button>
                 <p className="mt-3 text-xs leading-5 text-muted-foreground">
                   {tx(
-                    'Puter may open a secure sign-in window. A temporary free account can be created automatically.',
-                    'ممكن يفتحلك نافذة تسجيل آمنة من Puter، ويقدر يعمل حساب مجاني مؤقت تلقائيًا.',
+                    'Puter opens a secure sign-in window. Its allowance and rate limits apply separately from this site. We only select free-labeled models and never switch to a paid model automatically.',
+                    'Puter بيفتح نافذة دخول آمنة. ليه حدود استخدام منفصلة عن الموقع. بنختار موديلات معلّمة مجانية فقط، ومش بنحوّل لموديل مدفوع تلقائيًا.',
                   )}
                 </p>
               </div>
@@ -596,14 +652,14 @@ export function AiTutor({
                     </>
                   )}
                 </span>
-                {builtInMode && (
+                {!workerConnected && (
                   <Button
                     variant="ghost"
                     size="xs"
                     onClick={connectPuter}
                     disabled={authBusy}
                   >
-                    {tx('Retry live AI', 'جرّب الـAI المباشر')}
+                    {tx('Reconnect AI', 'إعادة توصيل الـAI')}
                   </Button>
                 )}
                 {session && (
@@ -613,6 +669,23 @@ export function AiTutor({
                   </Button>
                 )}
               </div>
+
+              {liveError && (
+                <div
+                  role="alert"
+                  className="border-b border-amber-500/40 bg-amber-500/10 px-5 py-3 text-sm leading-7"
+                >
+                  <p>{liveError}</p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-2"
+                    onClick={() => setBuiltInMode(true)}
+                  >
+                    {tx('Continue with built-in guidance', 'كمّل بالشرح المدمج')}
+                  </Button>
+                </div>
+              )}
 
               <div
                 className="flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-5"
@@ -633,6 +706,19 @@ export function AiTutor({
                       className={`max-w-[84%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-7 ${message.role === 'user' ? 'rounded-br-sm bg-primary text-primary-foreground' : 'rounded-bl-sm border bg-card'}`}
                     >
                       {message.content}
+                      {message.source && (
+                        <span
+                          className="mt-2 block border-t pt-2 text-xs text-muted-foreground"
+                          data-ai-response-source={message.source}
+                        >
+                          {message.source === 'live'
+                            ? tx('Live AI response', 'رد AI مباشر')
+                            : tx(
+                                'Built-in guidance — not live AI',
+                                'شرح مدمج — مش رد AI مباشر',
+                              )}
+                        </span>
+                      )}
                     </p>
                   </div>
                 ))}
@@ -832,8 +918,11 @@ function readError(error: unknown) {
   return error instanceof Error ? error.message : 'خطأ غير متوقع.';
 }
 
-function assistantMessage(content: string): TutorMessage {
-  return { id: messageId(), role: 'assistant', content };
+function assistantMessage(
+  content: string,
+  source?: TutorMessage['source'],
+): TutorMessage {
+  return { id: messageId(), role: 'assistant', content, source };
 }
 
 function userMessage(content: string): TutorMessage {
