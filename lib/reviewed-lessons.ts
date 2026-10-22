@@ -12,6 +12,8 @@ import { lessons101 } from './reviewed-lessons/101-120.ts';
 import { lessons121 } from './reviewed-lessons/121-140.ts';
 import { referenceCacheLessons } from './reviewed-lessons/142-reference-cache.ts';
 import { lessons141 } from './reviewed-lessons/141-160.ts';
+import { lessons161 } from './reviewed-lessons/161-170.ts';
+import { lessons171 } from './reviewed-lessons/171-180.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 export const reviewedLessons = {
@@ -26,6 +28,8 @@ export const reviewedLessons = {
   ...lessons121,
   ...referenceCacheLessons,
   ...lessons141,
+  ...lessons161,
+  ...lessons171,
   ...repairedDragLessons,
 };
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

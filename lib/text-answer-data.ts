@@ -40,6 +40,64 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-163-162': [
+    row('Products → OrderHistory:', [
+      'Many-to-many',
+      'One-to-many',
+      'One-to-one',
+    ]),
+    row('OrderHistory → Date (source choices repaired):', [
+      'Many-to-many',
+      'One-to-many',
+      'One-to-one',
+      'Many-to-one',
+    ]),
+  ],
+  'f1-166-165': [
+    row('Date table function [1]', ['CALENDAR', 'CALENDARAUTO', 'DATEDIFF']),
+    row('Sales boundary function [2]', ['COUNTX', 'MAXX', 'MINX']),
+    row('Forecast boundary function [3]', ['MAXX', 'MINX', 'SUMX']),
+  ],
+  'f1-172-171': [
+    row('Sales by ShippingDate: outer function [1]', [
+      'CALCULATE',
+      'COMBIN',
+      'MATCHBY',
+      'RANK',
+    ]),
+    row('Shipping date relationship function [2]', [
+      'CROSSFILTER',
+      'FILTER',
+      'PATH',
+      'USERELATIONSHIP',
+    ]),
+  ],
+  'f1-177-176': [
+    row('Sales:', [
+      'Create a new query that has an Excel source.',
+      'Duplicate the Sales_Spreadsheet query.',
+      'Reference the Sales_Spreadsheet query.',
+    ]),
+    row('Sales_Spreadsheet:', [
+      'Delete the query.',
+      'Disable the load to the model.',
+      'Exclude the query from report refresh.',
+    ]),
+  ],
+  'f1-179-178': [
+    row('Value data type:', [
+      'Decimal number',
+      'Fixed decimal number',
+      'Percentage',
+      'Whole number',
+    ]),
+    row('Datetime data type:', [
+      'Date',
+      'Date/time/timezone',
+      'Datetime',
+      'Time',
+    ]),
+  ],
   'f1-144-143': [
     row('Nested condition function [1]', ['ELSE', 'IF', 'IF.EAGER', 'OR']),
     row('Label when Qualification > 0.7 [2]', ['HIGH', 'LOW', 'MEDIUM']),

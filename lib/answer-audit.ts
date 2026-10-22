@@ -1,5 +1,6 @@
 import type { Question } from './questions';
 import { answerCompletenessCorrections } from './answer-completeness.ts';
+import { getReviewedLesson } from './reviewed-lessons.ts';
 
 export type AnswerAuditStatus =
   | 'independently-reviewed'
@@ -55,16 +56,6 @@ const explicitlyReviewedIds = new Set([
   'f1-362-361',
   'f1-364-363',
 ]);
-
-const isCurrentBankQuestion = (id: string) => {
-  const match = id.match(/^f([12])-\d+-(\d+)$/);
-  if (!match) return false;
-  const file = Number(match[1]);
-  const bankIndex = Number(match[2]);
-  return file === 1
-    ? bankIndex >= 0 && bankIndex <= 368
-    : bankIndex >= 369 && bankIndex <= 508;
-};
 
 const corrections: Record<string, QuestionCorrection> = {
   ...answerCompletenessCorrections,
@@ -300,11 +291,10 @@ const corrections: Record<string, QuestionCorrection> = {
     reviewedAnswer: 'IF, HIGH, MEDIUM (IF.EAGER would return the same labels).',
     originalAnswer: 'IF.EAGER, HIGH, MEDIUM.',
     reason:
-      'Nothing in the scenario requires eager evaluation. IF and IF.EAGER return the same classification; IF is the conventional and less work-intensive choice, so the source item is ambiguous.',
+      'Nothing in the scenario requires eager evaluation. IF and IF.EAGER can return the same classification; IF is the conventional choice, but neither function is universally faster. The item is ambiguous by output alone and its measure context needs clarification.',
     reasonAr:
-      'السؤال لا يذكر أي سبب لتقييم الفرعين معًا. IF وIF.EAGER سيعطيان نفس التصنيف، لكن IF هو الاختيار الطبيعي والأقل تكلفة. لذلك صياغة المصدر تسمح بأكثر من إجابة منطقية.',
-    explanation:
-      'Independent review: use IF with HIGH and MEDIUM in the displayed blanks. IF.EAGER evaluates both branch expressions before choosing a result, but the scenario has no requirement that benefits from eager evaluation. Both functions can return the same labels, which makes the original item ambiguous; IF is the defensible conventional answer.',
+      'لا يوجد شرط يفضل تقييم الفرعين معًا. IF وIF.EAGER قد يعطيان نفس التصنيف؛ IF اختيار تقليدي هنا، لكن لا نضمن أنه أسرع دائمًا. يلزم كذلك توضيح سياق العمود عند استخدامه فيmeasure.',
+    explanation: answerCompletenessCorrections['f1-144-143'].explanation,
     suppressSourceAnswerImage: true,
     evidence: [
       {
@@ -939,10 +929,7 @@ const corrections: Record<string, QuestionCorrection> = {
 export function getAnswerAudit(question: Pick<Question, 'id'>): AnswerAudit {
   const correction = corrections[question.id];
   if (correction) return correction;
-  if (
-    explicitlyReviewedIds.has(question.id) ||
-    isCurrentBankQuestion(question.id)
-  )
+  if (explicitlyReviewedIds.has(question.id) || getReviewedLesson(question))
     return { status: 'independently-reviewed' };
   return { status: 'source-key' };
 }
@@ -965,7 +952,7 @@ export function applyAnswerAudit(question: Question): Question {
 }
 
 export const answerAuditSummary = {
-  totalReviewed: 509,
+  sourceInventory: 509,
   corrected: Object.values(corrections).filter(
     (item) => item.status === 'corrected',
   ).length,

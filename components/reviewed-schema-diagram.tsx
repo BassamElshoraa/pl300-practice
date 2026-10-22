@@ -1,5 +1,7 @@
 /** Teaching aid shown only inside the checked-answer explanation, not the question. */
 export function ReviewedSchemaDiagram({ id }: { id: string }) {
+  if (id === 'f1-162-161' || id === 'f1-163-162')
+    return <MonthlyAndOrderSchema id={id} />;
   if (id === 'f1-143-142') return <OrganizationSchema id={id} />;
   if (id === 'f1-081-80') return <CategorySchema id={id} />;
   if (id === 'f1-117-116') return <ProductSalesSchema id={id} />;
@@ -103,6 +105,83 @@ export function ReviewedSchemaDiagram({ id }: { id: string }) {
               {line}
             </text>
           ))}
+        </svg>
+      </div>
+    </figure>
+  );
+}
+
+function MonthlyAndOrderSchema({ id }: { id: string }) {
+  const monthly = id === 'f1-162-161';
+  return (
+    <figure className="rounded-lg border bg-card p-4" data-reviewed-schema={id}>
+      <figcaption className="mb-3 text-sm leading-7">
+        {monthly
+          ? 'التصميم المقترح بعد التجميع: صف لكل حساب وشهر. اربط أول الشهر فيFact بتاريخDate الفريد، لا بعمودMonthStartDate المتكرر لكل أيام الشهر في التقويم.'
+          : 'التصميم المصحح: المنتجات والأيام مفاتيح فريدة في الأبعاد، وتتكرر فيOrderHistory. منOrderHistory إلىDate تُقرأ العلاقةMany-to-one، وليسOne-to-one.'}
+      </figcaption>
+      <div className="overflow-x-auto" dir="ltr">
+        <svg
+          viewBox="0 0 820 345"
+          className="min-w-[760px] w-full text-foreground"
+          aria-label={
+            monthly
+              ? 'Account and Date dimensions link one-to-many to monthly Transactions'
+              : 'Products and Date dimensions link one-to-many to OrderHistory'
+          }
+        >
+          <SchemaBox
+            x={10}
+            y={20}
+            name={monthly ? 'Account' : 'Products'}
+            columns={
+              monthly
+                ? ['AccountID (unique)', 'AccountNumber; AccountName']
+                : ['ProductID (unique)', 'ProductName']
+            }
+          />
+          <SchemaBox
+            x={10}
+            y={185}
+            name="Date"
+            columns={[
+              'Date (unique)',
+              monthly ? 'Year; MonthYear' : 'Year; Month; Week',
+            ]}
+          />
+          <SchemaBox
+            x={530}
+            y={60}
+            name={monthly ? 'Transactions' : 'OrderHistory'}
+            columns={
+              monthly
+                ? [
+                    'Monthly summary',
+                    'AccountID',
+                    'MonthStartDate',
+                    'SUM(TransAmt)',
+                  ]
+                : ['OrderID', 'ProductID', 'OrderDate']
+            }
+          />
+          <path
+            d="M230 95 H370 V125 H530 M230 230 H370 V180 H530"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+          />
+          <text x="245" y="85" fill="currentColor">
+            1 →
+          </text>
+          <text x="505" y="115" fill="currentColor">
+            *
+          </text>
+          <text x="245" y="220" fill="currentColor">
+            1 →
+          </text>
+          <text x="505" y="170" fill="currentColor">
+            *
+          </text>
         </svg>
       </div>
     </figure>

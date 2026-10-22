@@ -7,6 +7,7 @@ import {
   questions,
 } from '../lib/questions.ts';
 import { answerAuditSummary, getAnswerAudit } from '../lib/answer-audit.ts';
+import { reviewedLessons } from '../lib/reviewed-lessons.ts';
 
 assert.equal(
   auditedQuestionBank.length,
@@ -16,7 +17,7 @@ assert.equal(
 assert.equal(
   questions.length,
   494,
-  'The verified active bank should contain 494 questions.',
+  'The active source bank should contain 494 questions.',
 );
 assert.equal(
   excludedQuestions.length,
@@ -129,10 +130,16 @@ const statusCounts = questions.reduce((counts, question) => {
   return counts;
 }, {});
 
+// Being present in the bank is not evidence of semantic review.
+for (const id of Object.keys(reviewedLessons))
+  assert.notEqual(
+    getAnswerAudit({ id }).status,
+    'source-key',
+    `${id}: authored review lost its evidence status`,
+  );
 assert.equal(
-  statusCounts['source-key'] ?? 0,
-  0,
-  'Every active question must have an independent review status.',
+  Object.values(statusCounts).reduce((sum, count) => sum + count, 0),
+  questions.length,
 );
 
 console.log(
@@ -148,8 +155,12 @@ console.log(
       exactDuplicatePromptGroups: exactDuplicateGroups.length,
       conflictingExactDuplicates: duplicateChoiceConflicts.length,
       structuralFailures: failures.length,
-      semanticReview: {
+      answerKeyEvidence: {
         ...answerAuditSummary,
+        individuallyExplained: Object.keys(reviewedLessons).length,
+        sourceKeyOnly: statusCounts['source-key'] ?? 0,
+        scope:
+          'Recorded answer-review evidence, not a claim that the whole inventory has a detailed semantic review.',
         statusCounts,
       },
     },

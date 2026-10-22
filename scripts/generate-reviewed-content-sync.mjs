@@ -5,12 +5,15 @@ import { spawnSync } from 'node:child_process';
 import { questions } from '../lib/questions.ts';
 import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 const nextBatch = process.argv.includes('--next-batch');
-const banks = nextBatch
-  ? [144, 146, 148, 152, 155, 157, 160]
-  : [
-      80, 83, 89, 90, 91, 96, 98, 99, 100, 103, 105, 109, 116, 128, 132, 134,
-      137, 142,
-    ];
+const latestBatch = process.argv.includes('--latest-batch');
+const banks = latestBatch
+  ? [144, 164, 165, 166, 167, 168, 171, 176, 177, 179, 180]
+  : nextBatch
+    ? [144, 146, 148, 152, 155, 157, 160]
+    : [
+        80, 83, 89, 90, 91, 96, 98, 99, 100, 103, 105, 109, 116, 128, 132, 134,
+        137, 142,
+      ];
 const sql = (value) =>
   value === undefined || value === null
     ? 'NULL'
@@ -30,13 +33,15 @@ const tests = selected.map(
   (q) =>
     `(id=${sql(q.id)} AND prompt=${sql(q.prompt)} AND explanation=${sql(q.explanation)} AND answer_image IS ${sql(q.answerImage)} AND correct_json=${sql(key(q))})`,
 );
-const base = nextBatch
-  ? 'exam-api-worker/content-reviews/2026-10-22-lessons-141-160'
-  : 'exam-api-worker/content-reviews/2026-10-21-lessons-080-140';
+const base = latestBatch
+  ? 'exam-api-worker/content-reviews/2026-10-22-lessons-161-180'
+  : nextBatch
+    ? 'exam-api-worker/content-reviews/2026-10-22-lessons-141-160'
+    : 'exam-api-worker/content-reviews/2026-10-21-lessons-080-140';
 fs.writeFileSync(
   `${base}.sql`,
   [
-    nextBatch
+    nextBatch || latestBatch
       ? '-- Generated explanation-only corrections. Grading keys and student history are unchanged.'
       : '-- Generated question-content corrections. Bank142 key changes from [0] to [2]; other keys and all student history are unchanged.',
     ...updates,

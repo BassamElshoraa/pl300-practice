@@ -6189,16 +6189,38 @@ function AnswerPanel({
 function AnswerAuditNotice({ question }: { question: Question }) {
   const { tx } = useLanguage();
   const audit = getAnswerAudit(question);
-  if (audit.status === 'source-key') return null;
+  const lesson = getReviewedLesson(question);
+  if (audit.status === 'source-key')
+    return (
+      <p
+        className="mt-4 rounded-sm border bg-muted/30 px-3 py-2 text-xs leading-6"
+        data-review-status="source-key"
+      >
+        {tx(
+          'Source answer key available. Detailed question-specific review is still pending.',
+          'مفتاح المصدر موجود. المراجعة التفصيلية الخاصة بالسؤال لسه قيد الاستكمال.',
+        )}
+      </p>
+    );
 
   if (audit.status === 'independently-reviewed')
     return (
-      <div className="mt-4 flex items-center gap-2 rounded-sm border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs text-emerald-800 dark:text-emerald-200">
+      <div
+        data-review-status={
+          lesson?.verdict === 'conditional' ? 'conditional' : 'reviewed'
+        }
+        className={`mt-4 flex items-center gap-2 rounded-sm border px-3 py-2 text-xs ${lesson?.verdict === 'conditional' ? 'border-amber-500/30 bg-amber-500/5 text-amber-900 dark:text-amber-200' : 'border-emerald-500/30 bg-emerald-500/5 text-emerald-800 dark:text-emerald-200'}`}
+      >
         <ShieldCheck className="size-4 shrink-0" />
-        {tx(
-          'This answer was independently reviewed against the Power BI concept.',
-          'الإجابة دي اتراجعت بشكل مستقل على مفهوم Power BI، مش اعتمادًا على مفتاح الدامب بس.',
-        )}
+        {lesson?.verdict === 'conditional'
+          ? tx(
+              'Reviewed with stated assumptions. Read the question-specific caveats before applying the answer.',
+              'اتراجع مع افتراضات وشروط موضحة. اقرأ تنبيه السؤال قبل تعميم الإجابة.',
+            )
+          : tx(
+              'This answer was independently reviewed against the Power BI concept.',
+              'الإجابة دي اتراجعت بشكل مستقل على مفهوم Power BI، مش اعتمادًا على مفتاح الدامب بس.',
+            )}
       </div>
     );
 

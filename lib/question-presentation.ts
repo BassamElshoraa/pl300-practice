@@ -12,6 +12,254 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-162-161': {
+    tables: [
+      {
+        caption: 'Recovered original model columns (source PDF pages192–193)',
+        columns: ['Table', 'Column names'],
+        rows: [
+          ['Date', 'Date; MonthName; MonthStartDate; MonthYear; Year'],
+          ['Account', 'AccountID; AccountNumber; AccountName; AccountCategory'],
+          [
+            'Transactions',
+            'TransactionID; TransactionDate; AccountID; TransAmt',
+          ],
+        ],
+      },
+    ],
+  },
+  'f1-163-162': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Source columns',
+        columns: ['Table', 'Columns'],
+        rows: [
+          ['Products (dimension)', 'ProductID; ProductName'],
+          ['OrderHistory (fact)', 'OrderID; ProductID; OrderDate'],
+          ['Date (dimension)', 'Year; Date; Week; Month'],
+        ],
+      },
+      {
+        caption: 'Source integrity note',
+        columns: ['Note'],
+        rows: [
+          [
+            'The second source menu omits a valid cardinality. The choice list has been repaired; the printed source key must not be used.',
+          ],
+        ],
+      },
+    ],
+  },
+  'f1-164-163': {
+    tables: [
+      {
+        caption: 'Adapted matching question',
+        columns: ['Source limitation'],
+        rows: [
+          [
+            'The original saved source does not provide the DAX formula. Match each named function role below; these are reconstructed roles, not recovered blank positions.',
+          ],
+        ],
+      },
+    ],
+  },
+  'f1-166-165': {
+    hideSourceImage: true,
+    code: 'daterange = [1]([2](Sales, [Date]), [3](Forecast, [Date]))',
+  },
+  'f1-167-166': {
+    tables: [
+      {
+        caption: 'FactSales: recovered original data',
+        columns: ['Date', 'Sales amount'],
+        rows: [
+          ['May 9, 2024', '10'],
+          ['May 9, 2023', '15'],
+          ['May 1, 2023', '20'],
+          ['May 29, 2023', '25'],
+        ],
+      },
+    ],
+  },
+  'f1-168-167': {
+    tables: [
+      {
+        caption: 'Expenses: recovered original source columns',
+        columns: ['Column name', 'Description', 'Sample value'],
+        rows: [
+          ['TransactionID', 'Transaction ID of each expense', '12142'],
+          [
+            'TransactionDate',
+            'Date and time each expense occurred',
+            '2024-09-05T11:09:51',
+          ],
+          [
+            'PostDate',
+            'Date and time posted to the ledger',
+            '2024-09-08T06:11:05',
+          ],
+          ['AccountID', 'Unique ID of each expense account', '213412'],
+          ['DepartmentID', 'Department responsible for the expense', '13'],
+        ],
+      },
+    ],
+  },
+  'f1-171-170': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Table1',
+        columns: ['Code', 'Make', 'Model'],
+        rows: [
+          ['SM', '500', 'Fiat'],
+          ['LU', '8', 'BMW'],
+          ['SP', '718', 'Porsche'],
+        ],
+      },
+      {
+        caption: 'Table2',
+        columns: ['Code', 'Name'],
+        rows: [
+          ['SP', 'Sports Car'],
+          ['LU', 'Luxury Car'],
+        ],
+      },
+      {
+        caption: 'Edit relationship: displayed settings',
+        columns: ['Setting', 'Value'],
+        rows: [
+          ['From table/column', 'Table1[Code]'],
+          ['To table/column', 'Table2[Code]'],
+          ['Cardinality', 'One to many (1:*)'],
+          ['Cross-filter direction', 'Single'],
+          ['Make this relationship active', 'Selected'],
+        ],
+      },
+    ],
+  },
+  'f1-172-171': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Source columns and date relationships',
+        columns: ['Table', 'Column', 'Relationship to DateTime[Date]'],
+        rows: [
+          ['Sales', 'SalesAmount', '—'],
+          ['Sales', 'ShippingDate', 'Inactive'],
+          ['Sales', 'SaleDate', 'Active'],
+          ['DateTime', 'Date', 'Dimension date'],
+        ],
+      },
+    ],
+    code: 'Sales by ShippingDate = [1](SUM(Sales[SalesAmount]), [2](Sales[ShippingDate], DateTime[Date]))',
+  },
+  'f1-173-172': {
+    tables: [
+      {
+        caption: 'Original data',
+        columns: ['StudentID', 'Student', 'Classes'],
+        rows: [
+          ['1', 'John Yang', 'Biology, Chemistry, English, Calculus'],
+          ['2', 'Ruben Torres', 'English, Art History, Geography'],
+          ['3', 'Chloe Young', 'Spanish, Marketing, Economics'],
+          ['4', 'Destiny Wilson', 'Statistics, Physics'],
+        ],
+      },
+      {
+        caption: 'Required output (transcribed from the original exhibit)',
+        columns: ['StudentID', 'Student', 'Classes'],
+        rows: [
+          ['1', 'John Yang', 'Biology'],
+          ['1', 'John Yang', 'Chemistry'],
+          ['1', 'John Yang', 'English'],
+          ['1', 'John Yang', 'Calculus'],
+          ['2', 'Ruben Torres', 'English'],
+          ['2', 'Ruben Torres', 'Art History'],
+          ['2', 'Ruben Torres', 'Geography'],
+          ['3', 'Chloe Young', 'Spanish'],
+          ['3', 'Chloe Young', 'Marketing'],
+          ['3', 'Chloe Young', 'Economics'],
+          ['4', 'Destiny Wilson', 'Statistics'],
+          ['4', 'Destiny Wilson', 'Physics'],
+        ],
+      },
+    ],
+  },
+  'f1-175-174': {
+    tables: [
+      {
+        caption: 'DimProduct',
+        columns: ['Product ID', 'Product name'],
+        rows: [
+          ['1', 'Product A'],
+          ['2', 'Product B'],
+          ['3', 'Product C'],
+        ],
+      },
+      {
+        caption: 'FactSales',
+        columns: ['Sale date', 'Amount', 'Product ID'],
+        rows: [
+          ['January 1, 2024', '5.00', '1'],
+          ['January 2, 2024', '10.00', '2'],
+          ['February 10, 2024', '5.00', '1'],
+          ['March 3, 2024', '15.00', '3'],
+        ],
+      },
+    ],
+  },
+  'f1-176-175': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Relationships',
+        columns: [
+          'From table',
+          'From column',
+          'To table',
+          'To column',
+          'Status',
+        ],
+        rows: [
+          [
+            'Dim Location',
+            'Location ID',
+            'Fact Deliveries',
+            'Origin Location ID',
+            'Active',
+          ],
+          [
+            'Dim Location',
+            'Location ID',
+            'Fact Deliveries',
+            'Destination Location ID',
+            'Inactive',
+          ],
+        ],
+      },
+    ],
+    code: "Deliveries = COUNTROWS('Fact Deliveries')\n\nDeliveries by Destination = [1]([Deliveries], [2]('Location'[Location ID], 'Fact Deliveries'[Destination Location ID]))",
+  },
+  'f1-177-176': { hideSourceImage: true },
+  'f1-179-178': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Source preview: 250,000 rows stated to follow this format',
+        columns: ['Value', 'Datetime', 'Information'],
+        rows: [
+          [
+            '78000.00',
+            '2024-08-15 00:00:00.000',
+            'The sheep jumps over the fence',
+          ],
+          ['85000.00', '2023-05-17 00:00:00.000', 'The cows fall into a pond'],
+          ['17000.00', '2020-01-31 00:00:00.000', 'The birds eats seeds'],
+        ],
+      },
+    ],
+  },
   'f1-144-143': {
     hideSourceImage: true,
     code: "Sales Qualification =\nIF(\n  'Opportunity'[Qualification] < 0.5,\n  \"Low\",\n  [1]('Opportunity'[Qualification] > 0.7, [2], [3])\n)",
