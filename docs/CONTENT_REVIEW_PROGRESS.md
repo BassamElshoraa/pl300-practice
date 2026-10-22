@@ -1,14 +1,18 @@
 # Detailed Arabic explanation review
 
-Updated: 2026-10-21.
+Updated: 2026-10-22.
 
 This records the scope of this content pass, not a claim that the whole answer bank has been revalidated.
 
 - Active bank: 494 questions.
-- Individually authored explanations: 146 (banks 1–140, 142, 442, 447, 455, 469, 481).
-- Still requiring this depth of explanation: 348.
+- Individually authored explanations: 164 (banks 1–144, 146–160, 442, 447, 455, 469, 481).
+- Still requiring this depth of explanation: 330.
 - Each authored lesson includes scenario translation, an intuitive explanation, a worked example, reasoning, alternatives, and feature-documentation references.
-- Conditional source assumptions are explicitly identified in 34 lessons. Feature documentation is not represented as an official Microsoft answer key for these questions.
+- Conditional source assumptions are explicitly identified in 43 lessons. Feature documentation is not represented as an official Microsoft answer key for these questions.
+- Next batch: banks141 and143–160 except145 have detailed Arabic guides. Bank145's streaming-source/DirectQuery-versus-push assumptions still need resolution and are not counted as reviewed at this depth.
+- Text-dropdown questions now total55. Banks144,146,147,153,159 have newly transcribed menus and calculations/tables. Bank143 additionally has a scrollable teaching schema inside the checked explanation only.
+- Additional explanation repairs distinguish single-value context from direct filters in146; relationship activation from bidirectional security propagation in148; an installed on-premises gateway from VNet gateway alternatives in152; source-side aggregation from post-import aggregation in155; refresh partitions from changed rows in157; and unpivot shape from a guaranteed storage-size change in160. Bank144 flags identical possible labels from IF.EAGER and the unaggregated-column measure context; bank159 flags the source's circular measure-name template.
+- The seven explanation-only D1 updates for this batch were executed and verified field-for-field against the local bank. No grading key or historical attempt changed. Reproducible SQL: `exam-api-worker/content-reviews/2026-10-22-lessons-141-160*`.
 - Banks 80–140 now have question-specific Arabic explanations, examples and per-option rationales. Performance/IoT repetitions share their scenario explanation but retain the alternatives and indices belonging to each actual question.
 - Source-transcribed dropdowns now cover 50 questions. The new batch includes banks 81, 83, 90, 97, 101, 111, 117, 125, 128, 130, 132, 133 and 138. Questions with fully transcribed tables/calculations do not repeat their full-page source image.
 - Bank 103's missing error was recovered visually from source PDF page 127: ERROR [08001] timeout expired. It is now shown as text. The explanation distinguishes connection and execution timeouts instead of asserting an out-of-memory diagnosis. Splitting long queries is explicitly conditional, not a universal fix.

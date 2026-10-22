@@ -40,6 +40,54 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-144-143': [
+    row('Nested condition function [1]', ['ELSE', 'IF', 'IF.EAGER', 'OR']),
+    row('Label when Qualification > 0.7 [2]', ['HIGH', 'LOW', 'MEDIUM']),
+    row('Otherwise label [3]', ['HIGH', 'LOW', 'MEDIUM']),
+  ],
+  'f1-146-145': [
+    row('Single-item condition [1]', [
+      'CALCULATE',
+      'HASONEVALUE',
+      'SELECTEDVALUE',
+      'WINDOW',
+    ]),
+    row('RANKX tie behavior [2]', ['DEFAULT', 'DENSE', 'FIRST', 'SKIP']),
+  ],
+  'f1-147-146': [
+    row('Expand Location [1]', [
+      'Table.ExpandListColumn',
+      'Table.ExpandRecordColumn',
+      'Table.DuplicateColumn',
+    ]),
+    row('Remove CountryOrRegion [2]', [
+      'Table.RemoveColumns',
+      'Table.ReorderColumns',
+      'Table.RemoveRows',
+    ]),
+  ],
+  'f1-153-152': [
+    row('Optimize:', [
+      'Change Data Type of OrderID to Binary.',
+      'Change Data Type of OrderID to Whole Number.',
+      'Disable Summarization.',
+      'Enable Summarization.',
+    ]),
+    row('Reduce the size:', [
+      'Delete the OrderTitle and OrderDescription columns.',
+      'Hide the OrderTitle and OrderDescription columns.',
+      'Replace errors in the OrderTitle and OrderDescription column.',
+    ]),
+  ],
+  'f1-159-158': [
+    row('Outer function [1]', ['CALCULATE', 'CALCULATETABLE', 'MAX', 'SUM']),
+    row('Blue condition modifier [2]', [
+      'CROSSFILTER',
+      'FILTER',
+      'ISFILTERED',
+      'KEEPFILTERS',
+    ]),
+  ],
   'f1-125-124': [
     row('Numbers: table function [1]', [
       'GENERATE',

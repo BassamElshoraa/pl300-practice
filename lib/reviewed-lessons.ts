@@ -11,6 +11,7 @@ import { lessons091 } from './reviewed-lessons/091-100.ts';
 import { lessons101 } from './reviewed-lessons/101-120.ts';
 import { lessons121 } from './reviewed-lessons/121-140.ts';
 import { referenceCacheLessons } from './reviewed-lessons/142-reference-cache.ts';
+import { lessons141 } from './reviewed-lessons/141-160.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 export const reviewedLessons = {
@@ -24,6 +25,7 @@ export const reviewedLessons = {
   ...lessons101,
   ...lessons121,
   ...referenceCacheLessons,
+  ...lessons141,
   ...repairedDragLessons,
 };
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

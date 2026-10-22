@@ -12,6 +12,39 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-144-143': {
+    hideSourceImage: true,
+    code: "Sales Qualification =\nIF(\n  'Opportunity'[Qualification] < 0.5,\n  \"Low\",\n  [1]('Opportunity'[Qualification] > 0.7, [2], [3])\n)",
+  },
+  'f1-146-145': {
+    hideSourceImage: true,
+    code: "Item Quantity Rank =\nIF(\n  [1]('Item'[Item]),\n  RANKX(ALL('Item'[Item]), [Quantity], , , [2])\n)",
+  },
+  'f1-147-146': {
+    hideSourceImage: true,
+    code: 'let\n  Source = SharePoint.Tables("https://contoso.sharepoint.com", [Implementation="2.0", ViewMode="All"]),\n  #"3b73bb0e-9677-425e-8296-0f2a756be816" = Source{[Id="3b73bb0e-9677-425e-8296-0f2a756be816"]}[Items],\n  #"Expanded Location" = [1](#"3b73bb0e-9677-425e-8296-0f2a756be816", "Location", {"DisplayName"}, {"Location.DisplayName"}),\n  #"Removed" = [2](#"Expanded Location", {"CountryOrRegion"})\nin\n  #"Removed"',
+  },
+  'f1-153-152': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'ModelA — all source columns have Text data type',
+        columns: ['Column', 'Example'],
+        rows: [
+          ['OrderID', '12345'],
+          ['OrderTitle', 'Order #12345'],
+          ['OrderDate', 'May 20, 2023'],
+          ['CustomerID', 'C54321'],
+          ['OrderDescription', 'Order placed May 20, 2023 containing 5 items'],
+          ['Shipping Address', '123 Anywhere Lane'],
+        ],
+      },
+    ],
+  },
+  'f1-159-158': {
+    hideSourceImage: true,
+    code: 'Sales = [1]([Sales], [2](\'Unit\'[Color] = "blue"))',
+  },
   'f1-125-124': { hideSourceImage: true, code: 'Numbers = [1][2]' },
   'f1-128-127': {
     hideSourceImage: true,

@@ -1,5 +1,6 @@
 /** Teaching aid shown only inside the checked-answer explanation, not the question. */
 export function ReviewedSchemaDiagram({ id }: { id: string }) {
+  if (id === 'f1-143-142') return <OrganizationSchema id={id} />;
   if (id === 'f1-081-80') return <CategorySchema id={id} />;
   if (id === 'f1-117-116') return <ProductSalesSchema id={id} />;
   if (id !== 'f1-042-41' && id !== 'f1-059-58') return null;
@@ -101,6 +102,60 @@ export function ReviewedSchemaDiagram({ id }: { id: string }) {
             >
               {line}
             </text>
+          ))}
+        </svg>
+      </div>
+    </figure>
+  );
+}
+
+function OrganizationSchema({ id }: { id: string }) {
+  const nodes = [
+    { name: 'DimOrgVertical', columns: ['VerticalKey (unique)'] },
+    {
+      name: 'DimOrgSubVertical',
+      columns: ['VerticalSubcategoryKey', 'VerticalKey'],
+    },
+    {
+      name: 'DimOrganizations',
+      columns: ['OrganizationID (unique)', 'VerticalSubcategoryKey'],
+    },
+    { name: 'FactSales', columns: ['SalesId; OrderDate', 'OrganizationId'] },
+  ];
+  return (
+    <figure className="rounded-lg border bg-card p-4" data-reviewed-schema={id}>
+      <figcaption className="mb-3 text-sm leading-7">
+        شكل الـSnowflake: مستويات بُعد المؤسسة موزعة في سلسلة جداول. الجدول
+        الوسيط يحمل مفتاح القطاع ومفتاح القطاع الفرعي معًا. العلاقات وحدها لا تنشئ
+        hierarchy متعددة الجداول تلقائيًا.
+      </figcaption>
+      <div className="overflow-x-auto" dir="ltr">
+        <svg
+          viewBox="0 0 1120 200"
+          className="min-w-[1040px] w-full text-foreground"
+          aria-label="DimOrgVertical to DimOrgSubVertical to DimOrganizations to FactSales one-to-many chain"
+        >
+          {nodes.map((node, i) => (
+            <g key={node.name}>
+              <SchemaBox
+                x={10 + i * 290}
+                y={20}
+                name={node.name}
+                columns={node.columns}
+              />
+              {i < nodes.length - 1 && (
+                <>
+                  <path
+                    d={`M${230 + i * 290} 95 H${300 + i * 290}`}
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <text x={239 + i * 290} y={84} fill="currentColor">
+                    1 → *
+                  </text>
+                </>
+              )}
+            </g>
           ))}
         </svg>
       </div>

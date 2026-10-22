@@ -3862,13 +3862,7 @@ You need to create a DAX query that meets the following requirements:
 
 How should you complete the DAX formula? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'HASONEVALUE.
-
-DENSE.
-
-HASONEVALUE (''Item''[Item]) check if ''item'' is filtered to a single value. if not, it returns blank by default.
-
-Rank method : DENSE ensure that ranks are not skipped when there are ties.', 'Final', '146', '/dump-assets/f1-146-145-question.webp', '/dump-assets/f1-146-145-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'HASONEVALUE; DENSE. Dense ranks 100,100,90 as 1,1,2 instead of the Skip result 1,1,3. HASONEVALUE checks one distinct item in context, not the literal presence of a direct filter or whether a visual is at a row level; a total can also have one item. The shown [Quantity] needs to be a valid scalar measure or aggregation, even though the prompt only describes a Quantity column. Use an appropriate aggregate measure when applying the formula.', 'Final', '146', '/dump-assets/f1-146-145-question.webp', '/dump-assets/f1-146-145-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-147-146', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -3905,16 +3899,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '1: Single
-
-2. Delete the many to one. Per MS Learn, you should first make the other relationship inactive. Since making it
-inactive is not an option, we must delete:
-
-"To ensure there’s a default relationship, Power BI Desktop allows only a single active relationship between
-two tables at a given time. Therefore, you must first set the current relationship as inactive and then set the
-relationship you want to be active."
-
-https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '148', '/dump-assets/f1-148-147-question.webp', '/dump-assets/f1-148-147-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'Single; delete the many-to-one relationship is the offered first step to remove the competing active path. Making that relationship inactive is another normal approach, but is not an option. Deletion alone does not finish the configuration: activate the intended relationship and configure/test cross-filtering and security-filter propagation. A bidirectional ordinary relationship setting must not be confused with the separate security filtering behavior.', 'Final', '148', '/dump-assets/f1-148-147-question.webp', '/dump-assets/f1-148-147-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-149-148', 'Model the data', 'multi', 'You create a Power BI report named Summary1.
 
 You discover that Summary1 is slow.
@@ -4010,22 +3995,7 @@ sources:
 
 •Source3: A public website
 
-Which data sources require an on-premises data gateway?', '["Source1 only","Source2 only","Source3 only","Source1 and Source2 only","Source2 and Source3 only","Source1, Source2, and Source3"]', '[1]', 'Correct answer is B:Source2 only.
-
-You need a gateway to connect to data sources that are located in a private network, such as an Azure Virtual
-Network (Azure VNet). A virtual network, or VNet, is a logically isolated segment of a network that insulates
-traffic from the public internet. A VNet provides enhanced network security.
-
-https://learn.microsoft.com/en-us/power-bi/guidance/powerbi-implementation-planning-data-gateways
-
-Excel file you can access via SharePoint connector and a public site is well... a public site...
-
-An Azure SQL database inside a virtual network is not publicly accessible by default. It''s protected by the
-VNet''s network security rules. Therefore, you must use a data gateway to allow Power BI to connect to it. The
-gateway acts as a bridge between the Power BI service and the VNet.
-
-Remember, an on-premises data gateway is required when Power BI needs to access data sources that are
-not directly accessible over the internet.', 'Final', '152', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which data sources require an on-premises data gateway?', '["Source1 only","Source2 only","Source3 only","Source1 and Source2 only","Source2 and Source3 only","Source1, Source2, and Source3"]', '[1]', 'Source2 only is the intended source classification: private Azure SQL connectivity needs an accessible private-network gateway path, unlike cloud OneDrive and a supported public website connection in the stated scenario. An on-premises gateway can run on a VM with network access to Azure SQL. A VNet data gateway is also a supported alternative under suitable conditions; do not claim the installed on-premises gateway is the only possible architecture. A locally synchronized OneDrive file path is different from the cloud connector.', 'Final', '152', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-153-152', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -4104,9 +4074,7 @@ mode.
 
 Solution: You create aggregations to summarize results.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'Create aggregations to summarize results.This seems to be saying group and summarize after the data has
-come through the gateway as an import.This will not reduce the traffic as it has already come through the
-gateway.Answer : B.No.', 'Final', '155', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'No for an additional model aggregation created after importing detail: the detail still crossed the gateway. If the question instead means source-side aggregation or a folded Power Query grouping loaded instead of detail, that can reduce transferred data. The source does not specify where summarization occurs, so keep this distinction explicit rather than teaching that aggregation can never reduce gateway traffic.', 'Final', '155', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-156-155', 'Manage and secure Power BI', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -4146,12 +4114,7 @@ mode.
 
 Solution: You configure incremental refresh.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Correct answer is A:Yes.
-
-Configuring incremental refresh helps reduce the amount of data sent through the on-premises data gateway.
-It refreshes only the data that has changed, rather than refreshing the entire dataset, which minimizes the
-data load on the gateway. This solution is effective for models using import storage mode, where the entire
-dataset does not need to be refreshed every time.', 'Final', '157', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'Yes: incremental refresh can reduce transferred data by refreshing recent partitions rather than the entire historical import. It does not necessarily retrieve only individually changed rows: partitions within the refresh window may be fully reloaded, and detecting changes is an additional setting. RangeStart/RangeEnd restrictions must reach the source through folding or an equivalent supported filter for the intended network saving. The initial refresh can load the historical range, and changes outside the refresh window need a suitable policy.', 'Final', '157', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-158-157', 'Manage and secure Power BI', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -4190,11 +4153,7 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You need to reduce the size of Model1. The solution must NOT increase report query response times.
 
-What should you do?', '["Remove unnecessary columns.","Unpivot unnecessary columns.","Rename unnecessary columns.","Change Model1 to DirectQuery storage mode."]', '[0]', 'Removing unnecessary columns will directly reduce the model''s size by eliminating data that isn''t needed.
-This change won''t affect query performance since the excluded data is not part of the model. The others B.
-Unpivot unnecessary columns: Increases model size by adding rows.C. Rename unnecessary columns: Doesn''t
-reduce size, only changes labels.D. Change to DirectQuery: May reduce size but can slow down query
-performance.', 'Final', '160', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Remove unnecessary columns.","Unpivot unnecessary columns.","Rename unnecessary columns.","Change Model1 to DirectQuery storage mode."]', '[0]', 'Remove unnecessary columns after checking reporting, calculation, relationship and security dependencies. Renaming does not remove stored values. Unpivot is not automatically a size reduction or increase; its result depends on shape, cardinality and compression. DirectQuery avoids a full local import but can add source/network latency, so it does not guarantee unchanged report response times.', 'Final', '160', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-161-160', 'Model the data', 'multi', 'You have a Power BI semantic model named Model1 that runs in Import storage mode.
 
 You need to reduce the size of Model1.

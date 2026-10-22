@@ -29,6 +29,27 @@ const explanationOnly = (explanation: string): QuestionCorrection => ({
  */
 export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
   {
+    'f1-144-143': explanationOnly(
+      'Use the conventional nested IF, then HIGH and MEDIUM. Values exactly 0.5 and 0.7 are MEDIUM with the shown strict comparisons. IF.EAGER can produce the same labels but forces eager branch evaluation, for which no need is stated; the item is not unique by output alone. The template also refers directly to Opportunity[Qualification] although it calls the result a measure: define the single-opportunity scalar context or use a calculated column rather than assuming an unaggregated column works in every measure context.',
+    ),
+    'f1-146-145': explanationOnly(
+      'HASONEVALUE; DENSE. Dense ranks 100,100,90 as 1,1,2 instead of the Skip result 1,1,3. HASONEVALUE checks one distinct item in context, not the literal presence of a direct filter or whether a visual is at a row level; a total can also have one item. The shown [Quantity] needs to be a valid scalar measure or aggregation, even though the prompt only describes a Quantity column. Use an appropriate aggregate measure when applying the formula.',
+    ),
+    'f1-148-147': explanationOnly(
+      'Single; delete the many-to-one relationship is the offered first step to remove the competing active path. Making that relationship inactive is another normal approach, but is not an option. Deletion alone does not finish the configuration: activate the intended relationship and configure/test cross-filtering and security-filter propagation. A bidirectional ordinary relationship setting must not be confused with the separate security filtering behavior.',
+    ),
+    'f1-152-151': explanationOnly(
+      'Source2 only is the intended source classification: private Azure SQL connectivity needs an accessible private-network gateway path, unlike cloud OneDrive and a supported public website connection in the stated scenario. An on-premises gateway can run on a VM with network access to Azure SQL. A VNet data gateway is also a supported alternative under suitable conditions; do not claim the installed on-premises gateway is the only possible architecture. A locally synchronized OneDrive file path is different from the cloud connector.',
+    ),
+    'f1-155-154': explanationOnly(
+      'No for an additional model aggregation created after importing detail: the detail still crossed the gateway. If the question instead means source-side aggregation or a folded Power Query grouping loaded instead of detail, that can reduce transferred data. The source does not specify where summarization occurs, so keep this distinction explicit rather than teaching that aggregation can never reduce gateway traffic.',
+    ),
+    'f1-157-156': explanationOnly(
+      'Yes: incremental refresh can reduce transferred data by refreshing recent partitions rather than the entire historical import. It does not necessarily retrieve only individually changed rows: partitions within the refresh window may be fully reloaded, and detecting changes is an additional setting. RangeStart/RangeEnd restrictions must reach the source through folding or an equivalent supported filter for the intended network saving. The initial refresh can load the historical range, and changes outside the refresh window need a suitable policy.',
+    ),
+    'f1-160-159': explanationOnly(
+      'Remove unnecessary columns after checking reporting, calculation, relationship and security dependencies. Renaming does not remove stored values. Unpivot is not automatically a size reduction or increase; its result depends on shape, cardinality and compression. DirectQuery avoids a full local import but can add source/network latency, so it does not guarantee unchanged report response times.',
+    ),
     'f1-142-141': {
       status: 'corrected',
       correct: [2],
