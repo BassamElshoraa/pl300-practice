@@ -59,6 +59,43 @@ const explicitlyReviewedIds = new Set([
 
 const corrections: Record<string, QuestionCorrection> = {
   ...answerCompletenessCorrections,
+  'f1-181-180': {
+    status: 'corrected',
+    reviewedAnswer: 'Customer: Dual; Geography: Dual.',
+    originalAnswer: 'Customer: Dual; Geography: DirectQuery.',
+    reason:
+      'Microsoft documents this exact Date/Sales/SurveyResponse/Customer/Geography model and propagates Dual to Geography on the one side of the dimension chain to reduce limited relationships.',
+    reasonAr:
+      'نفس مثال Microsoft يضبط Customer وGeography على Dual. إبقاء Geography على DirectQuery يترك علاقة محدودة عند استخدام Customer من مجموعة Import. Sales يظل DirectQuery؛ Dual ليس وعدًا بأن كل استعلام بعد مجرد اختيار الوضع سيقرأ أحدث نسخة من كل بُعد.',
+    explanation:
+      'Reviewed correction: Customer = Dual and Geography = Dual. Microsoft documents the same five-table example under Propagation of the Dual setting. Propagation follows the one side of one-to-many dimension relationships. DirectQuery fact queries can retain their source-query path, while imported-fact queries can use compatible cached dimensions. Dual dimension caches still require refresh; do not interpret this as a universal zero-latency guarantee for every dimension-only query.',
+    suppressSourceAnswerImage: true,
+    evidence: [
+      {
+        label: 'Exact five-table example and Dual propagation',
+        url: 'https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-storage-mode',
+      },
+    ],
+  },
+  'f1-184-183': {
+    status: 'corrected',
+    correct: [2],
+    reviewedAnswer: 'Role-playing dimension.',
+    originalAnswer: 'Type 2 slowly changing dimension (SCD).',
+    reason:
+      'The source exhibit relates Dim Address twice to Semester Enrollment through Billing Address ID and Mailing Address ID. Two business roles, not historical row versioning, are the visible evidence.',
+    reasonAr:
+      'الرسم فيه جدول عناوين واحد مستخدم بعنوان الفاتورة وعنوان المراسلات. ده Role-playing. مجرد أن العنوان قد يتغير لا يثبت SCD Type 2، ولا توجد أعمدة نسخ تاريخية أو صلاحية في الرسم.',
+    explanation:
+      'Reviewed correction: C, role-playing dimension. The same Dim Address dimension is related to the Semester Enrollment fact for Billing Address and Mailing Address. One relationship is active and the other inactive. SCD Type 2 would require evidence of versioned dimension members; an address table name alone is not that evidence. Junk dimensions combine miscellaneous low-cardinality attributes, and degenerate dimensions keep identifiers in a fact without a separate dimension table.',
+    suppressSourceAnswerImage: true,
+    evidence: [
+      {
+        label: 'Role-playing dimensions versus Type 2 SCD',
+        url: 'https://learn.microsoft.com/en-us/power-bi/guidance/star-schema',
+      },
+    ],
+  },
   'f1-052-51': {
     status: 'corrected',
     correct: [2],

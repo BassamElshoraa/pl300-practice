@@ -1,5 +1,7 @@
 /** Teaching aid shown only inside the checked-answer explanation, not the question. */
 export function ReviewedSchemaDiagram({ id }: { id: string }) {
+  if (id === 'f1-181-180' || id === 'f1-184-183')
+    return <StorageAndAddressSchema id={id} />;
   if (id === 'f1-162-161' || id === 'f1-163-162')
     return <MonthlyAndOrderSchema id={id} />;
   if (id === 'f1-143-142') return <OrganizationSchema id={id} />;
@@ -105,6 +107,108 @@ export function ReviewedSchemaDiagram({ id }: { id: string }) {
               {line}
             </text>
           ))}
+        </svg>
+      </div>
+    </figure>
+  );
+}
+
+function StorageAndAddressSchema({ id }: { id: string }) {
+  const storage = id === 'f1-181-180';
+  const boxes = storage
+    ? [
+        { x: 10, y: 95, title: 'Geography', detail: 'Dual (reviewed)' },
+        { x: 255, y: 95, title: 'Customer', detail: 'Dual (reviewed)' },
+        { x: 510, y: 20, title: 'Sales', detail: 'DirectQuery' },
+        { x: 510, y: 185, title: 'Survey Response', detail: 'Import' },
+      ]
+    : [
+        {
+          x: 10,
+          y: 90,
+          title: 'Dim Address',
+          detail: 'Address ID; City; Country',
+        },
+        {
+          x: 400,
+          y: 90,
+          title: 'Semester Enrollment',
+          detail: 'Billing Address ID',
+        },
+        { x: 400, y: 145, title: '', detail: 'Mailing Address ID' },
+      ];
+  return (
+    <figure className="rounded-lg border bg-card p-4" data-reviewed-schema={id}>
+      <figcaption className="mb-3 text-sm leading-7">
+        {storage
+          ? 'توضيح مسار الأبعاد في الشرح: Geography تصل إلى جدولي الأحداث عبر Customer. Date غير مرسوم هنا ولم نغيّر إعداده.'
+          : 'توضيح الدورين: نفس جدول العناوين يُستخدم للفواتير والمراسلات. الرسم الأصلي فيه علاقة نشطة وأخرى غير نشطة؛ الهدف هنا توضيح الدورين، لا تعيين أيهما النشط.'}
+      </figcaption>
+      <div className="overflow-x-auto" dir="ltr">
+        <svg
+          viewBox="0 0 750 300"
+          className="min-w-[650px] w-full text-foreground"
+          role="img"
+          aria-label={
+            storage
+              ? 'Geography and Customer dual dimensions serve DirectQuery Sales and imported Survey Response'
+              : 'Dim Address is used for billing and mailing address roles'
+          }
+        >
+          {storage ? (
+            <g fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M220 140 H255" />
+              <path d="M465 130 H485 V65 H510" />
+              <path d="M465 150 H485 V230 H510" />
+            </g>
+          ) : (
+            <g fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M220 120 H400" />
+              <path d="M220 155 H320 V190 H400" />
+            </g>
+          )}
+          {boxes.map((box, i) => (
+            <g key={i}>
+              {box.title && (
+                <rect
+                  x={box.x}
+                  y={box.y}
+                  width={storage ? 210 : 310}
+                  height={storage ? 90 : i === 0 ? 130 : 160}
+                  rx="8"
+                  fill="var(--muted)"
+                  stroke="currentColor"
+                />
+              )}
+              <text
+                x={box.x + 12}
+                y={box.y + 29}
+                fill="currentColor"
+                fontSize="18"
+                fontWeight="700"
+              >
+                {box.title}
+              </text>
+              <text
+                x={box.x + 12}
+                y={box.y + 59}
+                fill="currentColor"
+                fontSize="14"
+              >
+                {box.detail}
+              </text>
+            </g>
+          ))}
+          {!storage && (
+            <>
+              <text x="230" y="110" fill="currentColor" fontSize="14">
+                Billing role
+              </text>
+              <text x="225" y="215" fill="currentColor" fontSize="14">
+                Mailing role
+              </text>
+            </>
+          )}
         </svg>
       </div>
     </figure>

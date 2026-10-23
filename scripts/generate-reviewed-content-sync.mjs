@@ -4,16 +4,30 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { questions } from '../lib/questions.ts';
 import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
+import { buildReviewedExplanation } from '../lib/reviewed-lessons.ts';
+const rangeMatch = process.argv
+  .find((value) => value.startsWith('--range='))
+  ?.match(/^--range=(\d+)-(\d+)$/);
+const range = rangeMatch
+  ? [Number(rangeMatch[1]), Number(rangeMatch[2])]
+  : null;
+if (
+  range &&
+  (range[0] < 1 || range[1] > questions.length || range[1] < range[0])
+)
+  throw Error('Invalid question review range');
 const nextBatch = process.argv.includes('--next-batch');
 const latestBatch = process.argv.includes('--latest-batch');
-const banks = latestBatch
-  ? [144, 164, 165, 166, 167, 168, 171, 176, 177, 179, 180]
-  : nextBatch
-    ? [144, 146, 148, 152, 155, 157, 160]
-    : [
-        80, 83, 89, 90, 91, 96, 98, 99, 100, 103, 105, 109, 116, 128, 132, 134,
-        137, 142,
-      ];
+const banks = range
+  ? Array.from({ length: range[1] - range[0] + 1 }, (_, i) => range[0] + i)
+  : latestBatch
+    ? [144, 164, 165, 166, 167, 168, 171, 176, 177, 179, 180]
+    : nextBatch
+      ? [144, 146, 148, 152, 155, 157, 160]
+      : [
+          80, 83, 89, 90, 91, 96, 98, 99, 100, 103, 105, 109, 116, 128, 132,
+          134, 137, 142,
+        ];
 const sql = (value) =>
   value === undefined || value === null
     ? 'NULL'
@@ -25,25 +39,31 @@ const selected = banks.map((bank) => {
   return q;
 });
 const key = (q) => JSON.stringify(managedAutoGradingKeys[q.id] ?? q.correct);
+const explanation = (q) =>
+  range ? (buildReviewedExplanation(q) ?? q.explanation) : q.explanation;
 const updates = selected.map(
   (q) =>
-    `UPDATE question_bank SET prompt=${sql(q.prompt)}, explanation=${sql(q.explanation)}, answer_image=${sql(q.answerImage)}, correct_json=${sql(key(q))} WHERE id=${sql(q.id)} AND correct_json IN (${sql(key(q))}${q.id === 'f1-142-141' ? ", '[0]'" : ''});`,
+    `UPDATE question_bank SET prompt=${sql(q.prompt)}, explanation=${sql(explanation(q))}, answer_image=${sql(q.answerImage)}, correct_json=${sql(key(q))} WHERE id=${sql(q.id)} AND correct_json IN (${sql(key(q))}${q.id === 'f1-142-141' || q.id === 'f1-184-183' ? ", '[0]'" : ''});`,
 );
 const tests = selected.map(
   (q) =>
-    `(id=${sql(q.id)} AND prompt=${sql(q.prompt)} AND explanation=${sql(q.explanation)} AND answer_image IS ${sql(q.answerImage)} AND correct_json=${sql(key(q))})`,
+    `(id=${sql(q.id)} AND prompt=${sql(q.prompt)} AND explanation=${sql(explanation(q))} AND answer_image IS ${sql(q.answerImage)} AND correct_json=${sql(key(q))})`,
 );
-const base = latestBatch
-  ? 'exam-api-worker/content-reviews/2026-10-22-lessons-161-180'
-  : nextBatch
-    ? 'exam-api-worker/content-reviews/2026-10-22-lessons-141-160'
-    : 'exam-api-worker/content-reviews/2026-10-21-lessons-080-140';
+const base = range
+  ? `exam-api-worker/content-reviews/2026-10-22-lessons-${range[0]}-${range[1]}`
+  : latestBatch
+    ? 'exam-api-worker/content-reviews/2026-10-22-lessons-161-180'
+    : nextBatch
+      ? 'exam-api-worker/content-reviews/2026-10-22-lessons-141-160'
+      : 'exam-api-worker/content-reviews/2026-10-21-lessons-080-140';
 fs.writeFileSync(
   `${base}.sql`,
   [
-    nextBatch || latestBatch
-      ? '-- Generated explanation-only corrections. Grading keys and student history are unchanged.'
-      : '-- Generated question-content corrections. Bank142 key changes from [0] to [2]; other keys and all student history are unchanged.',
+    range
+      ? '-- Detailed question-content review. Bank184 key changes from [0] to [2]. No attempts, users, scores or exam definitions are modified.'
+      : nextBatch || latestBatch
+        ? '-- Generated content corrections. Student history is unchanged; only explicit reviewed answer-key corrections may change.'
+        : '-- Generated question-content corrections. Bank142 key changes from [0] to [2]; other keys and all student history are unchanged.',
     ...updates,
     '',
   ].join('\n'),
@@ -90,7 +110,7 @@ if (process.argv.includes('--verify-remote')) {
     assert.equal(row.prompt, q.prompt, `${q.id}: prompt mismatch`);
     assert.equal(
       row.explanation,
-      q.explanation,
+      explanation(q),
       `${q.id}: explanation mismatch`,
     );
     assert.equal(

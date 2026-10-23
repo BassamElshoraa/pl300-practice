@@ -12,6 +12,264 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-005-4': { hideSourceImage: true },
+  'f1-013-12': { hideSourceImage: true },
+  'f1-021-20': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original Azure SQL environments',
+        columns: ['Name', 'Stage', 'Server URL'],
+        rows: [
+          ['db-powerbi-dev', 'Development', 'dev.database.windows.net'],
+          ['db-powerbi-uat', 'Test', 'uat.database.windows.net'],
+          ['db-powerbi-prod', 'Production', 'prod.database.windows.net'],
+        ],
+      },
+    ],
+  },
+  'f1-031-30': { hideSourceImage: true },
+  'f1-033-32': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Source privacy requirements',
+        columns: ['Source', 'Description'],
+        rows: [
+          [
+            'Employee review data',
+            'Contains sensitive information. Must NOT be folded into any other data sources.',
+          ],
+          [
+            'Sales opportunities',
+            'Contains less sensitive information. Must only be available internally.',
+          ],
+        ],
+      },
+    ],
+  },
+  'f1-035-34': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption:
+          'Original preview rows (rows 1 and 2 empty; row 3 contains column names)',
+        columns: ['Source row', 'Column 1', 'Column 2', 'Column 3', 'Column 4'],
+        rows: [
+          ['1', '', '', '', ''],
+          ['2', '', '', '', ''],
+          ['3', 'metric_order', 'metric', 'actual', 'goal'],
+          ['4', '1', 'Project Percent Complete', '55', '60'],
+          ['5', '2', 'On-Time Task Completion', '97', '100'],
+          ['6', '3', 'Promised Requirements Met', '92', '100'],
+          ['7', '5', 'Costs', '1,570,250', '1,580,000'],
+          ['8', '4', 'Term Utilization Rate', '110', '95'],
+          ['9', '6', 'Customer Satisfaction Index', '78', '90'],
+          ['10', '7', 'Team Satisfaction Index', '91', '90'],
+          ['11', '8', 'Post-Deployment Support Hours', '100', '85'],
+        ],
+      },
+    ],
+  },
+  'f1-181-180': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption:
+          'Original semantic model (all tables use the same data source)',
+        columns: ['Table', 'Storage mode', 'Related tables'],
+        rows: [
+          ['Date', 'DirectQuery', 'Sales; Survey Response'],
+          ['Sales', 'DirectQuery', 'Date; Customer'],
+          ['Survey Response', 'Import', 'Date; Customer'],
+          ['Customer', 'DirectQuery', 'Sales; Survey Response'],
+          ['Geography', 'DirectQuery', 'Customer'],
+        ],
+      },
+    ],
+  },
+  'f1-182-181': {
+    hideSourceImage: true,
+    code: 'PrevYearTotalSalesAmount =\n[1](SUM(Sales[Sales Amount]), [2](Sales[Sales Date]))',
+  },
+  'f1-183-182': {
+    hideSourceImage: true,
+    code: "Actives = [1](COUNTROWS(Employees), [2]('Employees'[TermDate]))",
+    tables: [
+      {
+        caption: 'Original Employees table (empty cells mean BLANK)',
+        columns: ['EmployeeID', 'HireDate', 'TermDate'],
+        rows: [
+          ['1', 'January 2, 2020', 'December 30, 2022'],
+          ['2', 'January 2, 2022', ''],
+          ['3', 'January 29, 2024', ''],
+          ['4', 'October 30, 2023', 'May 10, 2024'],
+        ],
+      },
+    ],
+  },
+  'f1-184-183': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original model columns',
+        columns: ['Table', 'Columns / measures shown'],
+        rows: [
+          [
+            'Dim Address',
+            'Address ID; Address Line 1; Address Line 2; City; Country; Postal Code; State Province',
+          ],
+          [
+            'Semester Enrollment',
+            'Area of Study ID; Billing Address ID; Mailing Address ID; Semester Start Date; Student ID; Enrollment By Billing Address; Enrollment By Mailing Address',
+          ],
+          ['Dim Student', 'Student Name; StudentID'],
+        ],
+      },
+      {
+        caption:
+          'Original relationships (one of the address relationships is inactive)',
+        columns: ['One side (1)', 'Many side (*)', 'Relationship role'],
+        rows: [
+          ['Dim Address', 'Semester Enrollment', 'Billing Address ID'],
+          ['Dim Address', 'Semester Enrollment', 'Mailing Address ID'],
+          ['Dim Student', 'Semester Enrollment', 'Student ID'],
+        ],
+      },
+    ],
+  },
+  'f1-185-184': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original spreadsheet',
+        columns: [
+          'Department',
+          'Stage',
+          'School1',
+          'School2',
+          'School3',
+          'School4',
+        ],
+        rows: [
+          ['Mathematics', '1', '75', '65', '90', '70'],
+          ['Mathematics', '2', '80', '70', '80', '75'],
+          ['Geography', '1', '95', '65', '80', '75'],
+          ['Geography', '2', '80', '70', '80', '75'],
+        ],
+      },
+      {
+        caption: 'Target format as illustrated in the source (School1 rows)',
+        columns: ['Department', 'School', 'Avg Score'],
+        rows: [
+          ['Mathematics', 'School1', '77.5'],
+          ['Geography', 'School1', '87.5'],
+        ],
+      },
+    ],
+  },
+  'f1-189-188': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption:
+          'Original key influencers result: Analyze = Attrition, direction = Increase',
+        columns: ['OverTime', 'Average of Attrition'],
+        rows: [
+          ['Yes', '0.30'],
+          ['No', '0.10'],
+        ],
+      },
+      {
+        caption: 'Original field wells',
+        columns: ['Well', 'Fields'],
+        rows: [
+          [
+            'Explain by',
+            'Age; BusinessTravel; DailyRate; Department; DistanceFromHome; Education; JobSatisfaction; OverTime',
+          ],
+          ['Expand by', '(empty)'],
+          ['Selected influencer', 'OverTime is Yes; average increases by 0.2'],
+        ],
+      },
+    ],
+  },
+  'f1-191-190': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original result: What influences Total Sales to Increase?',
+        columns: [
+          'Selected influencer',
+          'Increase in average Total Sales versus other occupations',
+        ],
+        rows: [['Occupation is Professional', '£3.41K']],
+      },
+    ],
+  },
+  'f1-192-191': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption:
+          'Source Key influencers: average Quantity Per Order increases by (units, not percent)',
+        columns: ['Factor', 'Increase'],
+        rows: [
+          ['Customer City is Cunewalde', '22.39'],
+          ['Customer City is Graz', '22.21'],
+          ['Customer City is Boise', '20.37'],
+          ['Customer Country is Austria', '18.8'],
+        ],
+      },
+      {
+        caption: 'Selected city comparison in source graphic',
+        columns: ['Item', 'Observation'],
+        rows: [
+          ['Selected city', 'Cunewalde'],
+          ['Average excluding the selected city', '23.70'],
+          ['Cork', 'Bar is above the average reference line'],
+          ['Product Category', 'Not shown among the displayed influencers'],
+        ],
+      },
+    ],
+  },
+  'f1-197-196': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption:
+          'Source table: existing calculations and displayed cell backgrounds',
+        columns: [
+          'MonthName',
+          'Total Sales',
+          'Sales Last Year',
+          '% Growth to Last Year',
+          'Total Sales background',
+        ],
+        rows: [
+          ['January', '£559,263.79', '£144,365.51', '74.19%', 'teal'],
+          ['February', '£583,915.29', '£215,923.28', '63.02%', 'yellow'],
+          ['March', '£684,091.92', '£211,347.46', '69.11%', 'teal'],
+          ['April', '£957,686.49', '£350,270.97', '63.43%', 'teal'],
+          ['May', '£841,473.26', '£310,708.65', '63.08%', 'teal'],
+          ['June', '£876,911.71', '£298,356.83', '65.98%', 'teal'],
+          ['July', '£922,410.09', '£348,435.28', '62.23%', 'yellow'],
+          ['August', '£1,002,219.24', '£388,213.68', '61.26%', 'yellow'],
+          ['September', '£1,152,976.22', '£407,595.76', '64.65%', 'teal'],
+          ['October', '£1,262,647.67', '£465,583.06', '63.13%', 'teal'],
+          ['November', '£555,548.44', '£555,548.44', '0.00%', 'red'],
+          ['December', '£553,615.45', '£553,615.45', '0.00%', 'red'],
+          [
+            'Total',
+            '£9,952,759.56',
+            '£4,249,964.36',
+            '57.30%',
+            'dark total row',
+          ],
+        ],
+      },
+    ],
+  },
   'f1-001-0': {
     hideSourceImage: true,
     tables: [

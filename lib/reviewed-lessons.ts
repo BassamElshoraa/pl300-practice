@@ -14,9 +14,13 @@ import { referenceCacheLessons } from './reviewed-lessons/142-reference-cache.ts
 import { lessons141 } from './reviewed-lessons/141-160.ts';
 import { lessons161 } from './reviewed-lessons/161-170.ts';
 import { lessons171 } from './reviewed-lessons/171-180.ts';
+import { lessons181 } from './reviewed-lessons/181-190.ts';
+import { lessons191 } from './reviewed-lessons/191-200.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
+import { optionDetailRepairs } from './reviewed-lessons/option-detail-repairs.ts';
+import type { ReviewedLesson } from './reviewed-lessons/types.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
-export const reviewedLessons = {
+const baseReviewedLessons = {
   ...lessons001,
   ...lessons021,
   ...lessons041,
@@ -30,8 +34,19 @@ export const reviewedLessons = {
   ...lessons141,
   ...lessons161,
   ...lessons171,
+  ...lessons181,
+  ...lessons191,
   ...repairedDragLessons,
 };
+export const reviewedLessons: Record<string, ReviewedLesson> =
+  Object.fromEntries(
+    Object.entries(baseReviewedLessons).map(([id, lesson]) => [
+      id,
+      optionDetailRepairs[id]
+        ? { ...lesson, optionsAr: optionDetailRepairs[id] }
+        : lesson,
+    ]),
+  );
 export function getReviewedLesson(question: Pick<Question, 'id'>) {
   return reviewedLessons[question.id];
 }
@@ -40,8 +55,7 @@ export function reviewedChoiceTexts(question: Question) {
   const rowChoices = rows?.flatMap((row) =>
     row.options.map((option) => `${row.label} ${option}`),
   );
-  if (rowChoices?.length === getReviewedLesson(question)?.optionsAr.length)
-    return rowChoices;
+  if (rowChoices?.length) return rowChoices;
   return question.choices.length
     ? question.choices
     : (dragDropData[question.id]?.options.map((option) => option.text ?? '') ??

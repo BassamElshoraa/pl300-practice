@@ -40,6 +40,106 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-005-4': [
+    row('Option to combine the Customer tables:', [
+      'Append Queries',
+      'Append Queries as New',
+      'Merge Queries',
+      'Merge Queries as New',
+    ]),
+    row('Action on the original two SQL database queries:', [
+      'Delete the queries',
+      'Disable including the query in report refresh',
+      'Disable loading the query to the data model',
+      'Duplicate the queries',
+    ]),
+  ],
+  'f1-013-12': [
+    row('Combine the queries by performing a:', [
+      'Append',
+      'Merge',
+      'Transpose',
+    ]),
+    row('On the Categories query:', [
+      'Delete the query.',
+      'Disable the query load.',
+      'Exclude the query from report refresh.',
+    ]),
+  ],
+  'f1-021-20': [
+    row('Create:', ['One parameter', 'Two parameters', 'Three parameters']),
+    row('Parameter type:', ['Text', 'True/False', 'Decimal number']),
+  ],
+  'f1-031-30': [
+    row('Data source type:', ['Folder', 'JSON', 'Text/CSV']),
+    row('Transformation:', [
+      'Combine the files of the Content column.',
+      'Delete the Attribute column.',
+      'Delete the Content column.',
+      'Expand the Attribute column.',
+    ]),
+  ],
+  'f1-033-32': [
+    row('Employee review data:', [
+      'None',
+      'Organizational',
+      'Private',
+      'Public',
+    ]),
+    row('Sales opportunities:', [
+      'None',
+      'Organizational',
+      'Private',
+      'Public',
+    ]),
+  ],
+  'f1-035-34': [
+    row('To configure the query to start on row 3:', [
+      'Keep top rows',
+      'Remove errors',
+      'Remove top rows',
+    ]),
+    row('To use the values in row 3 as column names:', [
+      'Rename',
+      'Replace values',
+      'Use first row as headers',
+    ]),
+  ],
+  'f1-181-180': [
+    row('Customer storage mode:', ['DirectQuery', 'Dual', 'Import']),
+    row('Geography storage mode:', ['DirectQuery', 'Dual', 'Import']),
+  ],
+  'f1-182-181': [
+    row('Outer function [1]', ['CALCULATE', 'CALCULATETABLE', 'SUMX']),
+    row('Previous-year date function [2]', [
+      'SAMEPERIODLASTYEAR',
+      'PARALLELPERIOD',
+      'PREVIOUSYEAR',
+    ]),
+  ],
+  'f1-183-182': [
+    row('Actives: outer function [1]', [
+      'ALLSELECTED',
+      'CALCULATE',
+      'CALCULATETABLE',
+      'FILTER',
+    ]),
+    row('TermDate test [2]', ['BLANK', 'COUNT', 'ISBLANK', 'ISEMPTY']),
+  ],
+  'f1-191-190': [
+    row('Analyze:', ['City', 'Occupation', 'Total Sales']),
+    row('Explain by:', ['City', 'Occupation', 'Total Sales']),
+  ],
+  'f1-197-196': [
+    row('Conditional formatting:', [
+      'Background color',
+      'Data bars',
+      'Font color',
+      'Icons',
+      'Web URL',
+    ]),
+    row('Format by:', ['Color scale', 'Field value', 'Rules']),
+  ],
   'f1-001-0': [
     row('Customer storage mode:', ['DirectQuery', 'Dual', 'Import']),
     row('Date storage mode:', ['DirectQuery', 'Dual', 'Import']),
