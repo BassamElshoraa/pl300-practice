@@ -40,6 +40,18 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  'f1-212-211': [
+    row('Chart type:', ['Line', 'Pie', 'Treemap']),
+    row('Chart configuration:', [
+      'Select the Show value as option',
+      'Enable Cross-report drill-through',
+      'Populate the axis with a date field',
+    ]),
+  ],
+  'f1-219-218': [
+    row('Minimum number of bookmarks:', ['1', '2', '3', '4']),
+    row('Property:', ['Data', 'Display', 'Current page']),
+  ],
   'f1-005-4': [
     row('Option to combine the Customer tables:', [
       'Append Queries',

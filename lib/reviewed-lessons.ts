@@ -16,6 +16,8 @@ import { lessons161 } from './reviewed-lessons/161-170.ts';
 import { lessons171 } from './reviewed-lessons/171-180.ts';
 import { lessons181 } from './reviewed-lessons/181-190.ts';
 import { lessons191 } from './reviewed-lessons/191-200.ts';
+import { lessons201 } from './reviewed-lessons/201-210.ts';
+import { lessons211 } from './reviewed-lessons/211-220.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 import { optionDetailRepairs } from './reviewed-lessons/option-detail-repairs.ts';
 import type { ReviewedLesson } from './reviewed-lessons/types.ts';
@@ -36,6 +38,8 @@ const baseReviewedLessons = {
   ...lessons171,
   ...lessons181,
   ...lessons191,
+  ...lessons201,
+  ...lessons211,
   ...repairedDragLessons,
 };
 export const reviewedLessons: Record<string, ReviewedLesson> =

@@ -59,6 +59,44 @@ const explicitlyReviewedIds = new Set([
 
 const corrections: Record<string, QuestionCorrection> = {
   ...answerCompletenessCorrections,
+  'f1-204-203': {
+    status: 'independently-reviewed',
+    reviewedAnswer: 'D. Data category = Image URL.',
+    explanation:
+      'Select the Plant Image column and set its Data category to Image URL. Keep the URL as text. Web URL and URL icons offer links rather than rendering the referenced image; Binary is not the requested category. The URL must point to an image accessible in the supported viewing environment. The original source included an unrelated Excel/Q&A paragraph, which has been removed.',
+  },
+  'f1-218-217': {
+    status: 'independently-reviewed',
+    reviewedAnswer: 'B. The dashboard tile cache refreshed.',
+    explanation:
+      'The REFRESHED timestamp identifies the tile/cache refresh, not the time of a SQL transaction, comment, or proven F5 keypress. In Import mode the tile queries the imported model; new SQL rows require a model data refresh. Import model tiles update automatically with scheduled or on-demand data refresh. Do not apply an unconditional hourly-refresh statement from other connection modes to this Import scenario.',
+  },
+  'f1-220-219': {
+    status: 'independently-reviewed',
+    reviewedAnswer:
+      'A. Add a play axis and populate it with an appropriate time field.',
+    explanation:
+      'The scatter chart already plots Total Sales on X and Total Cost on Y. A time field on Play axis lets readers step through the relationship over time. An Average line adds a statistic, a year slicer filters manually, and a YoY measure calculates a different metric. The original source explanation described slicers despite selecting Play axis; it has been replaced. The exhibit title mentions Unit Price but its Y-axis and the question explicitly say Total Cost.',
+  },
+  'f1-205-204': {
+    status: 'outdated',
+    reviewedAnswer:
+      'Historical sequence: format as a table; import as a dataset; add a dataset tile to DashboardA.',
+    reason:
+      'The intended model-versus-workbook distinction is valid, but the legacy service import experience retired in 2026. Q&A is scheduled to retire in February 2027. Do not teach the old UI as a current implementation plan.',
+    reasonAr:
+      'ترتيب السؤال القديم يفرق بين عرض workbook واستيراد موديل. واجهة الاستيراد القديمة اتلغت خلال 2026 وQ&A معلن انتهاءه في فبراير 2027؛ الشرح بيوضح السياق التاريخي وموصل Excel الحالي أو Desktop كمسار تنفيذ حديث.',
+    evidence: [
+      {
+        label: 'Excel import and legacy migration',
+        url: 'https://learn.microsoft.com/en-us/power-bi/connect-data/service-excel-workbook-files',
+      },
+      {
+        label: 'Q&A lifecycle',
+        url: 'https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-visualization-introduction-to-q-and-a',
+      },
+    ],
+  },
   'f1-181-180': {
     status: 'corrected',
     reviewedAnswer: 'Customer: Dual; Geography: Dual.',

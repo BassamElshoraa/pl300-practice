@@ -180,6 +180,7 @@ export const dragTextData: Record<string, DragTextSpec> = {
       'From powerbi.com, import Excel1 as a dataset.',
       'From powerbi.com, add a tile for the Excel1 dataset to DashboardA.',
       'From Excel, create a named range by using the data in Excel1.',
+      'From powerbi.com, upload Excel1.',
     ],
   },
   'f1-241-240': {

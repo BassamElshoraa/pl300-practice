@@ -50,7 +50,7 @@ const tests = selected.map(
     `(id=${sql(q.id)} AND prompt=${sql(q.prompt)} AND explanation=${sql(explanation(q))} AND answer_image IS ${sql(q.answerImage)} AND correct_json=${sql(key(q))})`,
 );
 const base = range
-  ? `exam-api-worker/content-reviews/2026-10-22-lessons-${range[0]}-${range[1]}`
+  ? `exam-api-worker/content-reviews/${process.argv.find((value) => value.startsWith('--date='))?.slice(7) ?? '2026-10-22'}-lessons-${range[0]}-${range[1]}`
   : latestBatch
     ? 'exam-api-worker/content-reviews/2026-10-22-lessons-161-180'
     : nextBatch
@@ -60,7 +60,7 @@ fs.writeFileSync(
   `${base}.sql`,
   [
     range
-      ? '-- Detailed question-content review. Bank184 key changes from [0] to [2]. No attempts, users, scores or exam definitions are modified.'
+      ? `-- Detailed question-content review for bank ${range[0]}-${range[1]}. Only explicitly reviewed keys may change. No attempts, users, scores or exam definitions are modified.`
       : nextBatch || latestBatch
         ? '-- Generated content corrections. Student history is unchanged; only explicit reviewed answer-key corrections may change.'
         : '-- Generated question-content corrections. Bank142 key changes from [0] to [2]; other keys and all student history are unchanged.',

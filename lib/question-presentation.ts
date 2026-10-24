@@ -12,6 +12,30 @@ export type QuestionPresentation = {
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  'f1-212-211': { hideSourceImage: true },
+  'f1-219-218': {
+    hideSourceImage: true,
+    tables: [
+      {
+        caption: 'Original view requirements (same report page)',
+        columns: [
+          'View / button',
+          'Visual',
+          'Shared slicer field',
+          'Visible Chain choices',
+        ],
+        rows: [
+          ['Sales By Postal Code', 'Map', 'Chain', 'Fashions Direct; Lindseys'],
+          [
+            'Sales By Month',
+            'Column chart',
+            'Chain',
+            'Fashions Direct; Lindseys',
+          ],
+        ],
+      },
+    ],
+  },
   'f1-005-4': { hideSourceImage: true },
   'f1-013-12': { hideSourceImage: true },
   'f1-021-20': {

@@ -10481,20 +10481,42 @@ You need to modify the report so that when you select a column in the column cha
 
 using the data from the selected column.
 
-What should you do?', '["Select the donut chart and set the column chart interaction to Filter.","Select the column chart and set the donut chart interaction to Filter.","Select the donut chart and set the column chart interaction to None.","Select the column chart and set the donut chart interaction to None."]', '[1]', 'Filters remove all but the data you want to focus on.
-Note: Enable the visual interaction controls.
-1. Select a visualization to make it active.
-2. Display the Visual Interactions options.
-3. In Power BI Desktop, select Format > Edit interactions.
+What should you do?', '["Select the donut chart and set the column chart interaction to Filter.","Select the column chart and set the donut chart interaction to Filter.","Select the donut chart and set the column chart interaction to None.","Select the column chart and set the donut chart interaction to None."]', '[1]', 'ترجمة السؤال بالعربي
+عندك Donut chart ورسم أعمدة مجمّعة، والتفاعلات بالإعداد الافتراضي. المطلوب لما تختار عمود، الدونات يُعاد رسمها ببيانات العمود المختار فقط. تختار أنهي رسم وتغيّر أنهي تفاعل؟
 
-4. To display the visualization interaction controls, select Edit interactions. Power BI adds filter and highlight
-icons to all of the other visualizations on the report page.
-We can see that the tree map is cross-filtering the line chart and the map, and is cross-highlighting the
-column chart. You can now change how the selected visualization interacts with the other visualizations on the
-report page.
+القصة والمعنى
+تخيّل الأعمدة فروع الشركة، والدونات توزيع المنتجات. ضغطت فرع القاهرة وعايز الدونات كلها تمثل مبيعات القاهرة، بدل ما تشوف مبيعات الشركة كلها وجزء القاهرة متلوّن جواها. يبقى عايز Filter، والسؤال المتبقي: بنبدأ منين؟ من الرسم اللي المستخدم هيضغط عليه.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '201', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+الشركة باعت 100 قطعة: القاهرة 30 والإسكندرية 70. بعد Filter القاهرة، الدونات توزّع الـ30 على المنتجات. في Highlight يفضل سياق الـ100 ويظهر نصيب القاهرة مميزًا؛ الشكلان لا يقولان نفس الحكاية.
+
+طريقة التفكير خطوة بخطوة
+1. حدد المصدر أولًا: الاختيار يحدث في Column chart، لذلك تختاره قبل Edit interactions.
+2. أيقونات التفاعل تظهر فوق الرسومات الأخرى؛ على Donut chart تختار Filter لأنها الوجهة المطلوبة.
+3. Filter يعيد حساب عرض الوجهة في نطاق الاختيار، بينما Highlight يوضح الجزء المختار مع إبقاء سياق الإجمالي.
+4. التفاعل اتجاهي؛ إعداد Donut إلى Column لا يضبط تلقائيًا الاتجاه العكسي. None يلغي التأثير بدل تحقيقه.
+
+الإجابة الصحيحة وليه
+B. Select the column chart and set the donut chart interaction to Filter.
+
+ليه كل اختيار صح أو غلط
+A. Select the donut chart and set the column chart interaction to Filter.
+اختيار الدونات وضبط الأعمدة على Filter يضبط الاتجاه العكسي: الضغط على الدونات يؤثر في الأعمدة. المستخدم في السؤال يضغط عمودًا.
+
+B. Select the column chart and set the donut chart interaction to Filter.
+صحيح؛ تختار الأعمدة كمصدر للتفاعل، ثم تضبط الدونات المستقبلة على Filter لتعرض نطاق العمود المختار.
+
+C. Select the donut chart and set the column chart interaction to None.
+يضبط الاتجاه العكسي وفوق ذلك None يمنع التأثير؛ لا يحقق إعادة رسم الدونات بالاختيار.
+
+D. Select the column chart and set the donut chart interaction to None.
+المصدر هنا صحيح لكن None يلغي استجابة الدونات للعمود، بينما المطلوب استجابتها بالفلترة.
+
+الخلاصة اللي تتحفظ
+اختار الرسم اللي هتضغط عليه، وعدّل الأيقونة فوق الرسم اللي عايزه يتأثر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '201', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-202-201', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You have a report page that contains the visuals shown in the following exhibit.
@@ -10505,54 +10527,132 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: not affect
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+الصورة تعرض صفحة فيها Line chart وخريطة وأعمدة، مع أيقونات Edit interactions. أكمل: اختيار ربع سنة على الخط يعمل إيه في الأعمدة؟ واختيار نقطة من خط Tailspin Toys يعمل إيه في الخريطة؟
 
-Box 2: cross-filter -
+القصة والمعنى
+دي مش مسابقة نحفظ فيها إن كل الرسومات بتفلتر بعض. صاحب التقرير يقدر يمنع التأثير على رسم ويسمح به على رسم تاني. الدليل عندك فوق كل رسم مستقبِل: الأيقونة الغامقة هي الإعداد المتفعّل.
 
-The map has the cross-filter icon active.
+مثال نفهم بيه
+اخترت Tailspin Toys في ربع معين: الخريطة تتقيّد بالنطاق الذي أرسلته النقطة، لكن الأعمدة تحتفظ بعرضها السابق لأن التفاعل الوارد لها مضبوط على None. ده مثال على نتيجة الإعدادات، مش عطل في التقرير.
 
-"You can only cross-filter line charts, scatter charts, and maps. You can''t cross-highlight them" So Cross-filter
-for the map
+طريقة التفكير خطوة بخطوة
+1. فوق الأعمدة أيقونة None، شكل الدائرة المشطوبة، هي المتفعّلة. إذن اختيار ربع سنة من الخط لا يغيّر الأعمدة.
+2. فوق الخريطة أيقونة Filter هي المتفعّلة؛ نقطة Tailspin Toys ترسل نطاق الاختيار إلى الخريطة.
+3. لا نستبدل إعدادات الصورة بافتراض الإعداد الافتراضي؛ السؤال يقول بناءً على المعروض.
+4. الخريطة الأصلية في السؤال تستقبل Cross-filter، وليست وجهة Cross-highlight. عدم تأثير الخط في الأعمدة لا يعني أنه لا يؤثر في أي رسم.
 
-https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions?tabs=powerbi-
-desktop
+الإجابة الصحيحة وليه
+الأولى: not affect. الثانية: cross-filter.
 
-Reference:
+ليه كل اختيار صح أو غلط
+A. Selecting a quarter on the line chart will ___ the clustered column chart. cross-filter
+Cross-filter للأعمدة كان يبقى صحيحًا لو أيقونة القمع عليها مفعّلة، لكن الصورة مفعّل فيها None.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '202', '/dump-assets/f1-202-201-question.webp', '/dump-assets/f1-202-201-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. Selecting a quarter on the line chart will ___ the clustered column chart. cross-highlight
+Cross-highlight للأعمدة اختيار ممكن لهذا النوع في إعداد آخر، لكن أيقونته ليست الإعداد النشط في الصورة.
+
+C. Selecting a quarter on the line chart will ___ the clustered column chart. not affect
+not affect صحيح للأعمدة؛ أيقونة None النشطة تمنع تأثير تحديد الخط عليها.
+
+D. Selecting a Tailspin Toys data point on the line chart will ___ the map. cross-filter
+cross-filter صحيح للخريطة؛ القمع النشط يعني عرض البيانات ضمن نطاق النقطة المختارة.
+
+E. Selecting a Tailspin Toys data point on the line chart will ___ the map. cross-highlight
+cross-highlight ليس الإعداد الظاهر، والخريطة الأصلية هنا لا تدعم استقبال هذا النمط من التفاعل.
+
+F. Selecting a Tailspin Toys data point on the line chart will ___ the map. not affect
+not affect للخريطة يخالف القمع النشط فوقها؛ لا تنقل None الخاص بالأعمدة إلى الخريطة.
+
+الخلاصة اللي تتحفظ
+في أسئلة التفاعل اقرأ الأيقونة النشطة فوق كل وجهة، مش نوع الرسم بس.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '202', '/dump-assets/f1-202-201-question.webp', '/dump-assets/f1-202-201-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-203-202', 'Visualize and analyze the data', 'single', 'You are creating a Power BI report by using Power BI Desktop.
 
 You need to include a visual that shows trends and other useful information automatically. The visual must update
 
 based on selections in other visuals.
 
-Which type of visual should you use?', '["Q&A","smart narrative","key influencers","decomposition tree"]', '[1]', 'The smart narrative visualization helps you quickly summarize visuals and reports. It provides relevant
-innovative insights that you can customize.
-Use smart narrative summaries in your reports to address key takeaways, to point out trends, and to edit the
-language and format for a specific audience. In
-PowerPoint, instead of pasting a screenshot of your report''s key takeaways, you can add narratives that are
-updated with every refresh. Your audience can use the summaries to understand the data, get to key points
-faster, and explain the data to others.
+Which type of visual should you use?', '["Q&A","smart narrative","key influencers","decomposition tree"]', '[1]', 'ترجمة السؤال بالعربي
+بتعمل تقرير في Desktop وعايز Visual يلخص الاتجاهات والمعلومات المفيدة تلقائيًا، ويتغير ملخصه لما المستخدم يحدد بيانات في الرسومات الأخرى. تختار أنهي نوع؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-smart-narrative', 'Final', '203', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+المدير مش عايز يقعد يفسّر كل خط بنفسه. عايز تحت الرسم كلام يقول إن المبيعات زادت وإن أعلى فرع هو كذا، ولما يختار منتج يتغير الكلام ليحكي عن المنتج ده. ده دور Smart narrative.
+
+مثال نفهم بيه
+الصفحة على كل الفروع تقول المبيعات زادت من 100 إلى 120، أي 20%. بعد فلترة القاهرة إلى 40 ثم 44، الملخص المناسب يصبح زيادة 10%. الأرقام للتوضيح، والمغزى إن النص تابع للفلتر وليس فقرة ثابتة.
+
+طريقة التفكير خطوة بخطوة
+1. المطلوب ملخص نصي تلقائي للاتجاهات، لا إجابة على سؤال يكتبه المستخدم ولا تفكيك مقياس إلى فروع.
+2. Smart narrative يستخدم ملخصات وقيمًا ديناميكية تتحدث مع Cross-filtering من الرسومات الأخرى.
+3. الوثائق الحالية تسميه Narrative visual وتعرض Custom وCopilot؛ اختيار السؤال Smart narrative لا يشترط شراء Copilot لمجرد فهم الميزة المقصودة.
+4. الملخص مرتبط بالبيانات والسياق المتاح؛ ليس وعدًا بتفسير سببي أو تلخيص أي نوع Visual دون قيود.
+
+الإجابة الصحيحة وليه
+B. smart narrative.
+
+ليه كل اختيار صح أو غلط
+A. Q&A
+Q&A ينطلق من سؤال بلغة طبيعية يكتبه المستخدم ليُنتج إجابة أو رسمًا؛ ليس الملخص النصي التلقائي المطلوب هنا.
+
+B. smart narrative
+Smart narrative هو المطلوب؛ يلخص الرسومات واتجاهاتها بنص وقيم قابلة للتحديث مع الفلترة.
+
+C. key influencers
+Key influencers يبحث عن عوامل مرتبطة بنتيجة مثل زيادة المبيعات؛ لا يقدّم نفس وظيفة تلخيص الصفحة نصيًا.
+
+D. decomposition tree
+Decomposition tree يتيح تفكيك المقياس عبر أبعاد متعددة. مناسب للاستكشاف، لا بديل مباشر للملخص السردي المطلوب.
+
+الخلاصة اللي تتحفظ
+عايز التقرير يحكي ملخص أرقامه المتغير؟ Smart narrative، مش Q&A.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-smart-narrative', 'Final', '203', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-204-203', 'Visualize and analyze the data', 'single', 'In Power BI Desktop, you have a dataset that contains a table.
 
 You create a table visual on a Power BI report page as shown in the following exhibit.
 
 You need to configure the visual to display the referenced image instead of the URL in the Plant Image column.
 
-What should you do?', '["From the Formatting tab, select Values, and then set URL icons to On for the table.","Set the Data category of the Plant Image field to Web URL.","Set the Data type of the Plant Image field to Binary.","Set the Data category of the Plant Image field to Image URL."]', '[3]', 'Add images to your report -
-1. Create a column with the URLs of the images. See Considerations later in this article for requirements.
-2. Select that column. On the Column tools ribbon, for Data category, select Image URL.
-3. Add the column to a table, matrix, slicer, or multi-row card.
-Step 3: From powerbi.com, add a tile for Excel1 dataset to DashboardA.
-In the Power BI service (app.powerbi.com), a dashboard contains tiles pinned from one or more datasets, so
-you can ask questions about any of the data contained in any of those datasets.
+What should you do?', '["From the Formatting tab, select Values, and then set URL icons to On for the table.","Set the Data category of the Plant Image field to Web URL.","Set the Data type of the Plant Image field to Binary.","Set the Data category of the Plant Image field to Image URL."]', '[3]', 'ترجمة السؤال بالعربي
+عمود Plant Image في Table visual بيعرض روابط الصور مكتوبة. عايز مكان الرابط تظهر صورة النبات نفسها. تغيّر إيه؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-images-tables
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-tutorial-q-and-a', 'Final', '204', '/exhibit-assets/f1-204-203.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الرابط مكتوب صح، لكن البرنامج بيتعامل معاه كنص. محتاج تقول له: النص ده عنوان صورة، ارسم محتواه جوه الخلية. مش محتاج تحوّل كل رابط لملف ثنائي أو تضيف صورة ثابتة لكل صف.
+
+مثال نفهم بيه
+صف Rose فيه رابط rose.png وصف Mint فيه mint.png. Image URL يخلي كل صف يعرض صورته المرتبطة به. Web URL يترك وسيلة للوصول للرابط بدل عرض محتواه كصورة.
+
+طريقة التفكير خطوة بخطوة
+1. اختار عمود Plant Image واضبط Data category على Image URL، ثم استخدمه في الجدول.
+2. Data category تصف معنى القيمة وطريقة استخدامها؛ Data type يصف نوع التخزين. الرابط يظل قيمة نصية.
+3. Web URL وURL icons يجعلان الوصول للرابط مناسبًا للنقر، ولا يطلبان عرض الصورة داخل الخلية.
+4. لازم الرابط يشير لصورة يمكن تحميلها في بيئة العرض؛ التصنيف لا يصلح رابطًا مكسورًا أو يلغي صلاحيات المصدر. توجد استثناءات مدعومة مثل روابط OneLake، فلا نعمم شرط الإتاحة العامة على كل المصادر الحديثة.
+
+الإجابة الصحيحة وليه
+D. Set the Data category of the Plant Image field to Image URL.
+
+ليه كل اختيار صح أو غلط
+A. From the Formatting tab, select Values, and then set URL icons to On for the table.
+URL icons تعرض رمز رابط للنقر بدل نصه، وليست صور النباتات المطلوبة داخل الصفوف.
+
+B. Set the Data category of the Plant Image field to Web URL.
+Web URL يصنّف القيمة كرابط ويب؛ المطلوب تصنيف أكثر تحديدًا هو Image URL لعرض الصورة.
+
+C. Set the Data type of the Plant Image field to Binary.
+Binary ليس تصنيف رابط الصورة. تحويل نص عنوان ويب إلى هذا النوع لا يأمر Table visual بتحميل الصورة وعرضها.
+
+D. Set the Data category of the Plant Image field to Image URL.
+Image URL صحيح؛ يحدد أن قيم هذا العمود روابط صور ينبغي عرضها في الـvisual الداعم.
+
+الخلاصة اللي تتحفظ
+رابط يُعرض كصورة = Image URL في Data category، وليس Binary أو URL icons.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-images-tables', 'Final', '204', '/exhibit-assets/f1-204-203.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-205-204', 'Visualize and analyze the data', 'manual', 'DRAG DROP -
 
 You have a Microsoft Excel spreadsheet named Excel1 that contains survey results.
@@ -10569,15 +10669,50 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[1,2,3]', 'Step 1: ["The solution must minimize development time", so:] format the data as a table
+Select and Place:', '[]', '[1,2,3]', 'ترجمة السؤال بالعربي
+عندك نتائج استبيان في Excel1 وDashboardA فيه Q&A. عايز من لديهم الوصول يسألوا عن بيانات الملف ويثبتوا الرسومات الناتجة على نفس الداشبورد، بأقل وقت تطوير. رتّب ثلاث خطوات من البدائل.
 
-Step 2: From powerbi.com, import Excel1 as a dataset.
+القصة والمعنى
+Q&A محتاج موديل يفهم أعمدته، مش مجرد شكل خلايا ظاهر على الداشبورد. في سياق السؤال القديم: نظّم البيانات كجدول، استوردها كموديل، وبعدها ثبّت Tile منه على DashboardA عشان يبقى مرتبطًا بمصدر الاستبيان.
 
-Step 3: From powerbi.com, add a tile for the Excel1 dataset to DashboarA.
+مثال نفهم بيه
+لو الاستبيان فيه Department وRating، نريد سؤالًا مثل average Rating by Department ينتج رسمًا من الموديل. مجرد تثبيت الخلايا لا يمنح محرك Q&A جدولًا جديدًا يفهمه. المثال يشرح الفرق ولا يغيّر أسماء أعمدة السؤال غير المعروضة.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. ابدأ داخل Excel بتنسيق نطاق البيانات كـTable له أعمدة واضحة؛ هذه خطوة من قائمة السؤال وليست إنشاء Named range فقط.
+2. استورد Excel1 كـdataset، وهو الاسم القديم لـsemantic model. رفع workbook لعرضه ليس هو نفس استيراد بياناته إلى موديل.
+3. أضف Tile قائمًا على الموديل إلى DashboardA؛ بذلك يمكن لـQ&A في هذا السياق استخدام الموديل المرتبط بالداشبورد.
+4. تثبيت نطاق Excel يعرض محتوى النطاق ولا يغني عن وجود موديل قابل للاستعلام. صلاحيات Q&A والتثبيت المطلوبة تظل شروطًا فعلية، وليست مشاهدة الداشبورد ترقية تلقائية لصلاحيات التأليف.
+5. تنبيه زمني: طريقة الاستيراد القديمة من Create في الخدمة أُحيلت للتقاعد خلال 2026. ترتيب السؤال يُحفظ كسياق تاريخي؛ في تطبيق جديد استخدم موصل Excel الحالي أو Desktop ثم انشر الموديل. توثيق Microsoft الحالي يعلن انتهاء Q&A في فبراير 2027، ولا نعرضه كتوصية مستقبلية جديدة.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-from-excel-to-stunning-report', 'Final', '205', '/dump-assets/f1-205-204-question.webp', '/dump-assets/f1-205-204-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+بالسياق القديم للسؤال: Format the data as a table → Import Excel1 as a dataset → Add a tile for that dataset to DashboardA. ترتيب الاختيارات: 2 ثم 3 ثم 4.
+
+ليه كل اختيار صح أو غلط
+A. From powerbi.com, pin a range from Excel1 to DashboardA.
+Pin a range يثبّت نطاقًا معروضًا من workbook. لا يقوم مقام استيراد بيانات الاستبيان كموديل يمكن لـQ&A الاستعلام عنه.
+
+B. From Excel, format the data in Excel1 as a table.
+Format as a table هي الخطوة الأولى المطلوبة في الحل القديم: تحدد نطاق بيانات منظمًا وأسماء أعمدته.
+
+C. From powerbi.com, import Excel1 as a dataset.
+Import as a dataset هي الخطوة الثانية؛ نحصل على الموديل الذي سيجيب عن الأسئلة، مع مراعاة أن واجهة الاستيراد القديمة لم تعد خطة تنفيذ حديثة.
+
+D. From powerbi.com, add a tile for the Excel1 dataset to DashboardA.
+Add a tile for the dataset هي الخطوة الثالثة لربط DashboardA بالموديل الذي استوردته، وليست مجرد إضافة نص ثابت.
+
+E. From Excel, create a named range by using the data in Excel1.
+Named range يسمّي نطاق خلايا، لكنه ليس الاختيار المطلوب بدل Excel Table في هذا التسلسل ولا ينشئ الموديل وحده.
+
+F. From powerbi.com, upload Excel1.
+Upload Excel1 ليس مرادفًا تلقائيًا لـImport as a dataset؛ عرض workbook لا يحقق بنفسه إنشاء الموديل المستعلم عنه في الحل المقصود.
+
+الخلاصة اللي تتحفظ
+فرّق بين عرض ملف Excel وبين استيراد بياناته كموديل. وهذا السؤال يصف مسارًا قديمًا، لا خطوات الواجهة الحالية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-excel-workbook-files
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-visualization-introduction-to-q-and-a', 'Final', '205', '/dump-assets/f1-205-204-question.webp', '/dump-assets/f1-205-204-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-206-205', 'Model the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -10596,11 +10731,37 @@ You need to create a reference line to show which employees are above the median
 
 Solution: You create a constant line and set the value to .5.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'Instead: You create a percentile line by using the Salary measure and set the percentile to 50%.
-The median is the middle value or the 50th percentile of a data set.
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+رسم شريطي فيه Salary بالدولار لكل Employee. عايز خطًا مرجعيًا يوضح الموظفين اللي رواتبهم أعلى من الوسيط. الحل المقترح Constant line بقيمة 0.5. هل يحقق المطلوب؟
 
-Reference:
-https://dash-intel.com/powerbi/statistical_functions_median.php', 'Final', '206', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+0.5 هنا على محور الرواتب معناها نص دولار، مش نص الموظفين. الوسيط قيمة راتب تستخرجها من توزيع الرواتب؛ مش رقم ثابت اسمه نص.
+
+مثال نفهم بيه
+رواتب 1000 و2000 و9000 دولار: الوسيط 2000. خط عند 0.5 دولار يجعل الثلاثة فوق الخط، بينما فوق الوسيط يوجد صاحب 9000 فقط. علامة النسبة غير موجودة أصلًا في قيمة المحور.
+
+طريقة التفكير خطوة بخطوة
+1. Constant line عند 0.5 يضع عتبة رقمية في وحدة المحور، أي الدولار هنا.
+2. الوسيط هو قيمة المنتصف بعد الترتيب، أو المئين الخمسون. يتغير بتغير بيانات الموظفين وسياق الفلاتر.
+3. يمكن استخدام Median line مباشرة أو Percentile line عند 50 وفق المتاح للرسم. المقترح لا يفعل أيًا منهما.
+4. لو صادف أن الوسيط يساوي 0.5 في بيانات خاصة، يظل الرقم الثابت غير حل عام يتتبع الوسيط كما يطلب السؤال.
+
+الإجابة الصحيحة وليه
+No. الإجابة B؛ Constant line = 0.5 ليست حساب الوسيط.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+Yes خطأ؛ يخلط بين قيمة نصف دولار وبين ترتيب المنتصف في توزيع الموظفين.
+
+B. No
+No صحيح؛ المطلوب عتبة وسيط ديناميكية، لا خط ثابت عند 0.5 من وحدة الراتب.
+
+الخلاصة اللي تتحفظ
+0.5 دولار غير 50th percentile. اقرأ وحدة الرقم قبل ما تختار.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane
+https://learn.microsoft.com/en-us/dax/median-function-dax', 'Final', '206', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-207-206', 'Model the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -10619,12 +10780,36 @@ You need to create a reference line to show which employees are above the median
 
 Solution: You create an average line by using the Salary measure.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'Average is not Median.
-Instead: You create a percentile line by using the Salary measure and set the percentile to 50%.
-The median is the middle value or the 50th percentile of a data set.
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+نفس رسم Salary لكل Employee ونفس الهدف: معرفة من يزيد راتبه على الوسيط. الحل المقترح Average line على Salary. هل يكفي؟
 
-Reference:
-https://dash-intel.com/powerbi/statistical_functions_median.php', 'Final', '207', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+واحد راتبه عالي جدًا يقدر يرفع المتوسط، لكن مش لازم يغيّر الموظف اللي في النص. السؤال قال Median تحديدًا؛ ما ينفعش نستبدله بـAverage لمجرد إن الاتنين أرقام بتوصف الرواتب.
+
+مثال نفهم بيه
+رواتب 1000 و2000 و3000 و4000 و40000: المتوسط 10000 والوسيط 3000. صاحب 4000 فوق الوسيط لكنه تحت المتوسط؛ إذن الخط الخاطئ يغيّر الإجابة عن الموظفين.
+
+طريقة التفكير خطوة بخطوة
+1. المتوسط الحسابي يجمع القيم ويقسمها على عددها. الوسيط يعتمد على ترتيب القيم وموقع المنتصف.
+2. Average line يحسب المتوسط، لا الوسيط المطلوب. تساويهما في بيانات معينة ليس ضمانًا لتساويهما في التقرير.
+3. Median line أو Percentile line عند 50 يقيسان العتبة المطلوبة على القيم الممثلة في الرسم.
+
+الإجابة الصحيحة وليه
+No. الإجابة B؛ Average لا يعوّض Median.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+Yes خطأ؛ المتوسط والوسيط قد يتساويان أحيانًا، لكن لا يجوز افتراض هذا على بيانات الرواتب.
+
+B. No
+No صحيح؛ نوع الخط يحسب إحصائية مختلفة عن الوسيط المذكور صراحةً في المطلوب.
+
+الخلاصة اللي تتحفظ
+Average = مجموع ÷ عدد. Median = المنتصف بعد الترتيب. مش نفس الطلب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane
+https://learn.microsoft.com/en-us/dax/median-function-dax', 'Final', '207', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-208-207', 'Model the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -10643,11 +10828,37 @@ You need to create a reference line to show which employees are above the median
 
 Solution: You create a percentile line by using the Salary measure and set the percentile to 50%.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'The median is the middle value or the 50th percentile of a data set.
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+عندك Salary كقيمة وEmployee كمحور في Clustered bar chart. المطلوب خط يحدد من رواتبهم فوق الوسيط. الحل Percentile line على Salary عند 50%. هل يحقق الهدف؟
 
-Reference:
+القصة والمعنى
+هنا اختار الترتيب الصح: عايز نقطة المنتصف في الرواتب، فقال المئين الخمسون. يعني نطلع راتبًا من التوزيع، مش نضرب كل راتب في نص ولا نحط خطًا عند 0.5 دولار.
 
-https://dash-intel.com/powerbi/statistical_functions_median.php', 'Final', '208', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+رواتب 1000 و2000 و3000 و4000 و40000: الخط عند 3000، وصاحبا 4000 و40000 أعلى منه. لو الرواتب 1000 و2000 و2000 و2000 و9000، واحد فقط فوق الوسيط رغم أنه المئين الخمسون.
+
+طريقة التفكير خطوة بخطوة
+1. الوسيط يوافق المئين الخمسين؛ لذلك نوع الخط والإعداد يطابقان المطلوب.
+2. اختر Salary كمقياس وحدد Percentile عند 50 في الإعداد المعبّر عن المئينات. الناتج خط على محور الرواتب في وحدة الدولار.
+3. المقارنة تكون مع قيم Salary الممثلة لكل موظف في سياق الرسم والفلاتر، لا افتراض أنها وسيط كل سطور سجل الرواتب الخام إذا اختلف مستوى التفاصيل.
+4. الموظف المساوي للخط عند الوسيط ليس أعلى منه. ولا يعني المئين الخمسون أن نصف الموظفين بالضبط أعلى منه إذا تكررت الرواتب.
+
+الإجابة الصحيحة وليه
+Yes. الإجابة A؛ Percentile line عند 50 يحدد الوسيط.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+Yes صحيح؛ المئين الخمسون يعطي الوسيط على توزيع قيم المقياس المعروضة.
+
+B. No
+No خطأ هنا؛ الحل لا يستخدم متوسطًا أو ثابت 0.5، بل الإحصائية المطلوبة بالضبط.
+
+الخلاصة اللي تتحفظ
+Median = 50th percentile. الخط يرجع قيمة راتب، مش نسبة من الراتب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane
+https://learn.microsoft.com/en-us/dax/median-function-dax', 'Final', '208', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-209-208', 'Prepare the data', 'manual', 'HOTSPOT -
 
 You are profiling data by using Power Query Editor.
@@ -10662,22 +10873,54 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: are 20 values that occur -
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+صورة Column profile لعمود column1 تعرض Count = 277,329 وDistinct = 365 وUnique = 20. أكمل عدد القيم التي تظهر مرة واحدة، ثم اختر نوع شجرة يظهر Pear, Flowering أكثر منه حسب الرسم.
 
-There are 20 unique values.
+القصة والمعنى
+عدّ البطاقات غير عدّ الأسماء المختلفة غير عدّ الأسماء اللي ملهاش تكرار. عندك 277,329 خانة، لكن الأسماء المختلفة 365. من الأسماء دي، 20 اسمًا ظهر كل واحد مرة واحدة بس. الجزء التاني تقراه من أطوال الأعمدة، مش من ترتيب الحروف.
 
-Box 2: Elm, American -
+مثال نفهم بيه
+قائمة A,A,B,C,C,D فيها Count=6 وDistinct=4 وUnique=2 لأن B وD ظهرا مرة واحدة. ده مثال صغير يوضح معنى مؤشرات الصورة، وليس بديلًا عن أرقامها.
 
-Elm, American is below Peer, flowering species in the graphic.
+طريقة التفكير خطوة بخطوة
+1. Unique في Power Query هو عدد القيم التي لها ظهور واحد فقط ضمن البيانات التي جرى تحليلها؛ الرقم هنا 20.
+2. Distinct = 365 يحصي كل قيمة مختلفة مرة، سواء ظهرت مرة أو آلاف المرات. Count = 277,329 ليس عدد القيم غير المكررة.
+3. شريط Pear, Flowering أطول من Elm, American ويعلوه في الترتيب التنازلي، بينما Ash, Green وCrabapple, Flowering وSpruce, Blue أعلى منه.
+4. لا نختلق تكرارًا رقميًا لكل نوع؛ الرسم يثبت المقارنة المطلوبة فقط. إعداد Profiling قد يقتصر على عينة، لذلك عمّم على العمود كله فقط إذا كان التحليل مضبوطًا على كامل البيانات؛ الأرقام هنا تخص النطاق المعروض.
 
-“Distinct” means number of different values regardless how many times it appears in the dataset. A ''name''
-appears in the list multiple times is counted as 1 distinct count.
+الإجابة الصحيحة وليه
+الأولى: are 20 values that occur. الثانية: Elm, American.
 
-Whereas, the “Unique” value is total number of values that only appear once.
+ليه كل اختيار صح أو غلط
+A. Only once in the column: are 20 values that occur
+20 صحيح لأنه Unique المعروض: عشرون قيمة لكل منها ظهور واحد في نطاق التحليل.
 
-Distinct mean : count all the values as 1, even if there was more than one.
+B. Only once in the column: are 365 values that occur
+365 هو Distinct؛ يخلط القيم المختلفة بكل القيم التي تظهر مرة واحدة فقط.
 
-Unique mean : count only the value that are not repeated in the particular column', 'Final', '209', '/dump-assets/f1-209-208-question.webp', '/dump-assets/f1-209-208-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Only once in the column: are 277,329 values that occur
+277,329 هو Count؛ يعد البيانات المحللة ولا يجيب كم قيمة لها تكرار واحد.
+
+D. Only once in the column: is one value that occurs
+قيمة واحدة غير صحيح؛ المعروض Unique=20 وليس 1. كلمة once تصف تكرار كل قيمة، لا عدد القيم.
+
+E. Pear, Flowering occurs more often than: Ash, Green
+Ash, Green شريطه أطول من Pear, Flowering؛ إذن Pear لا يظهر أكثر منه.
+
+F. Pear, Flowering occurs more often than: Crabapple, Flowering
+Crabapple, Flowering أعلى من Pear, Flowering في الرسم التنازلي، فيخالف المقارنة المطلوبة.
+
+G. Pear, Flowering occurs more often than: Elm, American
+Elm, American صحيح؛ شريطه أقصر وأسفل Pear, Flowering في التوزيع المعروض.
+
+H. Pear, Flowering occurs more often than: Spruce, Blue
+Spruce, Blue يعلو Pear, Flowering وشريطه أطول؛ لا تختاره لمجرد قرب الاسمين في القائمة.
+
+الخلاصة اللي تتحفظ
+Distinct = كام قيمة مختلفة؟ Unique = كام قيمة ظهرت مرة واحدة بس؟
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '209', '/dump-assets/f1-209-208-question.webp', '/dump-assets/f1-209-208-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-210-209', 'Visualize and analyze the data', 'single', 'You have a Power BI report hosted on powerbi.com that displays expenses by department for department
 
 managers.
@@ -10688,26 +10931,42 @@ You need to enable users to choose between viewing the report as a line chart or
 
 minimize development and maintenance effort.
 
-What should you do?', '["Enable report readers to personalize visuals.","Create a separate report page for users to view the column chart.","Add a column chart, a bookmark, and a button for users to choose a visual.","Create a mobile report that contains a column chart."]', '[0]', 'Also C is correct but I guess the key is ''The solution must minimize development'' so A should be the correct
-one
+What should you do?', '["Enable report readers to personalize visuals.","Create a separate report page for users to view the column chart.","Add a column chart, a bookmark, and a button for users to choose a visual.","Create a mobile report that contains a column chart."]', '[0]', 'ترجمة السؤال بالعربي
+تقرير مصروفات الأقسام على powerbi.com فيه Line chart حسب الشهر. عايز مدير القسم يقدر يبدّل عرضه إلى Column chart، بأقل تطوير وصيانة. تعمل إيه؟
 
-Steps:
+القصة والمعنى
+مش كل مدير بيحب نفس الرسم. بدل ما تعمل نسختين وتفضل تصلح الاتنين كل مرة، افتح Personalize visuals وخلي القارئ يغيّر نوع عرضه بنفسه. اختياره الشخصي مش تعديلًا إجباريًا لشكل التقرير عند بقية الناس.
 
-Let users personalize visuals in a report
+مثال نفهم بيه
+مدير القاهرة بدّل الخط لأعمدة وحفظ Personal bookmark، ومديرة الإسكندرية فضّلت الخط. نفس التقرير والمقياس، من غير صفحتين يكرر المؤلف تعديلهما مع كل تغيير في المبيعات أو المصروفات.
 
-Enable personalization in a report
+طريقة التفكير خطوة بخطوة
+1. Personalize visuals يتيح لقارئ التقرير تغيير نوع الرسم في Reading view دون منحه صلاحية تحرير التقرير الأصلي.
+2. تفعيله من إعدادات التقرير في الخدمة ثم Save يوفّر الإمكانية بدل بناء رسم إضافي وأزرار وتبديل Bookmarks.
+3. يمكن حفظ التخصيص في Personal bookmark والرجوع للوضع الافتراضي؛ لا نفترض أن كل تخصيص يغيّر نسخة المؤلف.
+4. حل Bookmarks ممكن تقنيًا لو عايز تجربة تبديل يسيطر عليها المؤلف، لكنه يحتاج مكونات وصيانة أكثر من المطلوب هنا.
 
-You can enable the feature either in Power BI Desktop or the Power BI service. You can also enable it in
-embedded reports.
+الإجابة الصحيحة وليه
+A. Enable report readers to personalize visuals.
 
-To enable the feature in the Power BI (powerbi.com) service, go to Settings for your report.
+ليه كل اختيار صح أو غلط
+A. Enable report readers to personalize visuals.
+صحيح؛ Personalize visuals يتيح تغيير نوع الرسم للقارئ بأقل إعداد مناسب بين البدائل.
 
-Turn on Personalize visuals > Save.
+B. Create a separate report page for users to view the column chart.
+صفحة منفصلة تعرض الأعمدة لكن تكرر العرض وتزيد ما يحتاج التحديث والصيانة؛ ليست الأقل جهدًا.
 
-Reference:
+C. Add a column chart, a bookmark, and a button for users to choose a visual.
+رسم إضافي وBookmark وزر يحققون التبديل فعلًا، لكنهم عمل تطوير وصيانة زيادة، ولذلك يخسرون شرط السؤال وليسوا مستحيلين تقنيًا.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals?tabs=powerbi-
-service#enable-personalization-in-a-report', 'Final', '210', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+D. Create a mobile report that contains a column chart.
+Mobile report/layout يعالج تجربة شاشة المحمول، وليس طريقة عامة لتمكين المدير من اختيار نوع الرسم في تقرير الخدمة.
+
+الخلاصة اللي تتحفظ
+تغيير شخصي بسيط لنوع الرسم بأقل مجهود = Personalize visuals.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals', 'Final', '210', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-211-210', 'Visualize and analyze the data', 'multi', 'You have two Power BI reports named ReportA and ReportB that each uses a distinct color palette.
 
 You are creating a Power BI dashboard that will include two visuals from each report.
@@ -10718,19 +10977,45 @@ reports.
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["Upload a snapshot.","For the browser, set the color preference to dark mode.","When pinning visuals to the dashboard, select Use destination theme.","Select the dark dashboard theme.","Turn on tile flow."]', '[2,3]', 'D: With dashboard themes you can apply a color theme to your entire dashboard, such as corporate colors,
-seasonal coloring, or any other color theme you might want to apply. When you apply a dashboard theme, all
-visuals on your dashboard use the colors from your selected theme.
-In the dashboard pane that appears, select one of the pre-built themes. In the example below, we''ve selected
-Dark.
+NOTE: Each correct selection is worth one point.', '["Upload a snapshot.","For the browser, set the color preference to dark mode.","When pinning visuals to the dashboard, select Use destination theme.","Select the dark dashboard theme.","Turn on tile flow."]', '[2,3]', 'ترجمة السؤال بالعربي
+عندك ReportA وReportB ولكل واحد ألوانه. هتثبت رسمين من كل تقرير على Dashboard واحدة. عايز الداشبورد Dark متناسقة، مع الاحتفاظ بألوان التقريرين الأصليين. اختار إجراءين يكملوا بعض.
 
-C: Reports and dashboards with different themes
-If your report uses a different theme from the dashboard theme, in most cases you can control whether the
-visual retains the current report theme or uses the dashboard theme.
-* Try re-pinning the tile and selecting Use dashboard theme.
+القصة والمعنى
+فكّر في الداشبورد كواجهة عرض مستقلة. ممكن توحّد شكل الرسومات المثبتة عليها من غير ما ترجع تلوّن صفحات التقريرين. لازم تختار ثيم للوجهة، وتقول للـTiles تستخدم ثيم الوجهة بدل المصدر.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final', '211', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+ReportA أزرق وReportB برتقالي. نثبت رسوماتهما بثيم الداشبورد Dark؛ عند فتح ReportA نفسه يظل أزرق. ما غيرناش ألوان التقرير علشان نغيّر شكل نسخته المثبتة.
+
+طريقة التفكير خطوة بخطوة
+1. اختار Dark dashboard theme للداشبورد نفسها؛ ثيم المتصفح ليس ثيم بيانات الرسومات.
+2. وقت تثبيت الرسومات اختار Use destination theme حتى تتبع Tiles ألوان الداشبورد.
+3. التغيير في Tiles لا يعيد كتابة ثيم ReportA أو ReportB. عبارة preserve original colors تخص التقريرين الأصليين، لا اشتراط أن تحتفظ الـTiles بألوان المصدر.
+4. قد توجد استثناءات لتطبيق الثيم مثل أنواع Tiles أو ألوان يحددها تنسيق خاص؛ لا نعمم ضمان تطابق كل عنصر خارج نطاق الرسومات المدعومة.
+
+الإجابة الصحيحة وليه
+C وD: Use destination theme عند التثبيت + Dark dashboard theme.
+
+ليه كل اختيار صح أو غلط
+A. Upload a snapshot.
+Upload a snapshot يضيف صورة ثابتة أو نسخة عرض، ولا يضبط الثيم المشترك للـTiles المطلوبة.
+
+B. For the browser, set the color preference to dark mode.
+Dark mode للمتصفح يخص واجهته وتفضيلات العرض؛ لا يختار ثيم الداشبورد ولا إعداد التثبيت.
+
+C. When pinning visuals to the dashboard, select Use destination theme.
+صحيح؛ Use destination theme يجعل الـTile تتبع ثيم الداشبورد بدل حمل ألوان التقرير المصدر.
+
+D. Select the dark dashboard theme.
+صحيح؛ Dark dashboard theme يحدد الثيم الداكن المطلوب للوجهة، ويكمله اختيار C.
+
+E. Turn on tile flow.
+Tile flow يخص ترتيب أو تدفق العرض حيث يتاح، وليس توحيد ألوان الرسومات أو الحفاظ على ثيمات تقارير المصدر.
+
+الخلاصة اللي تتحفظ
+ثيم الداشبورد مستقل عن التقرير. ثيم الوجهة + اختيار اتباعه عند Pin.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final', '211', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-212-211', 'Prepare the data', 'manual', 'HOTSPOT -
 
 You have a dataset that contains revenue data from the past year.
@@ -10741,53 +11026,164 @@ What should you configure? To answer, select the appropriate options in the answ
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: Line -
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+عندك بيانات إيرادات آخر سنة وعايز Anomaly detection يكشف القيم غير المعتادة. اختار نوع الرسم والإعداد اللازم من القائمتين.
 
-Anomaly detection is only supported for line chart visuals containing time series data in the Axis field.
+القصة والمعنى
+يوم مبيعاته 90 ألف مش لازم يكون شاذًا لو ده الطبيعي في آخر الأسبوع. الكشف محتاج يشوف السلسلة مع الزمن ويقارن النقطة بالنطاق المتوقع. عشان كده نبدأ بخط عليه تاريخ، مش تورتة بتجمع السنة كلها.
 
-Box 2: Populate the axis with a date field
+مثال نفهم بيه
+إيراد الأيام 10 و11 و12 و11 ثم 50 ألف قد يدفعك لفحص اليوم الأخير حسب السياق والحساسية. Pie سيحوّل الأيام إلى أجزاء من إجمالي، بينما الخط الزمني يتيح للميزة فحص نمطها. الأرقام مثال وليست كشفًا محسوبًا بخوارزمية Power BI هنا.
 
-Incorrect:
+طريقة التفكير خطوة بخطوة
+1. النوع المدعوم هنا Line chart به Time series على Axis؛ من الخيارات اختار Line.
+2. ضع Date field في المحور لتوفير الترتيب الزمني؛ Show value as وCross-report drill-through لا يعوّضان ذلك.
+3. بعدها تضيف Anomalies من Analytics. الاختياران هما الإعدادان المطلوبان في السؤال وليسا قائمة بكل شروط الدعم.
+4. راجع قيود الميزة: أربع نقاط على الأقل، وعدم استخدام Legend أو مقاييس متعددة أو قيم ثانوية في نفس الخط؛ Show value as له قيود على تفسيرات الشذوذ.
+5. Anomaly تعني انحرافًا عن المتوقع إحصائيًا، وليست حكمًا مؤكدًا بوجود خطأ إدخال أو غش أو سبب معين.
 
-* Anomaly Explanations doesn''t work with ''Show Value As'' options.
+الإجابة الصحيحة وليه
+Chart type: Line. Chart configuration: Populate the axis with a date field.
 
-* Drilling down to go to the next level in the hierarchy isn''t supported.
+ليه كل اختيار صح أو غلط
+A. Chart type: Line
+Line صحيح؛ يكشف Anomaly detection نمط السلسلة الزمنية على الرسم الخطي المدعوم.
 
-Reference:
+B. Chart type: Pie
+Pie يوضح حصة كل فئة من الإجمالي؛ ليس النوع المدعوم لميزة الكشف المطلوبة.
 
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '212', '/dump-assets/f1-212-211-question.webp', '/dump-assets/f1-212-211-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Chart type: Treemap
+Treemap يوضح أحجام فئات داخل مساحات، ولا يوفر ميزة Anomaly detection المطلوبة بدل Line.
+
+D. Chart configuration: Select the Show value as option
+Show value as يغير طريقة التعبير عن القيم، لا يجهز المحور الزمني؛ وله أيضًا قيود على Anomaly explanations.
+
+E. Chart configuration: Enable Cross-report drill-through
+Cross-report drill-through ينقلك لتفاصيل في تقرير آخر، ولا يبني سلسلة زمنية لكشف الشذوذ.
+
+F. Chart configuration: Populate the axis with a date field
+Populate the axis with a date field صحيح؛ يزوّد الرسم بالترتيب الزمني الذي تتطلبه الميزة.
+
+الخلاصة اللي تتحفظ
+Anomaly detection هنا = Line + Date على Axis، ثم راجع باقي شروط الدعم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '212', '/dump-assets/f1-212-211-question.webp', '/dump-assets/f1-212-211-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-213-212', 'Visualize and analyze the data', 'single', 'You have a line chart that shows the number of employees in a department over time.
 
 You need to see the total salary costs of the employees when you hover over a data point.
 
-What should you do?', '["Add salary to the drillthrough fields.","Add salary to the visual filters.","Add salary to the tooltips."]', '[2]', 'Customize tooltips with aggregation or quick measures
-You can customize a tooltip by selecting an aggregation function.
-Select the arrow beside the field in the Tooltips bucket. Then, select from the available options.
+What should you do?', '["Add salary to the drillthrough fields.","Add salary to the visual filters.","Add salary to the tooltips."]', '[2]', 'ترجمة السؤال بالعربي
+رسم خطي يعرض عدد موظفي القسم عبر الزمن. عايز إجمالي تكلفة الرواتب يظهر عندما تقف بالمؤشر على نقطة. تحط Salary فين؟
 
-Note: Tooltips are an elegant way of providing more contextual information and detail to data points on a
-visual. You can customize tooltips in Power BI Desktop and in the Power BI service.
-When a visualization is created, the default tooltip displays the data point''s value and category.
+القصة والمعنى
+الرسم هيحتفظ بقصته: عدد الموظفين. إنما لما أقف على شهر مارس يظهر لي بجانب العدد إجمالي الرواتب لنفس النقطة. مكان المعلومة اللي بتظهر مع الوقوف هو Tooltip.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-custom-tooltips', 'Final', '213', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+نقطة مارس تعرض Employee count=12. لو إجمالي رواتبهم 120 ألف، يظهر 120 ألف في Tooltip. لو جدول الرواتب فيه تكرار لكل موظف أو أكثر من دفعة، لازم المقياس يعكس تعريف التكلفة الصحيح بدل جمع عشوائي مضاعف.
+
+طريقة التفكير خطوة بخطوة
+1. أضف Salary إلى Tooltips للرسم، مع ضبط التجميع المناسب للإجمالي أو استخدام Measure يجمع الرواتب حسب تعريف البيانات.
+2. التاريخ والقسم والفلاتر في النقطة يحددون سياق الحساب إذا كانت العلاقات والمقياس مضبوطة.
+3. Visual filters تغيّر البيانات المشمولة في الرسم ولا تضيف معلومة ظاهرة عند Hover.
+4. Drillthrough ينقل إلى تفاصيل عبر إجراء تنقل، وليس إضافة راتب إلى نفس الـTooltip بمجرد الوقوف.
+
+الإجابة الصحيحة وليه
+C. Add salary to the tooltips.
+
+ليه كل اختيار صح أو غلط
+A. Add salary to the drillthrough fields.
+Drillthrough fields تحدد سياق صفحة تفاصيل تنتقل لها؛ لا تحقق معلومة الرواتب المطلوبة عند Hover وحده.
+
+B. Add salary to the visual filters.
+Visual filters تقيّد الصفوف المعروضة، ولا تعرض قيمة جديدة في بطاقة الوقوف.
+
+C. Add salary to the tooltips.
+Tooltips صحيح؛ أضف Salary بالتجميع المطلوب لتظهر تكلفة النقطة مع الحفاظ على خط عدد الموظفين.
+
+الخلاصة اللي تتحفظ
+معلومة زيادة تظهر عند الوقوف على النقطة = Tooltip، مع تجميع وسياق صحيحين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-visual-tooltips', 'Final', '213', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-214-213', 'Visualize and analyze the data', 'single', 'You have the visual shown in the Original exhibit. (Click the Original tab.)
 
 You need to configure the visual as shown in the Modified exhibit. (Click the Modified tab.)
 
-What should you add to the visual?', '["a measure","an Average line","a trendline","a forecast"]', '[3]', 'For example, here''s how the current forecast looks like:
+What should you add to the visual?', '["a measure","an Average line","a trendline","a forecast"]', '[3]', 'ترجمة السؤال بالعربي
+الصورة الأصلية تعرض Sales خلال 2018، والمعدلة تضيف امتدادًا بعد آخر البيانات باتجاه يناير 2019 مع نطاق رمادي حوله. تضيف أنهي ميزة للحصول على الشكل المعدل؟
 
-Reference:
-https://spreadsheeto.com/power-bi-forecasting/#intro', 'Final', '214', '/exhibit-assets/f1-214-213.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الجزء الرمادي بيبدأ بعد ما سجل المبيعات خلص. يعني البرنامج مش بيعرض مبيعات اتحققت فعلًا؛ بيتوقع الفترة الجاية ومعاه نطاق عدم يقين. ده Forecast.
+
+مثال نفهم بيه
+عندك مبيعات حتى ديسمبر. إضافة Forecast لشهر قادم تنتج تقديرًا لشهر يناير ونطاقًا حوله. ما تكتبش التقدير ضمن المبيعات الفعلية؛ بيظل توقعًا يتغير عندما تتغير البيانات أو إعداداته.
+
+طريقة التفكير خطوة بخطوة
+1. قارن نهاية المحور الزمني في الصورتين: الثانية تمتد للمستقبل بعد البيانات التاريخية.
+2. Forecast في Analytics يضيف التوقع ونطاق الثقة إلى الرسم الزمني المدعوم.
+3. Average line خط مرجعي من قيم موجودة. Trendline تلخص الاتجاه وليست نفس التوقع المستقبلي بنطاقه المعروض.
+4. النطاق الرمادي لا يضمن احتواء كل قيمة مستقبلية، والامتداد ليس معاملات بيع جديدة تمت إضافتها للمصدر.
+
+الإجابة الصحيحة وليه
+D. a forecast.
+
+ليه كل اختيار صح أو غلط
+A. a measure
+Measure قد يحسب منطقًا مخصصًا، لكن إضافته وحدها لا تنشئ تلقائيًا امتداد Forecast ونطاقه كما في الصورة.
+
+B. an Average line
+Average line يضع مرجعًا لمتوسط البيانات؛ لا ينشئ التوقع الزمني بعد نهاية السلسلة.
+
+C. a trendline
+Trendline يصف اتجاه البيانات، لكنه ليس ميزة Forecast التي تفسر الامتداد ونطاق عدم اليقين المعروضين.
+
+D. a forecast
+Forecast صحيح؛ هذا هو الشكل الذي يضيف التقدير المستقبلي والنطاق المصاحب.
+
+الخلاصة اللي تتحفظ
+امتداد بعد آخر تاريخ ومعاه نطاق ثقة = Forecast، مش Average line.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final', '214', '/exhibit-assets/f1-214-213.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-215-214', 'Visualize and analyze the data', 'single', 'You need to create a visual that enables the adhoc exploration of data as shown in the following exhibit.
 
-Which type of visual should you use?', '["smart narrative","decomposition tree","Q&A","key influencers"]', '[1]', 'The decomposition tree visual in Power BI lets you visualize data across multiple dimensions. It automatically
-aggregates data and enables drilling down into your dimensions in any order. It is also an artificial intelligence
-(AI) visualization, so you can ask it to find the next dimension to drill down into based on certain criteria.
-This makes it a valuable tool for ad hoc exploration and conducting root cause analysis.
-Example:
+Which type of visual should you use?', '["smart narrative","decomposition tree","Q&A","key influencers"]', '[1]', 'ترجمة السؤال بالعربي
+الصورة تعرض Sales ثم فروع Product Category ثم Supplier ثم Customer Country، مع أزرار توسعة. عايز نفس الاستكشاف المرن للبيانات؛ تختار أنهي Visual؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-decomposition-tree', 'Final', '215', '/exhibit-assets/f1-215-214.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+بدأنا بإجمالي المبيعات. فتحنا Beverages، ثم موردًا بعينه، ثم شوفنا بلدان العملاء داخل الفرع ده. تقدر تختار تمشي على أي بُعد بعده بدل ما تتقيد بمسار واحد ثابت. ده Decomposition tree.
+
+مثال نفهم بيه
+إجمالي Sales=100، منها Beverages=30، ومنها Supplier A=18، ومنها USA=7. الـ7 تخص مسار Beverages ثم A ثم USA، فلا تفسرها على أنها كل مبيعات أمريكا خارج هذا المسار. الأرقام مثال للقراءة.
+
+طريقة التفكير خطوة بخطوة
+1. Analyze يحمل المقياس Sales، وExplain by يحمل الأبعاد التي يجوز استخدامها لتفكيكه.
+2. كل توسعة تفكك قيمة العقدة المحددة، لذلك مبالغ البلدان الظاهرة في الفرع ليست مبيعات كل البلدان على مستوى الشركة كلها.
+3. ترتيب الأبعاد يختاره المستخدم أثناء الاستكشاف، ويمكن استخدام AI split حيث يتاح لاختيار فرع مرتفع أو منخفض.
+4. تفكيك الرقم يساعدك تحقق فرضيات؛ لا يثبت وحده أن المورد أو البلد سبب سببي لتغير المبيعات.
+
+الإجابة الصحيحة وليه
+B. decomposition tree.
+
+ليه كل اختيار صح أو غلط
+A. smart narrative
+Smart narrative يكتب ملخصًا للاتجاهات؛ ليس شجرة تفريع للمقياس عبر أبعاد كما في الصورة.
+
+B. decomposition tree
+Decomposition tree صحيح؛ يفكك قيمة المقياس إلى فئات ومسارات استكشاف يختارها المستخدم.
+
+C. Q&A
+Q&A يحول سؤالًا لغويًا لإجابة مرئية، ولا يطابق واجهة فروع وعُقد التوسعة المعروضة.
+
+D. key influencers
+Key influencers يقارن عوامل مرتبطة بنتيجة، لكنه لا يعرض نفس شجرة تفكيك إجمالي Sales على هذا المسار.
+
+الخلاصة اللي تتحفظ
+إجمالي يتفرع لأبعاد تختار ترتيبها = Decomposition tree.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-decomposition-tree', 'Final', '215', '/exhibit-assets/f1-215-214.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-216-215', 'Prepare the data', 'single', 'Your company has employees in 10 states.
 
 The company recently decided to associate each state to one of the following three regions: East, West, and North.
@@ -10800,48 +11196,126 @@ You have a report that shows the employees by state.
 
 You need to view the employees by region as quickly as possible.
 
-What should you do?', '["Create a new aggregation that summarizes by state.","Create a new aggregation that summarizes by employee.","Create a new group on the state column and set the Group type to List.","Create a new group on the state column and set the Group type to Bin."]', '[2]', 'In Power BI Desktop, you can group data points to help you more clearly view, analyze, and explore data and
-trends in your visuals.
-Example:
+What should you do?', '["Create a new aggregation that summarizes by state.","Create a new aggregation that summarizes by employee.","Create a new group on the state column and set the Group type to List.","Create a new group on the state column and set the Group type to Bin."]', '[2]', 'ترجمة السؤال بالعربي
+الشركة عندها موظفون في 10 ولايات، وقررت تقسيم الولايات إلى East وWest وNorth. الموديل فيه State فقط. عايز تعرض الموظفين بالمناطق الجديدة بأسرع طريقة من الخيارات.
 
-Incorrect:
-Not D: You can also define the bin size to put values into equally sized groups that better enable you to
-visualize data in ways that are meaningful. This action is often called binning.
+القصة والمعنى
+عندك أسماء ولايات وقرار إداري بيقول مين يتبع الشرق ومين الغرب. مفيش معادلة رياضية تقسم أسماء الولايات إلى فترات متساوية؛ أنت هتختار أعضاء كل مجموعة وتديها اسم المنطقة.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-grouping-and-binning', 'Final', '216', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+حسب قرار الشركة، State A وB يتبعان East وC يتبع West. نجمع A وB تحت اسم East. لا نستنتج خريطة حقيقية لكل ولاية أمريكية؛ المطلوب اتباع تقسيم الشركة المذكور.
+
+طريقة التفكير خطوة بخطوة
+1. اعمل New group على State، واختار Group type = List لتجميع القيم الفئوية يدويًا حسب خريطة الشركة.
+2. سمّ المجموعات East وWest وNorth، وانقل الولايات الصحيحة لكل مجموعة ثم استخدم حقل المجموعة في الرسم.
+3. Aggregation تلخص أرقامًا عند مستوى معين، ولا تخترع صفة Region أو تعيين State إلى Region.
+4. Bin مناسب لفترات قيم عددية أو زمنية، وليس عضوية مناطق تجارية بأسماء ولايات. لو التعيينات تتغير باستمرار أو تُشارك في موديلات عديدة فجدول mapping قد يكون أفضل تشغيليًا، لكنه ليس الخيار الأسرع المعروض هنا.
+
+الإجابة الصحيحة وليه
+C. New group on State, Group type = List.
+
+ليه كل اختيار صح أو غلط
+A. Create a new aggregation that summarizes by state.
+Aggregation by state يرجع إجماليات لكل ولاية، لكن لسه معندكش مناطق تجمع الولايات تحتها.
+
+B. Create a new aggregation that summarizes by employee.
+Aggregation by employee يغير مستوى التلخيص للموظف، ولا يحدد East وWest وNorth.
+
+C. Create a new group on the state column and set the Group type to List.
+List صحيح؛ يسمح بإسناد قيم State إلى مجموعات مسماة وفق قرار الشركة بسرعة.
+
+D. Create a new group on the state column and set the Group type to Bin.
+Bin يقسم قيمًا إلى نطاقات، ولا يعبر عن قائمة عضوية فئوية تحددها الشركة للولايات.
+
+الخلاصة اللي تتحفظ
+تجميع أسماء تختار أعضاءها = List. تقسيم قيم لفترات = Bin.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-grouping-and-binning', 'Final', '216', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-217-216', 'Visualize and analyze the data', 'single', 'You have a collection of reports for the HR department of your company.
 
 You need to create a visualization for the HR department that shows historical employee counts and predicts
 
 trends during the next six months.
 
-Which type of visualization should you use?', '["ribbon chart","scatter chart","line chart","key influencers"]', '[2]', 'The best data for forecasting is time series data or uniformly increasing whole numbers. The line chart has to
-have only one line.
+Which type of visualization should you use?', '["ribbon chart","scatter chart","line chart","key influencers"]', '[2]', 'ترجمة السؤال بالعربي
+قسم HR يريد Visual يظهر عدد الموظفين التاريخي ويتوقع الاتجاه خلال الستة أشهر القادمة. تختار Ribbon أم Scatter أم Line أم Key influencers؟
 
-Reference:
-https://powerbi.microsoft.com/fr-ca/blog/introducing-new-forecasting-capabilities-in-power-view-for-office-
-365/', 'Final', '217', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+عايز تشوف رحلة عدد الموظفين شهر بشهر، وبعد آخر شهر تمدها بتوقع. يبقى الزمن على المحور، وعدد الموظفين على القيمة، ونوع الرسم اللي يدعم Forecast هنا هو Line chart.
+
+مثال نفهم بيه
+آخر 18 شهر فيها عدد الموظفين بنهاية كل شهر. نحط الشهر على X والعدد على Y، ثم Forecast ستة أشهر. الناتج تقدير للتخطيط، مش وعد إن الشركة هتوظف عددًا معينًا.
+
+طريقة التفكير خطوة بخطوة
+1. Line chart يربط القيم بترتيب زمني واضح ويدعم ميزة Forecast من Analytics.
+2. اختيار نوع الرسم وحده لا ينشئ توقعًا؛ أضف Forecast وحدد المدة ستة أشهر، وجهز المحور والسلسلة بما يناسب شروط الميزة.
+3. الأشهر المفقودة أو قلة التاريخ أو عدم انتظام البيانات تستدعي مراجعة السلسلة قبل تفسير التوقع.
+4. Key influencers يدرس العوامل المرتبطة بالقيمة، لا يعطي من تلقاء نفسه توقع عدد الموظفين لستة أشهر.
+
+الإجابة الصحيحة وليه
+C. line chart، ثم إعداد Forecast لستة أشهر.
+
+ليه كل اختيار صح أو غلط
+A. ribbon chart
+Ribbon يعرض تغير ترتيب الفئات عبر الزمن، وليس الاختيار المناسب للتوقع المدمج المطلوب.
+
+B. scatter chart
+Scatter مناسب لعلاقة قيمتين عدديتين، لا نوع الرسم المدعوم هنا لتوقع السلسلة ستة أشهر.
+
+C. line chart
+Line صحيح؛ يعرض التاريخ ويتيح إضافة Forecast عند استيفاء شروطه، وليس بمجرد اختياره وحده.
+
+D. key influencers
+Key influencers يفسر ارتباط عوامل بمقياس، لا يستبدل Forecast لسلسلة عدد الموظفين.
+
+الخلاصة اللي تتحفظ
+تاريخ + توقع زمني في هذا السؤال = Line chart مع Forecast.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final', '217', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-218-217', 'Visualize and analyze the data', 'single', 'You have a Microsoft Power BI dashboard. The report used to create the dashboard uses an imported dataset from
 
 a Microsoft SQL Server data source.
 
 The dashboard is shown in the exhibit. (Click the Exhibit tab.)
 
-What occurred at 12:03:06 PM?', '["A new transaction was added to the data source.","The dashboard tile cache refreshed.","A user added a comment to a tile.","A user pressed F5."]', '[1]', 'A tile is a report visual pinned to a dashboard, and dashboard tile refreshes happen about every hour so that
-the tiles show recent results. You can change the schedule in the dataset settings, as in the screenshot below,
-or force a dashboard update manually by using the Refresh now option.
+What occurred at 12:03:06 PM?', '["A new transaction was added to the data source.","The dashboard tile cache refreshed.","A user added a comment to a tile.","A user pressed F5."]', '[1]', 'ترجمة السؤال بالعربي
+داشبورد مبني على تقرير يستخدم بيانات SQL Server مستوردة. فوق Tile مكتوب REFRESHED 12:03:06 PM. أنهي حدث يدل عليه التوقيت؟
 
-If you press F5 or hit the refresh button, the dashboard charts gets updated.
+القصة والمعنى
+تاريخ تحديث واجهة العرض غير تاريخ آخر معاملة في قاعدة البيانات. قد يكون SQL اتغير من دقيقتين والموديل لسه عند نسخته القديمة. العبارة فوق الـTile بتتكلم عن نتيجة العرض المخزنة، مش سجل معاملات SQL.
 
-Note: Power BI enables you to go from data to insight to action quickly, yet you must make sure the data in
-your Power BI reports and dashboards is recent.
+مثال نفهم بيه
+استوردت البيانات الساعة 11:00، واتضافت معاملة في SQL الساعة 12:00. إعادة عرض Tile الساعة 12:03 قد تظل مبنية على نسخة 11:00 إذا لم يحدث Data refresh. عبارة Refreshed وحدها ليست دليلًا أن المعاملة الجديدة دخلت الموديل.
 
-Knowing how to refresh the data is often critical in delivering accurate results.
+طريقة التفكير خطوة بخطوة
+1. الوقت المعروض هو تحديث Tile/cache المعروض، ولذلك B هو الاستنتاج المدعوم.
+2. في Import، العرض يستعلم من البيانات المستوردة؛ لازم Data refresh لجلب التغييرات من SQL. تحديث العرض وحده ليس إعادة استيراد للمصدر.
+3. بالنسبة لموديلات Import، تُحدّث Tiles تلقائيًا مع التحديث المجدول أو عند الطلب؛ لا ننقل تعميم كل ساعة من سياقات اتصال أخرى إلى هذا السؤال.
+4. التوقيت لا يحدد من ضغط F5 أو أضاف Comment، ولا يثبت وقت إضافة Transaction. قد نعرف النتيجة الظاهرة ولا نعرف الحدث الذي بدأ عملية التحديث.
 
-Reference:
+الإجابة الصحيحة وليه
+B. The dashboard tile cache refreshed.
 
-https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-data', 'Final', '218', '/exhibit-assets/f1-218-217.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. A new transaction was added to the data source.
+إضافة معاملة للمصدر لا يمكن استنتاجها من توقيت تحديث Tile، خصوصًا والموديل Import.
+
+B. The dashboard tile cache refreshed.
+صحيح؛ التوقيت يتعلق بتحديث نتيجة الـTile/cache المعروضة، لا وقت إدخال آخر صف في SQL.
+
+C. A user added a comment to a tile.
+تعليق المستخدم حدث مستقل؛ الصورة لا تعرض سجل تعليق يربطه بهذا الوقت.
+
+D. A user pressed F5.
+F5 يعيد تحميل صفحة المتصفح، لكن التوقيت لا يثبت أن مستخدمًا ضغطه ولا أنه أعاد استيراد SQL.
+
+الخلاصة اللي تتحفظ
+Tile refresh غير Data refresh وغير Transaction time. متخلطش الثلاثة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-data', 'Final', '218', '/exhibit-assets/f1-218-217.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-219-218', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You need to create a Power BI report. The first page of the report must contain the following two views:
@@ -10866,62 +11340,94 @@ answer, select the appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: 2 -
-One for each visual.
-Note: When you edit a report in Power BI Desktop and the Power BI service, you can add report bookmarks to
-capture the current state of a report page.
-Bookmarks save the current filters and slicers, cross-highlighted visuals, sort order, and so on. When others
-view your report, they can get back to that exact state by selecting your saved bookmark.
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+في أول صفحة تقرير عرضان: خريطة Sales By Postal Code وأعمدة Sales By Month. كلاهما يستخدم Chain slicer، والتبديل بأزرار. لازم اختيار Chain يفضل كما هو. ما أقل عدد Bookmarks وأي خاصية تستخدم؟
 
-Box 2: Display -
-Users must be able to switch between the views by using buttons on the report page. The selected Chain field
-must be maintained when switching between views.
-You can select whether each bookmark will apply Data properties, such as filters and slicers; Display
-properties, such as spotlight and its visibility; and Current page changes, which present the page that was
-visible when the bookmark was added. These capabilities are useful when you use bookmarks to switch
-between report views or selections of visuals, in which case you''d likely want to turn off data properties, so
-that filters aren''t reset when users switch views by selecting a bookmark.
-Note: When you create a bookmark, the following elements are saved with the bookmark:
+القصة والمعنى
+المستخدم اختار Fashions Direct وعايز يقلب من الخريطة للأعمدة من غير ما يرجع السلايسر لقيمته وقت تصميم التقرير. المطلوب تبديل ظهور الرسومات فقط. صورتان للحالة، من غير التقاط اختيار البيانات.
 
-The current page -
+مثال نفهم بيه
+احفظ Map view لما الخريطة ظاهرة، وMonth view لما الأعمدة ظاهرة. اختار Lindseys ثم اضغط الزرين؛ Chain يظل Lindseys لأن Data غير مفعّل في العلامتين. لو فعلته قد يرجع Fashions Direct المحفوظ وقت التصميم.
 
-Filters -
-Slicers, including slicer type (for example, dropdown or list) and slicer state
-Visual selection state (such as cross-highlight filters)
+طريقة التفكير خطوة بخطوة
+1. اعمل حالتين محفوظتين: واحدة تظهر الخريطة وتخفي الأعمدة، والثانية تعمل العكس. الحد الأدنى Bookmarkان لهذا التبديل المحدد.
+2. استخدم Selection pane لضبط الظهور، ثم احفظ Display لكل حالة واربط كل زر بالـBookmark المناسب.
+3. عطّل Data في الـBookmarks حتى لا يعاد تطبيق اختيار Chain الذي كان محفوظًا وقت إنشاء العلامة.
+4. Current page ليست الخاصية التي تحفظ ظهور وإخفاء الرسومات؛ العرضان على الصفحة الأولى نفسها.
+5. الأبسط Slicer واحد مشترك يظل ظاهرًا مع الحالتين. لو نسخت السلايسر لازم تدير المزامنة؛ وجود نسختين لا يضمن نقل الاختيار بينهما تلقائيًا.
 
-Sort order -
+الإجابة الصحيحة وليه
+Minimum number: 2. Property: Display. عطّل Data للحفاظ على اختيار Chain.
 
-Drill location -
+ليه كل اختيار صح أو غلط
+A. Minimum number of bookmarks: 1
+Bookmark واحد يحفظ حالة ظهور واحدة، ولا يكفي وحده للرجوع بين حالتين محددتين بزرين في هذا التصميم.
 
-Visibility of an object (by using the Selection pane)
-The focus or Spotlight mode of any visible object
+B. Minimum number of bookmarks: 2
+2 صحيح؛ علامة لحالة الخريطة وعلامة لحالة الأعمدة، وليس علامة لكل شهر أو قيمة Chain.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-bookmarks', 'Final', '219', '/dump-assets/f1-219-218-question.webp', '/dump-assets/f1-219-218-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Minimum number of bookmarks: 3
+3 أكثر من الحد الأدنى؛ عدد قيم البيانات لا يضيف حالة مطلوبة هنا.
+
+D. Minimum number of bookmarks: 4
+4 ليس الحد الأدنى؛ لا تحتاج تضرب حالتي العرض في اختيارات Chain لأن اختيار السلايسر يظل مستقلًا.
+
+E. Property: Data
+Data تحفظ الفلاتر والسلايسرات وتعيد تطبيقها، فتخاطر بإلغاء Chain الذي اختاره المستخدم. عطّلها في الحالتين.
+
+F. Property: Display
+Display صحيح؛ يحفظ ظهور الرسومات وحالات العرض اللازمة للتبديل من غير فرض اختيار السلايسر.
+
+G. Property: Current page
+Current page تختص بالصفحة التي تنتقل إليها العلامة؛ لا تحل تبديل ظهور خريطة وأعمدة داخل نفس الصفحة.
+
+الخلاصة اللي تتحفظ
+تبديل Visuals مع الحفاظ على Slicer = حالتان، Display On وData Off.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-bookmarks', 'Final', '219', '/dump-assets/f1-219-218-question.webp', '/dump-assets/f1-219-218-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-220-219', 'Model the data', 'single', 'You have the visual shown in the exhibit. (Click the Exhibit tab.)
 
 You need to show the relationship between Total Cost and Total Sales over time.
 
-What should you do?', '["Add a play axis.","From the Analytics pane, add an Average line.","Add a slicer for the year.","Create a DAX measure that calculates year-over-year growth."]', '[0]', 'When to use a slicer -
+What should you do?', '["Add a play axis.","From the Analytics pane, add an Average line.","Add a slicer for the year.","Create a DAX measure that calculates year-over-year growth."]', '[0]', 'ترجمة السؤال بالعربي
+الصورة Scatter/Bubble chart محوره الأفقي Total Sales والرأسي Total Cost. المطلوب عرض العلاقة بينهما عبر الزمن. أي إضافة أنسب من الخيارات؟
 
-Slicers are a great choice when you want to:
+القصة والمعنى
+كل فقاعة لها مكان يوضح المبيعات والتكلفة. عايز تشوف الفقاعات وهي بتتحرك سنة بعد سنة، مش لقطة لسنة واحدة تختارها كل مرة. نضيف الزمن في Play axis عشان نستعرض تطور نفس العلاقة.
 
-Display commonly used or important filters on the report canvas for easier access.
+مثال نفهم بيه
+فقاعة بلد عند Sales=3 وCost=2 في 2022 ثم Sales=4 وCost=2.5 في 2023. Play axis يعرض انتقالها بين اللقطتين؛ المتوسط لا يعرض الحركة. الأرقام مثال توضيحي بالملايين، وليست استخراجًا لقيم سنوات من الصورة.
 
-Make it easier to see the current filtered state without having to open a drop-down list.
+طريقة التفكير خطوة بخطوة
+1. المحوران الحاليان يعرضان العلاقة العددية المطلوبة بالفعل؛ البُعد الناقص للاستعراض هو الزمن.
+2. ضع حقلًا زمنيًا مناسبًا مثل Year في Play axis للرسم المدعوم، فيعرض الحالات الزمنية بالتتابع.
+3. Year slicer يفلتر سنة ويمكن المقارنة يدويًا، لكنه ليس نفس تشغيل تطور الفقاعات عبر الزمن الذي يستهدفه الحل الأقرب هنا.
+4. Average line يضيف عتبة إحصائية، وYear-over-year measure يحسب معدل تغير؛ لا يضيف أي منهما آلية استعراض الزمن على الفقاعات.
+5. عنوان الصورة يذكر Unit Price بينما المحور الرأسي نفسه Total Cost. نستند للمحور والمطلوب الصريحين؛ لا نغيّر السؤال إلى علاقة سعر الوحدة بالمبيعات بسبب عنوان غير متسق.
 
-Filter by columns that are unneeded and hidden in the data tables.
+الإجابة الصحيحة وليه
+A. Add a play axis، ثم ضع فيه الحقل الزمني المناسب.
 
-Create more focused reports by putting slicers next to important visuals.
+ليه كل اختيار صح أو غلط
+A. Add a play axis.
+صحيح؛ Play axis يضيف بعدًا زمنيًا للاستعراض المتتابع مع بقاء X للمبيعات وY للتكلفة.
 
-Note: Suppose you want your report readers to be able to look at overall sales metrics, but also highlight
-performance for individual district managers and different time frames. You could create separate reports or
-comparative charts. You could add filters in the Filters pane. Or you could use slicers. Slicers are another way
-of filtering. They narrow the portion of the dataset that is shown in the other report visualizations.
+B. From the Analytics pane, add an Average line.
+Average line لا يعرض الزمن؛ يضيف مرجعًا للمتوسط ولا يحرك النقاط بين السنوات.
 
-Reference:
+C. Add a slicer for the year.
+Year slicer يعرض نطاق سنة مختارة يدويًا، وهو أداة مفيدة لكن لا يعادل Play axis لتشغيل تطور العلاقة كما في الحل المقصود.
 
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '220', '/exhibit-assets/f1-220-219.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+D. Create a DAX measure that calculates year-over-year growth.
+YoY growth يقيس تغيرًا بين فترتين؛ لا يجهّز بمفرده استعراض مواقع الفقاعات على المحورين عبر الزمن.
+
+الخلاصة اللي تتحفظ
+Scatter فيه مقياسان وعايز تشغّل تطورهما بالزمن؟ Play axis.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-scatter
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts', 'Final', '220', '/exhibit-assets/f1-220-219.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-221-220', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You have the Power BI dashboard shown in the Dashboard exhibit. (Click the Dashboard tab.)
