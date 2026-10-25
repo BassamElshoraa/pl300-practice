@@ -36,6 +36,7 @@ import { lessons481 } from './reviewed-lessons/481-494.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 import { optionDetailRepairs } from './reviewed-lessons/option-detail-repairs.ts';
 import type { ReviewedLesson } from './reviewed-lessons/types.ts';
+import { clarifyAcceptedAnswer } from './reviewed-lessons/accepted-answer-notes.ts';
 export type { ReviewedLesson } from './reviewed-lessons/types';
 const baseReviewedLessons = {
   ...lessons001,
@@ -96,7 +97,7 @@ export const reviewedLessons: Record<string, ReviewedLesson> =
   Object.fromEntries(
     Object.entries(baseReviewedLessons).map(([id, lesson]) => [
       id,
-      readableLesson(id, lesson),
+      readableLesson(id, clarifyAcceptedAnswer(id, lesson)),
     ]),
   );
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

@@ -9,6 +9,7 @@ const row = (label: string, options: string[]): TextAnswerRow => ({
   options,
 });
 const numbers = ['4', '65', '69', '73'];
+const recoveredProfileCounts = ['2', '11', '12', '23'];
 const permissionRows = [
   row('Users in the finance group can ___ the semantic model.', [
     'assign sensitivity labels to',
@@ -763,6 +764,16 @@ export const textAnswerData: Record<string, TextAnswerRow[]> = {
     ]),
   ],
   'f2-191-438': permissionRows,
+  'f2-202-444': [
+    row(
+      'There are ___ different values in the column including nulls.',
+      recoveredProfileCounts,
+    ),
+    row(
+      'There are ___ non-null values that occur only once in the column.',
+      recoveredProfileCounts,
+    ),
+  ],
   'f2-252-460': stockRows,
   'f2-337-484': interactionRows,
   'f2-353-489': [

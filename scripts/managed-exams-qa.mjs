@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { dragDropData } from '../lib/drag-drop-data.ts';
-import { isCorrect } from '../lib/exam-utils.ts';
+import { isCorrect, isYesNoQuestion } from '../lib/exam-utils.ts';
 import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 import { questions } from '../lib/questions.ts';
 import { getQuestionPresentation } from '../lib/question-presentation.ts';
@@ -72,6 +72,12 @@ for (const [questionId, key] of managedKeyEntries) {
       true,
       `${questionId}: native key not scoreable`,
     );
+    continue;
+  }
+  if (isYesNoQuestion(question)) {
+    assert.equal(key.length, 3);
+    assert.ok(key.every((value) => value === 0 || value === 1));
+    assert.equal(isCorrect(question, key), true);
     continue;
   }
   assert.ok(

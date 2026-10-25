@@ -149,6 +149,7 @@ import {
 import {
   hasManagedAutoGradingKey,
   managedAutoGradingKeys,
+  managedAcceptedAnswers,
 } from '@/lib/managed-auto-grading-keys';
 import { visualControlData, type VisualMenu } from '@/lib/visual-control-data';
 import { DUMP_PRACTICE_COLLECTIONS } from '@/lib/dump-practice';
@@ -5371,7 +5372,11 @@ function PracticeFeedback({
           <DragDropReviewPanel
             question={question}
             value={managedAutoGradingKeys[question.id] ?? []}
-            title={tx('Correct answer', 'الإجابة الصحيحة')}
+            title={
+              managedAcceptedAnswers[question.id]
+                ? tx('One accepted answer', 'إحدى الإجابات المقبولة')
+                : tx('Correct answer', 'الإجابة الصحيحة')
+            }
             good
           />
         </div>
@@ -5961,7 +5966,11 @@ function ReviewScreen({
                 <DragDropReviewPanel
                   question={question}
                   value={managedAutoGradingKeys[question.id] ?? []}
-                  title={tx('Correct answer', 'الإجابة الصحيحة')}
+                  title={
+                    managedAcceptedAnswers[question.id]
+                      ? tx('One accepted answer', 'إحدى الإجابات المقبولة')
+                      : tx('Correct answer', 'الإجابة الصحيحة')
+                  }
                   good
                 />
               </div>

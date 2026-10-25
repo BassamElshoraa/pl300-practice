@@ -1,3 +1,8 @@
+import {
+  acceptedAnswerVariants,
+  answerMatches,
+} from '../../lib/answer-comparison.ts';
+
 interface Env {
   DB: D1Database;
   ALLOWED_ORIGINS: string;
@@ -94,7 +99,8 @@ function allowedOrigin(request: Request, env: Env) {
 function responseHeaders(request: Request, env: Env) {
   return {
     'Access-Control-Allow-Origin': allowedOrigin(request, env),
-    'Access-Control-Allow-Headers': 'authorization, content-type, x-exam-client',
+    'Access-Control-Allow-Headers':
+      'authorization, content-type, x-exam-client',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
     'Access-Control-Max-Age': '86400',
     'Cache-Control': 'no-store',
@@ -960,12 +966,6 @@ async function saveAttempt(
   return json(request, env, { attempt: attemptView(saved!) });
 }
 
-function arraysEqual(left: number[], right: number[], unordered = false) {
-  const a = unordered ? [...left].sort((x, y) => x - y) : left;
-  const b = unordered ? [...right].sort((x, y) => x - y) : right;
-  return a.length === b.length && a.every((value, index) => value === b[index]);
-}
-
 async function submitAttempt(
   request: Request,
   env: Env,
@@ -998,8 +998,8 @@ async function submitAttempt(
     const question = byId.get(id);
     if (!question) continue;
     const answer = answers[id];
-    const expected = parseJson<number[]>(question.correct_json, []);
-    if (!expected.length) {
+    const expected = parseJson<unknown>(question.correct_json, []);
+    if (!acceptedAnswerVariants(expected).length) {
       if (
         answer?.length &&
         answer.every((value) => Number.isInteger(value) && value >= 0)
@@ -1012,7 +1012,8 @@ async function submitAttempt(
       unanswered += 1;
       continue;
     }
-    if (arraysEqual(answer, expected, question.type === 'multi')) correct += 1;
+    if (answerMatches(answer, expected, question.type === 'multi'))
+      correct += 1;
     else incorrect += 1;
   }
   const autoGraded = correct + incorrect + unanswered;

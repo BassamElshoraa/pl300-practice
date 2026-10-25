@@ -46,6 +46,9 @@ import {
   signInToPuter,
   tutorFailureMessage,
   tutorFailureKind,
+  checkPuterConnection,
+  TutorProviderError,
+  type TutorConnectionCheck,
 } from '@/lib/puter-ai';
 import { trackAnalyticsEvent } from '@/lib/analytics';
 
@@ -82,6 +85,9 @@ export function AiTutor({
   const [puterSignedIn, setPuterSignedIn] = useState(false);
   const [builtInMode, setBuiltInMode] = useState(false);
   const [liveError, setLiveError] = useState('');
+  const [connectionChecking, setConnectionChecking] = useState(false);
+  const [connectionCheck, setConnectionCheck] =
+    useState<TutorConnectionCheck | null>(null);
   const isArabic = conversationLanguage === 'ar-EG';
   const tx = (english: string, arabic: string) => (isArabic ? arabic : english);
   const [messages, setMessages] = useState<TutorMessage[]>([
@@ -274,6 +280,7 @@ export function AiTutor({
   }
 
   async function connectPuter() {
+    if (authBusy || sending || connectionChecking) return;
     setAuthBusy(true);
     setAuthError('');
     try {
@@ -305,12 +312,29 @@ export function AiTutor({
       setPuterSignedIn(true);
       setBuiltInMode(false);
       setLiveError('');
+      setConnectionCheck(null);
     } catch (error) {
       setAuthError(tutorFailureMessage(error, conversationLanguage));
       if (builtInMode)
         setLiveError(tutorFailureMessage(error, conversationLanguage));
     } finally {
       setAuthBusy(false);
+    }
+  }
+
+  async function testLiveConnection() {
+    if (connectionChecking || sending || authBusy) return;
+    setConnectionChecking(true);
+    setConnectionCheck(null);
+    try {
+      const result = await checkPuterConnection();
+      setConnectionCheck(result);
+      setPuterReady(result.sdkReady);
+      setPuterLoadFailed(!result.sdkReady);
+      setPuterSignedIn(result.signedIn && result.failure !== 'auth');
+      if (result.ok) setLiveError('');
+    } finally {
+      setConnectionChecking(false);
     }
   }
 
@@ -327,7 +351,7 @@ export function AiTutor({
 
   async function sendMessage(text = input) {
     const clean = text.trim().slice(0, 1000);
-    if (!clean || sending || !canChat) return;
+    if (!clean || sending || connectionChecking || !canChat) return;
     const messageLanguage = detectTutorLanguage(clean, conversationLanguage);
     trackAnalyticsEvent('pl300_ai_tutor_message_sent', {
       language: messageLanguage,
@@ -484,7 +508,7 @@ export function AiTutor({
                       : workerConnected
                         ? tx('Connected', 'متصل')
                         : puterReady && puterSignedIn
-                          ? tx('Puter connected', 'Puter متصل')
+                          ? tx('Puter signed in', 'دخول Puter مسجّل')
                           : puterReady
                             ? tx('Connect AI', 'وصّل الـAI')
                             : puterLoadFailed
@@ -498,6 +522,78 @@ export function AiTutor({
               </div>
             </div>
           </SheetHeader>
+
+          {hydrated && !workerConnected && (
+            <div
+              className="border-b bg-muted/25 px-5 py-3 text-xs leading-6"
+              data-ai-connection-check
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span>
+                  {tx(
+                    'Sign-in alone does not prove AI can reply.',
+                    'تسجيل الدخول وحده مش دليل إن الـAI بيرد.',
+                  )}
+                </span>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="xs"
+                  disabled={connectionChecking || sending || authBusy}
+                  onClick={testLiveConnection}
+                >
+                  {connectionChecking && (
+                    <LoaderCircle className="size-3 animate-spin" />
+                  )}
+                  {connectionChecking
+                    ? tx('Testing live reply…', 'بنختبر رد مباشر…')
+                    : tx('Test live AI reply', 'اختبر رد الـAI المباشر')}
+                </Button>
+              </div>
+              <p className="text-muted-foreground">
+                {tx(
+                  'Sends a short test to a free-labeled model using your Puter allowance. No question, email or chat history is included.',
+                  'بيبعث اختبارًا قصيرًا لموديل معلّم مجاني، من حدود استخدام Puter عندك. مش بيبعت السؤال أو بريدك أو المحادثة.',
+                )}
+              </p>
+              {connectionCheck && (
+                <div
+                  role="status"
+                  className="mt-2 rounded border p-2"
+                  data-ai-check-outcome={
+                    connectionCheck.ok ? 'live-verified' : connectionCheck.stage
+                  }
+                >
+                  <p>
+                    {connectionCheck.ok
+                      ? tx(
+                          'A real model reply was received in this test. This is not built-in guidance.',
+                          'استلمنا ردًا فعليًا من الموديل في الاختبار ده؛ مش شرح مدمج.',
+                        )
+                      : tutorFailureMessage(
+                          new TutorProviderError(
+                            connectionCheck.failure ?? 'unavailable',
+                          ),
+                          conversationLanguage,
+                        )}
+                  </p>
+                  <p>
+                    {tx('SDK loaded', 'تحميل الخدمة')}:{' '}
+                    {connectionCheck.sdkReady ? '✓' : '✗'} ·{' '}
+                    {tx('Signed in', 'تسجيل الدخول')}:{' '}
+                    {connectionCheck.signedIn ? '✓' : '✗'} ·{' '}
+                    {tx('Live reply verified', 'رد مباشر متحقق')}:{' '}
+                    {connectionCheck.inferenceVerified ? '✓' : '✗'}
+                  </p>
+                  <p dir="ltr" className="break-all">
+                    {connectionCheck.model ?? '—'} ·{' '}
+                    {Math.max(0, connectionCheck.elapsedMs / 1000).toFixed(1)}s
+                    · {connectionCheck.checkedAt}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {!hydrated ? (
             <div className="grid flex-1 place-items-center">
@@ -653,7 +749,10 @@ export function AiTutor({
                   ) : (
                     <>
                       <BrainCircuit className="size-3.5" />{' '}
-                      {tx('Free AI · Puter connected', 'AI مجاني · Puter متصل')}
+                      {tx(
+                        'Free-labeled models · Puter signed in',
+                        'موديلات معلّمة مجانية · دخول Puter مسجّل',
+                      )}
                     </>
                   )}
                 </span>
@@ -747,7 +846,11 @@ export function AiTutor({
                       variant="outline"
                       size="sm"
                       className="shrink-0 rounded-full"
-                      disabled={sending || (!builtInMode && remaining === 0)}
+                      disabled={
+                        sending ||
+                        connectionChecking ||
+                        (!builtInMode && remaining === 0)
+                      }
                       onClick={() => sendMessage(prompt)}
                     >
                       {context.checked ? (
@@ -784,6 +887,7 @@ export function AiTutor({
                     disabled={
                       !input.trim() ||
                       sending ||
+                      connectionChecking ||
                       (!builtInMode && remaining === 0)
                     }
                     onClick={() => sendMessage()}

@@ -6,6 +6,14 @@ import {
   reviewedDragKeys,
 } from './reviewed-lessons/native-keys-221-300.ts';
 import { reviewedNativeKeys as nativeLater } from './reviewed-lessons/native-keys-381-494.ts';
+import {
+  nativeKeys,
+  nativeAlternatives,
+} from './reviewed-lessons/remaining-native-grading.ts';
+import {
+  structuredKeys,
+  structuredAlternatives,
+} from './reviewed-lessons/remaining-structured-grading.ts';
 
 export const managedAutoGradingKeys: Record<string, number[]> = {
   ...nativeEarly,
@@ -16,6 +24,9 @@ export const managedAutoGradingKeys: Record<string, number[]> = {
   ),
   ...reviewedDragKeys,
   ...nativeLater,
+  ...nativeKeys,
+  ...structuredKeys,
+  'f2-202-444': [10002, 10001],
   'f1-006-5': [1, 3],
   'f1-009-8': [3, 4, 1],
   'f1-015-14': [0, 2, 1],
@@ -58,6 +69,19 @@ export const managedAutoGradingKeys: Record<string, number[]> = {
   'f2-323-480': [1, 3],
   'f2-403-506': [3, 1],
 };
+
+export const managedAcceptedAnswers: Record<string, number[][]> = {
+  ...nativeAlternatives,
+  ...structuredAlternatives,
+};
+
+export function managedGradingValue(
+  questionId: string,
+): number[] | number[][] | undefined {
+  return (
+    managedAcceptedAnswers[questionId] ?? managedAutoGradingKeys[questionId]
+  );
+}
 
 export function hasManagedAutoGradingKey(questionId: string) {
   return Boolean(managedAutoGradingKeys[questionId]?.length);

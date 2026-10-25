@@ -1211,7 +1211,7 @@ discount column are replaced with a discount of 0.05. The solution must minimize
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+actions to the answer area and arrange them in the correct order.', '[]', '[[0,4,2],[0,2,4]]', 'ترجمة السؤال بالعربي
 عمود discount فيه خلايا Error بالفعل. عايز تستبدلها بـ0.05، وتحتفظ بكل الصفوف، وتخزن خصمًا عشريًا. رتّب ثلاث خطوات من الخيارات.
 
 القصة والمعنى
@@ -1225,9 +1225,10 @@ actions to the answer area and arrange them in the correct order.', '[]', '[]', 
 2. Replace Errors يعالج أخطاء موجودة بالفعل، ويضع 0.05 بدلها مع الاحتفاظ بالصفوف.
 3. ثبت النوع Decimal Number ليبقى 0.05 كسرًا. ظهور ABC123 لا ينفي وجود قيمة Error فعلية داخل عمود Any.
 4. المفتاح يختار الاستبدال ثم النوع. النوع ثم الاستبدال قد يعطي النتيجة نفسها إذا لم يغير القيم السليمة، لكنه ليس قاعدة واجبة قبل Replace Errors حين الأخطاء موجودة أصلًا. لو عندك نص N/A عادي وليس Error، فدي حالة مختلفة تحتاج كشف/معالجة التحويل.
+5. التصحيح يقبل الترتيبين: تحديد discount ثم استبدال الأخطاء ثم Decimal، أو تحديده ثم Decimal ثم استبدال الأخطاء. هنا الأخطاء موجودة بالفعل؛ النص العادي N/A قبل التحويل حالة مختلفة.
 
 الإجابة الصحيحة وليه
-Select discount → Replace Errors with 0.05 → Change Data Type to Decimal Number.
+التصحيح يقبل الترتيبين: تحديد discount ثم استبدال الأخطاء ثم Decimal، أو تحديده ثم Decimal ثم استبدال الأخطاء. هنا الأخطاء موجودة بالفعل؛ النص العادي N/A قبل التحويل حالة مختلفة.
 
 ليه كل اختيار صح أو غلط
 A. Select the discount column.
@@ -2592,7 +2593,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
 صورة profiling لبيانات العملاء. حدد عمودًا تتكرر فيه القيم، وطريقة توحيد أرقام الهاتف دون country code، من الخيارات المعروضة.
 
 القصة والمعنى
@@ -3058,7 +3059,7 @@ area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10003,10002,10001]', 'ترجمة السؤال بالعربي
 السؤال التاريخي يعرض Business Unit فيها Cost Center و Headcount و ID و Name. عايز تتيحها كنوع بيانات مؤسسي في Excel؛ حدد تسمية الصف ومفتاحه وهل هو Featured table.
 
 القصة والمعنى
@@ -3368,7 +3369,7 @@ NOTE: More than one order of answer choices is correct. You will receive credit 
 
 select.
 
-Select and Place:', '[]', '[]', 'ترجمة السؤال بالعربي
+Select and Place:', '[]', '[[0,2,5],[2,0,5],[0,5,2]]', 'ترجمة السؤال بالعربي
 الموديل فيه Sales_Region و Region_Manager و Manager و Sales_Manager. مطلوب جدول واحد أبسط، ويشمل فقط المديرين المرتبطين بمنطقة بيع. بعض المديرين في الجداول لا يرتبطون بمناطق.
 
 القصة والمعنى
@@ -3382,9 +3383,10 @@ Select and Place:', '[]', '[]', 'ترجمة السؤال بالعربي
 2. Merge Sales_Region مع Sales_Manager بـInner؛ المعطى يضمن أن لكل منطقة مديرًا مطابقًا، لذلك لا تضيع منطقة من شرط المطابقة.
 3. Merge Sales_Region مع Region_Manager بـInner لضم معلوماته إلى نتيجة المناطق؛ وسّع الأعمدة المطلوبة بعد كل Merge.
 4. يوجد أكثر من ترتيب صالح مع ضبط الاستعلامات التي تُحدَّث. الاختيارات التي تنشئ queries جديدة لا تجعل الناتج النهائي موحدًا تلقائيًا لو تركت بقية الخطوات تشير للاستعلامات القديمة.
+5. الترتيب مش حفظ: لازم إثراء Region_Manager بجدول Manager يسبق دمجه داخل Sales_Region. دمج Sales_Manager مستقل، فيصح قبلهما أو بينهما أو بعدهما. التصحيح يقبل الترتيبات الثلاثة دي فقط، مش أي ترتيب عشوائي.
 
 الإجابة الصحيحة وليه
-Merge Region_Manager with Manager: Inner؛ Merge Sales_Region with Sales_Manager: Inner؛ Merge Sales_Region with Region_Manager: Inner. هذا تسلسل صالح من المصدر.
+الترتيب مش حفظ: لازم إثراء Region_Manager بجدول Manager يسبق دمجه داخل Sales_Region. دمج Sales_Manager مستقل، فيصح قبلهما أو بينهما أو بعدهما. التصحيح يقبل الترتيبات الثلاثة دي فقط، مش أي ترتيب عشوائي.
 
 ليه كل اختيار صح أو غلط
 A. Merge [Region_Manager] and [Manager] by using an inner join.
@@ -3477,7 +3479,7 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[0,1,1]', 'ترجمة السؤال بالعربي
 تريد Basket analysis: المنتجات التي تُشترى معًا في نفس الطلب داخل مناطق البيع وعبرها. حدد هل إزالة معرفات التتبع تضر، وهل عمودا التاريخ ضروريان معًا، وهل دقة الضريبة الحالية مطلوبة.
 
 القصة والمعنى
@@ -4070,7 +4072,7 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[1,1,0]', 'ترجمة السؤال بالعربي
 Balances تسجل الرصيد الختامي اليومي لكل حساب نشط، و Date جدول الأيام. Accounts تحسب DISTINCTCOUNT عند LASTDATE. هل تعد الحسابات طوال السنة أوالشهر، أم في اليوم المعروض؟
 
 القصة والمعنى
@@ -4623,7 +4625,7 @@ For each of the following statements, select Yes if the statement is true, Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[1,1,0]', 'ترجمة السؤال بالعربي
 Orders مطلوب منها المبيعات وعدد الطلبات عبر الزمن والعملاء الجدد والمتكررون. هل التجميع بمفاتيح CustomerID و OrderID و OrderDate يقلل الحجم؟ وهل نحذف CustomerID أو UnitPrice و Discount؟
 
 القصة والمعنى
@@ -6211,7 +6213,7 @@ The data model must support the following analysis:
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[0,1,0]', 'ترجمة السؤال بالعربي
 مطلوب إجمالي المبيعات حسب المنتج وشهر الطلب، الكمية حسب المنتج ويوم الطلب، وعد المعاملات حسب ربع الطلب. قيّم حذف LastUpdated أو ProductID أو ShipDate من Sales.
 
 القصة والمعنى
@@ -7545,7 +7547,7 @@ You need to build a new measure to score the opportunities on a scale of low. me
 
 How should you complete the DAX formula? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[[10001,10000,10002],[10002,10000,10002]]', 'ترجمة السؤال بالعربي
 Qualification بين 0 و 1. أكمل تصنيف LOW إن كانت أقل من 0.5، و HIGH إن كانت أكبر من 0.7، و MEDIUM فيما عدا ذلك.
 
 القصة والمعنى
@@ -7559,9 +7561,10 @@ Qualification بين 0 و 1. أكمل تصنيف LOW إن كانت أقل من 0
 2. فرع الصح HIGH وفرع الخطأ MEDIUM. القيم 0.5 و 0.7 تحديدًا تخرج MEDIUM لأن الشروط < و> وليست <= أو>=.
 3. IF.EAGER يمكنها إرجاع نفس التصنيفات هنا لكنها تفرض تقييم الفرعين؛ لا يوجد سبب في السؤال يفضل ذلك. إذن IF الاختيار التقليدي، ولا نزعم أن IF.EAGER تعطي أسماء مختلفة.
 4. النص يسمي الناتج measure لكن القالب يشير للعمود مباشرة. عند وجود عدة فرص في السياق تحتاج تعريف كيفية استخراج Qualification، مثل SELECTEDVALUE إذا أردت فرصة واحدة؛ أوتصنيفًا صفّيًا كعمود محسوب. لا نفترض أن measure ذات مرجع عمود عارٍ تعمل مع أي تجميع.
+5. مقبول IF ثم HIGH ثم MEDIUM، ومقبول IF.EAGER ثم HIGH ثم MEDIUM؛ القيم الناتجة نفسها هنا. ده تصحيح لخانات القالب مع وجود قيمة Qualification واحدة، مش إقرار إن مرجع عمود عارٍ يعمل كـmeasure في أي سياق تجميع.
 
 الإجابة الصحيحة وليه
-IF؛ HIGH؛ MEDIUM، مع تنبيه غموض IF.EAGER وسياق تقييم عمود Qualification.
+مقبول IF ثم HIGH ثم MEDIUM، ومقبول IF.EAGER ثم HIGH ثم MEDIUM؛ القيم الناتجة نفسها هنا. ده تصحيح لخانات القالب مع وجود قيمة Qualification واحدة، مش إقرار إن مرجع عمود عارٍ يعمل كـmeasure في أي سياق تجميع.
 
 ليه كل اختيار صح أو غلط
 A. Nested condition function [1] ELSE
@@ -7786,7 +7789,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
 بين Category و Purchases علاقة many-to-one نشطة بخط متصل وسهم واحد، وأخرى many-to-many غير نشطة بخط متقطع وسهمين. حدد اتجاه الأولى وما الخطوة المطلوبة من الخيارات لتمكين استخدام الثانية مع التصفية والأمان.
 
 القصة والمعنى
@@ -13573,7 +13576,7 @@ Report settings tab.)
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[0,1,1]', 'ترجمة السؤال بالعربي
 مستخدمو المبيعات Viewer في Workspace، والتقرير يسمح بـPersonalize visuals. الصور تسمح بتصدير الملخص وتغيير أنواع الفلاتر. احكم: تغيير Bar إلى Pie؟ إعادة مشاركة التعديل خارج القسم؟ إنشاء Quick measure جديدة وإضافتها؟
 
 القصة والمعنى
@@ -14120,7 +14123,7 @@ You need to view the following information in the Data preview view for the Coun
 
 What should you enable? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[[10002,10001],[10002,10002]]', 'ترجمة السؤال بالعربي
 في Power Query عايز تعرف لعمود Country نسبة القيم التي تحتوي أخطاء، وعدد القيم الفارغة. تفعّل إيه لكل معلومة؟
 
 القصة والمعنى
@@ -14133,9 +14136,10 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 1. Column quality هو الاختيار المباشر لنسبة Errors في شريط الجودة.
 2. Column profile يعرض Empty count ضمن إحصاءات العمود.
 3. Quality قد يظهر أعدادًا عند المرور عليه في بعض الإصدارات؛ السؤال يميز شريط النسب عن الإحصاءات التفصيلية. راجع هل التحليل لأول ألف صف أم كامل البيانات.
+4. لنسبة الأخطاء اختَر Column quality. لعدد الفارغ اختَر Column profile، أو Column quality مع المرور على مؤشر الجودة؛ التوثيق يعرض العدد والنسبة في نافذة المرور، ولذلك الاختياران مقبولان للخانة الثانية.
 
 الإجابة الصحيحة وليه
-نسبة الأخطاء: Column quality. عدد القيم الفارغة: Column profile.
+لنسبة الأخطاء اختَر Column quality. لعدد الفارغ اختَر Column profile، أو Column quality مع المرور على مؤشر الجودة؛ التوثيق يعرض العدد والنسبة في نافذة المرور، ولذلك الاختياران مقبولان للخانة الثانية.
 
 ليه كل اختيار صح أو غلط
 A. To view the percentage of values that contain errors: Column distribution
@@ -14154,7 +14158,7 @@ E. To view the count of empty values: Column profile
 Profile صحيح لعرض Empty ضمن إحصاءات العمود.
 
 F. To view the count of empty values: Column quality
-Quality يركز على نسب الجودة؛ للإحصاء التفصيلي المطلوب اختَر Profile.
+مقبول أيضًا: Column quality يعرض عدد Empty ونسبته عند المرور على المؤشر؛ Profile يظل عرض الإحصاءات التفصيلي المباشر.
 
 الخلاصة اللي تتحفظ
 نسب صلاحية وخطأ وفراغ = Quality؛ إحصاءات العمود التفصيلية = Profile.
@@ -15903,7 +15907,7 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[[10001,10000],[10001,10001]]', 'ترجمة السؤال بالعربي
 من شاشة صلاحيات الموديل: حدد ما يمكن لمجموعة Finance عمله، وما يمكن لمجموعة Corp منحه للآخرين.
 
 القصة والمعنى
@@ -15915,9 +15919,10 @@ Finance تعمل Pivot متصل بالموديل. Corp تشارك تقريرًا
 طريقة التفكير خطوة بخطوة
 1. Build يتيح Analyze in Excel مع متطلبات الخدمة والترخيص.
 2. Build مع Reshare يتيح تمرير Build للمستلمين في مسار المشاركة المدعوم. لا تخلط ده مع Write أو حذف الجداول.
+3. Finance تستخدم Analyze in Excel. Corp عندها Read و Reshare و Build؛ تقدر تمنح Read أو Build عبر مسار المشاركة المدعوم. الاتنين مقبولين في الخانة الثانية، لكن لا يحق لها حذف جدول أو تعديل بنية الموديل.
 
 الإجابة الصحيحة وليه
-Finance: use Analyze in Excel with. Corp: grant the Build permission for.
+Finance تستخدم Analyze in Excel. Corp عندها Read و Reshare و Build؛ تقدر تمنح Read أو Build عبر مسار المشاركة المدعوم. الاتنين مقبولين في الخانة الثانية، لكن لا يحق لها حذف جدول أو تعديل بنية الموديل.
 
 ليه كل اختيار صح أو غلط
 A. Users in the finance group can ___ the semantic model. assign sensitivity labels to
@@ -15933,7 +15938,7 @@ D. Users in the corp group can ___ the semantic model. grant the Build permissio
 صحيح في سيناريو Build+Reshare المعروض؛ تستطيع تمرير حق Build عند المشاركة.
 
 E. Users in the corp group can ___ the semantic model. grant the Read permission for
-ليست الإجابة الأدق المطلوبة هنا؛ المعروض يستهدف قدرة تمرير Build، مع أن منح القراءة يمكن أن يكون جزءًا من المشاركة أيضًا.
+صحيح أيضًا: Reshare يتيح منح Read في المشاركة. لا يصح رفضه لمجرد أن مفتاح المصدر اختار Build.
 
 F. Users in the corp group can ___ the semantic model. remove a table from
 إزالة جدول تعديل بنيوي يحتاج Write؛ Build و Reshare ليسا Write.
@@ -16353,7 +16358,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[[10001,10000],[10001,10001]]', 'ترجمة السؤال بالعربي
 شاشة صلاحيات Semantic model: أكمل قدرة Finance وقدرة Corp بناءً على Build و Reshare المعروضين.
 
 القصة والمعنى
@@ -16365,9 +16370,10 @@ Finance تنشئ Pivot متصلًا. Corp تشارك تقريرًا وتسمح �
 طريقة التفكير خطوة بخطوة
 1. Build يسمح لـFinance باستخدام Analyze in Excel، وليس حذف الموديل.
 2. Corp تجمع Reshare و Build؛ الخيار المقصود تمرير Build للمستلمين. قدرة منح القراءة موجودة ضمن المشاركة أيضًا، لذلك لا نزعم أن الخيار الآخر مستحيل مطلقًا.
+3. Finance تستخدم Analyze in Excel. Corp تجمع Read و Reshare و Build، وبالتالي منح Read أو منح Build إجابتان مدعومتان، مش Build وحدها. مفيش Write يسمح بحذف جدول.
 
 الإجابة الصحيحة وليه
-Use Analyze in Excel with؛ Grant the Build permission for.
+Finance تستخدم Analyze in Excel. Corp تجمع Read و Reshare و Build، وبالتالي منح Read أو منح Build إجابتان مدعومتان، مش Build وحدها. مفيش Write يسمح بحذف جدول.
 
 ليه كل اختيار صح أو غلط
 A. Users in the finance group can ___ the semantic model. assign sensitivity labels to
@@ -16383,7 +16389,7 @@ D. Users in the corp group can ___ the semantic model. grant the Build permissio
 الإجابة المستهدفة؛ Build مع Reshare يتيح تمرير Build في المشاركة.
 
 E. Users in the corp group can ___ the semantic model. grant the Read permission for
-قد يحدث منح القراءة ضمن المشاركة؛ الصياغة ليست فصلًا حصريًا بين قدرات Corp، فالمفتاح يقيس Build تحديدًا.
+صحيح أيضًا: Reshare يتيح منح Read في المشاركة. لا يصح رفضه لمجرد أن مفتاح المصدر اختار Build.
 
 F. Users in the corp group can ___ the semantic model. remove a table from
 Remove a table تعديل بنيوي، لا تمنحه Build أو Reshare.
@@ -18927,7 +18933,7 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[1,0,1]', 'ترجمة السؤال بالعربي
 Northwind: هل نربط CustomerID بالاسم نفسه بين Excel و Orders؟ هل نوع مفاتيح الربط Text؟ وهل Region لتقرير Top Customers من Orders؟
 
 القصة والمعنى
@@ -20522,7 +20528,7 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[1,1,0]', 'ترجمة السؤال بالعربي
 Litware تنشر DirectQuery على Azure SQL إلى الخدمة. هل تحتاج Gateway داخليًا؟ هل تحتاج Scheduled refresh لصفوف المصدر؟ هل يمكن اعتماد SQL Basic؟
 
 القصة والمعنى
@@ -20700,7 +20706,7 @@ What should you configure? To answer, select the appropriate options in the answ
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[[10002,10000],[10000,10000]]', 'ترجمة السؤال بالعربي
 Contoso: المحللون يقرؤون حزمة المجلس، يبنون من P&L فقط، ولا يعدلون الحزمة أو يعيدون مشاركتها. اختار وصول القراءة وحق الموديل.
 
 القصة والمعنى
@@ -20713,9 +20719,10 @@ Contoso: المحللون يقرؤون حزمة المجلس، يبنون من P
 1. Build على P&L فقط يسمح بالبناء، وتستمر RLS على المستهلك غير المحرر. لا تمنح Build على BalanceSheet.
 2. المفتاح التقليدي Viewer للـWorkspace مع Build صحيح لو المطلوب استعراض كل محتوى المساحة المعتمد.
 3. App access مع Build مخصص مسار صالح وأقل نطاقًا لحزمة مختارة. الصياغة لا تفرض Workspace membership؛ فلا يصح رفض App مطلقًا.
+4. مقبول Viewer مع Build على P&L فقط، ومقبول App access مع نفس Build المحدد. امنع Build على BalanceSheet ولا تمنح Reshare. Member مش بديل لأنه يسمح بالتحرير ويتجاوز قيود RLS المقصودة.
 
 الإجابة الصحيحة وليه
-Build على P&L. Viewer هو مفتاح المصدر؛ App access مع Build بديل مدعوم للحزمة المختارة.
+مقبول Viewer مع Build على P&L فقط، ومقبول App access مع نفس Build المحدد. امنع Build على BalanceSheet ولا تمنح Reshare. Member مش بديل لأنه يسمح بالتحرير ويتجاوز قيود RLS المقصودة.
 
 ليه كل اختيار صح أو غلط
 A. Permissions required in powerbi.com: Access permissions to an app
@@ -22936,7 +22943,7 @@ Microsoft Power BI reports.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+correct order.', '[]', '[4,1,3]', 'ترجمة السؤال بالعربي
 JSON فيه array من documents. عايز attributes أعمدة، والتواريخ تصلح لهرمية تاريخ. رتب ثلاث خطوات.
 
 القصة والمعنى
@@ -23801,7 +23808,7 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 correct order.
 
-NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[[0,2,5],[2,0,5],[0,5,2]]', 'ترجمة السؤال بالعربي
 أربع جداول Sales_Region و Region_Manager و Manager و Sales_Manager. عايز تفردها في جدول واحد وتحتفظ فقط بالمديرين المرتبطين بمنطقة مبيعات.
 
 القصة والمعنى
@@ -23815,9 +23822,10 @@ NOTE: More than one order of answer choices is correct. You will receive credit 
 2. Merge Sales_Region مع Region_Manager باستخدام Inner.
 3. Merge Sales_Region مع Sales_Manager باستخدام Inner.
 4. الترتيب قد يختلف مع نفس الاعتمادات وتوسيع الأعمدة؛ المصدر يسمح بأكثر من ترتيب صحيح.
+5. التصحيح يقبل الترتيبات الثلاثة التي تحترم الاعتماد: إثراء Region_Manager من Manager قبل استخدامه في Sales_Region، مع حرية وضع دمج Sales_Manager قبل الخطوتين أو بينهما أو بعدهما.
 
 الإجابة الصحيحة وليه
-خطوات Inner joins الثلاث: Region_Manager↔Manager، ثم Sales_Region↔Region_Manager، ثم Sales_Region↔Sales_Manager.
+التصحيح يقبل الترتيبات الثلاثة التي تحترم الاعتماد: إثراء Region_Manager من Manager قبل استخدامه في Sales_Region، مع حرية وضع دمج Sales_Manager قبل الخطوتين أو بينهما أو بعدهما.
 
 ليه كل اختيار صح أو غلط
 A. Merge [Region_Manager] and [Manager] by using an inner join.
@@ -24630,11 +24638,11 @@ The AddressLine2 column in a table named Address is shown in the following exhib
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-السؤال يعرض فحص AddressLine2 في Power Query، لكن الجمل والاختيارات الكاملة لم تستعد من المصدر بصورة موثوقة.
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+من فحص عمود AddressLine2، حدد عدد القيم المختلفة بما فيها null، وعدد القيم غير الفارغة التي ظهرت مرة واحدة فقط.
 
 القصة والمعنى
-نقدر نشرح الإحصاء المقروء، لكن لا نقدر نثبت اختيارًا صحيحًا لجملة غير ظاهرة. فهم الرسم شيء واستكمال سؤال ناقص شيء آخر.
+تخيل عندك كشف عناوين: Distinct بتعد أنواع القيم الموجودة، أما Unique بتسأل كام قيمة ملهاش نسخة ثانية. العمود ظاهر فيه 12 نوعًا مختلفًا و 11 قيمة ظهرت مرة واحدة؛ مش 12 صفًا ولا 11 قيمة مكررة.
 
 مثال نفهم بيه
 القيم A و A و B و C تعطي Distinct=3 و Unique=2؛ كلا العددين مختلف عن عدد الصفوف 4.
@@ -24642,16 +24650,38 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 طريقة التفكير خطوة بخطوة
 1. المقروء في المصدر هو 12 قيمة مختلفة و 11 قيمة ظهرت مرة واحدة.
 2. Distinct تعني عدد القيم المختلفة، و Unique تعني عدد القيم غير المتكررة.
-3. لا يوجد مفتاح موثق قبل استعادة العبارات والاختيارات الأصلية كاملة.
+3. استُعيدت العبارتان والقائمتان من صفحة 33 بالملف الأصلي: اختَر 12 في الأولى و 11 في الثانية. لا تضف null مرة أخرى إلى عدد Distinct المعروض.
 
 الإجابة الصحيحة وليه
-مصدر غير مكتمل؛ لا توجد إجابة اختيارات موثوقة متاحة.
+الخانة الأولى 12؛ الخانة الثانية 11. Distinct للقيم المختلفة، و Unique للقيم التي ظهرت مرة واحدة.
 
 ليه كل اختيار صح أو غلط
-أسماء القوائم والعبارات الكاملة غير مستعادة، فلا يمكن إثبات اختيار صحيح منها؛ شرح Distinct و Unique لا يملأ هذا النقص.
+A. There are ___ different values in the column including nulls. 2
+2 ليست عدد القيم المختلفة؛ نسبة Valid=2% شيء وعدد Distinct شيء آخر.
+
+B. There are ___ different values in the column including nulls. 11
+11 عدد Unique لا Distinct، فلا تختاره للخانة الأولى.
+
+C. There are ___ different values in the column including nulls. 12
+12 صحيح للخانة الأولى: عدد القيم المختلفة كما في الفحص، بما فيها null وفق صياغة السؤال.
+
+D. There are ___ different values in the column including nulls. 23
+23 جمع 12 و 11 لا يمثل إحصاءً صحيحًا؛Unique ليست مجموعة منفصلة تضيفها إلى Distinct.
+
+E. There are ___ non-null values that occur only once in the column. 2
+2 لا يمثل عدد القيم التي ظهرت مرة واحدة؛ متخلطش النسبة بالعدد.
+
+F. There are ___ non-null values that occur only once in the column. 11
+11 صحيح للخانة الثانية: قيم غير فارغة ظهرت مرة واحدة فقط.
+
+G. There are ___ non-null values that occur only once in the column. 12
+12 عدد Distinct، ويتضمن النوع المتكرر أوالفارغ؛ مش عدد Unique المطلوب.
+
+H. There are ___ non-null values that occur only once in the column. 23
+23 مش عدد Unique؛ جمع الإحصاءين بيعد القيم مرتين.
 
 الخلاصة اللي تتحفظ
-نشرح الفرق بين الإحصاءات، لكن لا نخترع منطقة إجابة مفقودة.
+Distinct يعني كام قيمة مختلفة؛ Unique يعني كام قيمة ظهرت مرة واحدة. النسبة المئوية مش عدد القيم.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -24831,7 +24861,7 @@ distributions.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+correct order.', '[]', '[5,4,1]', 'ترجمة السؤال بالعربي
 المستهلكون يحتاجون رؤية إحصاءات اكتمال وتوزيع بيانات SalesDetail داخل تقرير. رتب ثلاث خطوات لإنشاء جدول الإحصاءات وعرضه.
 
 القصة والمعنى
@@ -25710,7 +25740,7 @@ Which three actions should you perform in sequence. To answer, mow the appropria
 
 correct order.
 
-NOTE; More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE; More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[[20003,20001,20004],[20003,20004,20001]]', 'ترجمة السؤال بالعربي
 عندك فولدر فيه 100 ملف CSV. مطلوب نموذج فيه معلومات عن الملفات، من غير تخزين البيانات المكتوبة داخل ملفات CSV نفسها. اختار ثلاث خطوات؛ السؤال يسمح بأكثر من ترتيب صحيح.
 
 القصة والمعنى
@@ -25723,9 +25753,10 @@ NOTE; More than one order of answer choices is correct. You will receive credit 
 1. ابدأ Get Data ثم Folder للحصول على قائمة الملفات وحقولها.
 2. احذف Content لأنه يحتوي تمثيل الملف الثنائي، وهو الشيء غير المراد تحميله.
 3. وسع Attributes للحصول على صفات الملفات. بعد الاتصال بالفولدر، يمكن توسيع Attributes قبل حذف Content أو بعده؛ السؤال يقبل الترتيبين.
+4. بعد الاتصال بـFolder، حذف Content وتوسيع Attributes ينفع بأي ترتيب؛ التصحيح يقبل الترتيبين كاملين. لا نحذف Attributes ولا نعمل Combine للمحتوى لأنه عكس المطلوب.
 
 الإجابة الصحيحة وليه
-Get Data > Folder؛ Remove Content؛ Expand Attributes. ويصح تبديل الخطوتين الأخيرتين.
+بعد الاتصال بـFolder، حذف Content وتوسيع Attributes ينفع بأي ترتيب؛ التصحيح يقبل الترتيبين كاملين. لا نحذف Attributes ولا نعمل Combine للمحتوى لأنه عكس المطلوب.
 
 ليه كل اختيار صح أو غلط
 A. From Power Query Editor, remove the Attributes column.
@@ -26023,7 +26054,7 @@ The data model must support the following analysis:
 
 ? Number Of sales transactions by quarter in Which the order was placed
 
-For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[]', 'ترجمة السؤال بالعربي
+For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[0,1,0]', 'ترجمة السؤال بالعربي
 المطلوب إجمالي المبيعات بالشهر والمنتج، والكمية باليوم والمنتج، وعدد العمليات بالربع. كل الفترات حسب OrderDate. قيّم حذف LastUpdated و ProductID و ShipDate.
 
 القصة والمعنى
@@ -26351,7 +26382,7 @@ Which type of visual should you use for each requirement? To answer, drag the ap
 
 more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[20003,20004]', 'ترجمة السؤال بالعربي
 مطلوب تقرير أرباح ربع سنوي: يعرض نصيب كل فئة منتجات من إجمالي الربح بالدولار والنسبة، ويقارن هامش الربح بين مناطق البيع. اختار visual لكل مطلب.
 
 القصة والمعنى
@@ -26396,24 +26427,25 @@ You are creating a line chart in a Power Bl report as shown in the following exh
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
 NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-المصدر يعرض Line chart ويطلب إكمال عبارات، لكن العبارات ومنطقة الإجابة غير موجودتين في النسخة المتاحة.
+من Line chart لعدد الموظفين بالشهور، حدد أداة الخط المتقطع الذي يمثل المتوسط، والمكان الذي تضيف إليه مستويات الأسبوع واليوم لتفعيل Drill down. استُعيدت الجمل من صفحة 49 لكن القوائم الأصلية غير موسعة.
 
 القصة والمعنى
-الرسم قد يسمح بعشرات الأسئلة: أعلى شهر، خط اتجاه، توقع أو نوع محور. من غير الجمل المطلوبة لا توجد إجابة واحدة نقدر نثبتها.
+الخط المتقطع عامل زي علامة بتقولك ده متوسط السنة. أما الشهور والأسابيع والأيام فهي مستويات التاريخ على المحور؛ Values مكان الأرقام اللي بتقيسها، مش مكان السلم الزمني اللي بتنزل جواه.
 
 مثال نفهم بيه
-معرفة أن الرسم Line لا تخبرنا هل السؤال عن نوع محور أم تأثير فلتر؛ كلاهما محتمل دون النص.
+حط Year ثم Month ثم Day على X-axis وعدد الموظفين في Values؛ تقدر تنزل من السنة للشهر لليوم. لو حطيت Day في Values هتعمل تجميعًا لقيمه، مش سلم تاريخ.
 
 طريقة التفكير خطوة بخطوة
 1. لا تستخدم menu crops من سؤال آخر لتعبئة الفراغ.
-2. استرجع صفحة السؤال الكاملة مع عباراته وخياراته.
-3. يبقى السؤال غير محسوب حتى تتوفر بيانات تسمح بالمراجعة.
+2. المفهوم الأول Average reference line لأنه يمثل متوسط القيم، مش Trend line ولا Forecast.
+3. لتفعيل Drill down رتّب مستويات التاريخ في X-axis، مش Values. تحتاج أيضًا تعريف Weeks في تقويمك؛ التدرج التلقائي المعتاد لا يضيف الأسبوع وحده.
+4. المصدر معلّم على Values لكن ده لا يحقق التنقل داخل مستويات التاريخ. القوائم مقفولة ولا يمكن تفريغ كل بدائلها بأمانة، لذلك لا يتحول السؤال لمفتاح تلقائي مخترع.
 
 الإجابة الصحيحة وليه
-المصدر ناقص؛ لا يوجد مفتاح موثق لهذا السؤال.
+المفهوم الصحيح: Average reference line؛ ومستويات الأسبوع واليوم على X-axis. اختيار Values في المصدر غير صحيح لـDrill down. لا يزال التصحيح التلقائي موقوفًا لغياب كل الاختيارات الأصلية.
 
 ليه كل اختيار صح أو غلط
-لا توجد عبارات أوخيارات أصلية كاملة يمكن ترجيحها؛ لا نعتبر نوع الرسم وحده جوابًا ولا نخترع قوائم مفقودة.
+استُعيد الاختيار المحدد Average reference line وهو المفهوم الصحيح للمتوسط. واستُعيد Values كإجابة المصدر الثانية، لكن الصحيح للهيكل الزمني X-axis. البدائل الأخرى غير ظاهرة، فلا نستعير قوائم من سؤال آخر.
 
 الخلاصة اللي تتحفظ
 نقص منطقة الإجابة لا يعالج بالتخمين أو استعارة اختيارات سؤال آخر.
@@ -26879,7 +26911,7 @@ dashboard.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+correct order.', '[]', '[20004,20001,20000]', 'ترجمة السؤال بالعربي
 في Workspace تقرير Sales من صفحة واحدة. عايز كل الرسومات تظهر في Dashboard، وأي visual تضيفه للصفحة بعدين يظهر معها من غير pin يدوي جديد. اختار ثلاث خطوات.
 
 القصة والمعنى
@@ -27362,7 +27394,7 @@ How should you complete the OAX expression for the calculated column? To answer,
 
 once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[1,2,0]', 'ترجمة السؤال بالعربي
 Customer فيه Email Address مكرر. أكمل calculated column يحسب عدد الصفوف التي تحمل نفس الإيميل.
 
 القصة والمعنى

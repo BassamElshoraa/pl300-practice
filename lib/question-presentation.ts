@@ -4,6 +4,7 @@ import { presentations as review281Presentations } from './reviewed-lessons/revi
 import { presentations as review301Presentations } from './reviewed-lessons/review-301-380-controls.ts';
 import { presentations as review381Presentations } from './review-381-494-controls.ts';
 import { omittedNativeKeys } from './reviewed-lessons/native-keys-001-220-301-380.ts';
+import { gradingQualifications } from './reviewed-lessons/remaining-native-grading.ts';
 import { nativeKeyQualifications } from './reviewed-lessons/native-keys-221-300.ts';
 import { nativeKeyQualifications as laterKeyQualifications } from './reviewed-lessons/native-keys-381-494.ts';
 
@@ -958,12 +959,29 @@ export const questionPresentation: Record<string, QuestionPresentation> = {
     ],
   },
   'f2-202-444': {
-    warning:
-      'The saved dropdown crops belong to a different question. They have been disabled. The source profile shows 12 distinct and 11 unique values, but a readable original answer area is still required to transcribe every distractor exactly.',
+    hideSourceImage: true,
+    note: 'Recovered from the original Final 2 PDF, page 33, including both complete count menus. Distinct includes null; unique counts values occurring once.',
+    tables: [
+      {
+        caption: 'AddressLine2 — original Power Query profile',
+        columns: ['Statistic', 'Value'],
+        rows: [
+          ['Valid', '2%'],
+          ['Error', '0%'],
+          ['Empty', '98%'],
+          ['Distinct', '12'],
+          ['Unique', '11'],
+        ],
+      },
+    ],
   },
   'f2-336-483': {
     warning:
-      'The source exhibit omits the answer area and statements. The previously reused menu images have been disabled. Supply the complete original question before answering this item.',
+      'The original PDF page 49 recovers both statements, but the dropdowns are collapsed and do not reveal all original options. The source-selected Values bucket does not enable date drill-down; date hierarchy levels belong on the X-axis. The intended concepts are explained, but no invented list of distractors is scored.',
+    statements: [
+      'The dashed line representing the Year Average Employee Count was created by using ___.',
+      'To enable users to drill down to weeks or days, add the Weeks and Days fields to the ___ bucket.',
+    ],
   },
 };
 
@@ -982,13 +1000,14 @@ export function getQuestionPresentation(question: Pick<Question, 'id'>) {
   if (unresolved[question.id])
     return { ...spec, warning: unresolved[question.id] };
   const qualification =
+    gradingQualifications[question.id] ??
     omittedNativeKeys[question.id] ??
     nativeKeyQualifications[question.id] ??
     laterKeyQualifications[question.id];
   if (['f1-066-65', 'f2-157-426'].includes(question.id))
     return {
       ...spec,
-      note: 'More than one merge sequence can produce the required result. The displayed sequence is one valid example. Automatic exact-order scoring is disabled so another valid dependency-preserving sequence is not marked incorrect.',
+      note: 'More than one merge sequence can produce the required result. The displayed sequence is one valid example. Automatic scoring accepts the three reviewed dependency-preserving sequences; the manager enrichment must precede its dependent merge.',
     };
   return qualification
     ? {

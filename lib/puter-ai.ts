@@ -103,8 +103,8 @@ export function tutorFailureMessage(error: unknown, language: 'ar-EG' | 'en') {
       'راجع اتصال الإنترنت وجرّب تاني. الشرح المدمج بيشتغل أوفلاين.',
     ],
     timeout: [
-      'The provider did not reply in time. The request was cancelled; retry when ready.',
-      'الخدمة ما ردتش في الوقت المحدد. بعتنا طلب إلغاء؛ تقدر تحاول تاني.',
+      'The provider did not reply in time. We stopped waiting and requested cancellation; the provider may still finish the request.',
+      'الخدمة ما ردتش في الوقت المحدد. وقفنا الانتظار وطلبنا الإلغاء؛ ممكن الخدمة تكون لسه بتكمل الطلب عندها.',
     ],
     unavailable: [
       'The configured AI models are unavailable right now. Retry or use built-in guidance.',
@@ -114,14 +114,23 @@ export function tutorFailureMessage(error: unknown, language: 'ar-EG' | 'en') {
   return messages[tutorFailureKind(error)][language === 'ar-EG' ? 1 : 0];
 }
 
-let catalogCache: { expiresAt: number; models: string[] } | undefined;
+let catalogCache:
+  | { owner: NonNullable<PuterSdk['ai']>; expiresAt: number; models: string[] }
+  | undefined;
 
 /** Availability changes independently of this website. Keep curated priorities,
  * but do not spend a chat timeout on a model absent from the provider catalog.
  * An unavailable catalog is not evidence that all models are unavailable. */
-async function availableTutorModels(ai: NonNullable<PuterSdk['ai']>) {
+async function availableTutorModels(
+  ai: NonNullable<PuterSdk['ai']>,
+  refresh = false,
+) {
   if (!ai.listModels) return [...PUTER_TUTOR_MODELS];
-  if (catalogCache && catalogCache.expiresAt > Date.now())
+  if (
+    !refresh &&
+    catalogCache?.owner === ai &&
+    catalogCache.expiresAt > Date.now()
+  )
     return catalogCache.models;
   try {
     const result = await withTimeout(ai.listModels(), 4000, 'en');
@@ -148,7 +157,11 @@ async function availableTutorModels(ai: NonNullable<PuterSdk['ai']>) {
       throw Error(
         'No configured tutor model is currently listed by the provider.',
       );
-    catalogCache = { expiresAt: Date.now() + 300_000, models: available };
+    catalogCache = {
+      owner: ai,
+      expiresAt: Date.now() + 300_000,
+      models: available,
+    };
     return available;
   } catch (error) {
     if (
@@ -161,6 +174,81 @@ async function availableTutorModels(ai: NonNullable<PuterSdk['ai']>) {
 }
 
 export const PUTER_TUTOR_MAX_TOKENS = 1600;
+
+/** Deliberately contains no user identity, raw provider payload, token or URL. */
+export type TutorConnectionCheck = {
+  stage: 'sdk' | 'auth' | 'catalog' | 'inference' | 'complete';
+  ok: boolean;
+  sdkReady: boolean;
+  signedIn: boolean;
+  inferenceVerified: boolean;
+  elapsedMs: number;
+  checkedAt: string;
+  model?: string;
+  failure?: TutorFailureKind;
+};
+
+/** Called only by an explicit learner click. Unlike a catalog/auth check, success
+ * requires a nonempty model-generated acknowledgement from the live SDK. The
+ * probe contains no learner name, exam question or transcript and is not saved. */
+export async function checkPuterConnection(): Promise<TutorConnectionCheck> {
+  const started = Date.now();
+  const result: TutorConnectionCheck = {
+    stage: 'sdk',
+    ok: false,
+    sdkReady: false,
+    signedIn: false,
+    inferenceVerified: false,
+    elapsedMs: 0,
+    checkedAt: new Date().toISOString(),
+  };
+  try {
+    result.sdkReady = await ensurePuterReady();
+    if (!result.sdkReady) throw new TutorProviderError('network');
+    result.stage = 'auth';
+    result.signedIn = isPuterSignedIn();
+    if (!result.signedIn) throw new TutorProviderError('auth');
+    const ai = window.puter!.ai!;
+    result.stage = 'catalog';
+    const models = await availableTutorModels(ai, true);
+    result.model = models[0];
+    result.stage = 'inference';
+    const controller = new AbortController();
+    const response = await withTimeout(
+      ai.chat!.call(
+        ai,
+        [
+          {
+            role: 'system',
+            content:
+              'This is a connection test. Reply only with PL300_AI_OK. Do not add any explanation.',
+          },
+          { role: 'user', content: 'PL300_AI_OK' },
+        ],
+        {
+          model: result.model,
+          stream: false,
+          normalize: true,
+          max_tokens: 48,
+          temperature: 0,
+          signal: controller.signal,
+        },
+      ),
+      25_000,
+      'en',
+      () => controller.abort(),
+    );
+    if (!extractPuterReply(response))
+      throw new TutorProviderError('unavailable');
+    result.inferenceVerified = true;
+    result.ok = true;
+    result.stage = 'complete';
+  } catch (error) {
+    result.failure = tutorFailureKind(error);
+  }
+  result.elapsedMs = Date.now() - started;
+  return result;
+}
 
 declare global {
   interface Window {
@@ -268,8 +356,11 @@ export async function chatWithPuter(request: TutorChatRequest) {
     ...request.messages,
   ];
   let lastError: unknown;
+  const chatStarted = Date.now();
 
   for (const model of await availableTutorModels(ai!)) {
+    const remainingMs = 35_000 - (Date.now() - chatStarted);
+    if (remainingMs <= 0) throw new TutorProviderError('timeout');
     const controller = new AbortController();
     try {
       const response = await withTimeout(
@@ -278,9 +369,10 @@ export async function chatWithPuter(request: TutorChatRequest) {
           max_tokens: PUTER_TUTOR_MAX_TOKENS,
           temperature: 0.35,
           normalize: true,
+          stream: false,
           signal: controller.signal,
         }),
-        25_000,
+        Math.min(25_000, remainingMs),
         request.context.responseLanguage,
         () => controller.abort(),
       );
@@ -330,30 +422,42 @@ function withTimeout<T>(
   });
 }
 
-function extractPuterReply(value: unknown): string {
+export function extractPuterReply(value: unknown): string {
   if (typeof value === 'string') return value.trim();
   if (!isRecord(value)) return '';
+  // Some transports resolve an error envelope instead of rejecting. Classify
+  // it before examining any text so an error is never labelled as live tutoring.
+  if (value.success === false || value.error) throw value.error || value;
   if (typeof value.text === 'string') return value.text.trim();
   if (isRecord(value.message)) {
     const content = value.message.content;
     if (typeof content === 'string') return content.trim();
-    if (Array.isArray(content))
-      return content
-        .filter(isRecord)
-        .map((block) =>
-          typeof block.text === 'string' ? block.text.trim() : '',
-        )
-        .filter(Boolean)
-        .join('\n\n');
+    if (Array.isArray(content)) return extractTextBlocks(content);
   }
   if (Array.isArray(value.choices)) {
     const first = value.choices[0];
     if (isRecord(first) && isRecord(first.message)) {
       const content = first.message.content;
       if (typeof content === 'string') return content.trim();
+      if (Array.isArray(content)) return extractTextBlocks(content);
     }
   }
   return '';
+}
+
+function extractTextBlocks(content: unknown[]): string {
+  return (
+    content
+      .filter(isRecord)
+      // Never surface hidden reasoning/tool-call blocks as the learner's reply.
+      .filter(
+        (block) =>
+          !block.type || block.type === 'text' || block.type === 'output_text',
+      )
+      .map((block) => (typeof block.text === 'string' ? block.text.trim() : ''))
+      .filter(Boolean)
+      .join('\n\n')
+  );
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
