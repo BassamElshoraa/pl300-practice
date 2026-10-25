@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { buildOptionExplanations } from '../lib/option-explanations.ts';
 import { questions } from '../lib/questions.ts';
+import { getQuestionPresentation } from '../lib/question-presentation.ts';
 import { updateMistakeRecords } from '../lib/learner-state.ts';
 import {
   ALL_TOPICS,
@@ -63,7 +64,8 @@ for (const topic of ALL_TOPICS) {
 }
 
 const autoQuestions = questions.filter(
-  (question) => question.type !== 'manual',
+  (question) =>
+    question.type !== 'manual' && !getQuestionPresentation(question)?.warning,
 );
 const deliberatelyWrongAnswers = Object.fromEntries(
   autoQuestions.map((question) => {

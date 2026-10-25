@@ -20,8 +20,9 @@ export function calculateScore(exam: Question[], answers: Answers) {
   let manual = 0;
   exam.forEach((question) => {
     if (
-      question.type === 'manual' &&
-      !managedAutoGradingKeys[question.id]?.length
+      getQuestionPresentation(question)?.warning ||
+      (question.type === 'manual' &&
+        !managedAutoGradingKeys[question.id]?.length)
     )
       manual += 1;
     else if (!isAnswered(question, answers[question.id])) unanswered += 1;

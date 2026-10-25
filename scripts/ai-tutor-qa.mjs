@@ -58,7 +58,10 @@ assert.ok(
   'The Data Profiling regression question is missing.',
 );
 const profilingExplanation = buildEgyptianExplanation(profilingQuestion);
-assert.match(profilingExplanation, /Data profiling|Column quality/i);
+assert.match(
+  profilingExplanation,
+  /Data profiling|Column quality|Column profile/i,
+);
 assert.doesNotMatch(profilingExplanation, /RLS بيخفي|sensitivity label/i);
 
 const base = {

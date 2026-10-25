@@ -1,6 +1,7 @@
 import type { Question } from './questions.ts';
 import { isAnswered, isCorrect, type Answers } from './exam-utils.ts';
 import { managedAutoGradingKeys } from './managed-auto-grading-keys.ts';
+import { getQuestionPresentation } from './question-presentation.ts';
 
 export type ManagedRole = 'instructor' | 'student';
 export type ManagedExamStatus = 'draft' | 'published' | 'archived';
@@ -418,8 +419,9 @@ export function submitManagedAttempt(
     const question = questionsById.get(questionId);
     if (!question) continue;
     if (
-      question.type === 'manual' &&
-      !managedAutoGradingKeys[question.id]?.length
+      getQuestionPresentation(question)?.warning ||
+      (question.type === 'manual' &&
+        !managedAutoGradingKeys[question.id]?.length)
     ) {
       manualPending += 1;
     } else if (!isAnswered(question, attempt.answers[questionId])) {

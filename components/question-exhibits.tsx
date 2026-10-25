@@ -5,6 +5,7 @@ import { useLanguage } from '@/lib/i18n';
 import { nativeExhibitData } from '@/lib/native-exhibit-data';
 import { useState } from 'react';
 import Image from 'next/image';
+import { ReviewedStudyExplanation } from '@/components/reviewed-study-explanation';
 import {
   Dialog,
   DialogContent,
@@ -47,6 +48,17 @@ export function QuestionExhibits({
           </strong>
           <p className="mt-2">{spec.warning}</p>
         </div>
+      )}
+      {spec?.note && (
+        <div
+          role="note"
+          className="rounded-lg border border-sky-500/40 bg-sky-500/5 p-4 leading-7"
+        >
+          {spec.note}
+        </div>
+      )}
+      {spec?.warning && (
+        <ReviewedStudyExplanation question={question as Question} />
       )}
       {spec?.tables?.map((table) => (
         <div

@@ -1,8 +1,8 @@
+import { auditedQuestionBank, questions } from '../lib/questions.ts';
 import {
-  auditedQuestionBank,
-  questions,
-} from '../lib/questions.ts';
-import { expectedCaseStudyQuestionNumbers } from '../lib/case-study-context.ts';
+  expectedCaseStudyQuestionNumbers,
+  secondCollectionCases,
+} from '../lib/case-study-context.ts';
 
 const failures = [];
 const expected = new Map();
@@ -31,7 +31,9 @@ for (const [sourceNumber, caseStudy] of expected) {
     failures.push(`${caseStudy} Q${sourceNumber}: context remains in prompt`);
   }
   if (/Case Study Description/i.test(question.explanation)) {
-    failures.push(`${caseStudy} Q${sourceNumber}: context remains in explanation`);
+    failures.push(
+      `${caseStudy} Q${sourceNumber}: context remains in explanation`,
+    );
   }
   if (!question.prompt.trim()) {
     failures.push(`${caseStudy} Q${sourceNumber}: question prompt is empty`);
@@ -45,7 +47,8 @@ for (const [caseStudy, numbers] of Object.entries(
     numbers.map(
       (sourceNumber) =>
         auditedQuestionBank.find(
-          (item) => item.source === 'Final' && item.sourceNumber === sourceNumber,
+          (item) =>
+            item.source === 'Final' && item.sourceNumber === sourceNumber,
         )?.context,
     ),
   );
@@ -55,9 +58,21 @@ for (const [caseStudy, numbers] of Object.entries(
 }
 
 const activeCaseStudies = questions.filter((question) => question.context);
-if (activeCaseStudies.length !== expected.size) {
+const secondActive = questions.filter((q) => secondCollectionCases[q.id]);
+for (const q of secondActive) {
+  const first = questions.find(
+    (other) =>
+      other.source === 'Final' &&
+      other.context?.startsWith(q.context?.split(' — ')[0] ?? '__none__'),
+  );
+  if (!q.context || q.context.length < 1500 || q.context !== first?.context)
+    failures.push(
+      `${q.id}: missing or mismatched repeated source-verified context`,
+    );
+}
+if (activeCaseStudies.length !== expected.size + secondActive.length) {
   failures.push(
-    `Expected ${expected.size} active case-study questions, found ${activeCaseStudies.length}`,
+    `Expected ${expected.size + secondActive.length} active case-study questions, found ${activeCaseStudies.length}`,
   );
 }
 
@@ -91,6 +106,7 @@ console.log(
           value.length,
         ]),
       ),
+      additionalSecondCollectionQuestions: secondActive.map((q) => q.id),
       everyQuestionHasFullRepeatedContext: true,
       promptsAndExplanationsContainNoHiddenDuplicateContext: true,
     },

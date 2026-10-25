@@ -3,6 +3,7 @@ import { resolve } from 'node:path';
 import { questions } from '../lib/questions.ts';
 import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 import { buildReviewedExplanation } from '../lib/reviewed-lessons.ts';
+import { getQuestionPresentation } from '../lib/question-presentation.ts';
 
 function sql(value) {
   if (value === undefined || value === null) return 'NULL';
@@ -17,7 +18,11 @@ const statements = questions.map((question) => {
     question.type,
     question.prompt,
     JSON.stringify(question.choices),
-    JSON.stringify(managedAutoGradingKeys[question.id] ?? question.correct),
+    JSON.stringify(
+      getQuestionPresentation(question)?.warning
+        ? []
+        : (managedAutoGradingKeys[question.id] ?? question.correct),
+    ),
     buildReviewedExplanation(question) ?? question.explanation,
     question.source,
     question.sourceNumber,

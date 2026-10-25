@@ -942,7 +942,8 @@ function CreateExamDialog({
   const [showScoreAfterSubmit, setShowScoreAfterSubmit] = useState(true);
   const autoGradable = questions.filter(
     (question) =>
-      question.type !== 'manual' || hasManagedAutoGradingKey(question.id),
+      !getQuestionPresentation(question)?.warning &&
+      (question.type !== 'manual' || hasManagedAutoGradingKey(question.id)),
   );
   const eligible =
     domain === 'all'

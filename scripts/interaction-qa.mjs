@@ -120,6 +120,16 @@ for (const [id, rows] of Object.entries(textAnswerData)) {
     continue;
   }
   if (isAnswered(q, [])) fail(id, 'empty text rows counted as answered');
+  if (getQuestionPresentation(q)?.warning) {
+    if (
+      isAnswered(
+        q,
+        rows.map(() => TEXT_ANSWER_OFFSET),
+      )
+    )
+      fail(id, 'unresolved source counted as answerable');
+    continue;
+  }
   if (
     !isAnswered(
       q,
@@ -150,7 +160,11 @@ for (const question of yesNoQuestions) {
     fail(question.id, 'empty Yes/No grid counted as complete');
   if (isAnswered(question, [1, -1, 0]))
     fail(question.id, 'partial Yes/No grid counted as complete');
-  if (!isAnswered(question, [1, 0, 1]))
+  if (
+    !getQuestionPresentation(question)?.warning &&
+    !textAnswerData[question.id] &&
+    !isAnswered(question, [1, 0, 1])
+  )
     fail(question.id, 'completed Yes/No grid did not count as answered');
 }
 

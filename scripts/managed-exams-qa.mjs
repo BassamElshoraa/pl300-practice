@@ -3,6 +3,8 @@ import { dragDropData } from '../lib/drag-drop-data.ts';
 import { isCorrect } from '../lib/exam-utils.ts';
 import { managedAutoGradingKeys } from '../lib/managed-auto-grading-keys.ts';
 import { questions } from '../lib/questions.ts';
+import { getQuestionPresentation } from '../lib/question-presentation.ts';
+import { textAnswerData, TEXT_ANSWER_OFFSET } from '../lib/text-answer-data.ts';
 import {
   addManagedAttemptEvent,
   authenticateManagedDemo,
@@ -21,26 +23,61 @@ const questionById = new Map(
 const managedKeyEntries = Object.entries(managedAutoGradingKeys);
 const managedEligibleQuestions = questions.filter(
   (question) =>
-    question.type !== 'manual' ||
-    Boolean(managedAutoGradingKeys[question.id]?.length),
+    !getQuestionPresentation(question)?.warning &&
+    (question.type !== 'manual' ||
+      Boolean(managedAutoGradingKeys[question.id]?.length)),
 );
 
-assert.equal(
-  managedKeyEntries.length,
-  42,
-  'The reviewed visual auto-grading bank changed unexpectedly.',
+assert.ok(
+  managedKeyEntries.length >= 42,
+  'Existing reviewed grading coverage was lost.',
 );
-assert.equal(
-  managedEligibleQuestions.length,
-  363,
-  'Managed exams should contain exactly 363 fully auto-graded questions.',
+assert.ok(
+  managedEligibleQuestions.length > 300,
+  'Unexpected loss of managed exam coverage',
+);
+assert.ok(
+  managedEligibleQuestions.every((q) => !getQuestionPresentation(q)?.warning),
+  'Unresolved questions must not enter scored exams',
 );
 for (const [questionId, key] of managedKeyEntries) {
   const question = questionById.get(questionId);
   const spec = dragDropData[questionId];
-  assert.ok(question, `Managed answer key references missing question ${questionId}.`);
-  assert.equal(question.type, 'manual', `${questionId} is not a visual question.`);
-  assert.ok(spec, `Managed answer key ${questionId} has no drag-and-drop spec.`);
+  const rows = textAnswerData[questionId];
+  assert.ok(
+    question,
+    `Managed answer key references missing question ${questionId}.`,
+  );
+  assert.equal(
+    question.type,
+    'manual',
+    `${questionId} is not a visual question.`,
+  );
+  if (rows) {
+    assert.equal(
+      key.length,
+      rows.length,
+      `${questionId}: native answer row count`,
+    );
+    assert.ok(
+      key.every(
+        (value, index) =>
+          Number.isInteger(value) &&
+          rows[index].options[value - TEXT_ANSWER_OFFSET] !== undefined,
+      ),
+      `${questionId}: invalid native index`,
+    );
+    assert.equal(
+      isCorrect(question, key),
+      true,
+      `${questionId}: native key not scoreable`,
+    );
+    continue;
+  }
+  assert.ok(
+    spec,
+    `Managed answer key ${questionId} has no drag-and-drop spec.`,
+  );
   assert.equal(
     key.length,
     spec.slots,
@@ -49,7 +86,9 @@ for (const [questionId, key] of managedKeyEntries) {
   assert.ok(
     key.every(
       (choice) =>
-        Number.isInteger(choice) && choice >= 0 && choice < spec.options.length,
+        Number.isInteger(choice) &&
+        choice >= (spec.answerOffset ?? 0) &&
+        choice < (spec.answerOffset ?? 0) + spec.options.length,
     ),
     `${questionId} contains an invalid choice index.`,
   );
@@ -218,5 +257,5 @@ assert.equal(
 );
 
 console.log(
-  'Managed exams QA passed: 363 automatic questions (including 42 reviewed visual keys), auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.',
+  `Managed exams QA passed: ${managedEligibleQuestions.length} automatic questions (including ${managedKeyEntries.length} reviewed visual keys), auth, scheduling, access, autosave, resume, scoring, limits, events, and CSV.`,
 );

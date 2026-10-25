@@ -26,11 +26,17 @@ export function ReviewedStudyExplanation({ question }: { question: Question }) {
       data-reviewed-lesson={question.id}
     >
       <div className="flex flex-wrap gap-2">
-        <Badge>شرح خاص بالسؤال، تمت مراجعته</Badge>
+        <Badge>
+          {lesson.verdict === 'incomplete'
+            ? 'المصدر ناقص؛ لا توجد إجابة محسومة'
+            : 'شرح خاص بالسؤال، تمت مراجعته'}
+        </Badge>
         <Badge variant="outline">
-          {lesson.verdict === 'conditional'
-            ? 'فيه شرط لازم تقراه'
-            : 'سبب الاختيار + مثال + تحليل البدائل'}
+          {lesson.verdict === 'incomplete'
+            ? 'شرح سبب عدم كفاية المعطيات'
+            : lesson.verdict === 'conditional'
+              ? 'فيه شرط لازم تقراه'
+              : 'سبب الاختيار + مثال + تحليل البدائل'}
         </Badge>
       </div>
       <ReviewedSchemaDiagram id={question.id} />

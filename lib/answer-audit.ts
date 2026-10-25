@@ -1,6 +1,10 @@
 import type { Question } from './questions';
 import { answerCompletenessCorrections } from './answer-completeness.ts';
 import { getReviewedLesson } from './reviewed-lessons.ts';
+import { corrections as review221Corrections } from './reviewed-lessons/review-221-280-controls.ts';
+import { corrections as review281Corrections } from './reviewed-lessons/review-281-300-controls.ts';
+import { corrections as review301Corrections } from './reviewed-lessons/review-301-380-controls.ts';
+import { corrections as review381Corrections } from './review-381-494-controls.ts';
 
 export type AnswerAuditStatus =
   | 'independently-reviewed'
@@ -59,6 +63,31 @@ const explicitlyReviewedIds = new Set([
 
 const corrections: Record<string, QuestionCorrection> = {
   ...answerCompletenessCorrections,
+  ...review221Corrections,
+  ...review281Corrections,
+  ...review301Corrections,
+  ...review381Corrections,
+  'f1-145-144': {
+    status: 'corrected',
+    correct: [3],
+    reviewedAnswer:
+      'D. Push mode, conditional on a configured push ingestion path.',
+    originalAnswer: 'A. DirectQuery.',
+    reasonAr:
+      'DirectQuery يحقق الاستعلام بدون إعادة استيراد، لكنه يرجّع حمل استعلامات القراء للمصدر. Push هو الأنسب لمصدر متدفق مع تقليل الحمل، بشرط تجهيز مسار دفع البيانات. الشرح يوضح قيود تحديث صفحات التقرير والفرق عن Streaming-only tiles؛ مش وعد أن اختيار وضع وحده يحل البنية كلها.',
+    explanation:
+      'Reviewed answer: D, Push mode, provided a push ingestion path is available. Push stores arriving data in the service and supports report authoring without scheduled import refresh. DirectQuery queries a supported source at interaction time and can increase source load. Do not confuse Push with Streaming-only models or promise automatic live updates for every open report page. The source omits ingestion architecture, so the detailed lesson explicitly qualifies this inference.',
+    evidence: [
+      {
+        label: 'Push and streaming semantic models',
+        url: 'https://learn.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming',
+      },
+      {
+        label: 'DirectQuery source load',
+        url: 'https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about',
+      },
+    ],
+  },
   'f1-204-203': {
     status: 'independently-reviewed',
     reviewedAnswer: 'D. Data category = Image URL.',
@@ -1004,6 +1033,13 @@ const corrections: Record<string, QuestionCorrection> = {
 export function getAnswerAudit(question: Pick<Question, 'id'>): AnswerAudit {
   const correction = corrections[question.id];
   if (correction) return correction;
+  const lesson = getReviewedLesson(question);
+  if (lesson?.verdict === 'incomplete')
+    return {
+      status: 'incomplete-source',
+      reasonAr: lesson.takeaway,
+      reviewedAnswer: lesson.answer,
+    };
   if (explicitlyReviewedIds.has(question.id) || getReviewedLesson(question))
     return { status: 'independently-reviewed' };
   return { status: 'source-key' };

@@ -1,4 +1,8 @@
 /** Transcribed from each question's own original answer area, not reused menu crops. */
+import { textRows as review221Rows } from './reviewed-lessons/review-221-280-controls.ts';
+import { textRows as review281Rows } from './reviewed-lessons/review-281-300-controls.ts';
+import { textRows as review301Rows } from './reviewed-lessons/review-301-380-controls.ts';
+import { textRows as review381Rows } from './review-381-494-controls.ts';
 export type TextAnswerRow = { label: string; options: string[] };
 const row = (label: string, options: string[]): TextAnswerRow => ({
   label,
@@ -40,6 +44,10 @@ const interactionRows = [
   ),
 ];
 export const textAnswerData: Record<string, TextAnswerRow[]> = {
+  ...review221Rows,
+  ...review281Rows,
+  ...review301Rows,
+  ...review381Rows,
   'f1-212-211': [
     row('Chart type:', ['Line', 'Pie', 'Treemap']),
     row('Chart configuration:', [

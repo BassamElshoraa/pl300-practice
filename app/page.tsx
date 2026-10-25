@@ -130,7 +130,11 @@ import {
 } from '@/components/question-exhibits';
 import { TextAnswerLists } from '@/components/text-answer-lists';
 import { getQuestionPresentation } from '@/lib/question-presentation';
-import { textAnswerData, statementData } from '@/lib/text-answer-data';
+import {
+  textAnswerData,
+  statementData,
+  TEXT_ANSWER_OFFSET,
+} from '@/lib/text-answer-data';
 import { AiStudyExplanation } from '@/components/ai-study-explanation';
 import { ReviewedStudyExplanation } from '@/components/reviewed-study-explanation';
 import { getReviewedLesson } from '@/lib/reviewed-lessons';
@@ -5227,6 +5231,29 @@ function DragDropReviewPanel({
   const { tx } = useLanguage();
   const spec = dragDropData[question.id];
   const value = decodeDragAnswer(question.id, encodedValue);
+  const rows = textAnswerData[question.id];
+  if (rows)
+    return (
+      <AnswerPanel
+        title={title}
+        lines={rows.map(
+          (row, index) =>
+            `${row.label} ${row.options[(encodedValue[index] ?? -1) - TEXT_ANSWER_OFFSET] ?? tx('Not answered', 'بدون إجابة')}`,
+        )}
+        good={good}
+      />
+    );
+  if (isYesNoQuestion(question))
+    return (
+      <AnswerPanel
+        title={title}
+        lines={(statementData[question.id] ?? []).map(
+          (statement, index) =>
+            `${statement} ${encodedValue[index] === 0 ? tx('Yes', 'نعم') : encodedValue[index] === 1 ? tx('No', 'لا') : tx('Not answered', 'بدون إجابة')}`,
+        )}
+        good={good}
+      />
+    );
   if (!spec) return null;
 
   return (
@@ -5271,6 +5298,18 @@ function PracticeFeedback({
   answer?: number[];
 }) {
   const { language, tx } = useLanguage();
+  if (getQuestionPresentation(question)?.warning)
+    return (
+      <div className="mt-6 rounded border border-amber-500 p-4">
+        <p>
+          {tx(
+            'Not scored: the source does not establish a reliable answer.',
+            'غير محسوب في الدرجة: المصدر لا يثبت إجابة يمكن الاعتماد عليها.',
+          )}
+        </p>
+        <ReviewedStudyExplanation question={question} />
+      </div>
+    );
   const correct = isCorrect(question, answer);
   const manual = question.type === 'manual';
   const autoGradedManual = manual && hasManagedAutoGradingKey(question.id);
@@ -5799,7 +5838,9 @@ function ReviewScreen({
   const correct = isCorrect(question, answer);
   const autoGradedManual =
     question.type === 'manual' && hasManagedAutoGradingKey(question.id);
-  const requiresManualReview = question.type === 'manual' && !autoGradedManual;
+  const requiresManualReview =
+    Boolean(getQuestionPresentation(question)?.warning) ||
+    (question.type === 'manual' && !autoGradedManual);
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Header

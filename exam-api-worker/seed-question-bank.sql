@@ -25,8 +25,8 @@ area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-عندك Sales تفصيلية لازم تعكس أحدث المبيعات، وSalesAggregate مجمعة تكفي تتحدث أسبوعيًا. Customer تتحدث يوميًا وDate نادرًا. اختار وضع تخزين كل جدول بحيث العرض يبقى سريع، مع الالتزام بحداثة كل نوع داتا.
+Hot Area:', '[]', '[10001,10001,10000,10002]', 'ترجمة السؤال بالعربي
+عندك Sales تفصيلية لازم تعكس أحدث المبيعات، و SalesAggregate مجمعة تكفي تتحدث أسبوعيًا. Customer تتحدث يوميًا و Date نادرًا. اختار وضع تخزين كل جدول بحيث العرض يبقى سريع، مع الالتزام بحداثة كل نوع داتا.
 
 القصة والمعنى
 تخيّل عندك كشكير بإجمالي مبيعات الأسبوع وشاشة كاشير بتجيب آخر فاتورة. مش لازم تروح للكاشير عشان تعرف إجمالي الأسبوع، ومش ينفع تعتمد على الكشكير عشان تعرف فاتورة لسه اتسجلت. العميل والتاريخ هم مفاتيح بتفلتر الاتنين.
@@ -37,7 +37,7 @@ Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
 طريقة التفكير خطوة بخطوة
 1. Sales محتاجة الداتا الحالية؛ DirectQuery بيستعلم من المصدر عند تنفيذ الاستعلام، بدل انتظار تحميل نسخة جديدة.
 2. SalesAggregate تكفيها نسخة أسبوعية؛ Import يستفيد من التجميع والذاكرة في العرض السريع.
-3. Customer وDate مرتبطان بالجدولين. Dual يسمح باستخدام النسخة المستوردة مع التجميع، أو الاندماج في استعلام المصدر مع Sales، متى كانت الجداول من مصدر يدعم ذلك.
+3. Customer و Date مرتبطان بالجدولين. Dual يسمح باستخدام النسخة المستوردة مع التجميع، أو الاندماج في استعلام المصدر مع Sales، متى كانت الجداول من مصدر يدعم ذلك.
 4. مواعيد refresh تخص النسخة المخبأة. Dual لا يعني أن التقرير كله يحدث تلقائيًا كل يوم أو كل ثلاث سنين؛ دي إعدادات تحديث مستقلة.
 
 الإجابة الصحيحة وليه
@@ -209,7 +209,7 @@ You need to create a query that has one row per customer. Each row must contain 
 for each customer.
 
 What should you do?', '["Merge the Customer and Address tables.","Group the Customer and Address tables by the Address ID column.","Transpose the Customer and Address tables.","Append the Customer and Address tables."]', '[0]', 'ترجمة السؤال بالعربي
-عندك Customer فيه عميل واحد لكل Customer ID ومعاه Address ID، وAddress فيه عنوان واحد لكل Address ID. عايز صفًا واحدًا لكل عميل ومعاه City وState/Region وCountry. تعمل إيه؟
+عندك Customer فيه عميل واحد لكل Customer ID ومعاه Address ID، و Address فيه عنوان واحد لكل Address ID. عايز صفًا واحدًا لكل عميل ومعاه City و State/Region و Country. تعمل إيه؟
 
 القصة والمعنى
 بطاقة العميل كاتبة رقم عنوانه، ودفتر العناوين هو اللي فيه المدينة والدولة. المطلوب تزود بيانات العنوان جنب العميل، مش تضيف العناوين كأنهم عملاء جداد.
@@ -258,7 +258,7 @@ What should you do? To answer, select the appropriate options in the answer area
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10001,10002]', 'ترجمة السؤال بالعربي
 قاعدتا Azure SQL فيهما جدول Customer بنفس الأعمدة. عايز تجمع العملاء في جدول واحد، وتقلل حجم الموديل وتحتفظ بإمكانية scheduled refresh. تختار عملية إيه، وتعمل إيه في استعلامات المصدر؟
 
 القصة والمعنى
@@ -380,7 +380,7 @@ Orders by attributes of products sold
 The solution must minimize update times when interacting with visuals in the report.
 
 What should you do first?', '["From Power Query, merge the Order Line Items query and the Products query.","Create a calculated column that adds a list of product categories to the Orders table by using a DAX function.","Calculate the count of orders per product by using a DAX function.","From Power Query, merge the Orders query and the Order Line Items query."]', '[3]', 'ترجمة السؤال بالعربي
-عندك Orders لرأس الطلب، وOrder Line Items لسطور المنتجات، وProducts لوصف المنتج. عايز قيمة الطلبات عبر الزمن وتحليلها بصفات المنتجات، مع تقليل وقت تفاعل الرسومات. تبدأ بإيه؟
+عندك Orders لرأس الطلب، و Order Line Items لسطور المنتجات، و Products لوصف المنتج. عايز قيمة الطلبات عبر الزمن وتحليلها بصفات المنتجات، مع تقليل وقت تفاعل الرسومات. تبدأ بإيه؟
 
 القصة والمعنى
 الفاتورة لها ورقة رأس فيها التاريخ والعميل، وتحتها سطور فيها المنتجات والكميات. التحليل العددي بيشتغل على السطور، فهات لها حقول الرأس المطلوبة بدل ما تسيبها وراء مسار ربط إضافي.
@@ -480,10 +480,10 @@ Select and Place:', '[]', '[3,4,1]', 'ترجمة السؤال بالعربي
 معاك قائمتان: الأولى فيها شاي وقهوة، والثانية قهوة وعصير. المطلوب شاي وقهوة وعصير، مش شاي وقهوة وقهوة وعصير، ومش جدول فيه منتج من كل قائمة جنب التاني.
 
 مثال نفهم بيه
-Table1=[شاي،قهوة] وTable2=[قهوة،عصير]. بعد Append أربعة صفوف؛ بعد Remove duplicates ثلاثة منتجات مختلفة.
+Table1=[شاي،قهوة] و Table2=[قهوة،عصير]. بعد Append أربعة صفوف؛ بعد Remove duplicates ثلاثة منتجات مختلفة.
 
 طريقة التفكير خطوة بخطوة
-1. استورد Table1 وTable2 أولًا حتى تكون الاستعلامات موجودة.
+1. استورد Table1 و Table2 أولًا حتى تكون الاستعلامات موجودة.
 2. اعمل Append لـTable2 إلى Table1 لأنك تجمع سجلات من النوع نفسه.
 3. نفّذ Remove duplicates على عمود المنتجات في الجدول المجمّع؛ إزالة التكرار في كل مصدر وحده لا تعالج التكرار الموجود بين المصدرين.
 
@@ -524,7 +524,7 @@ What should you do?', '["Apply a transformation to extract the last 11 character
 التاريخ والوقت مربوطين بكلمة at داخل نص واحد. Power BI محتاج تاريخًا حقيقيًا يفهم منه السنة والشهر واليوم، مش مجرد نص يبدو كتاريخ.
 
 مثال نفهم بيه
-بعد الفصل: Logged.Date = 2018-12-31 وLogged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
+بعد الفصل: Logged.Date = 2018-12-31 و Logged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
 
 طريقة التفكير خطوة بخطوة
 1. افصل العمود باستخدام at لتحصل على جزء التاريخ منفصلًا عن الوقت.
@@ -562,7 +562,7 @@ You need to ensure that the dataset can be refreshed in powerbi.com.
 Which two connectors can you use to connect to the file? Each correct answer presents a complete solution.
 
 NOTE: Each correct selection is worth one point.', '["Excel Workbook","Text/CSV","Folder","SharePoint folder","Web"]', '[3,4]', 'ترجمة السؤال بالعربي
-ملف Excel على OneDrive مطلوب استيراده في semantic model وتحديثه من Power BI Service. أنهي connectorين من القائمة يصلحان للوصول إلى الملف السحابي؟
+ملف Excel على OneDrive مطلوب استيراده في semantic model وتحديثه من Power BI Service. أنهي connector ين من القائمة يصلحان للوصول إلى الملف السحابي؟
 
 القصة والمعنى
 الملف السحابي له عنوان، لكن نسخة OneDrive المتزامنة على جهازك لها مسار محلي. الخدمة تقدر تصل للعنوان السحابي مباشرة، إنما مسار C على جهازك مش متاح لها بنفسه.
@@ -573,10 +573,10 @@ NOTE: Each correct selection is worth one point.', '["Excel Workbook","Text/CSV"
 طريقة التفكير خطوة بخطوة
 1. في سياق OneDrive for work/school المبني على SharePoint، SharePoint Folder يصل للمكتبة والملف.
 2. Web يمكنه قراءة رابط الملف المباشر المناسب مع بيانات الاعتماد، وليس أي رابط مشاركة عشوائي أو صفحة معاينة.
-3. لو استخدمت نسخة محلية عبر Excel Workbook أو Folder فقد تحتاج gateway. لذلك المفتاح D وE يفترض المسار السحابي المباشر؛ لا يصح تعميم أن Excel connector لا يمكن تحديثه أبدًا.
+3. لو استخدمت نسخة محلية عبر Excel Workbook أو Folder فقد تحتاج gateway. لذلك المفتاح D و E يفترض المسار السحابي المباشر؛ لا يصح تعميم أن Excel connector لا يمكن تحديثه أبدًا.
 
 الإجابة الصحيحة وليه
-SharePoint folder وWeb، الاختياران الرابع والخامس، ضمن افتراض الاتصال السحابي المباشر في السؤال.
+SharePoint folder و Web، الاختياران الرابع والخامس، ضمن افتراض الاتصال السحابي المباشر في السؤال.
 
 ليه كل اختيار صح أو غلط
 A. Excel Workbook
@@ -614,14 +614,14 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-صورة Column profiling لعمود State تعرض 69 distinct و4 unique، مع 96% valid و4% empty. مطلوب إكمال عبارتين عن عدد القيم المختلفة والقيم التي ظهرت مرة واحدة.
+Hot Area:', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
+صورة Column profiling لعمود State تعرض 69 distinct و 4 unique، مع 96% valid و 4% empty. مطلوب إكمال عبارتين عن عدد القيم المختلفة والقيم التي ظهرت مرة واحدة.
 
 القصة والمعنى
-لو عندك [القاهرة، القاهرة، الجيزة]، فإنت مش عندك 3 محافظات مختلفة؛ عندك محافظتان. واللي ظهر مرة واحدة هو الجيزة فقط. دي بالضبط فكرة Distinct وUnique.
+لو عندك [القاهرة، القاهرة، الجيزة]، فإنت مش عندك 3 محافظات مختلفة؛ عندك محافظتان. واللي ظهر مرة واحدة هو الجيزة فقط. دي بالضبط فكرة Distinct و Unique.
 
 مثال نفهم بيه
-[A,A,B,C,C,D] فيها 4 distinct هي A وB وC وD، و2 unique هما B وD. عدد الصفوف 6، وهو رقم ثالث مختلف عن الاتنين.
+[A,A,B,C,C,D] فيها 4 distinct هي A و B و C و D، و 2 unique هما B و D. عدد الصفوف 6، وهو رقم ثالث مختلف عن الاتنين.
 
 طريقة التفكير خطوة بخطوة
 1. Distinct يعد عدد القيم المختلفة، بغض النظر عن عدد تكرار كل قيمة. في الصورة قيمته 69.
@@ -642,7 +642,7 @@ C. Different values in State, including nulls: 69
 69 صحيح للعبارة الأولى؛ هو Distinct كما هو معروض في مصدر السؤال، وليس نسبة جودة العمود.
 
 D. Different values in State, including nulls: 73
-73 يجمع 69 و4 رغم أن القيم الفريدة تدخل بالفعل ضمن القيم المختلفة؛ بذلك يعدها مرتين.
+73 يجمع 69 و 4 رغم أن القيم الفريدة تدخل بالفعل ضمن القيم المختلفة؛ بذلك يعدها مرتين.
 
 E. Non-null values occurring only once in State: 4
 4 صحيح للعبارة الثانية؛ Unique يحصي القيم التي ظهرت مرة واحدة، لا كل القيم بعد إزالة التكرار.
@@ -707,8 +707,8 @@ appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-Products يحتوي مفاتيح المنتج والمورد والفئة، وCategories يحتوي اسم الفئة ووصفها. عايز جدول Product واحد فيه حقول الاثنين. تجمع إزاي وتعمل إيه في Categories؟
+Hot Area:', '[]', '[10001,10001]', 'ترجمة السؤال بالعربي
+Products يحتوي مفاتيح المنتج والمورد والفئة، و Categories يحتوي اسم الفئة ووصفها. عايز جدول Product واحد فيه حقول الاثنين. تجمع إزاي وتعمل إيه في Categories؟
 
 القصة والمعنى
 المنتج مكتوب عنده CategoryID=3، لكن اسم الفئة في كشف تاني. عايز اسم الفئة جنب المنتج، وبعدها مش محتاج تحمل كشف الفئات كجدول منفصل في الموديل ده.
@@ -717,7 +717,7 @@ Products يحتوي مفاتيح المنتج والمورد والفئة، وCa
 منتج 11 بفئة 4، والفئة 4 اسمها Dairy Products. الناتج يحتفظ بالمنتج 11 ويضيف اسم الفئة ووصفها كأعمدة، بدل إنشاء صف منفصل للفئة.
 
 طريقة التفكير خطوة بخطوة
-1. Merge على CategoryID ثم Expand لـCategoryName وCategoryDescription يضيف الوصف إلى المنتج.
+1. Merge على CategoryID ثم Expand لـCategoryName و CategoryDescription يضيف الوصف إلى المنتج.
 2. عطّل Enable load لاستعلام Categories الوسيط، مع إبقائه موجودًا لأنه مصدر لعملية الربط.
 3. لو CategoryID ليس فريدًا في Categories فقد يتكرر المنتج بعد Expand؛ لازم تراجع فريدة المفتاح قبل افتراض صف لكل منتج.
 
@@ -726,7 +726,7 @@ Merge؛ ثم Disable the query load على Categories.
 
 ليه كل اختيار صح أو غلط
 A. Combine the queries by performing a: Append
-Append يجمع صفوفًا أسفل بعضها؛ لا يضع CategoryName وCategoryDescription بجوار كل منتج.
+Append يجمع صفوفًا أسفل بعضها؛ لا يضع CategoryName و CategoryDescription بجوار كل منتج.
 
 B. Combine the queries by performing a: Merge
 Merge صحيح: الربط على CategoryID ثم Expand يضيف حقول الفئة إلى المنتج.
@@ -812,7 +812,7 @@ Select and Place:', '[]', '[0,2,1]', 'ترجمة السؤال بالعربي
 بدل إدخال مليون صف مبيعات داخل 100 CSV، يبقى الناتج 100 صف تقريبًا، صف لكل ملف مع اسمه وخصائصه. جدول الفهرس مختلف عن جدول مبيعات موحد.
 
 طريقة التفكير خطوة بخطوة
-1. Get Data → Folder يرجع سجلًا لكل ملف، فيه حقول جاهزة مثل الاسم والتواريخ والمسار، وContent ثنائي وAttributes كـRecord.
+1. Get Data → Folder يرجع سجلًا لكل ملف، فيه حقول جاهزة مثل الاسم والتواريخ والمسار، و Content ثنائي و Attributes كـRecord.
 2. احذف Content حتى لا تستخدم بيانات الملفات الثنائية في الناتج. لا تختَر Combine لأنه يفك محتوى CSV.
 3. وسّع Attributes لإظهار ما تحتاجه من خصائص الملف، مع الاحتفاظ بحقول metadata الموجودة أصلًا خارج Attributes.
 
@@ -821,7 +821,7 @@ Get Data: Folder → Remove Content → Expand Attributes.
 
 ليه كل اختيار صح أو غلط
 A. From Power BI Desktop, select Get Data, and then select Folder.
-Folder هو المدخل المناسب لقائمة ملفات المجلد وmetadata كل ملف.
+Folder هو المدخل المناسب لقائمة ملفات المجلد و metadata كل ملف.
 
 B. From Power Query Editor, expand the Attributes column.
 Expand Attributes خطوة مطلوبة لإخراج الخصائص المتداخلة كأعمدة، بعد التخلص من Content حسب ترتيب السؤال.
@@ -839,7 +839,7 @@ F. From Power Query Editor, combine the Content column.
 Combine Content يقرأ ويدمج الصفوف داخل الملفات، فيكسر شرط عدم تخزين بيانات CSV نفسها.
 
 الخلاصة اللي تتحفظ
-metadata عن الملف غير محتوى الملف: Folder للفهرس، وContent هو الحقل الذي لا تريد دمجه.
+metadata عن الملف غير محتوى الملف: Folder للفهرس، و Content هو الحقل الذي لا تريد دمجه.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/connectors/folder', 'Final', '15', '/dump-assets/f1-015-14-question.webp', '/dump-assets/f1-015-14-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -858,7 +858,7 @@ You need to use the dataflow in a report. The solution must meet the following r
 ✑ Include data from the current year, up to and including the previous day.
 
 What should you do?', '["Create a dataflows connection that has DirectQuery mode selected.","Create a dataflows connection that has DirectQuery mode selected and configure a gateway connection for the dataset.","Create a dataflows connection that has Import mode selected and schedule a daily refresh.","Create a dataflows connection that has Import mode selected and create a Microsoft Power Automate solution to refresh the data hourly."]', '[2]', 'ترجمة السؤال بالعربي
-Dataflow جاهز ببيانات SQL داخلي وEnhanced compute engine مفعّل. عايز تقرير سريع بأقل معالجة وقت العرض، وبيانات السنة الحالية حتى أمس تكفيه. تختار اتصال وتحديث إيه؟
+Dataflow جاهز ببيانات SQL داخلي و Enhanced compute engine مفعّل. عايز تقرير سريع بأقل معالجة وقت العرض، وبيانات السنة الحالية حتى أمس تكفيه. تختار اتصال وتحديث إيه؟
 
 القصة والمعنى
 الإدارة عايزة تقرير يومي عن اللي حصل لحد إمبارح، مش شاشة كاشير لحظية. مفيش داعي نسأل المصدر مع كل نقرة ونحمّله شغلًا إضافيًا عشان بيانات مش مطلوبة أصلًا بعد أمس.
@@ -1004,7 +1004,7 @@ You need to create a report that meets the following requirements:
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
 actions to the answer area and arrange them in the correct order.', '[]', '[0,1,2]', 'ترجمة السؤال بالعربي
-جدول Excel فيه Month وMonthNumber، وكل سنة عمود مبيعات مستقل. عايز Sales واحدة عبر الشهور والسنين، وslicer للشهر وآخر للسنة. رتّب التحويل.
+جدول Excel فيه Month و MonthNumber، وكل سنة عمود مبيعات مستقل. عايز Sales واحدة عبر الشهور والسنين، و slicer للشهر وآخر للسنة. رتّب التحويل.
 
 القصة والمعنى
 بدل ما السنة تكون اسم عمود جديد كل مرة، خليها قيمة داخل عمود Year. كده إضافة 2025 تبقى صفوف جديدة بنفس شكل الجدول، لا محورًا مستقلًا يحتاج رسمًا جديدًا.
@@ -1013,28 +1013,28 @@ actions to the answer area and arrange them in the correct order.', '[]', '[0,1,
 يناير،1،2019=100،2020=120 يتحول إلى صفين: يناير،1،2019،100 وصف يناير،1،2020،120. عمود Year الواحد يصلح للـslicer.
 
 طريقة التفكير خطوة بخطوة
-1. حدد Month وMonthNumber لأنهما هوية الشهر التي تريد الاحتفاظ بها، وليس قياسين للمبيعات.
-2. اختر Unpivot Other Columns لتحويل أعمدة السنين إلى صفوف؛ Attribute سيحمل السنة وValue سيحمل رقم المبيعات.
-3. سمِّ العمودين Year وSales، واضبط الأنواع المناسبة. استخدم MonthNumber لترتيب أسماء الشهور حتى لا تظهر أبجديًا.
+1. حدد Month و MonthNumber لأنهما هوية الشهر التي تريد الاحتفاظ بها، وليس قياسين للمبيعات.
+2. اختر Unpivot Other Columns لتحويل أعمدة السنين إلى صفوف؛ Attribute سيحمل السنة و Value سيحمل رقم المبيعات.
+3. سمِّ العمودين Year و Sales، واضبط الأنواع المناسبة. استخدم MonthNumber لترتيب أسماء الشهور حتى لا تظهر أبجديًا.
 
 الإجابة الصحيحة وليه
 Select Month and MonthNumber → Unpivot Other Columns → Rename Attribute as Year and Value as Sales.
 
 ليه كل اختيار صح أو غلط
 A. Select the Month and MonthNumber columns.
-تحديد Month وMonthNumber يحمي عمودي هوية الشهر من التحويل؛ هو بداية الترتيب المعتمد.
+تحديد Month و MonthNumber يحمي عمودي هوية الشهر من التحويل؛ هو بداية الترتيب المعتمد.
 
 B. Select Unpivot other columns.
-Unpivot Other Columns يحول أعمدة السنين غير المحددة إلى قيم تحت Year وSales، فيعطي البنية الطويلة المطلوبة.
+Unpivot Other Columns يحول أعمدة السنين غير المحددة إلى قيم تحت Year و Sales، فيعطي البنية الطويلة المطلوبة.
 
 C. Rename the Attribute column as Year and the Value column as Sales.
-إعادة تسمية Attribute وValue توضح معنى العمودين بعد إنشائهما؛ لا تسبق Unpivot.
+إعادة تسمية Attribute و Value توضح معنى العمودين بعد إنشائهما؛ لا تسبق Unpivot.
 
 D. Select the 2019, 2020, and 2021 columns.
-تحديد أعمدة 2019 و2020 و2021 ثم Unpivot Columns يمكن أن يكون مسارًا بديلًا، لكن مع الأمر المعروض Unpivot Other Columns سيحوّل الأعمدة العكسية؛ لا تخلط بين التحديدين.
+تحديد أعمدة 2019 و 2020 و 2021 ثم Unpivot Columns يمكن أن يكون مسارًا بديلًا، لكن مع الأمر المعروض Unpivot Other Columns سيحوّل الأعمدة العكسية؛ لا تخلط بين التحديدين.
 
 E. Select Transpose.
-Transpose يقلب الجدول كله، بما فيه عناوين الشهر، ولا ينتج تلقائيًا عمودي Year وSales المطلوبين.
+Transpose يقلب الجدول كله، بما فيه عناوين الشهر، ولا ينتج تلقائيًا عمودي Year و Sales المطلوبين.
 
 الخلاصة اللي تتحفظ
 في Unpivot Other Columns حدّد الأعمدة اللي هتفضل زي ما هي، مش الأعمدة اللي عايز تحولها.
@@ -1053,8 +1053,8 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct solution is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-صورة إعداد اتصال Azure SQL فيها Command timeout غير محدد وNavigate using full hierarchy غير مفعّل. مطلوب تعرف مهلة تنفيذ الأمر وشكل الجداول التي تظهر في Navigator.
+NOTE: Each correct solution is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+صورة إعداد اتصال Azure SQL فيها Command timeout غير محدد و Navigate using full hierarchy غير مفعّل. مطلوب تعرف مهلة تنفيذ الأمر وشكل الجداول التي تظهر في Navigator.
 
 القصة والمعنى
 فيه فرق بين مهلة انتظار استعلام SQL وبين عدد مرات تحديث التقرير، وفرق بين عرض شجرة التنقل كاملة وبين فلترة بيانات جدول بعد الاتصال.
@@ -1110,17 +1110,17 @@ You plan to build a single PBIX file to meet the following requirements:
 
 What should you do? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-عندك ثلاث قواعد Azure SQL للتطوير والاختبار والإنتاج. اسم القاعدة ورابط السيرفر يتغيران حسب dev أوuat أوprod. عايز PBIX واحد يختار البيئة المناسبة بأقل إدارة، ومن غير deployment pipelines.
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
+عندك ثلاث قواعد Azure SQL للتطوير والاختبار والإنتاج. اسم القاعدة ورابط السيرفر يتغيران حسب dev أو uat أو prod. عايز PBIX واحد يختار البيئة المناسبة بأقل إدارة، ومن غير deployment pipelines.
 
 القصة والمعنى
 بدل ما كل مرة تغيّر عنوانين بإيدك وتخاف تحط سيرفر الاختبار مع قاعدة الإنتاج، خلي عندك مفتاح واحد اسمه البيئة. المفتاح ده يكوّن اسم السيرفر واسم القاعدة معًا.
 
 مثال نفهم بيه
-Env="uat" ينتج uat.database.windows.net وdb-powerbi-uat. التعبير التوضيحي هو Sql.Database(Env & ".database.windows.net", "db-powerbi-" & Env). تغيير Env وحده يغيّر الوجهة كلها.
+Env="uat" ينتج uat.database.windows.net و db-powerbi-uat. التعبير التوضيحي هو Sql.Database(Env & ".database.windows.net", "db-powerbi-" & Env). تغيير Env وحده يغيّر الوجهة كلها.
 
 طريقة التفكير خطوة بخطوة
-1. الجدول يوضح نمط أسماء مرتبطًا بقيمة واحدة: dev أوuat أوprod.
+1. الجدول يوضح نمط أسماء مرتبطًا بقيمة واحدة: dev أو uat أو prod.
 2. أنشئ parameter نصي مثل Env، واستخدمه في وسيطَي Sql.Database بدل تخزين وسيطين مستقلين يحتاجان تعديلًا منفصلًا.
 3. التغيير هنا في مصدر الاتصال، مش فلترة صفوف البيانات. وغياب pipelines لا يمنع استخدام Power Query parameters.
 
@@ -1138,7 +1138,7 @@ C. Create: Three parameters
 Three parameters لا يضيف وظيفة لازمة؛ سيكون عندك قيم أكثر تحتاج إدارة مع أن نمط الأسماء لا يحتاجها.
 
 D. Parameter type: Text
-Text مناسب لقيم مثل dev وuat وprod.
+Text مناسب لقيم مثل dev و uat و prod.
 
 E. Parameter type: True/False
 True/False يعبر عن حالتين فقط ولا يحمل أسماء البيئات الثلاث كما هي.
@@ -1161,7 +1161,7 @@ You need to create the dimension. The dimension must contain a list of unique co
 Which two actions should you perform? Each correct answer presents part of the solution.
 
 NOTE: Each correct selection is worth one point.', '["Delete the Country column.","Remove duplicates from the table.","Remove duplicates from the City column.","Delete the City column.","Remove duplicates from the Country column."]', '[3,4]', 'ترجمة السؤال بالعربي
-مصدر فيه Country وCity، وعايز Country dimension بصف واحد لكل دولة فقط. اختار إجراءين للتجهيز.
+مصدر فيه Country و City، وعايز Country dimension بصف واحد لكل دولة فقط. اختار إجراءين للتجهيز.
 
 القصة والمعنى
 القاهرة والجيزة محافظتان/مدينتان داخل مصر، لكن جدول البلاد مش محتاج صفًا لمصر عند كل مدينة. عايز أسماء البلاد من غير تفاصيل المدينة ومن غير تكرار.
@@ -1243,7 +1243,7 @@ D. For the discount column, change Data Type to Whole Number.
 Whole Number لا يحفظ خصمًا كـ0.05؛ قد يقرّبه/يحوّله ويفقد المعنى المطلوب.
 
 E. Select Replace Errors to replace each error value with 0.05.
-Replace Errors بالقيمة 0.05 يصلح الخلايا الخطأ دون حذف الصفوف. لا يغيّر نصًا عاديًا مكتوبًا فيه Error أوN/A لمجرد شكله.
+Replace Errors بالقيمة 0.05 يصلح الخلايا الخطأ دون حذف الصفوف. لا يغيّر نصًا عاديًا مكتوبًا فيه Error أو N/A لمجرد شكله.
 
 الخلاصة اللي تتحفظ
 Error حالة فنية، مش أي نص غريب. اقرأ الحالة الموجودة في الصورة قبل تقرير ترتيب العلاج.
@@ -1262,8 +1262,8 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-صيغة Custom column تستخدم & بين النص "A" والعدد 1، وتظهر رسالة عدم تطبيق العامل على Text وNumber. ما سبب الخطأ، وما الناتج بعد إصلاح الأنواع؟
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10002]', 'ترجمة السؤال بالعربي
+صيغة Custom column تستخدم & بين النص "A" والعدد 1، وتظهر رسالة عدم تطبيق العامل على Text و Number. ما سبب الخطأ، وما الناتج بعد إصلاح الأنواع؟
 
 القصة والمعنى
 بتحاول تلزّق حرفًا برقم كأنه نص. Power Query M مش ملزم يحوّل الرقم إلى كتابة تلقائيًا لمجرد استخدام &؛ لازم تقول له صراحةً إنك عايز النص "1".
@@ -1272,7 +1272,7 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 "A" & Text.From(1) يعيد "A1". لكن "A" & 1 يرفع خطأ النوع في M؛ لا تنقل توقعات التحويل الضمني من لغة أخرى.
 
 طريقة التفكير خطوة بخطوة
-1. الرسالة تحدد العامل & والأنواع Text وNumber؛ المشكلة عدم توافق الأنواع، لا اسم عمود مفقود.
+1. الرسالة تحدد العامل & والأنواع Text و Number؛ المشكلة عدم توافق الأنواع، لا اسم عمود مفقود.
 2. حوّل 1 إلى نص باستخدام Text.From(1) أو استخدم النص "1"، وبعدها نفذ دمج النصين.
 3. الناتج A1، وليس A+1 ولا الرقم 2، لأن العملية المقصودة concatenation.
 
@@ -1281,7 +1281,7 @@ Mismatched data types؛ A1.
 
 ليه كل اختيار صح أو غلط
 A. The error is caused by: error values in the source data
-وجود قيم خطأ في المصدر ليس ما تقوله الرسالة: هي تحدد العامل & مع نوعَي Text وNumber في التعبير نفسه.
+وجود قيم خطأ في المصدر ليس ما تقوله الرسالة: هي تحدد العامل & مع نوعَي Text و Number في التعبير نفسه.
 
 B. The error is caused by: mismatched data types
 Mismatched data types صحيح؛ حوّل الرقم إلى نص صراحةً قبل دمجه مع الحرف بواسطة & في M.
@@ -1317,15 +1317,15 @@ Power Query يعرض DataSource.Error: Could not find file. من الخيارا�
 الاستعلام ماسك عنوان ملف معين. لو الملف اتنقل فالعنوان قديم. ولو الهوية اللي تنفذ الاستعلام لا تستطيع رؤية الملف أو مساره أصلًا، مشكلة الوصول ممكن تظهر حسب نظام المصدر كملف غير متاح.
 
 مثال نفهم بيه
-Source يشير إلى \server\sales\June.xlsx، والملف انتقل إلى \server\archive\June.xlsx. تغيير كلمة المرور أوPrivacy level لن يصلح عنوان المجلد القديم.
+Source يشير إلى \server\sales\June.xlsx، والملف انتقل إلى \server\archive\June.xlsx. تغيير كلمة المرور أو Privacy level لن يصلح عنوان المجلد القديم.
 
 طريقة التفكير خطوة بخطوة
 1. نقل الملف يفسر File not found مباشرةً: راجع Source path واسم الملف.
 2. انعدام إذن الوصول سبب وصول محتمل في بيئات تخفي المورد غير المصرح به، لكن كثيرًا ما يعطي Access denied بدل File not found؛ الرسالة وحدها لا تثبت أنه السبب.
-3. السؤال يطلب سببين محتملين من قائمة محدودة، ومفتاحه A وD. في التشخيص العملي اختبر المسار ثم الهوية بدل الجزم بأن كل Permission error يعطي هذه الرسالة.
+3. السؤال يطلب سببين محتملين من قائمة محدودة، ومفتاحه A و D. في التشخيص العملي اختبر المسار ثم الهوية بدل الجزم بأن كل Permission error يعطي هذه الرسالة.
 
 الإجابة الصحيحة وليه
-عدم امتلاك صلاحية الوصول، ونقل الملف لمكان آخر: A وD ضمن الأسباب المحتملة في السؤال.
+عدم امتلاك صلاحية الوصول، ونقل الملف لمكان آخر: A و D ضمن الأسباب المحتملة في السؤال.
 
 ليه كل اختيار صح أو غلط
 A. You do not have permissions to the file.
@@ -1335,7 +1335,7 @@ B. An incorrect privacy level was used for the data source.
 Privacy level يخص عزل المصادر عند دمجها، وقد ينتج Formula.Firewall؛ لا يصلح مسار ملف غير موجود.
 
 C. The file is locked.
-الملف المقفول عادة ينتج رسالة مشاركة/قفل أوaccess مختلفة. ليس أفضل تفسير لعبارة Could not find file مقارنةً بنقل المسار أوعدم رؤيته.
+الملف المقفول عادة ينتج رسالة مشاركة/قفل أو access مختلفة. ليس أفضل تفسير لعبارة Could not find file مقارنةً بنقل المسار أوعدم رؤيته.
 
 D. The referenced file was moved to a new location.
 نقل الملف يترك المرجع القديم يشير لمكان لا يحتويه؛ السبب المباشر والأوضح هنا.
@@ -1364,7 +1364,7 @@ What should you do in Power Query Editor?', '["Select Replace Errors.","Edit the
 المعلومة الواحدة غلط، مش الصف كله. فالإصلاح يكون استبدال الخلية المصابة، مش استبعاد سجل المبيعات الذي يحتويها.
 
 مثال نفهم بيه
-خمسة طلبات وخصم أحدها Error. Replace Errors يرجع نفس الخمسة بعد التصحيح؛ Remove Errors يرجع أربعة، وKeep Errors يحتفظ غالبًا بالطلب المعطوب وحده.
+خمسة طلبات وخصم أحدها Error. Replace Errors يرجع نفس الخمسة بعد التصحيح؛ Remove Errors يرجع أربعة، و Keep Errors يحتفظ غالبًا بالطلب المعطوب وحده.
 
 طريقة التفكير خطوة بخطوة
 1. Replace Errors يستهدف قيم Error الفعلية داخل العمود المحدد.
@@ -1388,7 +1388,7 @@ D. Select Keep Errors.
 Keep Errors يستبعد الصفوف السليمة ويحتفظ بالخطأ للتحليل؛ ده مناسب للتشخيص، لا للجدول النهائي المطلوب.
 
 الخلاصة اللي تتحفظ
-تعالج قيمة مع الحفاظ على السجل؟ Replace، مش Remove ولاKeep.
+تعالج قيمة مع الحفاظ على السجل؟ Replace، مش Remove ولا Keep.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/dealing-with-errors', 'Final', '26', '/exhibit-assets/f1-026-25.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -1405,7 +1405,7 @@ What should you do?', '["Apply the Parse function from the Data transformations 
 التاريخ والوقت مربوطين بكلمة at داخل نص واحد. Power BI محتاج تاريخًا حقيقيًا يفهم منه السنة والشهر واليوم، مش مجرد نص يبدو كتاريخ.
 
 مثال نفهم بيه
-بعد الفصل: Logged.Date = 2018-12-31 وLogged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
+بعد الفصل: Logged.Date = 2018-12-31 و Logged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
 
 طريقة التفكير خطوة بخطوة
 1. افصل العمود باستخدام at لتحصل على جزء التاريخ منفصلًا عن الوقت.
@@ -1495,13 +1495,13 @@ The Order Header table relates to the Order Details table by using a column name
 You need to combine the tables into a single query that contains the unique columns of each table.
 
 What should you select in Power Query Editor?', '["Merge queries","Combine files","Append queries"]', '[0]', 'ترجمة السؤال بالعربي
-استوردت Order Header وOrder Details من Azure SQL، وبينهما Order ID. عايز استعلامًا واحدًا يحتوي الأعمدة اللازمة من الاثنين. تختار إيه؟
+استوردت Order Header و Order Details من Azure SQL، وبينهما Order ID. عايز استعلامًا واحدًا يحتوي الأعمدة اللازمة من الاثنين. تختار إيه؟
 
 القصة والمعنى
 عندك تاريخ الطلب في الرأس، والكميات في السطور. الرقم المشترك يعرفك سطر المنتج تابع لأنهي طلب؛ عايز الحقول جنب بعضها لا سجلات الرأس تحت سجلات التفاصيل.
 
 مثال نفهم بيه
-Header للطلب 10 فيه OrderDate، وDetails فيه منتجان للطلب 10. Merge يضيف نفس التاريخ للسطرين؛ مجموع Quantity يحترم تفاصيل كل منتج.
+Header للطلب 10 فيه OrderDate، و Details فيه منتجان للطلب 10. Merge يضيف نفس التاريخ للسطرين؛ مجموع Quantity يحترم تفاصيل كل منتج.
 
 طريقة التفكير خطوة بخطوة
 1. Merge على Order ID يربط صفوف الجدولين، ثم Expand لأعمدة الجدول المرتبط المطلوبة.
@@ -1540,7 +1540,7 @@ What should you do?', '["Apply a transformation to extract the last 11 character
 التاريخ والوقت مربوطين بكلمة at داخل نص واحد. Power BI محتاج تاريخًا حقيقيًا يفهم منه السنة والشهر واليوم، مش مجرد نص يبدو كتاريخ.
 
 مثال نفهم بيه
-بعد الفصل: Logged.Date = 2018-12-31 وLogged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
+بعد الفصل: Logged.Date = 2018-12-31 و Logged.Time = 08:59. اجعل الأول Date، فتقدر تجمع الشكاوى في ديسمبر بدل التعامل مع كل سطر نص كقيمة مختلفة.
 
 طريقة التفكير خطوة بخطوة
 1. افصل العمود باستخدام at لتحصل على جزء التاريخ منفصلًا عن الوقت.
@@ -1561,7 +1561,7 @@ C. Split the Logged column by using at as the delimiter.
 Split عند at يعزل الجزء المطلوب، ثم يمكن تثبيت نوع Date؛ هو الاختيار الذي يعالج الفاصل غير القياسي نفسه.
 
 D. Apply the Parse function from the Date transformations options to the Logged column.
-Parse يحتاج صيغة يمكن تفسيرها أوformat مناسبًا؛ الاختيار المعروض لا يحدد كيف يتعامل مع كلمة at. الفصل الصريح هو إجراء التحضير المناسب من القائمة، مع تثبيت Date بعده.
+Parse يحتاج صيغة يمكن تفسيرها أو format مناسبًا؛ الاختيار المعروض لا يحدد كيف يتعامل مع كلمة at. الفصل الصريح هو إجراء التحضير المناسب من القائمة، مع تثبيت Date بعده.
 
 الخلاصة اللي تتحفظ
 شكل التاريخ لا يكفي؛ لازم نوع Date فعلي. وافصل الفاصل غير القياسي قبل الاعتماد على التحويل.
@@ -1583,14 +1583,14 @@ Which type of data source should you use, and which transformation should you pe
 
 appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
 مجلد فيه 50 ملف JSON، وعايز metadata للملفات في موديل واحد من غير حفظ البيانات الموجودة داخل JSON. تختار مصدر إيه وتحويل إيه؟
 
 القصة والمعنى
 عايز قائمة بالطرود وأوزانها وعناوينها، مش تفك الطرود وتحط محتوياتها في الجدول. كون المحتوى JSON لا يعني أنك محتاج JSON connector لو المطلوب وصف الملفات فقط.
 
 مثال نفهم بيه
-يبقى عندك نحو50 صفًا ببيانات خمسين ملفًا، بصرف النظر عن كون كل ملف JSON يحتوي عشرة عناصر أوألفًا.
+يبقى عندك نحو 50 صفًا ببيانات خمسين ملفًا، بصرف النظر عن كون كل ملف JSON يحتوي عشرة عناصر أوألفًا.
 
 طريقة التفكير خطوة بخطوة
 1. Folder يعرض سجلًا لكل ملف مع اسمه ومساره وتواريخه وخصائصه.
@@ -1646,11 +1646,11 @@ PBIX يستورد Excel من file share، والملف انتقل لمسار ج�
 
 طريقة التفكير خطوة بخطوة
 1. Data source settings في Desktop يتيح تغيير المصدر/مسار الملف.
-2. Formula bar في خطوة Source وAdvanced Editor يتيحان تعديل File.Contents في M، وهما واجهتان لنفس تعريف الاستعلام.
+2. Formula bar في خطوة Source و Advanced Editor يتيحان تعديل File.Contents في M، وهما واجهتان لنفس تعريف الاستعلام.
 3. لو المصدر مستخدم في الخدمة بعد النشر راجع أيضًا mapping الـgateway وصلاحية المسار الجديد؛ لكن ده لا يغني عن تعديل مرجع PBIX المطلوب.
 
 الإجابة الصحيحة وليه
-B وD وE: Data source settings؛ Formula bar؛ Advanced Editor.
+B و D و E: Data source settings؛ Formula bar؛ Advanced Editor.
 
 ليه كل اختيار صح أو غلط
 A. From the Datasets settings of the Power BI service, configure the data source credentials.
@@ -1684,8 +1684,8 @@ You need to configure the privacy level s of the data sources.
 
 What should you configure for each data source? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct answer is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-Employee review data حساسة ولا يجب دفع بياناتها إلى مصادر أخرى أثناء الدمج، وSales opportunities أقل حساسية ومسموحة داخل المؤسسة فقط. تختار privacy level لكل مصدر.
+NOTE: Each correct answer is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+Employee review data حساسة ولا يجب دفع بياناتها إلى مصادر أخرى أثناء الدمج، و Sales opportunities أقل حساسية ومسموحة داخل المؤسسة فقط. تختار privacy level لكل مصدر.
 
 القصة والمعنى
 تقييمات الموظفين زي ظرف مقفول لا تريد إرسال محتواه لمصدر آخر عشان ينفذ query. فرص البيع ورقة داخلية يمكن تداولها داخل نطاق المؤسسة الموثوق، وليست للعامة.
@@ -1694,7 +1694,7 @@ Employee review data حساسة ولا يجب دفع بياناتها إلى م�
 لو Power Query يحاول إرسال قائمة موظفين من ملف خاص إلى خدمة أخرى لتصفية نتائجها، قواعد العزل قد تمنع هذا النقل. ده مختلف عن إخفاء رواتب الموظفين في رسم أمام مستخدم معين.
 
 طريقة التفكير خطوة بخطوة
-1. Private يعزل مصدر تقييم الموظفين عن المصادر الأخرى عند الجمع وquery folding.
+1. Private يعزل مصدر تقييم الموظفين عن المصادر الأخرى عند الجمع و query folding.
 2. Organizational مناسب لفرص البيع ذات نطاق الثقة الداخلي.
 3. Privacy levels لا تعيّن من يفتح التقرير ولا تطبق RLS. حماية وصول المستخدمين تحتاج صلاحيات وأمانًا منفصلين؛ التصنيف هنا يخص تدفق البيانات أثناء الجمع.
 
@@ -1727,7 +1727,7 @@ H. Sales opportunities: Public
 Sales opportunities — Public يخالف must only be available internally؛ لا تحول البيانات الداخلية إلى مصدر عام.
 
 الخلاصة اللي تتحفظ
-Privacy لعزل المصادر أثناء التجهيز؛ Permissions وRLS لوصول الناس للنتيجة.
+Privacy لعزل المصادر أثناء التجهيز؛ Permissions و RLS لوصول الناس للنتيجة.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/privacy-levels', 'Final', '33', '/dump-assets/f1-033-32-question.webp', '/dump-assets/f1-033-32-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -1788,17 +1788,17 @@ You confirm that the data will always start on row 3, and row 3 will always cont
 
 How should you shape the query? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
 ملف المصدر دائمًا يبدأ البيانات من الصف الثالث، والصف الثالث دائمًا عناوين الأعمدة. عايز تنظيف المقدمة وتثبيت العناوين.
 
 القصة والمعنى
-فوق الجدول سطر عنوان التقرير وسطر فاضي. لو خليت أول سطر Header فورًا، Power Query هيسمي أعمدتك باسم التقرير، مش باسم Customer وSales المكتوبين في الصف الثالث.
+فوق الجدول سطر عنوان التقرير وسطر فاضي. لو خليت أول سطر Header فورًا، Power Query هيسمي أعمدتك باسم التقرير، مش باسم Customer و Sales المكتوبين في الصف الثالث.
 
 مثال نفهم بيه
 [عنوان التقرير]،[فارغ]،[Product,Sales]،[Tea,100]. احذف أول صفين، ثم ارفع [Product,Sales] للعناوين؛ يبقى Tea,100 سجلًا واحدًا.
 
 طريقة التفكير خطوة بخطوة
-1. Remove Top Rows بقيمة2 يزيح المقدمة ويجعل الصف الثالث الحالي في أول الجدول.
+1. Remove Top Rows بقيمة 2 يزيح المقدمة ويجعل الصف الثالث الحالي في أول الجدول.
 2. بعدها Use First Row as Headers يرفع أسماء الأعمدة بدل اعتبارها صف بيانات.
 3. نفذ الخطوتين بالترتيب؛ ترقية أول صف قبل إزالة المقدمة تختار عناوين غير صحيحة.
 
@@ -1822,7 +1822,7 @@ E. To use the values in row 3 as column names: Replace values
 Replace values يبدّل محتويات خلايا، لا يحوّل أسماء موجودة في صف إلى metadata لعناوين الأعمدة.
 
 F. To use the values in row 3 as column names: Use first row as headers
-Use first row as headers صحيح بعد إزالة أول صفين؛ عندها فقط تكون أسماء metric_order وmetric وactual وgoal في الصف الأول.
+Use first row as headers صحيح بعد إزالة أول صفين؛ عندها فقط تكون أسماء metric_order و metric و actual و goal في الصف الأول.
 
 الخلاصة اللي تتحفظ
 شيل مقدمة التقرير الأول، وبعدين ارفع صف أسماء الأعمدة.
@@ -1856,11 +1856,11 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 تخيّل الكود ABC والكود abc موجودين كقيمتين مختلفتين في المصدر. محرك الموديل في Power BI لا يفرق بينهما بنفس الطريقة، فممكن يسأل عن قيمة ويستلم مجموعتين أو يصطدم بفريدة مفتاح العلاقة.
 
 مثال نفهم بيه
-تحويل عمود أكواد إلى Text لا يجعل كل حروفه Uppercase. الكودان ABC وabc سيبقيان بالحالتين؛ المشكلة الأساسية لم تتعالج.
+تحويل عمود أكواد إلى Text لا يجعل كل حروفه Uppercase. الكودان ABC و abc سيبقيان بالحالتين؛ المشكلة الأساسية لم تتعالج.
 
 طريقة التفكير خطوة بخطوة
 1. السبب المطروح اختلاف مقارنة النصوص، لا كون الرقم مخزنًا كنص.
-2. Implicit type conversion لا يوحّد ABC وabc ولا يصنع مفتاحًا فريدًا متوافقًا مع الموديل.
+2. Implicit type conversion لا يوحّد ABC و abc ولا يصنع مفتاحًا فريدًا متوافقًا مع الموديل.
 3. راجع تطبيع الحالة والمفاتيح في المصدر، مع الحفاظ على الهويات المختلفة إن كانت فعلًا مختلفة في العمل.
 
 الإجابة الصحيحة وليه
@@ -1948,7 +1948,7 @@ You need to resolve the issue.
 Solution: You normalize casing in the source query or Power Query Editor.
 
 Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
-في نفس سيناريو اختلاف case sensitivity، الحل المقترح توحيد حالة الحروف في source query أوPower Query. هل يحقق الهدف؟
+في نفس سيناريو اختلاف case sensitivity، الحل المقترح توحيد حالة الحروف في source query أو Power Query. هل يحقق الهدف؟
 
 القصة والمعنى
 تخيّل الكود ABC والكود abc موجودين كقيمتين مختلفتين في المصدر. محرك الموديل في Power BI لا يفرق بينهما بنفس الطريقة، فممكن يسأل عن قيمة ويستلم مجموعتين أو يصطدم بفريدة مفتاح العلاقة.
@@ -1957,16 +1957,16 @@ Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال با�
 فرع مكتوب مرة Cairo ومرة CAIRO وهما نفس الفرع. توحيدهما إلى CAIRO ثم ضمان صف فرع واحد يمنع وجود تسميتين يتعامل الموديل معهما كقيمة واحدة.
 
 طريقة التفكير خطوة بخطوة
-1. التطبيع مثل UPPER أوLOWER يجعل طريقة إرسال القيم ومقارنتها متسقة.
+1. التطبيع مثل UPPER أو LOWER يجعل طريقة إرسال القيم ومقارنتها متسقة.
 2. لو اختلاف الحالة مجرد تهجئة لنفس القيمة، يمكن جمعها/إزالة التكرار على المستوى الصحيح بعد التطبيع.
-3. لو ABC وabc يمثلان هويتين مختلفتين فعلًا، لا تدمجهما بلا تفكير: وفّر مفتاحًا بديلًا يميز الهوية، وطبّق التحويل بصورة قابلة للتنفيذ مع DirectQuery.
+3. لو ABC و abc يمثلان هويتين مختلفتين فعلًا، لا تدمجهما بلا تفكير: وفّر مفتاحًا بديلًا يميز الهوية، وطبّق التحويل بصورة قابلة للتنفيذ مع DirectQuery.
 
 الإجابة الصحيحة وليه
 Yes، الاختيار الأول، لمعالجة التباين المذكور مع مراجعة فريدة المفاتيح.
 
 ليه كل اختيار صح أو غلط
 A. Yes
-Yes صحيح لأن الحل يستهدف سبب الاختلاف مباشرةً، لا مجرد نوع العمود أوstorage mode.
+Yes صحيح لأن الحل يستهدف سبب الاختلاف مباشرةً، لا مجرد نوع العمود أو storage mode.
 
 B. No
 No يتجاهل أن توحيد casing هو المعالجة الموصى بها للحالة. وجود هويات تجارية مختلفة يحتاج تصميم مفتاح إضافيًا، لا رفض التطبيع نفسه بلا بديل.
@@ -2003,7 +2003,7 @@ Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال با�
 بدل ما تعتبر اسم العميل وحده هويته، ادِّي كل كيان رقمًا ثابتًا. ساعتها اختلاف الكتابة لا يضطر الموديل يستعمل النص المتصادم كمفتاح علاقة.
 
 مثال نفهم بيه
-CustomerKey=101 و102 يميزان عميلين حتى لو اسماهما يختلفان فقط في casing. الفواتير ترتبط بالرقم المناسب، لا بالمقارنة النصية الملتبسة للاسم.
+CustomerKey=101 و 102 يميزان عميلين حتى لو اسماهما يختلفان فقط في casing. الفواتير ترتبط بالرقم المناسب، لا بالمقارنة النصية الملتبسة للاسم.
 
 طريقة التفكير خطوة بخطوة
 1. توحيد الحالة يعالج عدم اتساق النصوص المرسلة للموديل.
@@ -2034,7 +2034,7 @@ You need to ensure that the semantic model can be refreshed in PowerBi.com.
 Which two connectors can you use to connect to the file? Each correct answer presents a complete solution.
 
 NOTE: Each correct selection is worth one point.', '["Web","Excel Workbook","Folder","Text/CSV","SharePoint folder"]', '[0,4]', 'ترجمة السؤال بالعربي
-ملف Excel على OneDrive مطلوب استيراده في semantic model وتحديثه من Power BI Service. أنهي connectorين من القائمة يصلحان للوصول إلى الملف السحابي؟
+ملف Excel على OneDrive مطلوب استيراده في semantic model وتحديثه من Power BI Service. أنهي connector ين من القائمة يصلحان للوصول إلى الملف السحابي؟
 
 القصة والمعنى
 الملف السحابي له عنوان، لكن نسخة OneDrive المتزامنة على جهازك لها مسار محلي. الخدمة تقدر تصل للعنوان السحابي مباشرة، إنما مسار C على جهازك مش متاح لها بنفسه.
@@ -2045,10 +2045,10 @@ NOTE: Each correct selection is worth one point.', '["Web","Excel Workbook","Fol
 طريقة التفكير خطوة بخطوة
 1. في سياق OneDrive for work/school المبني على SharePoint، SharePoint Folder يصل للمكتبة والملف.
 2. Web يمكنه قراءة رابط الملف المباشر المناسب مع بيانات الاعتماد، وليس أي رابط مشاركة عشوائي أو صفحة معاينة.
-3. لو استخدمت نسخة محلية عبر Excel Workbook أو Folder فقد تحتاج gateway. لذلك المفتاح D وE يفترض المسار السحابي المباشر؛ لا يصح تعميم أن Excel connector لا يمكن تحديثه أبدًا.
+3. لو استخدمت نسخة محلية عبر Excel Workbook أو Folder فقد تحتاج gateway. لذلك المفتاح D و E يفترض المسار السحابي المباشر؛ لا يصح تعميم أن Excel connector لا يمكن تحديثه أبدًا.
 
 الإجابة الصحيحة وليه
-Web وSharePoint folder، الاختياران الأول والخامس في نسخة السؤال دي. نفس منطق سؤال11 لكن ترتيب الخيارات مختلف.
+Web و SharePoint folder، الاختياران الأول والخامس في نسخة السؤال دي. نفس منطق سؤال 11 لكن ترتيب الخيارات مختلف.
 
 ليه كل اختيار صح أو غلط
 A. Web
@@ -2083,7 +2083,7 @@ What should you do?', '["Split the column by delimiter.","Split the column by nu
 معاك تاريخ زي 7 فبراير 2024، وكل اللي محتاجه منه 2024. بما إن البرنامج فاهم إنه تاريخ، استخدم أدوات التاريخ بدل ما تقصه كنص وتتعلق بمكان الشرطات.
 
 مثال نفهم بيه
-2024-02-07 و2024-11-21 يتحولان إلى 2024 و2024. لو استخدمت Extract بعد آخر شرطة على النص الأصلي ستحصل على 07 و21، أي اليوم لا السنة.
+2024-02-07 و 2024-11-21 يتحولان إلى 2024 و 2024. لو استخدمت Extract بعد آخر شرطة على النص الأصلي ستحصل على 07 و 21، أي اليوم لا السنة.
 
 طريقة التفكير خطوة بخطوة
 1. حدد عمود التاريخ ثم Transform > Date > Year > Year.
@@ -2107,7 +2107,7 @@ D. Transform the column to contain only the year.
 صحيح: تحويل التاريخ إلى السنة يطابق الطلب. لا تخلط هذا الاختيار مع إضافة عمود سنة جديد والإبقاء على العمود الأصلي.
 
 الخلاصة اللي تتحفظ
-تاريخ مفهوم كـDate؟ استخدم تحويلات التاريخ. Transform يغير الموجود، وAdd Column يضيف جديدًا.
+تاريخ مفهوم كـDate؟ استخدم تحويلات التاريخ. Transform يغير الموجود، و Add Column يضيف جديدًا.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/powerquery-m/date-year', 'Final', '41', '/exhibit-assets/f1-041-40.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -2123,7 +2123,7 @@ Which table is the fact table of the star schema, and which column in the Patien
 
 star schema? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10002]', 'ترجمة السؤال بالعربي
 في نموذج التحاليل أربع جداول: Date صف لكل يوم؛ Patient صف لكل مريض؛ Test صف لكل نوع اختبار؛ Test Result صف لكل اختبار أُجري فعلًا. حدد جدول الأحداث والمفتاح البديل داخل Patient.
 
 القصة والمعنى
@@ -2134,7 +2134,7 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 
 طريقة التفكير خطوة بخطوة
 1. ابدأ بسؤال: الصف الواحد بيمثل إيه؟ Test تعريف اختبار، لكن Test Result تنفيذ اختبار لمريض في تاريخ وله نتيجة.
-2. لذلك Test Result هو Fact، وDate وPatient وTest أبعاد تُفلتره وتفسره.
+2. لذلك Test Result هو Fact، و Date و Patient و Test أبعاد تُفلتره وتفسره.
 3. Patient source ID هو هوية المريض القادمة من النظام الأصلي؛ Patient key هو المفتاح البديل المستخدم داخل هذا النموذج للربط.
 
 الإجابة الصحيحة وليه
@@ -2195,7 +2195,7 @@ A web-based contact form is used to fill the Contacts table. The data is not san
 You need to create a merge for the Customer and Contacts tables.
 
 What should you do?', '["Disable fuzzy matching.","Enable fuzzy matching.","Set Join Kind to Left Outer."]', '[1]', 'ترجمة السؤال بالعربي
-عندك Customer وContacts، والربط المتاح بينهما باسم العميل. أسماء Contacts جاءت من نموذج ويب بدون تنظيف. ماذا تضبط عند Merge؟
+عندك Customer و Contacts، والربط المتاح بينهما باسم العميل. أسماء Contacts جاءت من نموذج ويب بدون تنظيف. ماذا تضبط عند Merge؟
 
 القصة والمعنى
 العميل مكتوب مرة Northwind Traders ومرة Northwind Trader أو بمسافة زيادة. التطابق الحرفي قد يتركه بلا ربط رغم أنه المقصود نفسه. نحتاج مطابقة تقريبية، مع مراجعة احتمال ربط اسمين متشابهين بالخطأ.
@@ -2238,14 +2238,14 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-الصورة تعرض date بنوع Any، وmenuAmount بنوع Date رغم أنه مبلغ، وفيه Error. المطلوب تجهيز date لاستخراج اليوم، وإصلاح نوع عمود المبلغ.
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
+الصورة تعرض date بنوع Any، و menuAmount بنوع Date رغم أنه مبلغ، وفيه Error. المطلوب تجهيز date لاستخراج اليوم، وإصلاح نوع عمود المبلغ.
 
 القصة والمعنى
 البرنامج لابس كل عمود نظارة غلط: التاريخ لم يُعرّف كتاريخ، والمبلغ يُفسَّر كتاريخ فيظهر يناير 1900. تغيير اسم العمود لا يغير النظارة اللي البرنامج بيقرأه بيها.
 
 مثال نفهم بيه
-قيمة مبلغ 1 أو2 فُسرت كتاريخ رقمي، فظهرت في يناير 1900. المطلوب مبلغ 1 أو2، وليس سنة 1900 أوتلوين الخلية حتى يختفي شكلها.
+قيمة مبلغ 1 أو 2 فُسرت كتاريخ رقمي، فظهرت في يناير 1900. المطلوب مبلغ 1 أو 2، وليس سنة 1900 أوتلوين الخلية حتى يختفي شكلها.
 
 طريقة التفكير خطوة بخطوة
 1. حوّل date إلى Date أونوع تاريخ مناسب قبل استخدام استخراج Day.
@@ -2272,7 +2272,7 @@ E. To fix the error in data.Entries.menuAmount: rename the column
 Rename يغير العنوان فقط. عمود اسمه Amount ونوعه Date سيظل يتصرف كتاريخ.
 
 F. To fix the error in data.Entries.menuAmount: use Conditional Formatting
-Conditional Formatting يعرض لونًا أوشكلًا، ولا يصلح تحويل البيانات أوError في Power Query.
+Conditional Formatting يعرض لونًا أوشكلًا، ولا يصلح تحويل البيانات أو Error في Power Query.
 
 الخلاصة اللي تتحفظ
 الاسم وصف للإنسان؛ Data Type تعليمات للمحرك. أصلح خطوة الخطأ، لا شكل الخلية فقط.
@@ -2296,8 +2296,8 @@ How should you modify the CustomerID column and the PurchaseDateTime column? To 
 
 appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-Sales فيه 10 ملايين صف، والتقرير مطلوب منه مبيعات أسبوعية لكل Region فقط. حدد ماذا تفعل بـCustomerID وPurchaseDateTime لتقليل الحجم من الخيارات المعروضة.
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+Sales فيه 10 ملايين صف، والتقرير مطلوب منه مبيعات أسبوعية لكل Region فقط. حدد ماذا تفعل بـCustomerID و PurchaseDateTime لتقليل الحجم من الخيارات المعروضة.
 
 القصة والمعنى
 التقرير بيسأل الأسبوع ده والمنطقة دي باعوا بكام، مش مين العميل ولا الساعة كام. أي تفاصيل غير مستخدمة بتزود حمل التخزين، لكن لا تحذف التاريخ كله لأنك هتفقد الأسبوع.
@@ -2321,7 +2321,7 @@ B. CustomerID: Remove any duplicate values.
 إزالة تكرار العملاء من جدول المبيعات تحذف أحداث بيع صحيحة؛ العميل المتكرر لا يعني أن الفاتورة مكررة.
 
 C. CustomerID: Remove the column.
-صحيح: حذف CustomerID غير المستخدم يوفر تخزينه، بشرط ألا يكون مطلوبًا لعلاقة أوRLS أوتحليل آخر خارج المعطى.
+صحيح: حذف CustomerID غير المستخدم يوفر تخزينه، بشرط ألا يكون مطلوبًا لعلاقة أو RLS أوتحليل آخر خارج المعطى.
 
 D. PurchaseDateTime: Change the data type to Duration.
 Duration مدة زمنية وليست تاريخ وقوع عملية شراء؛ ستفقد المعنى الصحيح للعمود.
@@ -2392,17 +2392,17 @@ What should you select to gain insight into the number of errors in the model, a
 
 resolve the errors? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct answer is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct answer is worth one point.', '[]', '[10001,10003]', 'ترجمة السؤال بالعربي
 فيه قيم Error في الداتا. عايز من أدوات Data profiling تعرف حجم المشكلة، وبعدها تختار إجراء يعالج خلايا الأخطاء من القائمة.
 
 القصة والمعنى
 الأول نكشف عندنا كام خلية سليمة وكام خطأ وكام فاضية؛ بعد كده نعالج الخطأ نفسه. الخلية الفاضية مش هي الخلية اللي تحويلها فشل.
 
 مثال نفهم بيه
-من 1000 صف، 20 خلية فشل تحويلها لرقم و10 خلايا null. Remove Empty قد يشيل الفارغ، لكنه يترك الأخطاء العشرين. Replace Errors يتعامل مع تلك الخلايا تحديدًا.
+من 1000 صف، 20 خلية فشل تحويلها لرقم و 10 خلايا null. Remove Empty قد يشيل الفارغ، لكنه يترك الأخطاء العشرين. Replace Errors يتعامل مع تلك الخلايا تحديدًا.
 
 طريقة التفكير خطوة بخطوة
-1. Column quality يعرض Valid وError وEmpty، فيناسب تشخيص نسبة وعدد الأخطاء.
+1. Column quality يعرض Valid و Error و Empty، فيناسب تشخيص نسبة وعدد الأخطاء.
 2. Replace Errors يعالج قيم Error بقيمة بديلة مناسبة ومتفق عليها؛ لا تختار رقمًا عشوائيًا لمجرد إخفاء المشكلة.
 3. Keep Errors يحتفظ بصفوف الأخطاء لتفحصها، لا يصلحها. ومن الأفضل قبل الاستبدال فهم سببها وإصلاح المصدر أوالنوع متى أمكن.
 
@@ -2411,7 +2411,7 @@ Column quality؛ ثم Replace Errors.
 
 ليه كل اختيار صح أو غلط
 A. To gain insight, select: Column distribution
-Column distribution يركز على تكرار القيم وDistinct وUnique، وليس العرض المباشر لفئات Valid/Error/Empty المطلوب هنا.
+Column distribution يركز على تكرار القيم و Distinct و Unique، وليس العرض المباشر لفئات Valid/Error/Empty المطلوب هنا.
 
 B. To gain insight, select: Column quality
 Column quality صحيح للتشخيص؛ راجع هل الإحصاء على أول 1000 صف أوكل البيانات.
@@ -2435,7 +2435,7 @@ H. To resolve the errors, select: Replace Errors
 Replace Errors هو الإجراء الصحيح من الخيارات لمعالجة خلايا الخطأ، بقيمة بديلة لا تفسد معنى التحليل.
 
 الخلاصة اللي تتحفظ
-اعرف المشكلة بـColumn quality؛ وفرق بين Null وError قبل ما تختار العلاج.
+اعرف المشكلة بـColumn quality؛ وفرق بين Null و Error قبل ما تختار العلاج.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/data-profiling-tools
@@ -2470,7 +2470,7 @@ A. DirectQuery
 صحيح لوضع الاتصال: لا يحتاج انتظار scheduled Import refresh لقراءة تحديثات المصدر. شرط الدقيقتين يظل بحاجة لاختبار دورة العرض الفعلية.
 
 B. live connection
-Live connection مناسب لتقرير رفيع على semantic model أوAnalysis Services، وليس بديلًا باسم مختلف لوصل SQL مباشرة.
+Live connection مناسب لتقرير رفيع على semantic model أو Analysis Services، وليس بديلًا باسم مختلف لوصل SQL مباشرة.
 
 C. import
 Import يحتفظ بنسخة؛ بدون آلية تحديث مناسبة لا يضمن أن كل تغيير يظهر خلال دقيقتين.
@@ -2502,7 +2502,7 @@ NOTE: Each correct selection is worth one point.', '["an Orders query that has a
 القائمة بتقول لك أسماء الأرقام المتاحة، والباراميتر بيمسك الرقم المختار، واستعلام الطلبات يستخدم الرقم كشرط. وجود قائمة وحدها لا يفلتر الطلبات.
 
 مثال نفهم بيه
-OData ترجع C01 وC02 وC03. اختار C02 في parameter ثم refresh؛ Orders تحمل طلبات C02. قارئ التقرير لا يغير الاختيار لحظيًا بزر slicer على النموذج المستورد.
+OData ترجع C01 و C02 و C03. اختار C02 في parameter ثم refresh؛ Orders تحمل طلبات C02. قارئ التقرير لا يغير الاختيار لحظيًا بزر slicer على النموذج المستورد.
 
 طريقة التفكير خطوة بخطوة
 1. Customers query يأتي بالقيم من OData ويحوّل عمود CustomerID إلى List مناسبة لقيم parameter المقترحة.
@@ -2511,7 +2511,7 @@ OData ترجع C01 وC02 وC03. اختار C02 في parameter ثم refresh؛ Ord
 4. لو المصدر تفاصيل بنود طلبات، يجب تجميعها لصف لكل OrderID وإجماليه؛ objects الثلاثة تختبر مصدر القائمة والاختيار والفلتر، ولا تلغي شرط grain.
 
 الإجابة الصحيحة وليه
-A وD وE: Orders query عليها فلتر CustomerID؛ Customers query لقائمة IDs؛ parameter بقيم مقترحة من query.
+A و D و E: Orders query عليها فلتر CustomerID؛ Customers query لقائمة IDs؛ parameter بقيم مقترحة من query.
 
 ليه كل اختيار صح أو غلط
 A. an Orders query that has a filter on CustomerID
@@ -2596,13 +2596,13 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 صورة profiling لبيانات العملاء. حدد عمودًا تتكرر فيه القيم، وطريقة توحيد أرقام الهاتف دون country code، من الخيارات المعروضة.
 
 القصة والمعنى
-اتنين اسمهم محمد مش مشكلة في قائمة العملاء، لكن مفتاح كل واحد لازم يميزه. والهاتف هنا له شكلان: رقم محلي، أوprefix دولي ثم نفس الرقم المحلي في آخر النص.
+اتنين اسمهم محمد مش مشكلة في قائمة العملاء، لكن مفتاح كل واحد لازم يميزه. والهاتف هنا له شكلان: رقم محلي، أو prefix دولي ثم نفس الرقم المحلي في آخر النص.
 
 مثال نفهم بيه
 1 (11) 500-555-0169 ينتهي بـ500-555-0169، ونفسه لو لم توجد بادئة. هذا نص من 12 character يحتوي 10 digits؛ بعد حذف الشرطات يصبح 5005550169.
 
 طريقة التفكير خطوة بخطوة
-1. قارن Distinct وUnique: قيم Customer ID وCustomer Key ظاهرة فريدة لكل الصفوف، بينما Customer Name فيه أسماء متكررة.
+1. قارن Distinct و Unique: قيم Customer ID و Customer Key ظاهرة فريدة لكل الصفوف، بينما Customer Name فيه أسماء متكررة.
 2. آخر 12 حرفًا في شكل البيانات المعروض هي الرقم المحلي مثل 500-555-0169: عشر خانات رقمية وشرطتان، لا 12 رقمًا.
 3. استخراج النص بعد القوس يفشل مع صفوف بلا قوس وقد يحتفظ بمسافة في الصفوف الأخرى. آخر 12 حرفًا أنسب لهذه الأشكال المحددة.
 4. لو المطلوب بالضبط نص مكوّن من 10 أرقام بلا أي فواصل، فالاختيار وحده لا يكفي: يلزم حذف الشرطتين أيضًا. لا تعمم قاعدة آخر 12 على أرقام دول بأطوال مختلفة.
@@ -2612,7 +2612,7 @@ Customer Name؛ Extract the last 12 characters، بمعنى رقم محلي من
 
 ليه كل اختيار صح أو غلط
 A. Some values in this column are repeated: Customer ID
-Customer ID في الصورة عدد القيم Distinct وUnique له يطابق عدد الصفوف، فلا يدل على التكرار المطلوب.
+Customer ID في الصورة عدد القيم Distinct و Unique له يطابق عدد الصفوف، فلا يدل على التكرار المطلوب.
 
 B. Some values in this column are repeated: Customer Key
 Customer Key مفتاح فريد بحسب الـprofile المعروض، فلا تختاره لادعاء وجود تكرار.
@@ -2630,7 +2630,7 @@ F. To standardize Phone to 10 digits and exclude country codes: split the column
 Split عند آخر قوس ينتج أعمدة ويظل بحاجة لمعالجة الصفوف التي لا تحتوي الفاصل والمسافة المتبقية؛ ليس الحل الموحد الأبسط من القائمة.
 
 الخلاصة اللي تتحفظ
-Digit رقم، وcharacter حرف أوفاصل أوعدد. 500-555-0169 فيه 10 أرقام و12 حرفًا.
+Digit رقم، و character حرف أوفاصل أوعدد. 500-555-0169 فيه 10 أرقام و 12 حرفًا.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/data-profiling-tools
@@ -2646,7 +2646,7 @@ memory.”
 You need to resolve the error and ensure that query response times are minimized for end users.
 
 What should you do?', '["Merge the Sales person and invoice tables based on the SalesPersonId column.","Change the invoice table to a DirectQuery table and read the data live from the source, retaining only the dimension tables as import tables.","Reduce the size of the invoice table by summarizing sales by Product, Sales person, Calendar, and Customer.","Change the invoice table to a composite table that contains historical data as a DirectQuery table and hot data as an import table, and then partition the table."]', '[2]', 'ترجمة السؤال بالعربي
-Refresh يفشل بسبب تجاوز الذاكرة. عندك Fact اسمها Invoice بحجم كبير وأبعاد Product وSales person وCalendar وCustomer. تريد إصلاح الحجم مع استجابة سريعة للاستعلامات.
+Refresh يفشل بسبب تجاوز الذاكرة. عندك Fact اسمها Invoice بحجم كبير وأبعاد Product و Sales person و Calendar و Customer. تريد إصلاح الحجم مع استجابة سريعة للاستعلامات.
 
 القصة والمعنى
 بدل ما تحمل كل سطر فاتورة والطالب يسأل في النهاية عن إجمالي نفس المنتج والعميل والبائع واليوم، حمّل المجاميع المطلوبة فقط. بنقلل حمل الذاكرة ونحتفظ بسرعة Import.
@@ -2693,18 +2693,18 @@ NOTE: Each correct answer is worth one point.', '["Change Data category to Count
 عمود Country فيه أسماء دول باختلاف حالة الحروف، ومطلوب Country dimension يظهر فيه كل بلد مرة واحدة. اختر إجراءين.
 
 القصة والمعنى
-Afghanistan وafghanistan نفس البلد، لكن Power Query قد يعدهما نصين مختلفين. لازم نوحد الكتابة قبل ما نطلب حذف التكرار.
+Afghanistan و afghanistan نفس البلد، لكن Power Query قد يعدهما نصين مختلفين. لازم نوحد الكتابة قبل ما نطلب حذف التكرار.
 
 مثال نفهم بيه
-afghanistan وAfghanistan يصبحان Afghanistan ثم يبقى صف واحد. حذف التكرار قبل توحيد الحالة قد يترك الصفين في Power Query.
+afghanistan و Afghanistan يصبحان Afghanistan ثم يبقى صف واحد. حذف التكرار قبل توحيد الحالة قد يترك الصفين في Power Query.
 
 طريقة التفكير خطوة بخطوة
 1. طبق Capitalize Each Word لتوحيد حالة الحروف في الأسماء المعروضة.
 2. بعدها Remove Duplicates على Country؛ ترتيب التنفيذ مهم رغم أن السؤال يطلب اختيار إجراءين فقط.
-3. Clean ينظف محارف تحكم غير مطبوعة، ولا يساوي توحيد case أوTrim للمسافات. Data category تخص تفسير القيمة في التقرير لا تنظيفها.
+3. Clean ينظف محارف تحكم غير مطبوعة، ولا يساوي توحيد case أو Trim للمسافات. Data category تخص تفسير القيمة في التقرير لا تنظيفها.
 
 الإجابة الصحيحة وليه
-Remove duplicate values وCapitalize Each Word، الاختياران الثاني والخامس؛ توحيد الحالة يُنفذ أولًا.
+Remove duplicate values و Capitalize Each Word، الاختياران الثاني والخامس؛ توحيد الحالة يُنفذ أولًا.
 
 ليه كل اختيار صح أو غلط
 A. Change Data category to Country.
@@ -2742,13 +2742,13 @@ Which data source and authentication method should you use to connect to the API
 appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-تريد قراءة API يعيد JSON، ومعك username وpassword. اختر connector وطريقة المصادقة المناسبة من القائمتين.
+تريد قراءة API يعيد JSON، ومعك username و password. اختر connector وطريقة المصادقة المناسبة من القائمتين.
 
 القصة والمعنى
 JSON هو شكل الشحنة الراجعة، مش عنوان الباب اللي بتطلبها منه. تطلب من URL عن طريق Web، ثم تفسر الاستجابة كـJSON.
 
 مثال نفهم بيه
-API للفواتير له URL ويطلب Basic authentication. Web يرسل الطلب بالمصادقة، وPower Query يحلل JSON الراجع إلى records وlists ثم جدول. API آخر قد يحتاج OAuth رغم أن عندك حسابًا عليه.
+API للفواتير له URL ويطلب Basic authentication. Web يرسل الطلب بالمصادقة، و Power Query يحلل JSON الراجع إلى records و lists ثم جدول. API آخر قد يحتاج OAuth رغم أن عندك حسابًا عليه.
 
 طريقة التفكير خطوة بخطوة
 1. استخدم Web connector للاتصال بعنوان API. وجود JSON في الرد لا يعني أن المصدر ملف JSON محلي.
@@ -2766,7 +2766,7 @@ B. Data source: JSON
 JSON هنا صيغة الاستجابة. الاختيار المقصود لاتصال API عبر URL هو Web، وليس مجرد اختيار اسم صيغة الملف.
 
 C. Data source: OData
-OData بروتوكول محدد له endpoints وmetadata؛ ليس كل API يرجع JSON خدمة OData.
+OData بروتوكول محدد له endpoints و metadata؛ ليس كل API يرجع JSON خدمة OData.
 
 D. Data source: Web
 Web صحيح لاتصال عنوان API واستقبال محتواه.
@@ -2803,7 +2803,7 @@ What should you do?', '["In the report, add a DAX calculated column that calcula
 مش عايز متوسط طول الرسائل وخلاص؛ عايز تعرف كام رسالة طولها 5 وكام واحدة طولها 100. وبما إن الهدف فحص الداتا، نستخدم شاشة profiling بدل عمود دائم لكل صف.
 
 مثال نفهم بيه
-رسائل أطوالها 2 و2 و10: التوزيع يقول الطول 2 ظهر مرتين والطول 10 مرة. المتوسط 4.67 وحده لا يكشف هذا الشكل.
+رسائل أطوالها 2 و 2 و 10: التوزيع يقول الطول 2 ظهر مرتين والطول 10 مرة. المتوسط 4.67 وحده لا يكشف هذا الشكل.
 
 طريقة التفكير خطوة بخطوة
 1. فعّل Column profile في Power Query، وحدد col1، واضبط Value distribution على Group by text length.
@@ -2848,12 +2848,12 @@ How should you provision access to the reports for the HR managers?', '["Publish
 المدير جاي يقرأ دفتر منطقته، مش يبقى من فريق تأليف الدفاتر كلها. اعرض التقارير في App للمستهلكين، واحتفظ بصلاحيات التحرير لفريق الإعداد.
 
 مثال نفهم بيه
-منى مديرة HR في شرق: App يتيح لها التقرير، وRLS يقيد الصفوف بالشرق. لو جعلتها Member في workspace الموديل فلن يظل هذا هو نفس سياق المستهلك المقيد بـRLS.
+منى مديرة HR في شرق: App يتيح لها التقرير، و RLS يقيد الصفوف بالشرق. لو جعلتها Member في workspace الموديل فلن يظل هذا هو نفس سياق المستهلك المقيد بـRLS.
 
 طريقة التفكير خطوة بخطوة
 1. انشر App وامنح المديرين صلاحية الاستهلاك، مع تعيينهم لأدوار RLS المناسبة وتحقق View as/Test as role.
 2. App ليس هو الذي يخترع فلتر المنطقة؛ قاعدة RLS وعلاقة المستخدم بمنطقته يجب إعدادها مسبقًا.
-3. لا تمنح Member في workspace المصدر؛ دوره يسمح بالتحرير وRLS لا يقيده كالمستهلك Viewer. ولا تمنح صلاحيات أوسع من المطلوب من طريق آخر.
+3. لا تمنح Member في workspace المصدر؛ دوره يسمح بالتحرير و RLS لا يقيده كالمستهلك Viewer. ولا تمنح صلاحيات أوسع من المطلوب من طريق آخر.
 
 الإجابة الصحيحة وليه
 Publish the reports in an app and grant access، الاختيار الأول.
@@ -2888,7 +2888,7 @@ Which role should you assign to the user?', '["Viewer","Admin","Contributor","Me
 عندك شخص مسؤول يدخل زملاء للفريق، لكنه مش محتاج مفتاح حذف المكتب أوترقية نفسه ومن يشاء لـAdmin. نديله أقل دور ينفذ المهمة.
 
 مثال نفهم بيه
-تحتاج إضافة ليلى كـViewer أوContributor أوMember. Member هو الأقل من هذه الخيارات الذي يدعم المهمة. حذف workspace أوإدارة أي دور ليست نفس المهمة.
+تحتاج إضافة ليلى كـViewer أو Contributor أو Member. Member هو الأقل من هذه الخيارات الذي يدعم المهمة. حذف workspace أوإدارة أي دور ليست نفس المهمة.
 
 طريقة التفكير خطوة بخطوة
 1. Member يستطيع إضافة Members أوأدوار أقل منه وفق جدول صلاحيات workspace.
@@ -2940,7 +2940,7 @@ NOTE: Each correct selection is worth one point.', '["Remove the rows in which S
 4. هذه إجراءات تقليل حجم البيانات المنقولة/المحمّلة، وليست ضمان زمن محدد؛ folding وسرعة المصدر يؤثران أيضًا.
 
 الإجابة الصحيحة وليه
-Remove Canceled rows وRemove Canceled Date، الاختياران الأول والخامس.
+Remove Canceled rows و Remove Canceled Date، الاختياران الأول والخامس.
 
 ليه كل اختيار صح أو غلط
 A. Remove the rows in which Sales[Status] has a value of Canceled.
@@ -2976,7 +2976,7 @@ Which relationship should you use to link the tables?', '["one-to-many from Tran
 العميل له بطاقة واحدة في دفتر العملاء، وممكن يعمل عشر عمليات. رقم العميل يتكرر في دفتر العمليات ليقول كل عملية تخص مين، وليس لأن سجل العميل نفسه مكرر.
 
 مثال نفهم بيه
-Customer فيه العميل 7 مرة واحدة. Transaction فيها العمليات 101 و102 و103 وكلها CustomerID=7. اختيار العميل 7 يفلتر العمليات الثلاث عبر العلاقة.
+Customer فيه العميل 7 مرة واحدة. Transaction فيها العمليات 101 و 102 و 103 وكلها CustomerID=7. اختيار العميل 7 يفلتر العمليات الثلاث عبر العلاقة.
 
 طريقة التفكير خطوة بخطوة
 1. CustomerID فريد في Customer، فيكون هذا طرف One.
@@ -3013,16 +3013,16 @@ You build a report analyzing the internal networks of employees based on whom th
 You need to prevent report recipients from reading the analyzed emails. The solution must minimize the model size.
 
 What should you do?', '["From Model view, set the Subject and Body columns to Hidden.","Remove the Subject and Body columns during the import.","Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent."]', '[1]', 'ترجمة السؤال بالعربي
-Connector يرجع أكثر من 10 ملايين رسالة فيها From وTo وSubject وBody وغيرها. التقرير يحلل شبكة مراسلات الموظفين فقط؛ امنع قراءة محتوى الرسائل وقلل حجم النموذج.
+Connector يرجع أكثر من 10 ملايين رسالة فيها From و To و Subject و Body وغيرها. التقرير يحلل شبكة مراسلات الموظفين فقط؛ امنع قراءة محتوى الرسائل وقلل حجم النموذج.
 
 القصة والمعنى
 عايز تعرف مين بيتواصل مع مين، مش بيقولوا لبعض إيه. مفيش سبب تحمل نصوص الرسائل ثم تخفيها عن قائمة الحقول؛ احذفها قبل ما تدخل النموذج.
 
 مثال نفهم بيه
-صف From=منى وTo=أحمد يكفي لعدّ رسالة بينهما. نص رسالة طويل لا يغير عدد الرسائل لكنه يزيد الحجم ويكشف محتوى غير مطلوب.
+صف From=منى و To=أحمد يكفي لعدّ رسالة بينهما. نص رسالة طويل لا يغير عدد الرسائل لكنه يزيد الحجم ويكشف محتوى غير مطلوب.
 
 طريقة التفكير خطوة بخطوة
-1. Subject وBody ليسا مطلوبين لحساب علاقات المرسل والمستقبل. احذفهما في الاستيراد/Power Query قبل التحميل.
+1. Subject و Body ليسا مطلوبين لحساب علاقات المرسل والمستقبل. احذفهما في الاستيراد/Power Query قبل التحميل.
 2. هذا يزيل المحتوى من النموذج ويقلل النصوص عالية التنوع، فيخدم الخصوصية والحجم معًا.
 3. Hidden لا يزيل البيانات ولا يمثل حاجز أمن. RLS يفلتر صفوفًا، لكنه لا يحذف محتوى الرسائل المسموح برؤية صفوفها.
 4. الحذف من النموذج لا يمسح المصدر أوأي نسخ احتياطية قديمة؛ راجعها منفصلًا لو لها متطلبات احتفاظ أوخصوصية.
@@ -3059,7 +3059,7 @@ area.
 NOTE: Each correct selection is worth one point.
 
 Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-السؤال التاريخي يعرض Business Unit فيها Cost Center وHeadcount وID وName. عايز تتيحها كنوع بيانات مؤسسي في Excel؛ حدد تسمية الصف ومفتاحه وهل هو Featured table.
+السؤال التاريخي يعرض Business Unit فيها Cost Center و Headcount و ID و Name. عايز تتيحها كنوع بيانات مؤسسي في Excel؛ حدد تسمية الصف ومفتاحه وهل هو Featured table.
 
 القصة والمعنى
 الطالب في Excel محتاج يشوف اسم الإدارة، لكن البرنامج محتاج رقمًا ثابتًا يميز الإدارة عن غيرها. الاسم لعين الإنسان والـID للربط. تنبيه حالي: Microsoft أزالت هذه الوظيفة من Power BI Desktop في إصدار يونيو 2026؛ نفهم السؤال كسيناريو قديم.
@@ -3174,8 +3174,8 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-نموذج Import فيه Employee في المنتصف وأبعاد مثل Date وGender وBU وAgeGroup حوله. حدد إعداد علاقة يمكن تبسيطه لتحسين الأداء، ونوع تنظيم النموذج.
+Hot Area:', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
+نموذج Import فيه Employee في المنتصف وأبعاد مثل Date و Gender و BU و AgeGroup حوله. حدد إعداد علاقة يمكن تبسيطه لتحسين الأداء، ونوع تنظيم النموذج.
 
 القصة والمعنى
 المفروض تختار الإدارة فتفلتر الموظفين. لو فتحت المرور في الاتجاهين على كل الطرق، العلاقات تعمل شغلًا إضافيًا وقد تتداخل مسارات الفلاتر بدون احتياج.
@@ -3185,7 +3185,7 @@ BU=Sales يفلتر Employee إلى موظفي المبيعات. لا نحتاج
 
 طريقة التفكير خطوة بخطوة
 1. الرسم يعرض علاقات باتجاهين؛ راجع تحويل غير المطلوب منها إلى Single من الأبعاد للجدول المركزي.
-2. تغيير اتجاه الفلترة هنا هو التحسين المقصود، مع اختبار أن التقارير وRLS لا تحتاج المسارات العكسية. ليس وعدًا بتحسن كل استعلام مهما كان.
+2. تغيير اتجاه الفلترة هنا هو التحسين المقصود، مع اختبار أن التقارير و RLS لا تحتاج المسارات العكسية. ليس وعدًا بتحسن كل استعلام مهما كان.
 3. الأبعاد مرتبطة بالجدول المركزي مباشرة، لذلك الشكل Star schema وليس Snowflake الذي تُفصل فيه الأبعاد إلى مستويات مرتبطة ببعضها.
 4. Assume Referential Integrity خيار مرتبط بسيناريوهات DirectQuery، وليس التحسين المقصود لنموذج Import المعروض.
 
@@ -3229,7 +3229,7 @@ How should you complete the calculation? To answer, select the appropriate optio
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10000,10002,10001]', 'ترجمة السؤال بالعربي
 Sales مرتبطة بجدول Date وعندك measure اسمها Total Sales. عايز measure لمبيعات نفس الفترة من السنة السابقة، مثل نفس الشهر عند عرض الشهر.
 
 القصة والمعنى
@@ -3368,8 +3368,8 @@ NOTE: More than one order of answer choices is correct. You will receive credit 
 
 select.
 
-Select and Place:', '[]', '[0,2,5]', 'ترجمة السؤال بالعربي
-الموديل فيه Sales_Region وRegion_Manager وManager وSales_Manager. مطلوب جدول واحد أبسط، ويشمل فقط المديرين المرتبطين بمنطقة بيع. بعض المديرين في الجداول لا يرتبطون بمناطق.
+Select and Place:', '[]', '[]', 'ترجمة السؤال بالعربي
+الموديل فيه Sales_Region و Region_Manager و Manager و Sales_Manager. مطلوب جدول واحد أبسط، ويشمل فقط المديرين المرتبطين بمنطقة بيع. بعض المديرين في الجداول لا يرتبطون بمناطق.
 
 القصة والمعنى
 عندك كشف مناطق وكشف مديرين أكبر منه. مش عايز كل مدير في الشركة؛ عايز اللي له مكان في كشف المناطق فقط. نبدأ بالمناطق وعلاقاتها ونضيف أوصاف المديرين المرتبطين بها.
@@ -3425,7 +3425,7 @@ Users say that the report is slow to load the visuals when they access and inter
 You need to recommend a solution to improve the performance of the report.
 
 What should you recommend?', '["Change any DAX measures to use iterator functions.","Enable visual interactions.","Replace the default visuals with AppSource visuals.","Split the visuals onto multiple pages."]', '[3]', 'ترجمة السؤال بالعربي
-صفحة تقرير واحدة فيها 25 visual: 15 من AppSource و10 افتراضية. المستخدمون يشتكون بطء عرض الرسومات والتفاعل. اختر تحسينًا من القائمة.
+صفحة تقرير واحدة فيها 25 visual: 15 من AppSource و 10 افتراضية. المستخدمون يشتكون بطء عرض الرسومات والتفاعل. اختر تحسينًا من القائمة.
 
 القصة والمعنى
 كل مرة تفتح الصفحة فيه 25 رسمًا بيطلبوا حسابات وعرضًا معًا. توزيعهم على صفحات يخلي المستخدم يحمل ما يحتاجه بدل تشغيل كل الرسومات في نفس اللحظة.
@@ -3487,16 +3487,16 @@ Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
 طلب 100 فيه قهوة وسكر، وطلب 101 فيه قهوة فقط. SalesOrderNumber يميز السلتين. تغيير AuditID بسبب تحديث الاستيراد لا يغير حقيقة أن القهوة والسكر ظهرا معًا في الطلب 100.
 
 طريقة التفكير خطوة بخطوة
-1. SalesRowID يميز صف المصدر، وAuditID يصف عملية التحميل. لا يحتاجهما هدف التحليل المحدد إذا لم يخدما علاقة أوحسابًا آخر.
-2. SalesOrderNumber يربط بنود نفس السلة، وProductKey يحدد المنتجات؛ لا تحذفهما بالخطأ لمجرد أنهما identifiers.
-3. لا يلزم الاحتفاظ بـOrderDateKey وOrderDate معًا لهذا الهدف وحده. لو أردت تحليلًا زمنيًا احتفظ بما يخدم علاقة التاريخ المطلوبة، لا تحذف مفتاح علاقة مستخدمة عشوائيًا.
+1. SalesRowID يميز صف المصدر، و AuditID يصف عملية التحميل. لا يحتاجهما هدف التحليل المحدد إذا لم يخدما علاقة أوحسابًا آخر.
+2. SalesOrderNumber يربط بنود نفس السلة، و ProductKey يحدد المنتجات؛ لا تحذفهما بالخطأ لمجرد أنهما identifiers.
+3. لا يلزم الاحتفاظ بـOrderDateKey و OrderDate معًا لهذا الهدف وحده. لو أردت تحليلًا زمنيًا احتفظ بما يخدم علاقة التاريخ المطلوبة، لا تحذف مفتاح علاقة مستخدمة عشوائيًا.
 4. TaxAmt ودقته ليستا مطلوبتين لمعرفة المنتجات المتزامنة في السلة؛ يمكن استبعاده من هذا النموذج المتخصص.
 
 الإجابة الصحيحة وليه
 Yes؛ No؛ No.
 
 ليه كل اختيار صح أو غلط
-العبارة الأولى Yes: إزالة SalesRowID وAuditID لا تعطل هدف Basket المعلن، مع إبقاء حقول ربط الطلب والمنتج والمنطقة.
+العبارة الأولى Yes: إزالة SalesRowID و AuditID لا تعطل هدف Basket المعلن، مع إبقاء حقول ربط الطلب والمنتج والمنطقة.
 
 العبارة الثانية No: الهدف المحدد لا يتطلب عمودَي التاريخ معًا؛ راجع العلاقة والاستخدام الزمني قبل اختيار أيهما تستبعد في تطبيق أوسع.
 
@@ -3522,7 +3522,7 @@ Role2 contains the following filter.
 Date[Calendar Year] = 2020 -
 
 If a user is a member of both Role1 and Role2, what data will they see in a report that uses the model?', '["The user will see data for which the State Province value is Kentucky or where the Calendar Year is 2020.","The user will receive an error and will not be able to see the data in the report.","The user will only see data for which the State Province value is Kentucky.","The user will only see data for which the State Province value is Kentucky and the Calendar Year is 2020."]', '[0]', 'ترجمة السؤال بالعربي
-Role1 يسمح بولاية Kentucky، وRole2 يسمح بسنة 2020. مستخدم عضو في الدورين؛ ما صفوف Orders المسموحة له؟
+Role1 يسمح بولاية Kentucky، و Role2 يسمح بسنة 2020. مستخدم عضو في الدورين؛ ما صفوف Orders المسموحة له؟
 
 القصة والمعنى
 معاه تصريح يدخل به مبيعات كنتاكي، وتصريح آخر يدخل به مبيعات 2020. حصوله على تصريح ثانٍ لا يلغي الأول ولا يشترط تنفيذه معه؛ المسموح من الدورين بيتجمع.
@@ -3540,7 +3540,7 @@ Kentucky OR Calendar Year 2020، الاختيار الأول.
 
 ليه كل اختيار صح أو غلط
 A. The user will see data for which the State Province value is Kentucky or where the Calendar Year is 2020.
-صحيح: المسموح من Role1 أوRole2؛ اتحاد الصفوف ليس جمعًا يكرر السجل مرتين.
+صحيح: المسموح من Role1 أو Role2؛ اتحاد الصفوف ليس جمعًا يكرر السجل مرتين.
 
 B. The user will receive an error and will not be able to see the data in the report.
 لا يوجد خطأ لمجرد العضوية في دورين. المشكلة المحتملة هي إتاحة صفوف أكثر مما توقع المصمم.
@@ -3575,13 +3575,13 @@ During the development process, you need to import a sample of the data from the
 Solution: From Power Query Editor, you import the table and then add a filter step to the query.
 
 Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
-Order في SQL Server فيه أكثر من100 مليون صف. أثناء التطوير تريد استيراد عينة فقط. الحل المقترح: تضيف فلترًا في Power Query Editor. هل يحقق الهدف؟
+Order في SQL Server فيه أكثر من 100 مليون صف. أثناء التطوير تريد استيراد عينة فقط. الحل المقترح: تضيف فلترًا في Power Query Editor. هل يحقق الهدف؟
 
 القصة والمعنى
 تقدر تطلب من المخزن كرتونة واحدة، أويشحن لك المخزن كله وتختار واحدة عندك. المهم الفلتر اتنفذ فين، مش إن اسم الخطوة جاء بعد Source في القائمة.
 
 مثال نفهم بيه
-فلتر OrderID<=1000 يمكن أن يصبح WHERE في SQL. كون الجدول فيه100 مليون صف لا يعني نقلها كلها. فلتر بدالة محلية غير مدعومة قد لا يحقق نفس السلوك.
+فلتر OrderID<=1000 يمكن أن يصبح WHERE في SQL. كون الجدول فيه 100 مليون صف لا يعني نقلها كلها. فلتر بدالة محلية غير مدعومة قد لا يحقق نفس السلوك.
 
 طريقة التفكير خطوة بخطوة
 1. SQL Server يدعم Query folding لتحويل عمليات Power Query المدعومة إلى استعلام ينفذه المصدر.
@@ -3629,7 +3629,7 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 اخترت جزءًا من الداتا بعد ما دخلت الموديل بالفعل. ده لا يقلل الشحنة التي وصلت من SQL أثناء الاستيراد.
 
 مثال نفهم بيه
-استوردت100 مليون صف ثم أنشأت جدول DAX بأول1000. الأصل ما زال موجودًا؛ اختيار1000 بعد التحميل لا يمنع نقله أولًا.
+استوردت 100 مليون صف ثم أنشأت جدول DAX بأول 1000. الأصل ما زال موجودًا؛ اختيار 1000 بعد التحميل لا يمنع نقله أولًا.
 
 طريقة التفكير خطوة بخطوة
 1. DAX FILTER هنا يحسب على جدول النموذج، وليس فلتر Power Query الذي يقرأ المصدر.
@@ -3718,20 +3718,20 @@ Which four actions should you perform in sequence? To answer, move the appropria
 actions to the answer area and arrange them in the correct order.
 
 Select and Place:', '[]', '[2,4,1,5]', 'ترجمة السؤال بالعربي
-Excel فيه عناوين Measure وسنوات2016 إلى2020 في أول صف، وتحته Revenue وOverheads وCost of Goods. تريد عرض القياسات عبر الزمن وحساب المقارنة السنوية. رتب أربع خطوات.
+Excel فيه عناوين Measure وسنوات 2016 إلى 2020 في أول صف، وتحته Revenue و Overheads و Cost of Goods. تريد عرض القياسات عبر الزمن وحساب المقارنة السنوية. رتب أربع خطوات.
 
 القصة والمعنى
 كل سنة محطوطة في عمود. نريد عمود Year واحد وصفًا لكل قياس وسنة، بدل أن تحتاج كل سنة جديدة إلى عمود جديد في التقرير.
 
 مثال نفهم بيه
-Revenue=0.5 في2016 و0.6 في2017 تصبح Revenue/2016/0.5 وRevenue/2017/0.6. السنة الآن حقل واحد يصلح للتصفية مع كل القياسات.
+Revenue=0.5 في 2016 و 0.6 في 2017 تصبح Revenue/2016/0.5 و Revenue/2017/0.6. السنة الآن حقل واحد يصلح للتصفية مع كل القياسات.
 
 طريقة التفكير خطوة بخطوة
 1. اعتمد أول صف كعناوين، لأنه يحتوي أسماء القياس والسنوات بدل Column1 وما بعدها.
-2. ثبت Measure واعمل Unpivot لبقية الأعمدة؛ Attribute يحمل السنة وValue يحمل القيمة.
+2. ثبت Measure واعمل Unpivot لبقية الأعمدة؛ Attribute يحمل السنة و Value يحمل القيمة.
 3. أعد تسمية Attribute إلى Year. لا تغيّر اسم Measure إلى Year لأنه يحمل Revenue وغيرها.
-4. اختر جعل Year تاريخًا كما يقصد السؤال، لكن تحقق من أن2016 تصبح1 يناير2016 فعلًا. إن فشل التحويل أوفسر السنة كرقم أيام، كوّن تاريخًا صريحًا مثل #date(Number.FromText([Year]),1,1).
-5. اربط بجدول تاريخ مناسب للمقارنة الزمنية. مجرد تغيير نوع رقم إلى Date ليس ضمانًا لصحة معنى التاريخ أوYear over Year.
+4. اختر جعل Year تاريخًا كما يقصد السؤال، لكن تحقق من أن 2016 تصبح 1 يناير 2016 فعلًا. إن فشل التحويل أوفسر السنة كرقم أيام، كوّن تاريخًا صريحًا مثل #date(Number.FromText([Year]),1,1).
+5. اربط بجدول تاريخ مناسب للمقارنة الزمنية. مجرد تغيير نوع رقم إلى Date ليس ضمانًا لصحة معنى التاريخ أو Year over Year.
 
 الإجابة الصحيحة وليه
 Use First Row as Headers → Unpivot other than Measure → Rename Attribute as Year → Make Year a valid Date، مع التحقق من معنى التاريخ الناتج.
@@ -3780,8 +3780,8 @@ answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-Sales مرتبط بـEmployee عبر employee_id. لا أحد يحتاج عرض employee_id أوemployee_photo. ماذا تفعل بهما لتحسين النموذج؟
+Hot Area:', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+Sales مرتبط بـEmployee عبر employee_id. لا أحد يحتاج عرض employee_id أو employee_photo. ماذا تفعل بهما لتحسين النموذج؟
 
 القصة والمعنى
 رقم الموظف هو السلك الذي يربط مبيعاته باسمه. عدم عرضه لا يعني أن نقص السلك. الصورة لا تخدم العلاقة أوالتحليل، فلا داعي لتحميلها.
@@ -3860,14 +3860,14 @@ appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-View1 تسجل حضور الطالب باليوم وClass ID. View2 تعرف الصف والمدرس والحصة والسنة. Class ID يميز تلك التركيبة. أين تضع Teacher First Name وPeriod Number في التصميم؟
+Hot Area:', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+View1 تسجل حضور الطالب باليوم و Class ID. View2 تعرف الصف والمدرس والحصة والسنة. Class ID يميز تلك التركيبة. أين تضع Teacher First Name و Period Number في التصميم؟
 
 القصة والمعنى
 دفتر الحضور يقول الطالب حضر أنهي حصة في أنهي يوم. دفتر الحصص يعرف الحصة، ودفتر المدرسين يعرف المدرس. لا نكرر اسم المدرس مع كل طالب كل يوم.
 
 مثال نفهم بيه
-منى تدرس الفترة1 والفترة3. Teacher ID واحد، لكن Class ID مختلف لكل تكليف. اسمها في بُعد المدرس، ورقم الفترة في تعريف الحصة، والحضور يتكرر حسب الطلاب والأيام.
+منى تدرس الفترة 1 والفترة 3. Teacher ID واحد، لكن Class ID مختلف لكل تكليف. اسمها في بُعد المدرس، ورقم الفترة في تعريف الحصة، والحضور يتكرر حسب الطلاب والأيام.
 
 طريقة التفكير خطوة بخطوة
 1. Teacher First Name صفة للمدرس، فيكون في Teacher dimension عند Teacher ID.
@@ -3921,7 +3921,7 @@ What should you do?', '["Create a slicer that filters Departments based on Depar
 Slicer القسم زر يغيّر ما يظهر على الشاشة، والمستخدم قد يغيّره. المطلوب منع قراءة الأقسام الأخرى أصلًا، وده دور RLS.
 
 مثال نفهم بيه
-مستخدم HR يربط برول يفلتر DepartmentID=2. فتح تقرير له وslicer مضبوط علىHR لا يضمن الحماية إذا استطاع تغيير الاختيار.
+مستخدم HR يربط برول يفلتر DepartmentID=2. فتح تقرير له و slicer مضبوط على HR لا يضمن الحماية إذا استطاع تغيير الاختيار.
 
 طريقة التفكير خطوة بخطوة
 1. عرّف أدوار RLS بفلاتر الأقسام وعيّن العضوية كما يقترح الاختيار.
@@ -3968,7 +3968,7 @@ What should you do?', '["Create an inactive relationship between the tables and 
 
 طريقة التفكير خطوة بخطوة
 1. RLS يحتاج علاقة نشطة مناسبة؛ Inactive ليست مسارًا عاديًا لنقل الأمان.
-2. اختر Active وApply security filter in both directions عندما يحتاج التصميم الاتجاهين فعلًا.
+2. اختر Active و Apply security filter in both directions عندما يحتاج التصميم الاتجاهين فعلًا.
 3. Assume Referential Integrity ليس بديلًا لاتجاه RLS. اختبر كل مستخدم ومسارات العلاقات بدل تفعيل الاتجاهين في كل مكان.
 
 الإجابة الصحيحة وليه
@@ -3982,7 +3982,7 @@ B. Create an active relationship between the tables and select Apply security fi
 صحيح: علاقة نشطة وإعداد أمان ثنائي الاتجاه حسب الحاجة المحددة.
 
 C. Create an inactive relationship between the tables and select Assume referential integrity.
-Inactive غير مناسبة، وReferential Integrity لا تضبط اتجاه أمان الصفوف.
+Inactive غير مناسبة، و Referential Integrity لا تضبط اتجاه أمان الصفوف.
 
 D. Create an active relationship between the tables and select Assume referential integrity.
 Active مع Referential Integrity لا يساوي تفعيل انتقال فلتر الأمان عكسيًا.
@@ -4005,17 +4005,17 @@ presented in the graphic.
 NOTE: Each correct selection is worth one point.
 
 Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-UnitsInStock فيها75 قيمة غير فارغة، والسؤال يقول51 unique. ما عدد صفوف Table visual بعمود المخزون وحده دون تجميع؟ وماذا يحدث عند تغييره إلى Sum؟
+UnitsInStock فيها 75 قيمة غير فارغة، والسؤال يقول 51 unique. ما عدد صفوف Table visual بعمود المخزون وحده دون تجميع؟ وماذا يحدث عند تغييره إلى Sum؟
 
 القصة والمعنى
-75 منتجًا قد يشترك بعضها في نفس رقم المخزون. لو عرضت المخزون وحده، الجدول لا يميز المنتجين اللذين مخزونهما5 إلا لو أضفت عمودًا يفرق بينهما.
+75 منتجًا قد يشترك بعضها في نفس رقم المخزون. لو عرضت المخزون وحده، الجدول لا يميز المنتجين اللذين مخزونهما 5 إلا لو أضفت عمودًا يفرق بينهما.
 
 مثال نفهم بيه
-المصدر5،5،10. عمود المخزون وحده يعرض5 و10، ثم Sum يعرض20. إضافة ProductID قد تظهر المنتجات الثلاثة لأن تركيبة أعمدة العرض أصبحت مختلفة.
+المصدر 5،5،10. عمود المخزون وحده يعرض 5 و 10، ثم Sum يعرض 20. إضافة ProductID قد تظهر المنتجات الثلاثة لأن تركيبة أعمدة العرض أصبحت مختلفة.
 
 طريقة التفكير خطوة بخطوة
 1. Table visual بعمود غير مجمع واحد يعرض القيم المختلفة ولا يكرر كل صف مصدر تلقائيًا.
-2. لو unique تعني51 قيمة مختلفة Distinct، فالاختيار المقصود51 صفًا، وليس75.
+2. لو unique تعني 51 قيمة مختلفة Distinct، فالاختيار المقصود 51 صفًا، وليس 75.
 3. لو unique مقصود بها إحصاء Power Query للقيم التي ظهرت مرة واحدة فقط، فلا نعرف إجمالي القيم المختلفة من المعلومة وحدها. هذا غموض في صياغة المصدر.
 4. Sum بلا أعمدة تجميع أخرى ينتج إجماليًا واحدًا فيقل عدد الصفوف. Is nullable يسمح بالفراغ، ولا يجبر visual على عرض كل سجل مصدر.
 
@@ -4030,7 +4030,7 @@ B. When UnitsInStock is added to a table visual, the table contains: 1 row
 1 row شكل الإجمالي بعد Sum، وليس العرض الابتدائي للقيم المختلفة.
 
 C. When UnitsInStock is added to a table visual, the table contains: 51 rows
-51 rows صحيح تحت تفسير51 كعدد distinct؛ ليس لو51 مجرد عدد قيم ظهرت مرة واحدة.
+51 rows صحيح تحت تفسير 51 كعدد distinct؛ ليس لو 51 مجرد عدد قيم ظهرت مرة واحدة.
 
 D. When UnitsInStock is added to a table visual, the table contains: 75 rows
 75 rows عدد سجلات المصدر غير الفارغة، وليس دليلًا على عدد صفوف Table بعمود واحد.
@@ -4071,17 +4071,17 @@ For each of the following statements, select Yes if the statement is true. Other
 NOTE: Each correct selection is worth one point.
 
 Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-Balances تسجل الرصيد الختامي اليومي لكل حساب نشط، وDate جدول الأيام. Accounts تحسب DISTINCTCOUNT عند LASTDATE. هل تعد الحسابات طوال السنة أوالشهر، أم في اليوم المعروض؟
+Balances تسجل الرصيد الختامي اليومي لكل حساب نشط، و Date جدول الأيام. Accounts تحسب DISTINCTCOUNT عند LASTDATE. هل تعد الحسابات طوال السنة أوالشهر، أم في اليوم المعروض؟
 
 القصة والمعنى
 المقياس يصور لقطة عند آخر يوم في الاختيار، مش فيلم كل الأيام. حساب اتقفل في مارس لن يظهر في لقطة آخر ديسمبر، رغم أنه اشتغل جزءًا من السنة.
 
 مثال نفهم بيه
-الحساب A اتقفل في فبراير، وB نشط حتى31 ديسمبر. عند صف السنة المقياس يعدB في آخر يوم، لاA وB لمجرد أن الاثنين ظهرا خلال السنة.
+الحساب A اتقفل في فبراير، و B نشط حتى 31 ديسمبر. عند صف السنة المقياس يعد B في آخر يوم، لا A و B لمجرد أن الاثنين ظهرا خلال السنة.
 
 طريقة التفكير خطوة بخطوة
 1. LASTDATE تختار آخر تاريخ في سياق صف السنة أوالشهر أواليوم من جدول Date.
-2. CALCULATE يقيد العد بذلك التاريخ، وDISTINCTCOUNT يعد الحسابات التي لها سجلات فيه.
+2. CALCULATE يقيد العد بذلك التاريخ، و DISTINCTCOUNT يعد الحسابات التي لها سجلات فيه.
 3. صف السنة أوالشهر ليس عدًا لكل من ظهر خلال الفترة. صف يوم واحد يطابق لقطة ذلك اليوم حسب اكتمال سجلات المصدر والعلاقة الصحيحة.
 4. آخر يوم في جدول التقويم ليس بالضرورة آخر تاريخ فيه بيانات في Balances؛ تقويم ممتد بعد البيانات قد يعطي فراغًا.
 
@@ -4165,7 +4165,7 @@ options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
 كل Product له ProductCategory واحدة، وقد تكون للفئة منتجات كثيرة. حدد cardinality واتجاه الفلترة من ProductCategory إلى Products لتحليل المبيعات حسب الفئة.
 
 القصة والمعنى
@@ -4665,14 +4665,14 @@ How should you complete the measure? To answer, select the appropriate options i
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10000,10002,10003]', 'ترجمة السؤال بالعربي
 financials فيها Date و Sales. أكمل measure تحسب التغير النسبي في المبيعات مقارنة بالربع السابق.
 
 القصة والمعنى
 لو الربع الماضي باع 100 والحالي 120، الزيادة 20. لكن نسبة النمو 20/100=20%، وليست 20/120. المقام هو أساس المقارنة القديم.
 
 مثال نفهم بيه
-Q1=100 وQ2=120 يعطي 20%. لو Q1=0، استخدام DIVIDE لا يخلق نموًا محدودًا له معنى من مقام صفر؛ اختر عرض BLANK أوسياسة أعمال واضحة بدل رقم مضلل.
+Q1=100 و Q2=120 يعطي 20%. لو Q1=0، استخدام DIVIDE لا يخلق نموًا محدودًا له معنى من مقام صفر؛ اختر عرض BLANK أوسياسة أعمال واضحة بدل رقم مضلل.
 
 طريقة التفكير خطوة بخطوة
 1. CALCULATE يعيد حساب Sum(Sales) تحت تواريخ الربع السابق.
@@ -4703,7 +4703,7 @@ F. PREV_QUARTER function [1] FIND
 FIND يبحث في النصوص، ولا يحسب مبيعات الربع السابق.
 
 G. Previous quarter date filter [2] CALCULATE
-CALCULATE لا يطابق معاملات عمود التاريخ و-1 وQUARTER؛ هذه معاملات إزاحة زمنية.
+CALCULATE لا يطابق معاملات عمود التاريخ و-1 و QUARTER؛ هذه معاملات إزاحة زمنية.
 
 H. Previous quarter date filter [2] CALCULATETABLE
 CALCULATETABLE ليس دالة إزاحة بعمود تاريخ وعدد فترات ونوع فترة في هذا الموضع.
@@ -5061,7 +5061,7 @@ How should you complete the DAX expression? To answer, select the appropriate op
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
 لديك measure اسمها Total Sales. أكمل measure جديدة تجمعها من بداية السنة حتى التاريخ المختار.
 
 القصة والمعنى
@@ -5281,7 +5281,7 @@ How should you configure the quick measure calculation? To answer, select the ap
 
 area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10000,10001]', 'ترجمة السؤال بالعربي
 نافذة Quick measures مضبوطة على Rolling average، بفترة واحدة قبل وبدون فترات بعد. تريد متوسطًا متحركًا شهريًا للمبيعات. اختر Base value و Date و Period.
 
 القصة والمعنى
@@ -5413,7 +5413,7 @@ NOTE: Each correct selection is worth one point.Recovered original error message
 
 ليه كل اختيار صح أو غلط
 A. Reduce the number of rows and columns returned by each query.
-حل منطقي عندما سبب التأخير حجم الاستعلام أوالنقل: خفف Rows وColumns عند المصدر.
+حل منطقي عندما سبب التأخير حجم الاستعلام أوالنقل: خفف Rows و Columns عند المصدر.
 
 B. Split log running queries into subsets of columns and use Power Query to merge the queries.
 الحل الثاني المقصود، لكنه يحتاج قياسًا ومفتاح دمج صحيحًا؛ تقسيم الأعمدة وحده قد لا يحسن الأداء وقد يعيد folding دمجها.
@@ -5812,7 +5812,7 @@ You need to create a calculated column named Active Store Name that meets the fo
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
 أنشئ calculated column في Stores: إن كانت Status تساوي A أعِد اسم المتجر، وإلا أضف قبله النص Inactive - . أكمل الدالة وعلامة الدمج.
 
 القصة والمعنى
@@ -6093,7 +6093,7 @@ period.
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
 Product بها ProductCategory وترتبط 1 إلى متعدد بـ Sales، و Date مرتبطة بالمبيعات. أكمل measure تعد الفئات التي بيعت منها منتجات في الفترة المختارة، لا كل الفئات الموجودة.
 
 القصة والمعنى
@@ -6508,7 +6508,7 @@ You need to create a calculated table named Numbers that will contain all the in
 
 How should you complete the DAX calculation? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
 أنشئ Numbers كجدول محسوب لكل الأعداد الصحيحة من -100 إلى 100، شاملة الحدين. اختر الدالة ووسائطها.
 
 القصة والمعنى
@@ -6676,7 +6676,7 @@ You need to create a calculated table that will contain the following:
 
 How should you complete the DAX calculation? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
 Date فيها Date و Month و Year، و Sales فيها Sale و Date، مع علاقة بالتاريخ. أكمل جدول ملخص بصف لكل سنة ومجموع مبيعاتها.
 
 القصة والمعنى
@@ -6784,7 +6784,7 @@ year, month, or date.
 
 How should you complete the measure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
 Inventory تسجل رصيد كل منتج يوميًا بلا استثناء، وترتبط بـ Date و Product. رصيد الفترة هو آخر رصيد مسجل، لا مجموع الأرصدة اليومية. أكمل المقياس.
 
 القصة والمعنى
@@ -6906,7 +6906,7 @@ You need to create a semi-additive DAX measure that will return the count of emp
 
 in a year, quarter, or month.
 
-How should you complete the measure? To answer, select the appropriate options in the answer area.', '[]', '[]', 'ترجمة السؤال بالعربي
+How should you complete the measure? To answer, select the appropriate options in the answer area.', '[]', '[10001,10002]', 'ترجمة السؤال بالعربي
 Headcount لقطة شهرية: صف لكل موظف في كل شهر عمل، وتاريخها أول الشهر. Date تمتد 2020 إلى 2030. تريد عدد الموظفين عند آخر لقطة متاحة داخل الشهر أوالربع أوالسنة.
 
 القصة والمعنى
@@ -6975,7 +6975,7 @@ What should you do to create the Sales Fact query, and for which query should yo
 
 select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
 All Sales مصدر لثلاثة استعلامات: Sales Fact و Product Dimension و Customer Dimension. تريد Star schema بأقل صيانة. كيف تنشئ Fact وأي استعلام تمنع تحميله؟
 
 القصة والمعنى
@@ -7214,7 +7214,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10003]', 'ترجمة السؤال بالعربي
 المحور Year، والقيم Sum of Sales Amount و Sum of Product Cost من عمودين. كم explicit measure لاستبدال التجميعين الضمنيين؟ وأي إعداد يغير التجميع الافتراضي للتكلفة في رسومات جديدة؟
 
 القصة والمعنى
@@ -7439,7 +7439,7 @@ You discover that data refresh for the model is slow.
 You need to improve the data refresh time. The solution must minimize costs.
 
 What should you do?', '["Run the Table.buffer function in Query1.","Duplicate Query1 to all the other queries.","Reconfigure Query1 as a dataflow entity.","From the Power BI Admin portal, increase the Capacity settings."]', '[2]', 'ترجمة السؤال بالعربي
-Query1 تحمل العملاء، وQuery2 وQuery3 وQuery4 تشير إليها. التحديث بطيء. تريد تحسين زمنه مع تقليل التكلفة. ما الأنسب من الخيارات؟
+Query1 تحمل العملاء، و Query2 و Query3 و Query4 تشير إليها. التحديث بطيء. تريد تحسين زمنه مع تقليل التكلفة. ما الأنسب من الخيارات؟
 
 القصة والمعنى
 ثلاثة موظفين بياخدوا وصفة تجهيز العملاء من نفس الورقة. ده مش معناه إنهم بياخدوا طبقًا جاهزًا من الثلاجة؛ كل واحد ممكن ينفذ الوصفة ويطلب الداتا تاني. الـDataflow تجهز نتيجة محفوظة يقرؤوها.
@@ -7449,7 +7449,7 @@ Query1 تحمل العملاء، وQuery2 وQuery3 وQuery4 تشير إليها.
 
 طريقة التفكير خطوة بخطوة
 1. Reference تعيد استخدام خطوات الاستعلام، لكنها لا تضمن نتيجة واحدة مشتركة بين الفروع.
-2. Table.Buffer تخزن داخل تنفيذ الاستعلام الجاري فقط. Buffer أثناء تنفيذ Query2 ليست cache مشتركة تستخدمها Query3 وQuery4؛ وقد يزيد التخزين المتكرر ووقف folding البطء.
+2. Table.Buffer تخزن داخل تنفيذ الاستعلام الجاري فقط. Buffer أثناء تنفيذ Query2 ليست cache مشتركة تستخدمها Query3 و Query4؛ وقد يزيد التخزين المتكرر ووقف folding البطء.
 3. Dataflow entity توفر نتيجة persisted للتحضير يقرأها النموذج بدل إعادة العمل على المصدر الأصلي لكل فرع. Microsoft توصي بها لنفس السيناريو.
 4. اختر مسار dataflow ضمن الترخيص المتاح؛ Gen2 تتطلب Fabric، ويوجد المسار التقليدي لمستخدمي Pro/PPU المناسبين. لا نفترض كل Dataflow مجانية، ولا نحتاج ترقية السعة لمجرد تجاوز إعادة التنفيذ.
 
@@ -7470,7 +7470,7 @@ D. From the Power BI Admin portal, increase the Capacity settings.
 زيادة Capacity قد تكلف أكثر ولا تعالج سبب تكرار استخراج Query1، فلا تحقق الحل الأقل كلفة للمشكلة.
 
 الخلاصة اللي تتحفظ
-Reference تشارك المنطق، وTable.Buffer تخزن داخل التنفيذ، وDataflow تحفظ نتيجة لإعادة استخدامها. مش نفس معنى cache.
+Reference تشارك المنطق، و Table.Buffer تخزن داخل التنفيذ، و Dataflow تحفظ نتيجة لإعادة استخدامها. مش نفس معنى cache.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/guidance/power-query-referenced-queries
@@ -7487,7 +7487,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10001]', 'ترجمة السؤال بالعربي
 DimOrgVertical مرتبطة بـ DimOrgSubVertical ثم DimOrganizations ثم FactSales. حدد نوع تصميم البُعد، والجدول الذي يدعم مستويات hierarchy الخاصة بـ DimOrgVertical من الخيارات.
 
 القصة والمعنى
@@ -7613,13 +7613,45 @@ You need to create a Power BI report that meets the following requirements:
 
 •Displays the most recent data without performing a data refresh
 
-Which connectivity mode should you use for the dataset?', '["DirectQuery mode","import mode","LiveConnect mode","push mode"]', '[0]', 'Live connection and DirectQuery comparisonhttps://learn.microsoft.com/en-us/power-bi/connect-
-data/service-live-connect-dq-datasetsLive connection is a method that lets you build a report in Power BI
-Desktop without having to build a semantic model for it. The semantic model can dynamically request data
-from a data source it''s connected to using a method called DirectQuery.When using DirectQuery, your report
-uses Data Analysis Expression (DAX) queries to get data. After the semantic model receives the report''s DAX
-query, it generates another set of queries that are run on your data source, to get the required data. From this
-I am concluding use DirectQuery.', 'Final', '145', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which connectivity mode should you use for the dataset?', '["DirectQuery mode","import mode","LiveConnect mode","push mode"]', '[3]', 'ترجمة السؤال بالعربي
+مصدر Streaming يتغير باستمرار. مطلوب تقرير يدعم التحليل اللحظي، ويقلل تأثيره على المصدر، ويعرض أحدث بيانات من غير Data refresh. تختار DirectQuery أم Import أم LiveConnect أم Push؟
+
+القصة والمعنى
+تخيّل حساسًا يرسل قراءة جديدة كل ثانية. لو كل طالب فتح الرسم و Power BI راح سأل الحساس من جديد، الحمل هيزيد مع الناس والرسومات. في Push مسار الاستقبال يبعت القراءات للخدمة، والرسومات تستعلم من البيانات التي وصلت لها؛ مش كل نقرة ترجع تسأل المصدر.
+
+مثال نفهم بيه
+100 قارئ وكل صفحة فيها 6 رسوم ممكن يولّدوا استعلامات كثيرة على المصدر في تصميم DirectQuery. في تصميم Push يصل الحدث مرة لمسار الخدمة ويقرأ الجمهور الموديل المستقبِل. المثال يوضح اختلاف المسارين، وليس قياس أداء أو وعدًا بانعدام أي حمل على المصدر.
+
+طريقة التفكير خطوة بخطوة
+1. شرط بدون Data refresh يستبعد Import العادي، لكنه وحده لا يميّز DirectQuery عن Push.
+2. شرط تقليل الحمل على مصدر متدفق يرجّح Push بين الخيارات: وصول الأحداث يدفع بيانات إلى مخزن الخدمة، بدل استعلامات قراءة على المصدر مع تفاعلات القراء.
+3. Push semantic model يختلف عن Streaming-only model: الأول يخزن بيانات ويدعم تقارير؛ الثاني قائم على كاش مؤقت لعرض Streaming tiles ولا يدعم تأليف تقارير عادية فوقه.
+4. DirectQuery مناسب لمصادر قابلة للاستعلام مثل KQL و SQL، ولا يحتاج استيرادًا دوريًا، لكنه ينفذ استعلامات على المصدر ولا يحقق تقليل حمله تلقائيًا. كذلك لا يجعل كل تقرير يتجدد ذاتيًا فور وصول حدث؛ قد يلزم إعادة استعلام للـvisual.
+5. الحل مشروط بإتاحة مسار دفع البيانات مثل API أو Stream Analytics. السؤال لا يصف هذا المسار، لذلك لا نعد باختيار وضع من القائمة فقط لتحويل أي مصدر إلى Push.
+6. عرض أحدث بيانات بدون Data refresh لا يعني ضمان تحديث كل صفحة تقرير مفتوحة تلقائيًا. توثيق Push يوضح التحديث اللحظي للـTiles المثبتة، مع قيود على Pin live page. والمستند الحالي يعلن استمرار إنشاء Streaming models حتى 31 أكتوبر 2027 ويوجه المشروعات الجديدة لتقييم Fabric Real-Time Intelligence.
+
+الإجابة الصحيحة وليه
+D. push mode هو الأنسب لمجموع الشروط في السياق القديم، بشرط إعداد ingestion يدفع الأحداث. مفتاح الدامب A يتجاهل شرط حمل المصدر؛ DirectQuery ليس ضمانًا لتقليل الحمل أو تحديث الصفحة ذاتيًا.
+
+ليه كل اختيار صح أو غلط
+A. DirectQuery mode
+DirectQuery يقرأ البيانات عند الاستعلام ولا يحتاج استيرادًا دوريًا، لكنه يعيد حمل الاستعلامات للمصدر. قد يكون حلًا جيدًا مع KQL وتجميعات محسّنة، لكن هذه الشروط الإضافية غير مذكورة هنا، ولا تجعله الأفضل تلقائيًا لتقليل الحمل.
+
+B. import mode
+Import يحفظ نسخة للاستعلام السريع، لكن النسخة لا تستقبل أحدث التغييرات من المصدر المتدفق بمجرد وصولها؛ تحتاج آلية تحديث لا تلائم الشرط المذكور هنا.
+
+C. LiveConnect mode
+LiveConnect يعني أن التقرير يستخدم موديلًا موجودًا بدل بناء موديل جديد. لا يحدد كيف يستقبل ذلك الموديل Stream أو كيف يقلل استعلامات المصدر؛ ليس الحل المستقل للمتطلبات.
+
+D. push mode
+Push هو المرجّح؛ البيانات تصل إلى خدمة Power BI عبر مسار دفع وتُخزن في الموديل الداعم للتقارير. لازم تجهيز المسار ومراعاة حدود الإدخال ودورة حياة الميزة، لا مجرد تغيير اسم وضع الاتصال.
+
+الخلاصة اللي تتحفظ
+بدون Refresh لا تكفي وحدها لاختيار DirectQuery. Streaming + تقليل استعلامات المصدر يرجّح Push، مع شرح مسار الإدخال وحدود التحديث.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-real-time-streaming
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about', 'Final', '145', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-146-145', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -7701,7 +7733,7 @@ CountryOrRegion from the dataset.
 
 How should you complete the query? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct answer is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct answer is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
 تكتب M لاستيراد SharePoint Online list. Location تحتوي record وتريد توسيع DisplayName منها، ثم عدم تحميل CountryOrRegion. اختر دالتي الخطوتين.
 
 القصة والمعنى
@@ -7965,7 +7997,7 @@ Source2 only، الاختيار الثاني، مع الانتباه لبديل 
 
 ليه كل اختيار صح أو غلط
 A. Source1 only
-Source1 وحدها لا تفسر قاعدة SQL الخاصة، وOneDrive السحابية لا تحتاج بوابة افتراضيًا.
+Source1 وحدها لا تفسر قاعدة SQL الخاصة، و OneDrive السحابية لا تحتاج بوابة افتراضيًا.
 
 B. Source2 only
 صحيح كمصدر يحتاج مسار gateway خاصًا في هذا السيناريو، لا إلزامًا بنوع بوابة واحد في كل بيئة.
@@ -8013,7 +8045,7 @@ What should you do to optimize and reduce the size of ModelA? To answer, select 
 
 answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
 ModelA كل أعمدتها Text. التقرير الوحيد يستخدم OrderID و OrderDate و CustomerID و ShippingAddress، ولا يستخدم OrderTitle أو OrderDescription. اختر تحسين النوع وإجراء تقليل الحجم.
 
 القصة والمعنى
@@ -8023,9 +8055,9 @@ ModelA كل أعمدتها Text. التقرير الوحيد يستخدم OrderI
 12345 رقم صالح، لكن"00123" قد تمثل هوية يجب حفظ أصفارها، و C54321 نص وليس رقمًا. إخفاء Description تبقي محتواه مخزنًا؛ الحذف هو الذي يزيله.
 
 طريقة التفكير خطوة بخطوة
-1. OrderID المعروض12345 يمكن تحويله Whole Number إن كانت كل قيمه أرقامًا ضمن المدى ولا توجد أصفار بادئة ذات معنى.
-2. احذف OrderTitle وOrderDescription غير المستخدمين فعليًا في تقارير أوعلاقات أوحسابات النموذج المعروض.
-3. لا تحول CustomerID مثلC54321 إلى رقم، ولا العنوان إلى نوع رقمي. OrderDate تحتاج نوع Date مناسبًا أيضًا، لكن هذا خارج خيارات الفراغ الأول.
+1. OrderID المعروض 12345 يمكن تحويله Whole Number إن كانت كل قيمه أرقامًا ضمن المدى ولا توجد أصفار بادئة ذات معنى.
+2. احذف OrderTitle و OrderDescription غير المستخدمين فعليًا في تقارير أوعلاقات أوحسابات النموذج المعروض.
+3. لا تحول CustomerID مثل C54321 إلى رقم، ولا العنوان إلى نوع رقمي. OrderDate تحتاج نوع Date مناسبًا أيضًا، لكن هذا خارج خيارات الفراغ الأول.
 4. لا نزعم أن الرقم أسرع دائمًا في كل استعلام؛ اختيار نوع مناسب وحذف الأعمدة غير الضرورية هما هدفا هذا السؤال.
 
 الإجابة الصحيحة وليه
@@ -8078,10 +8110,10 @@ NOTE: Each correct answer is worth one point.', '["Apply group by and summarize 
 طريقة التفكير خطوة بخطوة
 1. Group By وتجميع القيم قبل التحميل قد يقللان الصفوف إذا سمحت درجة التحليل المطلوبة.
 2. حذف الصفوف والأعمدة غير المطلوبة يقلل النقل والتخزين، مع حفظ المفاتيح والتبعيات والدقة المطلوبة.
-3. Append وMerge أداتا دمج وليستا تقليلًا مضمونًا للحجم. قد تنجحان ضمن حل أوسع، لكن وجودهما وحده لا يضمن الهدف. Query group تنظيم في المحرر فقط.
+3. Append و Merge أداتا دمج وليستا تقليلًا مضمونًا للحجم. قد تنجحان ضمن حل أوسع، لكن وجودهما وحده لا يضمن الهدف. Query group تنظيم في المحرر فقط.
 
 الإجابة الصحيحة وليه
-Group by/summarize وRemove unnecessary columns and rows، الاختياران الأول والثالث.
+Group by/summarize و Remove unnecessary columns and rows، الاختياران الأول والثالث.
 
 ليه كل اختيار صح أو غلط
 A. Apply group by and summarize techniques.
@@ -8129,11 +8161,11 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 الـ Gateway جسر تعبر عليه بيانات المصدر إلى النموذج. تقليل ما تعرضه شاشة مبنية على نسخة Import غير تقليل الشحنة التي عبرت الجسر وقت التحديث.
 
 مثال نفهم بيه
-استيراد100 مليون صف ثم إضافة ملخص لم يوفر مرورها. استعلام SQL يرجع ألف صف ملخص بدلها يوفر النقل؛ الحلول ليست متكافئة.
+استيراد 100 مليون صف ثم إضافة ملخص لم يوفر مرورها. استعلام SQL يرجع ألف صف ملخص بدلها يوفر النقل؛ الحلول ليست متكافئة.
 
 طريقة التفكير خطوة بخطوة
 1. لو aggregations إضافية داخل النموذج بعد استيراد التفاصيل، لا تمنع الصفوف الأصلية من عبور gateway.
-2. لو التلخيص يحدث في SQL أوPower Query folding قبل النقل وبدل استيراد التفاصيل، فقد يقلل بيانات العبور فعلًا. صياغة السؤال لا تحدد مكان التجميع.
+2. لو التلخيص يحدث في SQL أو Power Query folding قبل النقل وبدل استيراد التفاصيل، فقد يقلل بيانات العبور فعلًا. صياغة السؤال لا تحدد مكان التجميع.
 3. نحتفظ بـNo كقراءة المصدر المقصودة، لكن لا نقول إن كل Group By لا تقلل المرور. المكان والتوقيت وما يُحمّل هي الفروق الحاسمة.
 
 الإجابة الصحيحة وليه
@@ -8177,7 +8209,7 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 الـ Gateway جسر تعبر عليه بيانات المصدر إلى النموذج. تقليل ما تعرضه شاشة مبنية على نسخة Import غير تقليل الشحنة التي عبرت الجسر وقت التحديث.
 
 مثال نفهم بيه
-جلب كل Sales الساعة8 صباحًا يظل نفس الجلب، سواء حاولت الصفحة تحديث العرض كل مدة أخرى. أنت لم تغير الاستيراد أصلًا.
+جلب كل Sales الساعة 8 صباحًا يظل نفس الجلب، سواء حاولت الصفحة تحديث العرض كل مدة أخرى. أنت لم تغير الاستيراد أصلًا.
 
 طريقة التفكير خطوة بخطوة
 1. Automatic page refresh تعيد استعلامات الصفحة لاتصالات مدعومة مثل DirectQuery، وليست سياسة Import refresh.
@@ -8224,12 +8256,12 @@ Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال با�
 بدل إعادة نقل أرشيف خمس سنوات كل يوم، احتفظ بالأرشيف وحدّث نافذة حديثة محددة. ده تقسيم تحميل حقيقي، مش مجرد إخفاء القديم على الشاشة.
 
 مثال نفهم بيه
-تحتفظ بخمس سنوات وتحدث آخر7 أيام. التحديث يعيد النافذة المحددة بدل السنوات الخمس؛ ليس بالضرورة صفًا واحدًا فقط لأن صفًا واحدًا تغير.
+تحتفظ بخمس سنوات وتحدث آخر 7 أيام. التحديث يعيد النافذة المحددة بدل السنوات الخمس؛ ليس بالضرورة صفًا واحدًا فقط لأن صفًا واحدًا تغير.
 
 طريقة التفكير خطوة بخطوة
 1. Incremental refresh تدير partitions وتحدث النافذة الأحدث بدل إعادة تحميل الأرشيف مع كل تحديث.
 2. لا تعني تلقائيًا جلب الصفوف المتغيرة وحدها. بدون Detect data changes قد تعيد تحميل صفوف partition داخل النافذة، حتى ما لم يتغير منها.
-3. يلزم وصول RangeStart وRangeEnd إلى استعلام المصدر بـfolding أوتقييد مكافئ. أول تحديث قد يحمل الأرشيف كله، والفائدة المعتادة بعد التهيئة.
+3. يلزم وصول RangeStart و RangeEnd إلى استعلام المصدر بـfolding أوتقييد مكافئ. أول تحديث قد يحمل الأرشيف كله، والفائدة المعتادة بعد التهيئة.
 4. عدّل السياسة لتلائم التعديلات المتأخرة؛ تعديل قديم خارج نافذة التحديث لا يظهر لمجرد تفعيل الميزة.
 
 الإجابة الصحيحة وليه
@@ -8272,7 +8304,7 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 الـ Gateway جسر تعبر عليه بيانات المصدر إلى النموذج. تقليل ما تعرضه شاشة مبنية على نسخة Import غير تقليل الشحنة التي عبرت الجسر وقت التحديث.
 
 مثال نفهم بيه
-الداتا المستوردة تتحدث8 صباحًا و5 مساءً. تغيير عرض cache بين الموعدين لا يلغي أيًا من التحميلين عبر gateway.
+الداتا المستوردة تتحدث 8 صباحًا و 5 مساءً. تغيير عرض cache بين الموعدين لا يلغي أيًا من التحميلين عبر gateway.
 
 طريقة التفكير خطوة بخطوة
 1. Dashboard cache تعرض نتائج من النموذج، وليست هي جدول استخراج المصدر لنموذج Import.
@@ -8306,7 +8338,7 @@ existing filter context.
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10003]', 'ترجمة السؤال بالعربي
 تريد measure لمبيعات الوحدات الزرقاء مع الحفاظ على الفلاتر الحالية. أكمل غلاف الحساب ودالة فلتر اللون.
 
 القصة والمعنى
@@ -8526,7 +8558,7 @@ You need to define a relationship from Products to OrderHistory and from OrderHi
 
 Which cardinality should you configure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct answer is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct answer is worth one point.', '[]', '[10001,10003]', 'ترجمة السؤال بالعربي
 Products و Date بُعدان بمفاتيح فريدة. OrderHistory بها عمليات متكررة لنفس المنتج واليوم. حدد cardinality للعلاقتين.
 
 القصة والمعنى
@@ -8637,7 +8669,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10001]', 'ترجمة السؤال بالعربي
 Data تعرض MonthEndDate تحتها Date Hierarchy: Year و Quarter و Month و Day. ما الميزة المستخدمة؟ وما الذي يزول عند Mark as date table؟
 
 القصة والمعنى
@@ -9005,7 +9037,7 @@ You need to create a new measure that will display the total amount of sales and
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10003]', 'ترجمة السؤال بالعربي
 Sales لها SaleDate بعلاقة Active مع DateTime[Date]، و ShippingDate بعلاقة Inactive. أكمل مقياس إجمالي المبيعات وفق تاريخ الشحن.
 
 القصة والمعنى
@@ -9277,7 +9309,7 @@ the model?
 
 What should you do? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
 Sales_Spreadsheet مصدر مشترك. Customer تحتاج ID و Name، و Sales تحتاج ID و Date و Amount. تريد مكانًا واحدًا لتعديل المنطق. كيف تنشئ Sales وماذا تفعل بالمصدر الوسيط؟
 
 القصة والمعنى
@@ -9330,7 +9362,7 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
 DimDate مرتبطة بـ FactOrderDetails عبر OrderDate نشطًا، و ShippedDate و RequiredDate غير نشطين. ما نوع البُعد؟ وأي تاريخ يُفلتر افتراضيًا؟
 
 القصة والمعنى
@@ -9496,8 +9528,8 @@ Which storage mode should you select for the Customer and Geography tables? To a
 
 options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-عندك Sales بنظام DirectQuery وSurvey Response بنظام Import. Customer مرتبط بالاتنين، وGeography مرتبط بـCustomer، وكلهم من نفس المصدر. عايزين نقلل العلاقات المحدودة من غير تحويل المبيعات إلى نسخة قديمة مخزنة.
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10001]', 'ترجمة السؤال بالعربي
+عندك Sales بنظام DirectQuery و Survey Response بنظام Import. Customer مرتبط بالاتنين، و Geography مرتبط بـCustomer، وكلهم من نفس المصدر. عايزين نقلل العلاقات المحدودة من غير تحويل المبيعات إلى نسخة قديمة مخزنة.
 
 القصة والمعنى
 تخيّل المبيعات شاشة كاشير مباشرة، والاستبيانات كشكول محفوظ. العميل بيخدم الاتنين، والمنطقة بتوصل لهم عن طريق العميل. لو العميل قدر يتعامل كذاكرة أو استعلام مباشر، لكن المنطقة فضلت محبوسة في مسار واحد، لسه عندك وصلة بين مجموعتين مختلفتين.
@@ -9521,7 +9553,7 @@ A. Customer storage mode: DirectQuery
 Customer — DirectQuery يبقي علاقته بجدول الاستبيانات المستورد عبر مجموعتي تخزين؛ لا يحل الوصلة التي نراجعها.
 
 B. Customer storage mode: Dual
-Customer — Dual هو الاختيار المطلوب لأنه بُعد مشترك بين Fact مستورد وFact مباشر من المصدر نفسه.
+Customer — Dual هو الاختيار المطلوب لأنه بُعد مشترك بين Fact مستورد و Fact مباشر من المصدر نفسه.
 
 C. Customer storage mode: Import
 Customer — Import وحده يثبت العميل في الكاش، ويترك مسار المبيعات المباشر يحتاج عبور مجموعة تخزين مختلفة.
@@ -9536,7 +9568,7 @@ F. Geography storage mode: Import
 Geography — Import وحده لا يحتفظ بإمكانية استخدام المنطقة داخل مسار DirectQuery المشترك مثل Dual.
 
 الخلاصة اللي تتحفظ
-في نفس مثال المصدر: Customer وGeography كلاهما Dual. راجع مسار العلاقات كله، لا الجدول الملاصق للـFact فقط.
+في نفس مثال المصدر: Customer و Geography كلاهما Dual. راجع مسار العلاقات كله، لا الجدول الملاصق للـFact فقط.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-storage-mode', 'Final', '181', '/dump-assets/f1-181-180-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -9560,8 +9592,8 @@ year.
 
 How should you complete the measure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-جدول Sales فيه Sales Amount وSales Date. المطلوب إجمالي مبيعات نفس التواريخ لكن السنة الماضية، باختيار دالتين داخل الصيغة المعروضة.
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10000]', 'ترجمة السؤال بالعربي
+جدول Sales فيه Sales Amount و Sales Date. المطلوب إجمالي مبيعات نفس التواريخ لكن السنة الماضية، باختيار دالتين داخل الصيغة المعروضة.
 
 القصة والمعنى
 أنت فاتح مبيعات أول عشرة أيام من مايو. المقارنة المطلوبة مش السنة اللي فاتت كلها؛ عايز أول عشرة أيام من مايو اللي فاتت. نغيّر شباك التواريخ اللي بنبص منه، وبعدها نجمع المبيعات.
@@ -9592,7 +9624,7 @@ D. Previous-year date function [2] SAMEPERIODLASTYEAR
 SAMEPERIODLASTYEAR يطابق طلب نفس مجموعة التواريخ منذ عام، مع قواعده الخاصة لنهايات الشهور والسنة الكبيسة.
 
 E. Previous-year date function [2] PARALLELPERIOD
-PARALLELPERIOD يحتاج معاملات إضافية مثل -1 وYEAR غير موجودة في الفراغ، وقد يوسّع الفترة إلى فترات كاملة.
+PARALLELPERIOD يحتاج معاملات إضافية مثل -1 و YEAR غير موجودة في الفراغ، وقد يوسّع الفترة إلى فترات كاملة.
 
 F. Previous-year date function [2] PREVIOUSYEAR
 PREVIOUSYEAR يعيد تواريخ العام السابق كله؛ لو السياق عشرة أيام فمش ده نفس نطاق الأيام المطلوب.
@@ -9616,20 +9648,20 @@ You need to create a DAX measure that will count the number of active employees.
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10002]', 'ترجمة السؤال بالعربي
 الموظف Active في تعريف السؤال لو TermDate فاضي. أكمل measure تعد الموظفين الذين ينطبق عليهم الشرط، باستخدام جدول Employees المعروض.
 
 القصة والمعنى
 عندك دفتر الموظفين، وبتدوّر على خانة تاريخ الخروج. الفاضية معناها الموظف لسه معانا حسب التعريف المكتوب. مش هنعد تواريخ الخروج؛ هنفلتر الصفوف اللي مافيهاش تاريخ خروج ونعد الموظفين الباقيين.
 
 مثال نفهم بيه
-الموظف 1 خرج في ديسمبر 2022، والموظف 4 خرج في مايو 2024. خانة الخروج عند 2 و3 فارغة، إذن العد 2. لو حددت قسمًا في التقرير فالـmeasure تحسب داخل الفلاتر الأخرى الباقية.
+الموظف 1 خرج في ديسمبر 2022، والموظف 4 خرج في مايو 2024. خانة الخروج عند 2 و 3 فارغة، إذن العد 2. لو حددت قسمًا في التقرير فالـmeasure تحسب داخل الفلاتر الأخرى الباقية.
 
 طريقة التفكير خطوة بخطوة
 1. COUNTROWS(Employees) هو العد المطلوب بعد الفلترة، وليس COUNT على تواريخ الانتهاء.
 2. ISBLANK(Employees[TermDate]) يرجع شرطًا منطقيًا لكل قيمة في العمود.
 3. CALCULATE يطبّق الشرط على عملية العد.
-4. في الصفوف الأربعة، EmployeeID 2 و3 فقط لهما TermDate فارغ؛ الناتج 2 من غير فلاتر إضافية. لا نضيف شرط HireDate من عندنا.
+4. في الصفوف الأربعة، EmployeeID 2 و 3 فقط لهما TermDate فارغ؛ الناتج 2 من غير فلاتر إضافية. لا نضيف شرط HireDate من عندنا.
 
 الإجابة الصحيحة وليه
 CALCULATE ثم ISBLANK: Actives = CALCULATE(COUNTROWS(Employees), ISBLANK(Employees[TermDate])).
@@ -9674,10 +9706,10 @@ Which type of dimension is represented by Dim Address?', '["Type 2 slowly changi
 الطالب ممكن فاتورته تروح لعنوان، وخطابات الجامعة تروح لعنوان تاني. عندنا قاموس عناوين واحد، لكن بنسأله سؤالين مختلفين: عنوان الدفع فين؟ وعنوان المراسلات فين؟ الجدول نفسه بيمثل دورين.
 
 مثال نفهم بيه
-طالب Billing Address ID عنده 10 وMailing Address ID عنده 25. كلا الرقمين يرجع لنفس جدول العناوين. لم ننشئ نسخة قديمة وجديدة لنفس عنوان الطالب؛ اخترنا نوع عنوان مختلف.
+طالب Billing Address ID عنده 10 و Mailing Address ID عنده 25. كلا الرقمين يرجع لنفس جدول العناوين. لم ننشئ نسخة قديمة وجديدة لنفس عنوان الطالب؛ اخترنا نوع عنوان مختلف.
 
 طريقة التفكير خطوة بخطوة
-1. الدليل هو وجود Billing Address ID وMailing Address ID وعلاقتين بنفس Dim Address.
+1. الدليل هو وجود Billing Address ID و Mailing Address ID وعلاقتين بنفس Dim Address.
 2. ده Role-playing dimension: نفس البُعد يستخدم لمعنيين في الـFact. واحدة من العلاقتين غير نشطة في الرسم؛ ده لا يلغي وصف الدورين.
 3. SCD Type 2 موضوعه الاحتفاظ بنسخ تاريخية للكيان. الرسم لا يبين نسخًا أو تواريخ صلاحية، واسم Address وحده ليس دليلًا.
 4. الإجابة القديمة A كانت تفسيرًا عامًا عن تغيّر العناوين، لا قراءة للعلاقات المعروضة؛ الإجابة الصحيحة C.
@@ -9687,10 +9719,10 @@ C: role-playing dimension. تم تصحيح المفتاح من SCD Type 2 إلى
 
 ليه كل اختيار صح أو غلط
 A. Type 2 slowly changing dimension (SCD)
-SCD Type 2 يحتاج تتبع نسخ تاريخية للكيان، مثل EffectiveFrom وEffectiveTo ومفتاح نسخة. لا تستنتجه لمجرد أن عنوانًا قد يتغير.
+SCD Type 2 يحتاج تتبع نسخ تاريخية للكيان، مثل EffectiveFrom و EffectiveTo ومفتاح نسخة. لا تستنتجه لمجرد أن عنوانًا قد يتغير.
 
 B. junk dimension
-Junk dimension يجمع أعلامًا أو صفات قليلة القيم مثل IsGift وPriority؛ لا يصف دورَي الفاتورة والمراسلات.
+Junk dimension يجمع أعلامًا أو صفات قليلة القيم مثل IsGift و Priority؛ لا يصف دورَي الفاتورة والمراسلات.
 
 C. role-playing dimension
 Role-playing هو المطابق: جدول عناوين واحد يؤدي دور Billing ودور Mailing عبر علاقتين.
@@ -9716,42 +9748,42 @@ Which three actions should you perform in sequence in Power Query Editor? To ans
 actions from the list of actions to the answer area and arrange them in the correct order.
 
 Select and Place:', '[]', '[0,3,2]', 'ترجمة السؤال بالعربي
-درجات أربع مدارس موزعة على أعمدة، ولكل قسم مرحلتان. المطلوب تحويلها إلى Department وSchool وAvg Score ثم ترتيب ثلاث عمليات تجهيز.
+درجات أربع مدارس موزعة على أعمدة، ولكل قسم مرحلتان. المطلوب تحويلها إلى Department و School و Avg Score ثم ترتيب ثلاث عمليات تجهيز.
 
 القصة والمعنى
-حاليًا School1 وSchool2 أسماء أعمدة؛ ده يخليك تحسب لكل مدرسة بطريقة منفصلة. عايزين اسم المدرسة يبقى قيمة داخل عمود School، والدرجة داخل Score، وبعدها ناخد متوسط المرحلتين لكل قسم ومدرسة.
+حاليًا School1 و School2 أسماء أعمدة؛ ده يخليك تحسب لكل مدرسة بطريقة منفصلة. عايزين اسم المدرسة يبقى قيمة داخل عمود School، والدرجة داخل Score، وبعدها ناخد متوسط المرحلتين لكل قسم ومدرسة.
 
 مثال نفهم بيه
-الأربعة صفوف الأصلية تنتج 16 صفًا بعد Unpivot، ثم 8 مجموعات (قسمان × أربع مدارس). مجموعة Mathematics/School1 متوسطها 77.5، وGeography/School1 متوسطها 87.5، مثل الصفين المعروضين.
+الأربعة صفوف الأصلية تنتج 16 صفًا بعد Unpivot، ثم 8 مجموعات (قسمان × أربع مدارس). مجموعة Mathematics/School1 متوسطها 77.5، و Geography/School1 متوسطها 87.5، مثل الصفين المعروضين.
 
 طريقة التفكير خطوة بخطوة
-1. نثبت Department وStage ونعمل Unpivot Other Columns للمدارس، فيتحول كل صف إلى أربعة صفوف.
-2. نغيّر Attribute إلى School وValue إلى Score كي تصبح الأسماء معبرة.
-3. نجمع حسب Department وSchool ونحسب Average للـScore. لا نضع Stage في مفاتيح التجميع لأننا نريد دمج المرحلتين.
+1. نثبت Department و Stage ونعمل Unpivot Other Columns للمدارس، فيتحول كل صف إلى أربعة صفوف.
+2. نغيّر Attribute إلى School و Value إلى Score كي تصبح الأسماء معبرة.
+3. نجمع حسب Department و School ونحسب Average للـScore. لا نضع Stage في مفاتيح التجميع لأننا نريد دمج المرحلتين.
 4. الترتيب من الاختيارات هو 1 ثم 4 ثم 3. متوسط Mathematics/School1 = (75+80)/2 = 77.5.
 5. تنبيه مصدر: الشكل الهدف يعرض School1 فقط. الخطوات الثلاث تعطي كل المدارس؛ إذا كان المقصود صفين فقط حرفيًا، يلزم فلتر School1 إضافي غير موجود ضمن الاختيارات. نتعامل مع الهدف كعينة للشكل، لا ندعي أن الخطوات تحذف بقية المدارس.
 
 الإجابة الصحيحة وليه
-Unpivot other columns مع تثبيت Department وStage → Rename Attribute/Value إلى School/Score → Group by Department وSchool مع Average Score. الهدف المعروض يُفهم كعينة؛ إخراج School1 وحدها يحتاج فلتر إضافي.
+Unpivot other columns مع تثبيت Department و Stage → Rename Attribute/Value إلى School/Score → Group by Department و School مع Average Score. الهدف المعروض يُفهم كعينة؛ إخراج School1 وحدها يحتاج فلتر إضافي.
 
 ليه كل اختيار صح أو غلط
 A. Select the [Department] and [Stage] columns and unpivot the other columns.
-تحديد Department وStage ثم Unpivot للباقي صحيح؛ نحافظ على هوية القسم والمرحلة وننقل أسماء المدارس إلى صفوف.
+تحديد Department و Stage ثم Unpivot للباقي صحيح؛ نحافظ على هوية القسم والمرحلة وننقل أسماء المدارس إلى صفوف.
 
 B. Select and unpivot the [Department] and [Stage] columns.
-Unpivot لـDepartment وStage أنفسهما يقلب المعرّفات بدل أعمدة درجات المدارس، فتضيع البنية المطلوبة.
+Unpivot لـDepartment و Stage أنفسهما يقلب المعرّفات بدل أعمدة درجات المدارس، فتضيع البنية المطلوبة.
 
 C. Group by [Department] and [School] and create a new column named [Avg Score] that uses the AVERAGE function on the [Score] column.
-Group by Department وSchool مع Average Score هو التجميع النهائي المطلوب بعد إنشاء العمودين، لا قبل ذلك.
+Group by Department و School مع Average Score هو التجميع النهائي المطلوب بعد إنشاء العمودين، لا قبل ذلك.
 
 D. Rename the [Attribute] column as [School] and the [Value] column as [Score].
-Rename Attribute وValue صحيح بعد Unpivot؛ قبلها العمودان غير موجودين بهذه الأسماء.
+Rename Attribute و Value صحيح بعد Unpivot؛ قبلها العمودان غير موجودين بهذه الأسماء.
 
 E. Group by [Department], [School1], [School2], [School3], [School4] and create a new column named [Avg Score] that uses the AVERAGE function on the [Stage] column.
 التجميع حسب School1..School4 مع متوسط Stage يحسب متوسط رقم المرحلة، لا متوسط درجات المدارس.
 
 الخلاصة اللي تتحفظ
-افهم معنى الصف قبل التجميع. Unpivot يجهز School وScore؛ Group By هو اللي يجمع درجات المراحل.
+افهم معنى الصف قبل التجميع. Unpivot يجهز School و Score؛ Group By هو اللي يجمع درجات المراحل.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/unpivot-column
@@ -9765,7 +9797,7 @@ You need to ensure that when a segment is selected in the bar chart, you see whi
 the month belongs to the customer segment.
 
 How should the visual interactions be set on the column chart when the bar chart is selected?', '["highlight","filter","no impact"]', '[0]', 'ترجمة السؤال بالعربي
-عندك Bar chart لعدد العملاء حسب Segment وColumn chart لمبيعات الشهور. عند اختيار Segment عايز تشوف نصيبه من إجمالي كل شهر مع بقاء الإجمالي ظاهرًا.
+عندك Bar chart لعدد العملاء حسب Segment و Column chart لمبيعات الشهور. عند اختيار Segment عايز تشوف نصيبه من إجمالي كل شهر مع بقاء الإجمالي ظاهرًا.
 
 القصة والمعنى
 عمود يناير طوله 100 ألف. لما تختار الشركات الكبيرة عايز تعرف نصيبها 30 ألف، لكن ما زلت محتاج تشوف الـ100 ألف ككل. نلوّن نصيب الشركات ونترك الباقي باهتًا بدل ما نقصه من الرسم.
@@ -9805,7 +9837,7 @@ You need to ensure that DashboardA uses the custom theme. The solution must mini
 Which two actions should you perform? Each correct answer presents part of the solution.
 
 NOTE: Each correct selection is worth one point.', '["Publish ReportA to Power BI.","From ReportA save the current theme.","Publish ReportA to the Microsoft Power BI Community theme gallery.","From DashboardA, create a custom theme.","From DashboardA, upload a JSON theme."]', '[1,4]', 'ترجمة السؤال بالعربي
-ReportA له ثيم مخصص، وDashboardA لازم يستخدم نفس الثيم بأقل شغل. اختار خطوتين من الاختيارات.
+ReportA له ثيم مخصص، و DashboardA لازم يستخدم نفس الثيم بأقل شغل. اختار خطوتين من الاختيارات.
 
 القصة والمعنى
 الألوان والخطوط اتظبطت مرة بالفعل. بدل ما تعيد إدخال الألوان يدويًا في الداشبورد، خُد إعدادات الثيم في ملف واستخدمه هناك. ملف JSON هو الناقل هنا؛ نشر التقرير وحده مش بينقل ثيمه تلقائيًا لكل Dashboard.
@@ -9819,7 +9851,7 @@ ReportA له ثيم مخصص، وDashboardA لازم يستخدم نفس الث�
 3. نفرّق بين ثيم الداشبورد وبين إعداد إبقاء ثيم التقرير وقت Pin tile؛ بعض أنواع البلاطات لها استثناءات في التنسيق.
 
 الإجابة الصحيحة وليه
-B وE: Save the current theme من ReportA، ثم Upload a JSON theme في DashboardA.
+B و E: Save the current theme من ReportA، ثم Upload a JSON theme في DashboardA.
 
 ليه كل اختيار صح أو غلط
 A. Publish ReportA to Power BI.
@@ -9863,7 +9895,7 @@ Line chart، الاختيار الثالث.
 
 ليه كل اختيار صح أو غلط
 A. waterfall chart
-Waterfall مناسب لشرح زيادات ونقصانات توصل من بداية إلى نهاية، لا مقارنة خطَّي Revenue وCost شهريًا.
+Waterfall مناسب لشرح زيادات ونقصانات توصل من بداية إلى نهاية، لا مقارنة خطَّي Revenue و Cost شهريًا.
 
 B. stacked area chart
 Stacked area يكدّس القيم فوق بعضها؛ الإيراد والتكلفة ليسا جزأين نريد جمعهما في إجمالي واحد، والمقارنة المباشرة تصبح أصعب.
@@ -9891,7 +9923,7 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10001,10003]', 'ترجمة السؤال بالعربي
 نتيجة Key influencers تحلل Attrition. مع OverTime = Yes المتوسط 0.30، ومع No هو 0.10. اختار طريقة البحث عن عوامل إضافية، وعدد مرات ارتفاع القيمة عند العمل الإضافي.
 
 القصة والمعنى
@@ -9935,7 +9967,7 @@ H. Employee attrition is ___ times greater when employees work overtime. 3
 3 صحيح: قسمة 0.30 على 0.10 تعطي ثلاثة أمثال؛ ده غير قولنا زيادة 200% أو فرق 20 نقطة مئوية.
 
 الخلاصة اللي تتحفظ
-كام مرة؟ اقسم. فرق قد إيه؟ اطرح. وExplain by هو مكان المرشحين للتفسير.
+كام مرة؟ اقسم. فرق قد إيه؟ اطرح. و Explain by هو مكان المرشحين للتفسير.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers', 'Final', '189', '/dump-assets/f1-189-188-question.webp', '/dump-assets/f1-189-188-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -9950,7 +9982,7 @@ Which type of visualization should you use?', '["Key influencers","Line and clus
 المدير مش بيسأل إجمالي المبيعات كام؛ بيسأل إيه اللي بيفرّق الحالات الناجحة عن غيرها: البلد؟ الفئة؟ نوع العميل؟ نحتاج أداة تقارن مرشحين وتعرض أيها يرتبط بالمقياس، بدل ما نخمن السبب من خط مبيعات.
 
 مثال نفهم بيه
-نحلل Success = Yes ونضيف Region وProduct Category وCustomer Segment. قد تظهر فئة عملاء مرتبطة بنسبة نجاح أعلى. نراجع حجم العينة والعوامل الأخرى قبل قرار تجاري.
+نحلل Success = Yes ونضيف Region و Product Category و Customer Segment. قد تظهر فئة عملاء مرتبطة بنسبة نجاح أعلى. نراجع حجم العينة والعوامل الأخرى قبل قرار تجاري.
 
 طريقة التفكير خطوة بخطوة
 1. اختبار العوامل المؤثرة وترتيبها هو الغرض من Key influencers.
@@ -9994,8 +10026,8 @@ How should you configure the visualization? To answer, select the appropriate op
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-الأعمدة المتاحة City وTotal Sales وOccupation. النتيجة المعروضة تسأل ما الذي يرفع Total Sales، وتعرض أن Occupation = Professional يرتبط بمتوسط أعلى. ضع الحقل المناسب في Analyze وExplain by.
+Hot Area:', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+الأعمدة المتاحة City و Total Sales و Occupation. النتيجة المعروضة تسأل ما الذي يرفع Total Sales، وتعرض أن Occupation = Professional يرتبط بمتوسط أعلى. ضع الحقل المناسب في Analyze و Explain by.
 
 القصة والمعنى
 بنحاول نفهم المبيعات، والمهنة أحد التفسيرات المحتملة. يعني المبيعات هي الحاجة اللي بنسأل عنها، والمهنة هي الحاجة اللي بنقارن مجموعاتها. لو بدّلتهم بقيت بتسأل عن المهنة، وده سؤال مختلف.
@@ -10057,7 +10089,7 @@ You add the following fields to the Explain By field:
 The key influencers visual returns the results shown in the following exhibit.
 
 What can you identify from the visual?', '["Customers in Austria order 18.8 more units than the average order quantity.","Customers in Boise order 20.37 percent more than the average order quantity.","Product Category positively influences the quantity per order.","Customers in Cork order lower quantities than average."]', '[0]', 'ترجمة السؤال بالعربي
-الرسم يوضح عوامل مرتبطة بارتفاع متوسط عدد الوحدات في الطلب، منها Austria = 18.8 وBoise = 20.37. المطلوب استنتاج واحد تؤيده النتيجة المعروضة.
+الرسم يوضح عوامل مرتبطة بارتفاع متوسط عدد الوحدات في الطلب، منها Austria = 18.8 و Boise = 20.37. المطلوب استنتاج واحد تؤيده النتيجة المعروضة.
 
 القصة والمعنى
 الفقاعة اللي جنب Austria مش مكتوب عليها %؛ هي زيادة في متوسط عدد الوحدات. معنى 18.8 إن مجموعة النمسا أعلى بهذا القدر من مجموعة المقارنة، مش إن متوسطها كله 18.8 ولا إن الفرق نسبة مئوية.
@@ -10077,7 +10109,7 @@ A هو البديل المقصود والمدعوم في اتجاهه ووحدت
 
 ليه كل اختيار صح أو غلط
 A. Customers in Austria order 18.8 more units than the average order quantity.
-Austria و18.8 وحدة هو الاستنتاج المدعوم من البدائل، مع تصحيح معنى المتوسط المرجعي إلى بقية الحالات لا افتراض متوسط شامل.
+Austria و 18.8 وحدة هو الاستنتاج المدعوم من البدائل، مع تصحيح معنى المتوسط المرجعي إلى بقية الحالات لا افتراض متوسط شامل.
 
 B. Customers in Boise order 20.37 percent more than the average order quantity.
 Boise يظهر بزيادة 20.37 وحدة لا 20.37%؛ نوع المقياس يغيّر تفسير الرقم.
@@ -10118,7 +10150,7 @@ NOTE: Each correct selection is worth one point.', '["Create a bookmark for each
 3. السؤال يقول each correct answer presents a complete solution؛ لا يلزم تطبيق الحلين معًا.
 
 الإجابة الصحيحة وليه
-B وC: Replace the slicers with report-level filters، أو Sync the slicers across the pages.
+B و C: Replace the slicers with report-level filters، أو Sync the slicers across the pages.
 
 ليه كل اختيار صح أو غلط
 A. Create a bookmark for each slicer value.
@@ -10157,7 +10189,7 @@ Card تعرض قيمة. عايزين لون رقمها أحمر غامق عند 
 دي بوابة بشرط واحد: وصلت 100؟ اللون أحمر. لسه أقل؟ رمادي. مش محتاجين نقيس تدريج الألوان، ولا نكتب measure جديدة ترجع كود لون طالما واجهة القواعد تحقق الشرط.
 
 مثال نفهم بيه
-99.99 رمادي، و100 أحمر، و150 أحمر. لو كتبت greater than 100 بدل greater than or equal to 100 سيقع الحد نفسه في الفئة الخطأ.
+99.99 رمادي، و 100 أحمر، و 150 أحمر. لو كتبت greater than 100 بدل greater than or equal to 100 سيقع الحد نفسه في الفئة الخطأ.
 
 طريقة التفكير خطوة بخطوة
 1. المطلوب مجموعتان منفصلتان بحد رقمي واضح، لا تدرج مستمر.
@@ -10287,14 +10319,14 @@ How should you configure the visual? To answer, select the appropriate options i
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-جدول فيه Total Sales وSales Last Year و% Growth. خلفية Total Sales تتلون حسب % Growth، باستخدام الحسابات الموجودة فقط. اختار نوع التنسيق وطريقة تحديده.
+Hot Area:', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+جدول فيه Total Sales و Sales Last Year و% Growth. خلفية Total Sales تتلون حسب % Growth، باستخدام الحسابات الموجودة فقط. اختار نوع التنسيق وطريقة تحديده.
 
 القصة والمعنى
 لون خلية المبيعات مش لازم ييجي من رقم المبيعات نفسه. ممكن شهر يبيع أقل من غيره لكن نموه أفضل، فنلون المبيعات حسب نسبة النمو. النسبة رقم موجود بالفعل؛ نحوله إلى فئات ألوان بقواعد.
 
 مثال نفهم بيه
-November وDecember في المصدر نموهما 0% وخلفية المبيعات حمراء. بعض الشهور خلفيتها صفراء وأخرى تركواز. ده يوضح فئات لونية، ولا يفرض من الصورة وحدها رقم الحد الفاصل بين كل فئتين.
+November و December في المصدر نموهما 0% وخلفية المبيعات حمراء. بعض الشهور خلفيتها صفراء وأخرى تركواز. ده يوضح فئات لونية، ولا يفرض من الصورة وحدها رقم الحد الفاصل بين كل فئتين.
 
 طريقة التفكير خطوة بخطوة
 1. المصدر يبين خلفية خلايا Total Sales ملونة، لا لون الخط ولا أيقونات. نختار Background color.
@@ -10396,7 +10428,7 @@ How should you create the dashed horizontal line denoting the 40th percentile of
 رتب أيام البيع من الأقل للأعلى. المئين الأربعون علامة داخل التوزيع، مش 40% من مجموع الفلوس. عايزين علامة تتغير مع الأيام المعروضة، مش خطًا ثابتًا نسخناه من لقطة قديمة.
 
 مثال نفهم بيه
-لو مبيعات خمسة أيام 10 و20 و30 و40 و50، فالمئين 40 ليس 40% من إجمالي 150. هو موضع داخل ترتيب الأيام، وقد يكون قيمة بين يومين حسب طريقة حساب المئين.
+لو مبيعات خمسة أيام 10 و 20 و 30 و 40 و 50، فالمئين 40 ليس 40% من إجمالي 150. هو موضع داخل ترتيب الأيام، وقد يكون قيمة بين يومين حسب طريقة حساب المئين.
 
 طريقة التفكير خطوة بخطوة
 1. Percentile line في Analytics pane يحسب المئين اعتمادًا على مقياس الرسم والتوزيع المعروض.
@@ -10444,17 +10476,17 @@ City قد يظل Data Type = Text، لكن Data Category = City. بعد النش
 
 طريقة التفكير خطوة بخطوة
 1. نحدد Data Category الصحيحة للأعمدة: City أو Country/Region أو State/Province مثلًا. ده توصيف دلالي، مش تحويل Data Type إلى رقم أو تاريخ.
-2. نستخدم حقول الجغرافيا في الرسومات المطلوبة كي يتوفر سياق جغرافي للعرض والفلترة. المقصود في الاختيارات B وD.
+2. نستخدم حقول الجغرافيا في الرسومات المطلوبة كي يتوفر سياق جغرافي للعرض والفلترة. المقصود في الاختيارات B و D.
 3. صياغة geography data type في المصدر فضفاضة؛ في هذا السياق نتكلم عن Data Category، وليس نوع تخزين Geography مستقل في موديل Power BI.
 4. كلمة all visuals أوسع من التوثيق: ليس مطلوبًا وضع City كعمود ظاهر داخل كل Card؛ المهم دعم الفلترة والعلاقات للرسوم المطلوبة.
 5. راجع قيود الميزة: الوثيقة تشترط أسماء جغرافية بالإنجليزية وعمودًا واحدًا لكل فئة جغرافية، والموقع لا يُعامل كبديل لـRLS.
 
 الإجابة الصحيحة وليه
-B وD هما الاختياران المقصودان: تعيين geographic Data Category ثم استخدام حقول الجغرافيا في الرسومات. نوضح تحفظ الصياغة ولا نطلب إضافة مدينة ظاهرًا داخل كل رسم دون داعٍ.
+B و D هما الاختياران المقصودان: تعيين geographic Data Category ثم استخدام حقول الجغرافيا في الرسومات. نوضح تحفظ الصياغة ولا نطلب إضافة مدينة ظاهرًا داخل كل رسم دون داعٍ.
 
 ليه كل اختيار صح أو غلط
 A. From Power Query Editor, detect the data types of the relevant columns.
-Detect data types يفرق بين Text وNumber وDate، لكنه لا يقرر وحده أن نصًا ما اسم مدينة مطلوب لميزة الموقع.
+Detect data types يفرق بين Text و Number و Date، لكنه لا يقرر وحده أن نصًا ما اسم مدينة مطلوب لميزة الموقع.
 
 B. In Data Category, set the geographic data category for the relevant columns.
 تعيين geographic Data Category صحيح؛ يوضح المعنى الجغرافي لكل عمود مناسب.
@@ -10527,7 +10559,7 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
 الصورة تعرض صفحة فيها Line chart وخريطة وأعمدة، مع أيقونات Edit interactions. أكمل: اختيار ربع سنة على الخط يعمل إيه في الأعمدة؟ واختيار نقطة من خط Tailspin Toys يعمل إيه في الخريطة؟
 
 القصة والمعنى
@@ -10587,7 +10619,7 @@ Which type of visual should you use?', '["Q&A","smart narrative","key influencer
 طريقة التفكير خطوة بخطوة
 1. المطلوب ملخص نصي تلقائي للاتجاهات، لا إجابة على سؤال يكتبه المستخدم ولا تفكيك مقياس إلى فروع.
 2. Smart narrative يستخدم ملخصات وقيمًا ديناميكية تتحدث مع Cross-filtering من الرسومات الأخرى.
-3. الوثائق الحالية تسميه Narrative visual وتعرض Custom وCopilot؛ اختيار السؤال Smart narrative لا يشترط شراء Copilot لمجرد فهم الميزة المقصودة.
+3. الوثائق الحالية تسميه Narrative visual وتعرض Custom و Copilot؛ اختيار السؤال Smart narrative لا يشترط شراء Copilot لمجرد فهم الميزة المقصودة.
 4. الملخص مرتبط بالبيانات والسياق المتاح؛ ليس وعدًا بتفسير سببي أو تلخيص أي نوع Visual دون قيود.
 
 الإجابة الصحيحة وليه
@@ -10629,7 +10661,7 @@ What should you do?', '["From the Formatting tab, select Values, and then set UR
 طريقة التفكير خطوة بخطوة
 1. اختار عمود Plant Image واضبط Data category على Image URL، ثم استخدمه في الجدول.
 2. Data category تصف معنى القيمة وطريقة استخدامها؛ Data type يصف نوع التخزين. الرابط يظل قيمة نصية.
-3. Web URL وURL icons يجعلان الوصول للرابط مناسبًا للنقر، ولا يطلبان عرض الصورة داخل الخلية.
+3. Web URL و URL icons يجعلان الوصول للرابط مناسبًا للنقر، ولا يطلبان عرض الصورة داخل الخلية.
 4. لازم الرابط يشير لصورة يمكن تحميلها في بيئة العرض؛ التصنيف لا يصلح رابطًا مكسورًا أو يلغي صلاحيات المصدر. توجد استثناءات مدعومة مثل روابط OneLake، فلا نعمم شرط الإتاحة العامة على كل المصادر الحديثة.
 
 الإجابة الصحيحة وليه
@@ -10670,13 +10702,13 @@ Which three actions should you perform in sequence? To answer, move the appropri
 actions to the answer area and arrange them in the correct order.
 
 Select and Place:', '[]', '[1,2,3]', 'ترجمة السؤال بالعربي
-عندك نتائج استبيان في Excel1 وDashboardA فيه Q&A. عايز من لديهم الوصول يسألوا عن بيانات الملف ويثبتوا الرسومات الناتجة على نفس الداشبورد، بأقل وقت تطوير. رتّب ثلاث خطوات من البدائل.
+عندك نتائج استبيان في Excel1 و DashboardA فيه Q&A. عايز من لديهم الوصول يسألوا عن بيانات الملف ويثبتوا الرسومات الناتجة على نفس الداشبورد، بأقل وقت تطوير. رتّب ثلاث خطوات من البدائل.
 
 القصة والمعنى
 Q&A محتاج موديل يفهم أعمدته، مش مجرد شكل خلايا ظاهر على الداشبورد. في سياق السؤال القديم: نظّم البيانات كجدول، استوردها كموديل، وبعدها ثبّت Tile منه على DashboardA عشان يبقى مرتبطًا بمصدر الاستبيان.
 
 مثال نفهم بيه
-لو الاستبيان فيه Department وRating، نريد سؤالًا مثل average Rating by Department ينتج رسمًا من الموديل. مجرد تثبيت الخلايا لا يمنح محرك Q&A جدولًا جديدًا يفهمه. المثال يشرح الفرق ولا يغيّر أسماء أعمدة السؤال غير المعروضة.
+لو الاستبيان فيه Department و Rating، نريد سؤالًا مثل average Rating by Department ينتج رسمًا من الموديل. مجرد تثبيت الخلايا لا يمنح محرك Q&A جدولًا جديدًا يفهمه. المثال يشرح الفرق ولا يغيّر أسماء أعمدة السؤال غير المعروضة.
 
 طريقة التفكير خطوة بخطوة
 1. ابدأ داخل Excel بتنسيق نطاق البيانات كـTable له أعمدة واضحة؛ هذه خطوة من قائمة السؤال وليست إنشاء Named range فقط.
@@ -10738,7 +10770,7 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 0.5 هنا على محور الرواتب معناها نص دولار، مش نص الموظفين. الوسيط قيمة راتب تستخرجها من توزيع الرواتب؛ مش رقم ثابت اسمه نص.
 
 مثال نفهم بيه
-رواتب 1000 و2000 و9000 دولار: الوسيط 2000. خط عند 0.5 دولار يجعل الثلاثة فوق الخط، بينما فوق الوسيط يوجد صاحب 9000 فقط. علامة النسبة غير موجودة أصلًا في قيمة المحور.
+رواتب 1000 و 2000 و 9000 دولار: الوسيط 2000. خط عند 0.5 دولار يجعل الثلاثة فوق الخط، بينما فوق الوسيط يوجد صاحب 9000 فقط. علامة النسبة غير موجودة أصلًا في قيمة المحور.
 
 طريقة التفكير خطوة بخطوة
 1. Constant line عند 0.5 يضع عتبة رقمية في وحدة المحور، أي الدولار هنا.
@@ -10787,7 +10819,7 @@ Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال با�
 واحد راتبه عالي جدًا يقدر يرفع المتوسط، لكن مش لازم يغيّر الموظف اللي في النص. السؤال قال Median تحديدًا؛ ما ينفعش نستبدله بـAverage لمجرد إن الاتنين أرقام بتوصف الرواتب.
 
 مثال نفهم بيه
-رواتب 1000 و2000 و3000 و4000 و40000: المتوسط 10000 والوسيط 3000. صاحب 4000 فوق الوسيط لكنه تحت المتوسط؛ إذن الخط الخاطئ يغيّر الإجابة عن الموظفين.
+رواتب 1000 و 2000 و 3000 و 4000 و 40000: المتوسط 10000 والوسيط 3000. صاحب 4000 فوق الوسيط لكنه تحت المتوسط؛ إذن الخط الخاطئ يغيّر الإجابة عن الموظفين.
 
 طريقة التفكير خطوة بخطوة
 1. المتوسط الحسابي يجمع القيم ويقسمها على عددها. الوسيط يعتمد على ترتيب القيم وموقع المنتصف.
@@ -10829,13 +10861,13 @@ You need to create a reference line to show which employees are above the median
 Solution: You create a percentile line by using the Salary measure and set the percentile to 50%.
 
 Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
-عندك Salary كقيمة وEmployee كمحور في Clustered bar chart. المطلوب خط يحدد من رواتبهم فوق الوسيط. الحل Percentile line على Salary عند 50%. هل يحقق الهدف؟
+عندك Salary كقيمة و Employee كمحور في Clustered bar chart. المطلوب خط يحدد من رواتبهم فوق الوسيط. الحل Percentile line على Salary عند 50%. هل يحقق الهدف؟
 
 القصة والمعنى
 هنا اختار الترتيب الصح: عايز نقطة المنتصف في الرواتب، فقال المئين الخمسون. يعني نطلع راتبًا من التوزيع، مش نضرب كل راتب في نص ولا نحط خطًا عند 0.5 دولار.
 
 مثال نفهم بيه
-رواتب 1000 و2000 و3000 و4000 و40000: الخط عند 3000، وصاحبا 4000 و40000 أعلى منه. لو الرواتب 1000 و2000 و2000 و2000 و9000، واحد فقط فوق الوسيط رغم أنه المئين الخمسون.
+رواتب 1000 و 2000 و 3000 و 4000 و 40000: الخط عند 3000، وصاحبا 4000 و 40000 أعلى منه. لو الرواتب 1000 و 2000 و 2000 و 2000 و 9000، واحد فقط فوق الوسيط رغم أنه المئين الخمسون.
 
 طريقة التفكير خطوة بخطوة
 1. الوسيط يوافق المئين الخمسين؛ لذلك نوع الخط والإعداد يطابقان المطلوب.
@@ -10873,19 +10905,19 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
-صورة Column profile لعمود column1 تعرض Count = 277,329 وDistinct = 365 وUnique = 20. أكمل عدد القيم التي تظهر مرة واحدة، ثم اختر نوع شجرة يظهر Pear, Flowering أكثر منه حسب الرسم.
+Hot Area:', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+صورة Column profile لعمود column1 تعرض Count = 277,329 و Distinct = 365 و Unique = 20. أكمل عدد القيم التي تظهر مرة واحدة، ثم اختر نوع شجرة يظهر Pear, Flowering أكثر منه حسب الرسم.
 
 القصة والمعنى
 عدّ البطاقات غير عدّ الأسماء المختلفة غير عدّ الأسماء اللي ملهاش تكرار. عندك 277,329 خانة، لكن الأسماء المختلفة 365. من الأسماء دي، 20 اسمًا ظهر كل واحد مرة واحدة بس. الجزء التاني تقراه من أطوال الأعمدة، مش من ترتيب الحروف.
 
 مثال نفهم بيه
-قائمة A,A,B,C,C,D فيها Count=6 وDistinct=4 وUnique=2 لأن B وD ظهرا مرة واحدة. ده مثال صغير يوضح معنى مؤشرات الصورة، وليس بديلًا عن أرقامها.
+قائمة A,A,B,C,C,D فيها Count=6 و Distinct=4 و Unique=2 لأن B و D ظهرا مرة واحدة. ده مثال صغير يوضح معنى مؤشرات الصورة، وليس بديلًا عن أرقامها.
 
 طريقة التفكير خطوة بخطوة
 1. Unique في Power Query هو عدد القيم التي لها ظهور واحد فقط ضمن البيانات التي جرى تحليلها؛ الرقم هنا 20.
 2. Distinct = 365 يحصي كل قيمة مختلفة مرة، سواء ظهرت مرة أو آلاف المرات. Count = 277,329 ليس عدد القيم غير المكررة.
-3. شريط Pear, Flowering أطول من Elm, American ويعلوه في الترتيب التنازلي، بينما Ash, Green وCrabapple, Flowering وSpruce, Blue أعلى منه.
+3. شريط Pear, Flowering أطول من Elm, American ويعلوه في الترتيب التنازلي، بينما Ash, Green و Crabapple, Flowering و Spruce, Blue أعلى منه.
 4. لا نختلق تكرارًا رقميًا لكل نوع؛ الرسم يثبت المقارنة المطلوبة فقط. إعداد Profiling قد يقتصر على عينة، لذلك عمّم على العمود كله فقط إذا كان التحليل مضبوطًا على كامل البيانات؛ الأرقام هنا تخص النطاق المعروض.
 
 الإجابة الصحيحة وليه
@@ -10957,7 +10989,7 @@ B. Create a separate report page for users to view the column chart.
 صفحة منفصلة تعرض الأعمدة لكن تكرر العرض وتزيد ما يحتاج التحديث والصيانة؛ ليست الأقل جهدًا.
 
 C. Add a column chart, a bookmark, and a button for users to choose a visual.
-رسم إضافي وBookmark وزر يحققون التبديل فعلًا، لكنهم عمل تطوير وصيانة زيادة، ولذلك يخسرون شرط السؤال وليسوا مستحيلين تقنيًا.
+رسم إضافي و Bookmark وزر يحققون التبديل فعلًا، لكنهم عمل تطوير وصيانة زيادة، ولذلك يخسرون شرط السؤال وليسوا مستحيلين تقنيًا.
 
 D. Create a mobile report that contains a column chart.
 Mobile report/layout يعالج تجربة شاشة المحمول، وليس طريقة عامة لتمكين المدير من اختيار نوع الرسم في تقرير الخدمة.
@@ -10978,13 +11010,13 @@ reports.
 Which two actions should you perform? Each correct answer presents part of the solution.
 
 NOTE: Each correct selection is worth one point.', '["Upload a snapshot.","For the browser, set the color preference to dark mode.","When pinning visuals to the dashboard, select Use destination theme.","Select the dark dashboard theme.","Turn on tile flow."]', '[2,3]', 'ترجمة السؤال بالعربي
-عندك ReportA وReportB ولكل واحد ألوانه. هتثبت رسمين من كل تقرير على Dashboard واحدة. عايز الداشبورد Dark متناسقة، مع الاحتفاظ بألوان التقريرين الأصليين. اختار إجراءين يكملوا بعض.
+عندك ReportA و ReportB ولكل واحد ألوانه. هتثبت رسمين من كل تقرير على Dashboard واحدة. عايز الداشبورد Dark متناسقة، مع الاحتفاظ بألوان التقريرين الأصليين. اختار إجراءين يكملوا بعض.
 
 القصة والمعنى
 فكّر في الداشبورد كواجهة عرض مستقلة. ممكن توحّد شكل الرسومات المثبتة عليها من غير ما ترجع تلوّن صفحات التقريرين. لازم تختار ثيم للوجهة، وتقول للـTiles تستخدم ثيم الوجهة بدل المصدر.
 
 مثال نفهم بيه
-ReportA أزرق وReportB برتقالي. نثبت رسوماتهما بثيم الداشبورد Dark؛ عند فتح ReportA نفسه يظل أزرق. ما غيرناش ألوان التقرير علشان نغيّر شكل نسخته المثبتة.
+ReportA أزرق و ReportB برتقالي. نثبت رسوماتهما بثيم الداشبورد Dark؛ عند فتح ReportA نفسه يظل أزرق. ما غيرناش ألوان التقرير علشان نغيّر شكل نسخته المثبتة.
 
 طريقة التفكير خطوة بخطوة
 1. اختار Dark dashboard theme للداشبورد نفسها؛ ثيم المتصفح ليس ثيم بيانات الرسومات.
@@ -10993,7 +11025,7 @@ ReportA أزرق وReportB برتقالي. نثبت رسوماتهما بثيم 
 4. قد توجد استثناءات لتطبيق الثيم مثل أنواع Tiles أو ألوان يحددها تنسيق خاص؛ لا نعمم ضمان تطابق كل عنصر خارج نطاق الرسومات المدعومة.
 
 الإجابة الصحيحة وليه
-C وD: Use destination theme عند التثبيت + Dark dashboard theme.
+C و D: Use destination theme عند التثبيت + Dark dashboard theme.
 
 ليه كل اختيار صح أو غلط
 A. Upload a snapshot.
@@ -11026,18 +11058,18 @@ What should you configure? To answer, select the appropriate options in the answ
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
 عندك بيانات إيرادات آخر سنة وعايز Anomaly detection يكشف القيم غير المعتادة. اختار نوع الرسم والإعداد اللازم من القائمتين.
 
 القصة والمعنى
 يوم مبيعاته 90 ألف مش لازم يكون شاذًا لو ده الطبيعي في آخر الأسبوع. الكشف محتاج يشوف السلسلة مع الزمن ويقارن النقطة بالنطاق المتوقع. عشان كده نبدأ بخط عليه تاريخ، مش تورتة بتجمع السنة كلها.
 
 مثال نفهم بيه
-إيراد الأيام 10 و11 و12 و11 ثم 50 ألف قد يدفعك لفحص اليوم الأخير حسب السياق والحساسية. Pie سيحوّل الأيام إلى أجزاء من إجمالي، بينما الخط الزمني يتيح للميزة فحص نمطها. الأرقام مثال وليست كشفًا محسوبًا بخوارزمية Power BI هنا.
+إيراد الأيام 10 و 11 و 12 و 11 ثم 50 ألف قد يدفعك لفحص اليوم الأخير حسب السياق والحساسية. Pie سيحوّل الأيام إلى أجزاء من إجمالي، بينما الخط الزمني يتيح للميزة فحص نمطها. الأرقام مثال وليست كشفًا محسوبًا بخوارزمية Power BI هنا.
 
 طريقة التفكير خطوة بخطوة
 1. النوع المدعوم هنا Line chart به Time series على Axis؛ من الخيارات اختار Line.
-2. ضع Date field في المحور لتوفير الترتيب الزمني؛ Show value as وCross-report drill-through لا يعوّضان ذلك.
+2. ضع Date field في المحور لتوفير الترتيب الزمني؛ Show value as و Cross-report drill-through لا يعوّضان ذلك.
 3. بعدها تضيف Anomalies من Analytics. الاختياران هما الإعدادان المطلوبان في السؤال وليسا قائمة بكل شروط الدعم.
 4. راجع قيود الميزة: أربع نقاط على الأقل، وعدم استخدام Legend أو مقاييس متعددة أو قيم ثانوية في نفس الخط؛ Show value as له قيود على تفسيرات الشذوذ.
 5. Anomaly تعني انحرافًا عن المتوقع إحصائيًا، وليست حكمًا مؤكدًا بوجود خطأ إدخال أو غش أو سبب معين.
@@ -11158,7 +11190,7 @@ Which type of visual should you use?', '["smart narrative","decomposition tree",
 إجمالي Sales=100، منها Beverages=30، ومنها Supplier A=18، ومنها USA=7. الـ7 تخص مسار Beverages ثم A ثم USA، فلا تفسرها على أنها كل مبيعات أمريكا خارج هذا المسار. الأرقام مثال للقراءة.
 
 طريقة التفكير خطوة بخطوة
-1. Analyze يحمل المقياس Sales، وExplain by يحمل الأبعاد التي يجوز استخدامها لتفكيكه.
+1. Analyze يحمل المقياس Sales، و Explain by يحمل الأبعاد التي يجوز استخدامها لتفكيكه.
 2. كل توسعة تفكك قيمة العقدة المحددة، لذلك مبالغ البلدان الظاهرة في الفرع ليست مبيعات كل البلدان على مستوى الشركة كلها.
 3. ترتيب الأبعاد يختاره المستخدم أثناء الاستكشاف، ويمكن استخدام AI split حيث يتاح لاختيار فرع مرتفع أو منخفض.
 4. تفكيك الرقم يساعدك تحقق فرضيات؛ لا يثبت وحده أن المورد أو البلد سبب سببي لتغير المبيعات.
@@ -11197,17 +11229,17 @@ You have a report that shows the employees by state.
 You need to view the employees by region as quickly as possible.
 
 What should you do?', '["Create a new aggregation that summarizes by state.","Create a new aggregation that summarizes by employee.","Create a new group on the state column and set the Group type to List.","Create a new group on the state column and set the Group type to Bin."]', '[2]', 'ترجمة السؤال بالعربي
-الشركة عندها موظفون في 10 ولايات، وقررت تقسيم الولايات إلى East وWest وNorth. الموديل فيه State فقط. عايز تعرض الموظفين بالمناطق الجديدة بأسرع طريقة من الخيارات.
+الشركة عندها موظفون في 10 ولايات، وقررت تقسيم الولايات إلى East و West و North. الموديل فيه State فقط. عايز تعرض الموظفين بالمناطق الجديدة بأسرع طريقة من الخيارات.
 
 القصة والمعنى
 عندك أسماء ولايات وقرار إداري بيقول مين يتبع الشرق ومين الغرب. مفيش معادلة رياضية تقسم أسماء الولايات إلى فترات متساوية؛ أنت هتختار أعضاء كل مجموعة وتديها اسم المنطقة.
 
 مثال نفهم بيه
-حسب قرار الشركة، State A وB يتبعان East وC يتبع West. نجمع A وB تحت اسم East. لا نستنتج خريطة حقيقية لكل ولاية أمريكية؛ المطلوب اتباع تقسيم الشركة المذكور.
+حسب قرار الشركة، State A و B يتبعان East و C يتبع West. نجمع A و B تحت اسم East. لا نستنتج خريطة حقيقية لكل ولاية أمريكية؛ المطلوب اتباع تقسيم الشركة المذكور.
 
 طريقة التفكير خطوة بخطوة
 1. اعمل New group على State، واختار Group type = List لتجميع القيم الفئوية يدويًا حسب خريطة الشركة.
-2. سمّ المجموعات East وWest وNorth، وانقل الولايات الصحيحة لكل مجموعة ثم استخدم حقل المجموعة في الرسم.
+2. سمّ المجموعات East و West و North، وانقل الولايات الصحيحة لكل مجموعة ثم استخدم حقل المجموعة في الرسم.
 3. Aggregation تلخص أرقامًا عند مستوى معين، ولا تخترع صفة Region أو تعيين State إلى Region.
 4. Bin مناسب لفترات قيم عددية أو زمنية، وليس عضوية مناطق تجارية بأسماء ولايات. لو التعيينات تتغير باستمرار أو تُشارك في موديلات عديدة فجدول mapping قد يكون أفضل تشغيليًا، لكنه ليس الخيار الأسرع المعروض هنا.
 
@@ -11219,7 +11251,7 @@ A. Create a new aggregation that summarizes by state.
 Aggregation by state يرجع إجماليات لكل ولاية، لكن لسه معندكش مناطق تجمع الولايات تحتها.
 
 B. Create a new aggregation that summarizes by employee.
-Aggregation by employee يغير مستوى التلخيص للموظف، ولا يحدد East وWest وNorth.
+Aggregation by employee يغير مستوى التلخيص للموظف، ولا يحدد East و West و North.
 
 C. Create a new group on the state column and set the Group type to List.
 List صحيح؛ يسمح بإسناد قيم State إلى مجموعات مسماة وفق قرار الشركة بسرعة.
@@ -11340,17 +11372,17 @@ answer, select the appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Hot Area:', '[]', '[10001,10001]', 'ترجمة السؤال بالعربي
 في أول صفحة تقرير عرضان: خريطة Sales By Postal Code وأعمدة Sales By Month. كلاهما يستخدم Chain slicer، والتبديل بأزرار. لازم اختيار Chain يفضل كما هو. ما أقل عدد Bookmarks وأي خاصية تستخدم؟
 
 القصة والمعنى
 المستخدم اختار Fashions Direct وعايز يقلب من الخريطة للأعمدة من غير ما يرجع السلايسر لقيمته وقت تصميم التقرير. المطلوب تبديل ظهور الرسومات فقط. صورتان للحالة، من غير التقاط اختيار البيانات.
 
 مثال نفهم بيه
-احفظ Map view لما الخريطة ظاهرة، وMonth view لما الأعمدة ظاهرة. اختار Lindseys ثم اضغط الزرين؛ Chain يظل Lindseys لأن Data غير مفعّل في العلامتين. لو فعلته قد يرجع Fashions Direct المحفوظ وقت التصميم.
+احفظ Map view لما الخريطة ظاهرة، و Month view لما الأعمدة ظاهرة. اختار Lindseys ثم اضغط الزرين؛ Chain يظل Lindseys لأن Data غير مفعّل في العلامتين. لو فعلته قد يرجع Fashions Direct المحفوظ وقت التصميم.
 
 طريقة التفكير خطوة بخطوة
-1. اعمل حالتين محفوظتين: واحدة تظهر الخريطة وتخفي الأعمدة، والثانية تعمل العكس. الحد الأدنى Bookmarkان لهذا التبديل المحدد.
+1. اعمل حالتين محفوظتين: واحدة تظهر الخريطة وتخفي الأعمدة، والثانية تعمل العكس. الحد الأدنى Bookmark ان لهذا التبديل المحدد.
 2. استخدم Selection pane لضبط الظهور، ثم احفظ Display لكل حالة واربط كل زر بالـBookmark المناسب.
 3. عطّل Data في الـBookmarks حتى لا يعاد تطبيق اختيار Chain الذي كان محفوظًا وقت إنشاء العلامة.
 4. Current page ليست الخاصية التي تحفظ ظهور وإخفاء الرسومات؛ العرضان على الصفحة الأولى نفسها.
@@ -11382,7 +11414,7 @@ G. Property: Current page
 Current page تختص بالصفحة التي تنتقل إليها العلامة؛ لا تحل تبديل ظهور خريطة وأعمدة داخل نفس الصفحة.
 
 الخلاصة اللي تتحفظ
-تبديل Visuals مع الحفاظ على Slicer = حالتان، Display On وData Off.
+تبديل Visuals مع الحفاظ على Slicer = حالتان، Display On و Data Off.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-bookmarks', 'Final', '219', '/dump-assets/f1-219-218-question.webp', '/dump-assets/f1-219-218-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
@@ -11397,13 +11429,13 @@ What should you do?', '["Add a play axis.","From the Analytics pane, add an Aver
 كل فقاعة لها مكان يوضح المبيعات والتكلفة. عايز تشوف الفقاعات وهي بتتحرك سنة بعد سنة، مش لقطة لسنة واحدة تختارها كل مرة. نضيف الزمن في Play axis عشان نستعرض تطور نفس العلاقة.
 
 مثال نفهم بيه
-فقاعة بلد عند Sales=3 وCost=2 في 2022 ثم Sales=4 وCost=2.5 في 2023. Play axis يعرض انتقالها بين اللقطتين؛ المتوسط لا يعرض الحركة. الأرقام مثال توضيحي بالملايين، وليست استخراجًا لقيم سنوات من الصورة.
+فقاعة بلد عند Sales=3 و Cost=2 في 2022 ثم Sales=4 و Cost=2.5 في 2023. Play axis يعرض انتقالها بين اللقطتين؛ المتوسط لا يعرض الحركة. الأرقام مثال توضيحي بالملايين، وليست استخراجًا لقيم سنوات من الصورة.
 
 طريقة التفكير خطوة بخطوة
 1. المحوران الحاليان يعرضان العلاقة العددية المطلوبة بالفعل؛ البُعد الناقص للاستعراض هو الزمن.
 2. ضع حقلًا زمنيًا مناسبًا مثل Year في Play axis للرسم المدعوم، فيعرض الحالات الزمنية بالتتابع.
 3. Year slicer يفلتر سنة ويمكن المقارنة يدويًا، لكنه ليس نفس تشغيل تطور الفقاعات عبر الزمن الذي يستهدفه الحل الأقرب هنا.
-4. Average line يضيف عتبة إحصائية، وYear-over-year measure يحسب معدل تغير؛ لا يضيف أي منهما آلية استعراض الزمن على الفقاعات.
+4. Average line يضيف عتبة إحصائية، و Year-over-year measure يحسب معدل تغير؛ لا يضيف أي منهما آلية استعراض الزمن على الفقاعات.
 5. عنوان الصورة يذكر Unit Price بينما المحور الرأسي نفسه Total Cost. نستند للمحور والمطلوب الصريحين؛ لا نغيّر السؤال إلى علاقة سعر الوحدة بالمبيعات بسبب عنوان غير متسق.
 
 الإجابة الصحيحة وليه
@@ -11411,7 +11443,7 @@ A. Add a play axis، ثم ضع فيه الحقل الزمني المناسب.
 
 ليه كل اختيار صح أو غلط
 A. Add a play axis.
-صحيح؛ Play axis يضيف بعدًا زمنيًا للاستعراض المتتابع مع بقاء X للمبيعات وY للتكلفة.
+صحيح؛ Play axis يضيف بعدًا زمنيًا للاستعراض المتتابع مع بقاء X للمبيعات و Y للتكلفة.
 
 B. From the Analytics pane, add an Average line.
 Average line لا يعرض الزمن؛ يضيف مرجعًا للمتوسط ولا يحرك النقاط بين السنوات.
@@ -11440,60 +11472,172 @@ What should you do? To answer, select the appropriate options in the answer area
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: Update Dashboard Mobile Layout
+Hot Area:', '[]', '[10000,10001]', 'ترجمة السؤال بالعربي
+Dashboard فيها كارت Total Sales بقيمة 282,711 دولار، وكارت Total Quantity بقيمة 915 ورسم مبيعات حسب الفئة وخريطة. مطلوب نسخة الموبايل يظهر فيها الكارتان جنب بعض، وباقي البلاطات تحتهما. تعدل أنهي تخطيط وتحرك أنهي بلاطات؟
 
-Box 2: Resize and move total sales and total quantity
+القصة والمعنى
+نفس لوحة المتابعة هتتفتح على شاشة ضيقة. مش هنصمم تقريرًا جديدًا؛ هنرتب البلاطات الموجودة. الاختلاف الظاهر إن الكارتين اللي كانوا فوق بعض بقوا جنب بعض.
 
-Dashboard mobile feature already fits the tiles in the view, and when recreating same scenario you only need
-to work on the 2 cards
+مثال نفهم بيه
+بدل كارت المبيعات بعرض الشاشة ثم كارت الكمية في صف تالٍ، خلي عرض كل واحد يسمح باثنين في نفس الصف. الأرقام لم تتغير؛ المساحة هي التي تغيرت.
 
-If you use Report Mobile View feature from Power BI desktop, you will have an empty canvas and will need to
-work on all tiles
+طريقة التفكير خطوة بخطوة
+1. الكائن Dashboard؛ مكان التعديل Dashboard mobile layout وليس Report mobile layout.
+2. نسخة الموبايل ترتب بلاطات Dashboard تلقائيًا؛ قارنها بالهدف بدل افتراض البدء من لوحة فارغة.
+3. صغّر وحرك Total Sales و Total Quantity ليظهرا في الصف الأول معًا.
 
-Reference:
+الإجابة الصحيحة وليه
+Dashboard mobile layout؛ The Total Sales and Total Quantity tiles.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-create-mobile-optimized-report-about', 'Final', '221', '/dump-assets/f1-221-220-question.webp', '/dump-assets/f1-221-220-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Update the layout in the: Dashboard mobile layout
+Dashboard mobile layout صحيح لتخصيص ترتيب بلاطات الهاتف.
+
+B. Update the layout in the: Dashboard web layout
+Dashboard web layout يغيّر عرض المتصفح العادي وليس الهاتف.
+
+C. Update the layout in the: Report mobile layout
+Report mobile layout يخص صفحات التقارير؛ Dashboard كائن مختلف.
+
+D. Resize and move: The SubTotal map tile
+الخريطة أسفل الرسومات في الهدف؛ نقلها لا يجعل الكارتين متجاورين.
+
+E. Resize and move: The Total Sales and Total Quantity tiles
+الكارتان هما الجزء الذي انتقل من ترتيب رأسي إلى أفقي.
+
+F. Resize and move: The Total Sales by Parent Category tile
+تحريك رسم الفئات وحده يترك الكارتين فوق بعض.
+
+الخلاصة اللي تتحفظ
+Dashboard على الموبايل: عدّل تخطيط Dashboard للموبايل، وحدد البلاطات التي تغير موضعها فعلًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-create-dashboard-mobile-phone-view', 'Final', '221', '/dump-assets/f1-221-220-question.webp', '/dump-assets/f1-221-220-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-222-221', 'Visualize and analyze the data', 'single', 'You are building a Power BI report to analyze customer segments.
 
 You need to identify customer segments dynamically based on the Bounce Rate across dimensions such as source,
 
 geography, and demographics. The solution must minimize analysis effort.
 
-Which type of visualization should you use?', '["decomposition tree","funnel chart","Q&A","key influencers"]', '[3]', 'Independent correction: D. Key influencers. This AI visual ranks the factors that drive the selected metric and automatically discovers Top segments. A decomposition tree is better for interactive, user-led drill-down rather than automatic segment discovery.', 'Final', '222', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of visualization should you use?', '["decomposition tree","funnel chart","Q&A","key influencers"]', '[3]', 'ترجمة السؤال بالعربي
+عايز تكتشف شرائح العملاء تلقائيًا بناءً على Bounce Rate، باستخدام المصدر والمنطقة والخصائص الديموغرافية، بأقل مجهود تحليل. تختار أنهي Visual؟
+
+القصة والمعنى
+مش عايز تفتح دولة ثم عمر ثم قناة إعلان لحد ما تلاقي مجموعة معدل خروجها عالي. عايز البرنامج يقترح المجموعات المرتبطة بالمشكلة.
+
+مثال نفهم بيه
+مجموعة مصدرها إعلان موبايل ومنطقة معينة قد يظهر معدل خروجها 70% مقابل 30% لغيرها. ده اقتراح شريحة للتحقيق، مش حكم بأن المنطقة سببت الخروج.
+
+طريقة التفكير خطوة بخطوة
+1. ضع المقياس المراد تحليله في Analyze والخصائص المرشحة في Explain by.
+2. Key influencers فيه Top segments لاكتشاف مجموعات تجمع خصائص متعددة.
+3. Decomposition tree أنسب لاستكشاف الفروع تفاعليًا. الاكتشاف الآلي للشرائح هو الفارق هنا، ولا يثبت سببية.
+
+الإجابة الصحيحة وليه
+D. key influencers.
+
+ليه كل اختيار صح أو غلط
+A. decomposition tree
+Decomposition tree يفكك المقياس حسب الفروع، وليس أفضل اختيار لاكتشاف Top segments تلقائيًا.
+
+B. funnel chart
+Funnel يعرض مراحل متتابعة؛ الأبعاد هنا ليست مراحل.
+
+C. Q&A
+Q&A واجهة أسئلة بلغة طبيعية، لا تحليل مخصص لترتيب الشرائح تلقائيًا.
+
+D. key influencers
+Key influencers صحيح لتحليل العوامل و Top segments.
+
+الخلاصة اللي تتحفظ
+اكتشاف عوامل وشرائح تلقائيًا = Key influencers؛ استكشاف فروع المقياس = Decomposition tree.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers', 'Final', '222', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-223-222', 'Visualize and analyze the data', 'single', 'You have a table that contains sales data and approximately 1,000 rows.
 
 You need to identify outliers in the table.
 
-Which type of visualization should you use?', '["area chart","scatter plot","pie chart","donut chart"]', '[1]', 'Outlier Detection in Power BI using Funnel Plot, which is a scatter plot.
-Outliers are those data points that lie outside the overall pattern of distribution & the easiest way to detect
-outliers is though graphs. Box plots, Scatter plots can help detect them easily.
+Which type of visualization should you use?', '["area chart","scatter plot","pie chart","donut chart"]', '[1]', 'ترجمة السؤال بالعربي
+جدول مبيعات فيه حوالي ألف صف. عايز تميز القيم الشاذة Outliers بصريًا. أنهي رسم أنسب بين الخيارات؟
 
-Reference:
-https://towardsdatascience.com/this-article-is-about-identifying-outliers-through-funnel-plots-using-the-
-microsoft-power-bi-d7ad16ac9ccc', 'Final', '223', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+عمليات كتير قريبة من بعضها وعملية واحدة بعيدة جدًا. لو كل عملية نقطة، هتشوف البعيدة بسرعة بدل البحث وسط شرائح دائرة.
+
+مثال نفهم بيه
+طلبات بقيمة 100–300 وربح 10–40 تتجمع؛ طلب قيمته 10,000 وربحه 1,200 يظهر بعيدًا. قد يكون صفقة صحيحة كبيرة.
+
+طريقة التفكير خطوة بخطوة
+1. Scatter يعرض الملاحظات على محورين رقميين فيظهر التجمع والنقاط البعيدة.
+2. حدد مستوى النقطة بتفصيل مناسب؛ التجميع قد يخفي الملاحظة الشاذة.
+3. البعد يستحق الفحص، لكنه ليس دليلًا أن القيمة خطأ يستوجب الحذف.
+
+الإجابة الصحيحة وليه
+B. scatter plot.
+
+ليه كل اختيار صح أو غلط
+A. area chart
+Area يبرز تطور قيمة على محور مرتب؛ ليس أوضح تمثيل للملاحظات الشاذة هنا.
+
+B. scatter plot
+Scatter يظهر التجمع والنقاط المنعزلة؛ الأنسب للمطلوب.
+
+C. pie chart
+Pie يقارن أجزاء من إجمالي ويزدحم مع ألف ملاحظة.
+
+D. donut chart
+Donut أيضًا جزء من كل، لا توزيع النقاط وبعدها عن النمط.
+
+الخلاصة اللي تتحفظ
+Scatter يساعدك تشوف الـoutlier، ثم تحقق منها؛ لا تحذفها لمجرد أنها بعيدة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-scatter', 'Final', '223', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-224-223', 'Visualize and analyze the data', 'multi', 'You have a report that contains three pages. One of the pages contains a KPI visualization.
 
 You need to filter all the visualizations in the report except for the KPI visualization.
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["Edit the interactions of the KPI visualization.","Add the same slicer to each page and configure Sync slicers.","Edit the interactions of the slicer that is on the same page as the KPI visualization.","Configure a page-level filter.","Configure a report-level filter."]', '[1,2]', 'Slicers are another way of filtering. They narrow the portion of the dataset that is shown in the other report
-visualizations.
-Control which page visuals are affected by slicers
-Example: Use visual interactions to keep slicer selections from filtering this chart.
-1. Go to the Overview page of the report, and then select the DM slicer you previously created.
-2. On the Power BI Desktop menu, select the Format menu under Visual Tools, and then select Edit
-interactions.
-3. Filter controls, each with a Filter and a None option, appear above all the visuals on the page. Initially, the
-Filter option is preselected on all the controls.
-4. Select the None option in the filter control above the Total Sales Variance by FiscalMonth and District
-Manager chart to stop the DM slicer from filtering it.
-Incorrect:
-Not D: A page-level filter is used to filter an entire page.
-Not E: A report-level filter is used to filter an entire report.
+NOTE: Each correct selection is worth one point.', '["Edit the interactions of the KPI visualization.","Add the same slicer to each page and configure Sync slicers.","Edit the interactions of the slicer that is on the same page as the KPI visualization.","Configure a page-level filter.","Configure a report-level filter."]', '[1,2]', 'ترجمة السؤال بالعربي
+تقرير ثلاث صفحات، وفي واحدة منها KPI. عايز نفس الاختيار يفلتر كل رسومات التقرير ما عدا KPI. اختار إجراءين يكملوا بعض.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-report-add-filter', 'Final', '224', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+اختيار القاهرة يغيّر تفاصيل الصفحات كلها، لكن المؤشر العام يفضل كما هو. نحتاج ننقل اختيار السلايسر ونستثني المؤشر من استقبال هذا الاختيار.
+
+مثال نفهم بيه
+Country متزامن على الصفحات الثلاث. Egypt يفلتر الرسومات، لكن None فوق KPI يمنع تأثير هذا السلايسر عليه. لو فيه Report filter آخر، يظل ساريًا.
+
+طريقة التفكير خطوة بخطوة
+1. أضف نفس السلايسر للصفحات واضبط Sync slicers.
+2. في صفحة KPI حدد السلايسر، ثم Edit interactions واضبط None فوق KPI.
+3. None يمنع تأثير السلايسر المعني؛ لا يلغي الفلاتر الأخرى أو يفرض إجماليًا مطلقًا على المقياس.
+
+الإجابة الصحيحة وليه
+B و C: Sync slicers ثم تعديل تفاعل السلايسر في صفحة KPI.
+
+ليه كل اختيار صح أو غلط
+A. Edit the interactions of the KPI visualization.
+تحديد KPI يضبط ما يصدر منه، وليس ما يستقبله من السلايسر.
+
+B. Add the same slicer to each page and configure Sync slicers.
+مطلوب لنقل اختيار السلايسر بين الصفحات.
+
+C. Edit the interactions of the slicer that is on the same page as the KPI visualization.
+صحيح؛ حدد السلايسر ثم امنع تفاعله مع KPI وحده.
+
+D. Configure a page-level filter.
+Page filter لا يغطي الصفحات الثلاث ولا يستثني KPI تلقائيًا.
+
+E. Configure a report-level filter.
+Report filter يشمل KPI أيضًا؛ يخالف الاستثناء.
+
+الخلاصة اللي تتحفظ
+فلترة صفحات مع استثناء رسم = Sync slicers ثم None من السلايسر نحو الرسم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '224', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-225-224', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You have a Power BI visual that uses indicators to show values that are out of range as shown in the following
@@ -11506,41 +11650,91 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: a line -
-Incorrect:
-* not line and clustered column
-The Line and Clustered Column Chart is a combo charts that combines the Line chart and Column chart
-together in one visual. By combining these two visuals together, you can make a very quick comparison
+Hot Area:', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+الرسم يعرض Revenue عبر Date، ويعلم القيم البعيدة عن المتوقع بعلامات مثلثية. أكمل نوع الرسم والميزة التي أنشأت علامات الخروج عن النطاق.
 
-between two sets of measures.
+القصة والمعنى
+الخط يرسم المبيعات يومًا بيوم. ميزة أخرى تقارن كل يوم بالنمط المتوقع وتعلم الأيام غير المعتادة؛ المثلث مش مجرد شكل لكل نقطة على الخط.
 
-Box 2: anomaly detection -
-Anomaly detection helps you enhance your line charts by automatically detecting anomalies in your time
-series data. It also provides explanations for the anomalies to help with root cause analysis. With just a couple
-of clicks, you can easily find insights without slicing and dicing the data.
-Example:
+مثال نفهم بيه
+يوم قيمته 30 ألف قد يكون شاذًا وسط أيام قيمتها 5 آلاف. الحكم يعتمد على النمط والنطاق المتوقع، وليس مجرد كون الرقم هو الأكبر.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '225', '/dump-assets/f1-225-224-question.webp', '/dump-assets/f1-225-224-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. المعروض خط زمني بدون أعمدة أو تعبئة مساحة.
+2. Anomaly detection تحدد الخروج عن النطاق المتوقع.
+3. Marker عادي يميز النقاط، لكنه لا يقرر أيها شاذة. الشذوذ لا يعني بالضرورة خطأ بيانات.
+
+الإجابة الصحيحة وليه
+a line؛ anomaly detection.
+
+ليه كل اختيار صح أو غلط
+A. The visual type is: a line
+Line صحيح؛ خط Revenue مقابل Date.
+
+B. The visual type is: a line and clustered column
+Line and clustered column يحتاج أعمدة غير موجودة بالصورة.
+
+C. The visual type is: an area
+Area يتضمن مساحة مملوءة؛ لا تظهر هنا.
+
+D. Indicators showing out-of-range values are created using: a custom visual
+Custom visual غير لازم؛ الميزة مدمجة في Line chart.
+
+E. Indicators showing out-of-range values are created using: a trendline
+Trendline يلخص اتجاهًا ولا يعلم نقاط الشذوذ.
+
+F. Indicators showing out-of-range values are created using: anomaly detection
+Anomaly detection صحيح لتحديد القيم غير المعتادة.
+
+G. Indicators showing out-of-range values are created using: line chart markers
+Markers علامات نقاط عادية، لا تحليل للشذوذ.
+
+الخلاصة اللي تتحفظ
+خط زمني مع نقاط غير معتادة حددها البرنامج = Line chart مع Anomaly detection.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '225', '/dump-assets/f1-225-224-question.webp', '/dump-assets/f1-225-224-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-226-225', 'Visualize and analyze the data', 'single', 'You are creating a Power BI report to analyze consumer purchasing patterns from a table named Transactions. The
 
 Transactions table contains a numeric field named Spend.
 
 You need to include a visual that identifies which fields have the greatest impact on Spend.
 
-Which type of visual should you use?', '["Q&A","smart narrative","decomposition tree","key influencers"]', '[3]', 'The key influencers visual helps you understand the factors that drive a metric you''re interested in. It analyzes
-your data, ranks the factors that matter, and displays them as key influencers. For example, suppose you want
-to figure out what influences employee turnover, which is also known as churn. One factor might be
-employment contract length, and another factor might be commute time.
+Which type of visual should you use?', '["Q&A","smart narrative","decomposition tree","key influencers"]', '[3]', 'ترجمة السؤال بالعربي
+جدول Transactions فيه Spend رقمي. عايز رسمًا يحدد أي الحقول ترتبط بأكبر تأثير على الإنفاق. تختار إيه؟
 
-When to use key influencers -
-The key influencers visual is a great choice if you want to:
-See which factors affect the metric being analyzed.
-Contrast the relative importance of these factors. For example, do short-term contracts affect churn more
-than long-term contracts?
+القصة والمعنى
+مش المطلوب إجمالي الفلوس؛ المطلوب مين خصائصه بتظهر مع إنفاق أعلى. نحط Spend في Analyze والخصائص المحتملة في Explain by.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers', 'Final', '226', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+قد تجد عملاء Loyalty ينفقون بمتوسط 200 مقابل 120 لغيرهم. ده يوجه التحقيق، لا يثبت أن منح البطاقة سيزيد إنفاق كل عميل 80.
+
+طريقة التفكير خطوة بخطوة
+1. Key influencers يقارن العوامل المرتبطة بالمقياس.
+2. المقياس الرقمي يسمح بتحليل ما يرتبط بارتفاعه أو انخفاضه.
+3. النتيجة تتأثر بالعينة والحقول والفلاتر، ولا تثبت أن تغيير عامل وحده سيغيّر الإنفاق.
+
+الإجابة الصحيحة وليه
+D. key influencers.
+
+ليه كل اختيار صح أو غلط
+A. Q&A
+Q&A يجيب عن أسئلة، وليس التحليل المباشر لأهمية الحقول المطلوب.
+
+B. smart narrative
+Smart narrative يكتب ملخصًا بدل ترتيب العوامل.
+
+C. decomposition tree
+Decomposition tree يفكك المقياس عبر الفروع؛ أقل ملاءمة من تحليل العوامل الآلي هنا.
+
+D. key influencers
+Key influencers هو المخصص لمقارنة العوامل المرتبطة بالمقياس.
+
+الخلاصة اللي تتحفظ
+أي حقول ترتبط بأعلى Spend؟ Key influencers، لا مجرد ملخص للمبيعات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers', 'Final', '226', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-227-226', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You are creating a line chart in a Power BI report as shown in the following exhibit.
@@ -11551,30 +11745,53 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: an average reference line
+Hot Area:', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
+خط عدد موظفي السنة السابقة بالشهور، وخط متقطع أفقي باسم Year Average Employee Count: 9,315. أكمل طريقة إنشاء المرجع، ومكان إضافة Weeks و Days للدريل داون.
 
-With the Analytics pane in Power BI Desktop, you can add dynamic reference lines to visuals, and provide
-focus for important trends or insights.
+القصة والمعنى
+الخط المتقطع مسطرة نقارن بها الشهر: أعلى من متوسط السنة ولا أقل؟ والأسبوع واليوم مستويات تفصيل للوقت، مش مقاييس جديدة نجمعها.
 
-https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane
+مثال نفهم بيه
+يناير 9,300 أقل من 9,315، وأكتوبر 9,421 أعلى. النزول للأسبوع يغيّر تفصيل المحور؛ وضع Week في Values يجمع أرقامًا بدل إنشاء المستوى.
 
-Box 2: Axis
+طريقة التفكير خطوة بخطوة
+1. المرجع المسمى Average يناسبه Average reference line.
+2. مستويات Weeks و Days تضاف إلى Axis في تدرج زمني صحيح.
+3. الأسبوع ليس مستوى جاهزًا في Auto date hierarchy الافتراضي؛ أضف حقلًا مناسبًا ورتبه عند الحاجة.
 
-The question is about drill-down and not drill-through.
+الإجابة الصحيحة وليه
+an average reference line؛ Axis.
 
-https://radacad.com/drill-down-and-up-in-power-bi-explained
+ليه كل اختيار صح أو غلط
+A. The dashed Year Average Employee Count line was created using: a trend line
+Trend line يمثل ميل الاتجاه لا مرجع المتوسط.
 
-"For example, in the visual below I have Sales Amount as the Value of the column chart, and the Date field
-(Order Date) as the X-Axis.
+B. The dashed Year Average Employee Count line was created using: a secondary axis
+Secondary axis يضيف تدريجًا ولا ينشئ متوسطًا.
 
-Date hierarchy in a Power BI visual
+C. The dashed Year Average Employee Count line was created using: an average reference line
+Average reference line هو التفسير المباشر للمرجع.
 
-This will lead to seeing drill down/up buttons on the top of the visual (or at the bottom of it if the visual is
-touched at the very top of the report)"
+D. The dashed Year Average Employee Count line was created using: two measures in the Values bucket
+مقياسان قد يرسمان خطين، لكن الميزة المباشرة هنا مرجع المتوسط.
 
-Reference:
+E. To enable drill-down to weeks or days, add Weeks and Days to: Axis
+Axis صحيح لوضع مستويات الوقت.
 
-https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final', '227', '/dump-assets/f1-227-226-question.webp', '/dump-assets/f1-227-226-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+F. To enable drill-down to weeks or days, add Weeks and Days to: Values
+Values للقياس الرقمي وليس مستويات الوقت.
+
+G. To enable drill-down to weeks or days, add Weeks and Days to: Legend
+Legend يقسم السلاسل ولا يبني تدرج الدريل داون.
+
+H. To enable drill-down to weeks or days, add Weeks and Days to: Secondary values
+Secondary values قياس إضافي وليس مكان Weeks و Days للغرض المطلوب.
+
+الخلاصة اللي تتحفظ
+متوسط أفقي = Average line؛ شهر ثم أسبوع ثم يوم = Axis hierarchy.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final', '227', '/dump-assets/f1-227-226-question.webp', '/dump-assets/f1-227-226-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-228-227', 'Visualize and analyze the data', 'single', 'You have a dashboard that contains tiles pinned from a single report as shown in the Original Dashboard exhibit.
 
 (Click the Original Dashboard tab.)
@@ -11583,16 +11800,41 @@ You need to modify the dashboard to appear as shown in the Modified Dashboard ex
 
 Dashboard tab.)
 
-What should you do?', '["Change the report theme.","Change the dashboard theme.","Edit the details of each tile.","Create a custom CSS file."]', '[1]', 'With dashboard themes you can apply a color theme to your entire dashboard, such as corporate colors,
-seasonal coloring, or any other color theme you might want to apply. When you apply a dashboard theme, all
-visuals on your dashboard use the colors from your selected theme.
-Incorrect:
+What should you do?', '["Change the report theme.","Change the dashboard theme.","Edit the details of each tile.","Create a custom CSS file."]', '[1]', 'ترجمة السؤال بالعربي
+Dashboard فيها بلاطات مثبتة من تقرير واحد. الصورتان تعرضان نفس المحتوى والترتيب، لكن اللون تحول من فاتح إلى غامق. تغيّر إيه؟
 
-Not A: With Power BI Desktop report themes, you can apply design changes to your entire report, such as
-using corporate colors, changing icon sets, or applying new default visual formatting.
+القصة والمعنى
+الموضوع لبس لوحة المتابعة، مش إعادة حساب الداتا. Dashboard له Theme مستقل عن التقرير اللي جت منه البلاطات.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final', '228', '/exhibit-assets/f1-228-227.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+الكارت 33M يظل 33M؛ خلفيته أصبحت سوداء ونصه فاتح. Refresh لا يفسر التغيير الشكلي.
+
+طريقة التفكير خطوة بخطوة
+1. عدّل Dashboard theme لتغيير النمط العام للوحة.
+2. الهدف ليس تعديل عناوين البلاطات ولا إنشاء تقرير مختلف.
+3. Report theme يخص التقرير؛ لا تخلط بين تنسيق الكائنين.
+
+الإجابة الصحيحة وليه
+B. Change the dashboard theme.
+
+ليه كل اختيار صح أو غلط
+A. Change the report theme.
+Report theme يغيّر التقرير المصدر وليس الإعداد المباشر للوحة.
+
+B. Change the dashboard theme.
+Dashboard theme صحيح للتغيير العام الظاهر.
+
+C. Edit the details of each tile.
+Tile details للعناوين والروابط لا Theme شامل.
+
+D. Create a custom CSS file.
+CSS ليس مسار تخصيص قياسيًا للـDashboard.
+
+الخلاصة اللي تتحفظ
+ألوان لوحة المتابعة = Dashboard theme، حتى لو بلاطاتها كلها من تقرير واحد.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final', '228', '/exhibit-assets/f1-228-227.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-229-228', 'Visualize and analyze the data', 'single', 'You have a Power BI report. The report contains a visual that shows gross sales by date. The visual has anomaly
 
 detection enabled.
@@ -11601,15 +11843,41 @@ No anomalies are detected.
 
 You need to increase the likelihood that anomaly detection will identify anomalies in the report.
 
-What should you do?', '["Increase the Expected range transparency setting.","Add a data field to the Legend field well.","Increase the Sensitivity setting.","Add a data field to the Secondary values field well."]', '[2]', 'C. Increase the sensitivity
+What should you do?', '["Increase the Expected range transparency setting.","Add a data field to the Legend field well.","Increase the Sensitivity setting.","Add a data field to the Secondary values field well."]', '[2]', 'ترجمة السؤال بالعربي
+Anomaly detection مفعّل على Gross sales حسب التاريخ، لكنه لا يجد شذوذًا. عايز تزود احتمال التقاط الانحرافات. تغيّر إيه؟
 
-If you increase the sensitivity, the algorithm is more sensitive to changes in your data. In that case, even a
-slight deviation is marked as an anomaly. If you decrease the sensitivity, the algorithm is more selective on
-what it considers an anomaly.
+القصة والمعنى
+كاشف الشذوذ متسامح جدًا. عايز تخليه أشد حساسية، مش تخلي المنطقة المظللة أوضح للعين فقط.
 
-Reference:
+مثال نفهم بيه
+قفزة صغيرة قد لا تُعلّم عند حساسية أقل، ثم تُعلّم عند حساسية أعلى بحسب النمط. مفيش نسبة ثابتة تصلح لكل السلاسل.
 
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '229', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. ارفع Sensitivity ليصبح الكاشف أكثر استجابة للانحرافات.
+2. Expected range transparency إعداد شكلي وليس قرار الخوارزمية.
+3. الحساسية الأعلى قد تزيد إنذارات لا تستحق إجراء؛ راجع ملاءمتها للعمل.
+
+الإجابة الصحيحة وليه
+C. Increase the Sensitivity setting.
+
+ليه كل اختيار صح أو غلط
+A. Increase the Expected range transparency setting.
+Transparency تغير شفافية النطاق المعروض فقط.
+
+B. Add a data field to the Legend field well.
+Legend ليس إعداد حساسية وقد يتعارض مع دعم Anomaly detection.
+
+C. Increase the Sensitivity setting.
+Sensitivity هو المتحكم المقصود بمدى استجابة الكاشف.
+
+D. Add a data field to the Secondary values field well.
+Secondary values لا تزيد الحساسية وقد تمنع الميزة على الرسم.
+
+الخلاصة اللي تتحفظ
+عايز الكشف يلتقط انحرافات أكثر؟ زوّد Sensitivity، لا شفافية النطاق.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final', '229', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-230-229', 'Visualize and analyze the data', 'single', 'You maintain a Power BI workspace that contains a supplier quality dashboard. The dashboard contains 10 card
 
 visuals, two map visuals and five bar chart visuals.
@@ -11622,10 +11890,41 @@ You need to modify the dashboard mobile layout to meet the following requirement
 
 ✑ Minimize scrolling.
 
-What should you do?', '["Decrease the size of the card visuals. Remove the map and bar chart visuals.","Decrease the size of the map and bar chart visuals. Move all the card visuals to the top of the layout.","Remove the card visuals. Increase the size of the map and bar chart visuals.","Move the bar chart visuals to the top of the layout. Remove the map visuals. Decrease the size of the card visuals."]', '[0]', 'As the requirements, show only value, so A, remove map and charts.
+What should you do?', '["Decrease the size of the card visuals. Remove the map and bar chart visuals.","Decrease the size of the map and bar chart visuals. Move all the card visuals to the top of the layout.","Remove the card visuals. Increase the size of the map and bar chart visuals.","Move the bar chart visuals to the top of the layout. Remove the map visuals. Decrease the size of the card visuals."]', '[0]', 'ترجمة السؤال بالعربي
+Dashboard جودة موردين فيها 10 Cards وخريطتان و 5 Bar charts. تخطيط الهاتف مطلوب يعرض Single-value visuals فقط ويقلل التمرير. تعمل إيه؟
 
-Decreasing the size of card visuals will minimize the scrolling. Removing maps and chart visuals is a
-requirement as they are non single-vlaue visuals', 'Final', '230', '/exhibit-assets/f1-230-229.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+على الموبايل عايزين الأرقام المختصرة بس. الخريطة والأعمدة خارج شرط العرض ده؛ إخفاؤهم من تخطيط الهاتف مش حذف من المصدر.
+
+مثال نفهم بيه
+بدل 17 بلاطة كبيرة، يظهر 10 كروت فقط؛ كروت أصغر يمكن ترتيب بعضها جنب بعض. محتوى نسخة الويب ليس المطلوب حذفه.
+
+طريقة التفكير خطوة بخطوة
+1. احتفظ بالكروت لأنها تعرض قيمة مفردة.
+2. أزل الخرائط والأعمدة من Mobile layout.
+3. صغّر الكروت مع بقاء القراءة مريحة لتقليل المساحة والتمرير.
+
+الإجابة الصحيحة وليه
+A. Decrease the size of the card visuals. Remove the map and bar chart visuals.
+
+ليه كل اختيار صح أو غلط
+A. Decrease the size of the card visuals. Remove the map and bar chart visuals.
+يجمع الشرطين: الكروت فقط وتقليل أحجامها.
+
+B. Decrease the size of the map and bar chart visuals. Move all the card visuals to the top of the layout.
+يبقي خرائط وأعمدة، فيخالف Single-value only.
+
+C. Remove the card visuals. Increase the size of the map and bar chart visuals.
+يحذف بالضبط النوع المطلوب ويكبّر الأنواع غير المطلوبة.
+
+D. Move the bar chart visuals to the top of the layout. Remove the map visuals. Decrease the size of the card visuals.
+نقل الأعمدة لأعلى لا يحولها إلى Single-value.
+
+الخلاصة اللي تتحفظ
+استبعد الأنواع غير المطلوبة أولًا، ثم قلل الأحجام بشكل مقروء.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-create-dashboard-mobile-phone-view', 'Final', '230', '/exhibit-assets/f1-230-229.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-231-230', 'Visualize and analyze the data', 'single', 'You have a Power BI report.
 
 You have a table named Data1 that contains 10 million rows.
@@ -11642,18 +11941,41 @@ You need to modify the scatter plot to make it easier for users to identify mean
 
 not affect the accuracy of the other visuals.
 
-What should you do?', '["Add a count field of the transaction amount to the size bucket of the scatter plot.","Add a trend line to the scatter plot.","Enable high-density sampling on the scatter plot.","Apply a row filter to the Data1 query in Power Query Editor."]', '[2]', 'This question requires "modification" of the scatter plot and what high-density sampling essentially does is to
-employ methods that capture and represent the underlying data more effectively and eliminates overlapping
-points.
+What should you do?', '["Add a count field of the transaction amount to the size bucket of the scatter plot.","Add a trend line to the scatter plot.","Enable high-density sampling on the scatter plot.","Apply a row filter to the Data1 query in Power Query Editor."]', '[2]', 'ترجمة السؤال بالعربي
+Data1 فيها 10 ملايين صف، وتغذي Card لعدد السجلات وأعمدة للإجمالي و Scatter للمبلغ والربح حسب المنطقة. عايز توضح أنماط Scatter دون تغيير دقة باقي الرسومات.
 
-Remember that the table named Data1 contains 10 million rows. How do you represent all that data in a
-scatter plot in a meaningful pattern for easy understanding and analysis? by use of high density sampling.
+القصة والمعنى
+متقصش الداتا من Power Query علشان تريح رسمة واحدة؛ الكارت والإجمالي هيتأثروا. غيّر طريقة تمثيل النقاط داخل Scatter نفسه.
 
-"By definition, high-density data is sampled to create visualizations reasonably quickly that are responsive to
-interactivity. Too many data points on a visual can bog it down, and can detract from the visibility of trends".
+مثال نفهم بيه
+الكارت يظل 10,000,000 والإجمالي يظل كما هو، بينما Scatter يستخدم تمثيلًا أنسب للكثافة. فلترة الجدول لألف صف كانت ستغيّر الاثنين.
 
-This link explains it more: https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-
-scatter-charts#how-high-density-scatter-charts-work', 'Final', '231', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. High-density sampling يغير تمثيل النقاط الكثيفة في هذا الرسم.
+2. لا يحذف سجلات الموديل ولا يغيّر حساب الرسومات الأخرى.
+3. لا يعني عرض كل نقطة من العشرة ملايين أو ضمان كشف كل حالة نادرة.
+
+الإجابة الصحيحة وليه
+C. Enable high-density sampling on the scatter plot.
+
+ليه كل اختيار صح أو غلط
+A. Add a count field of the transaction amount to the size bucket of the scatter plot.
+Size يضيف بعدًا لحجم النقطة؛ لا يحل تمثيل كثافة النقاط ذاته.
+
+B. Add a trend line to the scatter plot.
+Trend line يلخص اتجاهًا ولا يغيّر خوارزمية تمثيل الكثافة.
+
+C. Enable high-density sampling on the scatter plot.
+High-density sampling هو الإعداد المحلي الأنسب هنا.
+
+D. Apply a row filter to the Data1 query in Power Query Editor.
+فلتر Power Query يحذف بيانات يحتاجها باقي التقرير.
+
+الخلاصة اللي تتحفظ
+مشكلة رسم كثيف؟ عدّل تمثيل الرسم، لا تحذف بيانات يحتاجها غيره.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-high-density-scatter-charts', 'Final', '231', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-232-231', 'Visualize and analyze the data', 'multi', 'You have a Power BI workspace named Inventory that contains a dataset, a report, and a dashboard.
 
 You need to add an additional tile to the dashboard. The tile must show inventory by location. This information is
@@ -11662,20 +11984,44 @@ NOT visualized in the report. The solution must minimize the impact on the repor
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["Ask a question by using Q&A.","Hide the report page.","Pin the visual to the dashboard.","Use quick insights on the dashboard.","Add the visual to the report."]', '[0,2]', 'In the Power BI service (app.powerbi.com), a dashboard contains tiles pinned from one or more datasets, so
-you can ask questions about any of the data contained in any of those datasets. T
+NOTE: Each correct selection is worth one point.', '["Ask a question by using Q&A.","Hide the report page.","Pin the visual to the dashboard.","Use quick insights on the dashboard.","Add the visual to the report."]', '[0,2]', 'ترجمة السؤال بالعربي
+Workspace Inventory فيها موديل وتقرير ولوحة. عايز بلاطة مخزون حسب الموقع، غير موجودة في التقرير، بأقل أثر على التقرير. اختار إجراءين.
 
-The answer to your question is displayed as an interactive visualization and updates as you modify the
-question.
+القصة والمعنى
+لو حقول الموقع والمخزون موجودة في الموديل، اسأل عنها من Dashboard وثبّت الإجابة. لا تحتاج صفحة تقرير مؤقتة.
 
-Open a dashboard and place your cursor in the question box. Even before you start typing, Q&A displays a
-new screen with suggestions to help you form your question. You see phrases and complete questions
-containing the names of the tables in the underlying datasets and may even see complete questions listed if
-the dataset owner has created featured questions,
+مثال نفهم بيه
+Inventory by Location ينتج رسمًا يمكن تثبيته. التقرير الأصلي لا يحتاج Visual أو صفحة إضافية.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. استخدم Q&A لإنشاء الرسم المطلوب في بيئة السؤال الداعمة للميزة.
+2. راجع نتيجة السؤال ثم Pin إلى Dashboard.
+3. هذا المسار لا ينشئ حقولًا غير موجودة في الموديل؛ يلزم أن يدعم المصدر السؤال.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/power-bi-tutorial-q-and-a', 'Final', '232', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+A و C: Ask a question using Q&A؛ ثم Pin the visual.
+
+ليه كل اختيار صح أو غلط
+A. Ask a question by using Q&A.
+Q&A ينشئ الرسم من الموديل دون تعديل التقرير.
+
+B. Hide the report page.
+Hide page لا ينشئ الرسم، وإضافة صفحة ثم إخفاؤها جهد إضافي.
+
+C. Pin the visual to the dashboard.
+Pin يحول ناتج السؤال إلى بلاطة اللوحة المطلوبة.
+
+D. Use quick insights on the dashboard.
+Quick insights لا يضمن النتيجة المحددة Inventory by location.
+
+E. Add the visual to the report.
+إضافة الرسم للتقرير ممكنة لكنها تعدله خلاف هدف أقل أثر.
+
+الخلاصة اللي تتحفظ
+Visual جديد على Dashboard دون تعديل التقرير: Q&A ثم Pin في البيئة الداعمة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-tutorial-q-and-a', 'Final', '232', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-233-232', 'Visualize and analyze the data', 'manual', 'HOTSPOT -
 
 You have a dataset named Pens that contains the following columns:
@@ -11696,53 +12042,85 @@ answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: A scatter plot of Quantity Ordered and Unit Price by item
-A scatter chart shows the relationship between two numerical values.
-Note: Scatter charts are a great choice:
-To show relationships between two numerical values.
-To plot two groups of numbers as one series of x and y coordinates.
-To use instead of a line chart when you want to change the scale of the horizontal axis.
-To turn the horizontal axis into a logarithmic scale.
+Hot Area:', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
+Pens فيها Item و Unit Price و Quantity Ordered. عايز توضح علاقة السعر بالكمية وتبرز العناصر ذات الأسعار والكميات المتشابهة. تختار رسمًا وميزة.
 
-To display worksheet data that includes pairs or grouped sets of values.
-To show patterns in large sets of data, for example by showing linear or non-linear trends, clusters, and
-outliers.
-To compare large numbers of data points without regard to time. The more data that you include in a Scatter
-chart, the better the comparisons that you can make.
-Box 2: Automatically find clusters
-Scatter charts are a great choice:
-* To show patterns in large sets of data, for example by showing linear or non-linear trends, clusters, and
-outliers.
+القصة والمعنى
+كل Item نقطة؛ سعره على محور وكمّيته على الآخر. القريبون في الخاصيتين يظهروا جنب بعض، و Clustering يميز المجموعات.
 
-Reference:
-https://github.com/Microsoft/powerbi-visuals-corrplot/', 'Final', '233', '/dump-assets/f1-233-232-question.webp', '/dump-assets/f1-233-232-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+قلمان سعرهما 10 و 11 والكمية 100 و 105 قريبان؛ قلم سعره 80 وكمّيته 5 بعيد. التشابه هنا في السعر والكمية معًا.
+
+طريقة التفكير خطوة بخطوة
+1. ضع Unit Price و Quantity Ordered على محوري Scatter مع Item لتفصيل النقاط.
+2. Automatically find clusters يجمع النقاط المتشابهة في الإحداثيات.
+3. لو Item يجمع طلبات متعددة فالنقطة تمثل العنصر بالتجميع المختار، لا كل OrderID مستقل؛ لا نخترع مستوى طلب غير موجود.
+
+الإجابة الصحيحة وليه
+A scatter plot of Quantity Ordered and Unit Price by item؛ Automatically find clusters.
+
+ليه كل اختيار صح أو غلط
+A. Visualization: A column chart of Quantity Ordered and Unit Price by year
+Column by year يضيف محورًا زمنيًا غير مطلوب ولا يعرض علاقة الرقمين كنقاط.
+
+B. Visualization: A line chart of Quantity Ordered and Unit Price by item
+Line by item يوحي بتتابع بين العناصر لا يحتاجه التحليل.
+
+C. Visualization: A scatter plot of Quantity Ordered and Unit Price by item
+Scatter by item مناسب لعلاقة متغيرين رقميين.
+
+D. Feature: Automatically find clusters
+Automatically find clusters صحيح لتجميع النقاط المتقاربة.
+
+E. Feature: Explain the decrease
+Explain the decrease يفسر انخفاضًا، لا ينشئ المجموعات المطلوبة.
+
+F. Feature: Find where the distribution is different
+Find where distribution is different يقارن توزيعات ولا ينشئ Clusters الرسم.
+
+الخلاصة اللي تتحفظ
+علاقة رقمين = Scatter؛ مجموعات التشابه = Find clusters. راجع مستوى كل نقطة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-scatter', 'Final', '233', '/dump-assets/f1-233-232-question.webp', '/dump-assets/f1-233-232-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-234-233', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains three pages named Page1, Page2, and Page3. All the pages have the
 
 same slicers.
 
 You need to ensure that all the filters applied to Page1 apply to Page1 and Page3 only.
 
-What should you do?', '["On each page, modify the interactions of the slicer.","Enable visibility of the slicers on Page1 and Page3. Disable visibility of the slicer on Page2.","Sync the slicers on Page1 and Page3."]', '[2]', 'C. Sync the slicers on Page1 and Page3.
+What should you do?', '["On each page, modify the interactions of the slicer.","Enable visibility of the slicers on Page1 and Page3. Disable visibility of the slicer on Page2.","Sync the slicers on Page1 and Page3."]', '[2]', 'ترجمة السؤال بالعربي
+Page1 و Page2 و Page3 فيها نفس السلايسرات. عايز اختيارات Page1 تنعكس على Page1 و Page3 فقط. تعمل إيه؟
 
-Editing interactions is not securing any selection in any page will be replicated for the same slicer in other
-pages.
+القصة والمعنى
+Page2 عايزينها مستقلة. إخفاء السلايسر منها مش كفاية؛ السلايسر المخفي ممكن يظل مشاركًا في المزامنة.
 
-Making visible or hiding slicers is also not impacting the selection in other pages (and it would be difficult
-selecting anything in a hidden slicer).
+مثال نفهم بيه
+اختيار Egypt في الأولى ينعكس في الثالثة، والثانية تحتفظ باختيارها. Report filter مستقل يمكن أن يشمل الجميع رغم ذلك.
 
-Slicers 1&3 must be synced with equivalent slicers in all pages across the report
+طريقة التفكير خطوة بخطوة
+1. فعّل Sync على Page1 و Page3 فقط.
+2. اترك Page2 خارج مجموعة المزامنة.
+3. Visible يتحكم في الظهور و Sync في تبادل الاختيار. كلمة filters هنا يقصد بها اختيارات السلايسرات، لا كل نوع فلتر آخر.
 
-Syncing slicers across pages ensures that the filters applied on Page1 are automatically applied to Page3.
-This allows the slicer selections to affect multiple pages simultaneously. By syncing slicers, you ensure that
-the same filters are maintained across the desired pages while allowing for flexibility on other pages.
+الإجابة الصحيحة وليه
+C. Sync the slicers on Page1 and Page3.
 
-Why Other Options Are Incorrect:
+ليه كل اختيار صح أو غلط
+A. On each page, modify the interactions of the slicer.
+Edit interactions يضبط تأثير رسومات الصفحة نفسها لا مزامنة الصفحات.
 
-A. Modify slicer interactions: This would require more manual setup, and you can''t fully control which pages
-the slicer applies to without syncing.
+B. Enable visibility of the slicers on Page1 and Page3. Disable visibility of the slicer on Page2.
+إخفاء السلايسر لا يخرج الصفحة تلقائيًا من Sync.
 
-B. Enable visibility on specific pages: This approach only affects visibility, not the slicer''s functionality across
-pages.', 'Final', '234', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Sync the slicers on Page1 and Page3.
+مزامنة الصفحتين المطلوبتين فقط تحقق الاختيار المشترك.
+
+الخلاصة اللي تتحفظ
+Sync يشارك الاختيار؛ Visible يحدد الظهور فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '234', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-235-234', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains five pages.
 
 Pages 1 to 4 are visible and page 5 is hidden.
@@ -11751,45 +12129,160 @@ You need to create a solution that will enable users to quickly navigate from th
 
 pages. The solution must minimize development and maintenance effort as pages are added to the report.
 
-What should you do first?', '["Add a blank button to page 1.","Add a page navigation button to page 1.","Create a bookmark for each page.","Add a bookmark navigation button to page 1."]', '[1]', 'B is correct. Add a page navigation button to page 1 because the solution must minimize development and
-maintenance effort as pages are added to the report. If we add more pages the report they will be
-automatically added to the page navigator. Only thing is you have to change ''show hidden pages'' option to off.
-But with the bookmark navigator, lot of efforts required to create individual bookmark to each page and also
-the newly added pages manually. another problem is it also adds all other bookmarks to the navigator which
-we dont need. so we should create a page navigator button in page 1(and set ''show hidden pages'' to off)', 'Final', '235', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do first?', '["Add a blank button to page 1.","Add a page navigation button to page 1.","Create a bookmark for each page.","Add a bookmark navigation button to page 1."]', '[1]', 'ترجمة السؤال بالعربي
+تقرير خمس صفحات، الأربع الأولى ظاهرة والخامسة مخفية. مطلوب من Page1 ملاحة لكل الصفحات الظاهرة، بأقل صيانة عند إضافة صفحات. تبدأ بإيه؟
+
+القصة والمعنى
+مش كل صفحة جديدة هنرجع نعمل لها زر ورابط. Page navigator يبني قائمة من صفحات التقرير نفسها.
+
+مثال نفهم بيه
+إضافة Page6 ظاهرة تضيفها للملاح. Page5 المخفية تظل خارج القائمة مع تعطيل Show hidden pages.
+
+طريقة التفكير خطوة بخطوة
+1. أضف Page navigator إلى الصفحة الأولى؛ هذا المقصود بخيار Page navigation.
+2. اضبط عدم عرض Hidden pages.
+3. الأسماء والترتيب والإضافات تتزامن مع الصفحات بدل إنشاء Bookmark لكل صفحة.
+
+الإجابة الصحيحة وليه
+B. Add a page navigation button to page1؛ المقصود Page navigator.
+
+ليه كل اختيار صح أو غلط
+A. Add a blank button to page 1.
+Blank button يحتاج ربطًا يدويًا وتكرارًا لكل وجهة.
+
+B. Add a page navigation button to page 1.
+Page navigator الصحيح لملاحة تتبع الصفحات.
+
+C. Create a bookmark for each page.
+Bookmarks لكل صفحة تزيد الكائنات والصيانة.
+
+D. Add a bookmark navigation button to page 1.
+Bookmark navigator يتابع Bookmarks لا كل الصفحات تلقائيًا.
+
+الخلاصة اللي تتحفظ
+ملاحة تتحدث مع الصفحات = Page navigator؛ مع الحالات المحفوظة = Bookmark navigator.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/button-navigators', 'Final', '235', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-236-235', 'Visualize and analyze the data', 'single', 'You build a Power BI report that displays IoT temperature data streaming from a refrigerator.
 
 You publish the report to the Power BI service.
 
 You need to be notified when the temperature rises above four degrees Celsius.
 
-What should you do?', '["Set an alert on a KPI visual in the report.","Pin a card visual to a dashboard and create a subscription.","Pin a card visual to a dashboard and set an alert on the tile.","Pin a report page to a dashboard and set an alert on the page."]', '[2]', 'You first have to pin a one-value visual to the dashboard (Card/KPI/Gauge) and then you can set an alert on it''s
-value. You can''t set alerts on a report or whole report pages pinned to the dashboard.', 'Final', '236', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Set an alert on a KPI visual in the report.","Pin a card visual to a dashboard and create a subscription.","Pin a card visual to a dashboard and set an alert on the tile.","Pin a report page to a dashboard and set an alert on the page."]', '[2]', 'ترجمة السؤال بالعربي
+تقرير حرارة ثلاجة من IoT منشور على الخدمة. عايز إشعارًا لما الحرارة تزيد عن أربع درجات مئوية. تعمل إيه؟
+
+القصة والمعنى
+إيميل دوري فيه التقرير مش إنذار حرارة. نحتاج تنبيهًا شرطيًا على رقم يتحدث، فنثبت Card ثم نحدد Above 4.
+
+مثال نفهم بيه
+3.5 لا تتجاوز الشرط؛ 4.2 تتجاوزه عند تقييم التنبيه. Subscription ترسل عرضًا في وقت محدد بصرف النظر عن هذه العتبة.
+
+طريقة التفكير خطوة بخطوة
+1. ثبّت Card للحرارة على Dashboard.
+2. أنشئ Alert على البلاطة بحد أكبر من 4.
+3. الإنذار القياسي للأرقام في البلاطات المدعومة وبعد تجدد البيانات؛ ليس لصفحة Live كاملة ولا بديلًا لنظام أمان الثلاجة.
+
+الإجابة الصحيحة وليه
+C. Pin a card visual to a dashboard and set an alert on the tile.
+
+ليه كل اختيار صح أو غلط
+A. Set an alert on a KPI visual in the report.
+التنبيه المقصود على Dashboard tile وليس KPI داخل التقرير مباشرة.
+
+B. Pin a card visual to a dashboard and create a subscription.
+Subscription إرسال مجدول لا شرط Above 4.
+
+C. Pin a card visual to a dashboard and set an alert on the tile.
+Card مثبتة ثم Alert هو المسار الصحيح.
+
+D. Pin a report page to a dashboard and set an alert on the page.
+Live page ليست بلاطة Single-value تقبل التنبيه القياسي.
+
+الخلاصة اللي تتحفظ
+تجاوز عتبة رقمية = Alert على بلاطة مدعومة، مش Subscription للتقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final', '236', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-237-236', 'Visualize and analyze the data', 'single', 'You have the dashboard shown in the following exhibit.
 
 You need to modify the dashboard to display as shown in the following exhibit.
 
-What should you do?', '["Create and apply a custom dashboard theme.","Change the colors of the visuals in the report.","Apply the Dark dashboard theme.","Upload a snapshot image of the dashboard."]', '[0]', 'The visual colors can''t be changed on the dashboard from a report after the visual has already been pinned.
-Applying a dashboard custom theme will do it.', 'Final', '237', '/exhibit-assets/f1-237-236.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Create and apply a custom dashboard theme.","Change the colors of the visuals in the report.","Apply the Dark dashboard theme.","Upload a snapshot image of the dashboard."]', '[0]', 'ترجمة السؤال بالعربي
+Dashboard بأعمدة مناطق ومنتجات مطلوب تغييرها للشكل المعروض: خلفية رمادية وأعمدة بترولية مع بقاء المحتوى. تعمل إيه؟
+
+القصة والمعنى
+المطلوب مش Dark الأسود الجاهز؛ ألوان محددة لخلفية اللوحة والبلاطات والرسومات. يبقى Custom theme للـDashboard.
+
+مثال نفهم بيه
+نفس ترتيب ShipRegion وأطوال الأعمدة، لكن الأزرق أصبح بتروليًا والخلفية رمادية؛ لا تحتاج DAX جديدًا.
+
+طريقة التفكير خطوة بخطوة
+1. التغيير شكل عام للوحة لا حسابات بيانات.
+2. Custom dashboard theme يحدد ألوان اللوحة وبلاطاتها.
+3. Snapshot ثابت قد يشبهها بصريًا لكنه ليس لوحة مرتبطة ببيانات.
+
+الإجابة الصحيحة وليه
+A. Create and apply a custom dashboard theme.
+
+ليه كل اختيار صح أو غلط
+A. Create and apply a custom dashboard theme.
+Custom dashboard theme يحقق الألوان المحددة.
+
+B. Change the colors of the visuals in the report.
+ألوان التقرير لا تضبط الخلفية العامة للوحة مباشرة.
+
+C. Apply the Dark dashboard theme.
+Dark الجاهز لا يطابق الشكل الرمادي المخصص.
+
+D. Upload a snapshot image of the dashboard.
+Snapshot صورة ثابتة تفقد وظيفة البلاطات.
+
+الخلاصة اللي تتحفظ
+ألوان Dashboard غير الثيم الجاهز؟ Custom dashboard theme.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final', '237', '/exhibit-assets/f1-237-236.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-238-237', 'Visualize and analyze the data', 'single', 'You need to create a Power BI theme that will be used in multiple reports. The theme will include corporate
 
 branding for font size, color, and bar chart formatting.
 
-What should you do?', '["From Power BI Desktop, customize the current theme.","From Power BI Desktop, use a built-in report theme.","Create a theme as a PBIVIZ file and import the theme into Power BI Desktop.","Create a theme as a JSON file and import the theme into Power BI Desktop."]', '[3]', 'D. Create a theme as a JSON file and import the theme into Power BI Desktop.
+What should you do?', '["From Power BI Desktop, customize the current theme.","From Power BI Desktop, use a built-in report theme.","Create a theme as a PBIVIZ file and import the theme into Power BI Desktop.","Create a theme as a JSON file and import the theme into Power BI Desktop."]', '[3]', 'ترجمة السؤال بالعربي
+عايز Theme لهوية الشركة يعاد استخدامه في تقارير متعددة، يشمل أحجام الخطوط والألوان وتنسيق Bar chart. تعمل إيه؟
 
-To create a Power BI theme that can be used across multiple reports and workspaces, the best approach
-would be to create a theme as a JSON file and then import it into Power BI Desktop. This will allow you to
-define the corporate branding for font size, color, and bar chart formatting in a single file, which can then be
-easily imported into all the reports that require it.
+القصة والمعنى
+بدل ما تعيد الضبط في كل ملف، خليه ملف هوية قابلًا للاستيراد. الملف يصف التنسيق، مش مكون Visual جديد.
 
-To create a theme as a JSON file, you can use the built-in Theme Generator tool in Power BI or create the file
-manually. Once you have the JSON file, you can import it into Power BI Desktop by going to the "Switch
-Theme" menu and selecting "Import Theme." From there, you can select the JSON file and apply the theme to
-the current report.
+مثال نفهم بيه
+ملف هوية الشركة يحدد اللون والخط وإعدادات الأعمدة؛ تستورده في Sales و Finance بدل تكرار الضبط.
 
-A seems to be correct but D is more complete solution, as you have to be able to use it in multiple reports. D
-does not say how you create the JSON file, though. You can create it by customizing current theme in one of
-the reports and then exporting it as JSON.', 'Final', '238', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. Report theme المخصص يستخدم JSON.
+2. تقدر تخصص ثيمًا وتصدره JSON وتعيد استيراده؛ الاختيار الذي يصف الحزمة القابلة لإعادة الاستخدام هو JSON.
+3. PBIVIZ حزمة Custom visual. التنسيق اليدوي للرسم قد يتغلب على إعدادات الثيم.
+
+الإجابة الصحيحة وليه
+D. Create a theme as a JSON file and import it into Power BI Desktop.
+
+ليه كل اختيار صح أو غلط
+A. From Power BI Desktop, customize the current theme.
+تخصيص الحالي ممكن كخطوة، لكنه وحده لا يصف حفظ الثيم وإعادة استخدامه.
+
+B. From Power BI Desktop, use a built-in report theme.
+Built-in لا يضمن مواصفات الشركة المخصصة.
+
+C. Create a theme as a PBIVIZ file and import the theme into Power BI Desktop.
+PBIVIZ لحزمة Visual وليس Report theme.
+
+D. Create a theme as a JSON file and import the theme into Power BI Desktop.
+JSON هو ملف الثيم القابل للاستيراد.
+
+الخلاصة اللي تتحفظ
+Theme = JSON؛ Custom visual = PBIVIZ.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/report-themes-create-custom', 'Final', '238', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-239-238', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains one page. The page contains two line charts and one bar chart.
 
 You need to ensure that users can perform the following tasks for all three visuals:
@@ -11802,25 +12295,41 @@ You need to ensure that users can perform the following tasks for all three visu
 
 The solution must minimize development effort.
 
-What should you do?', '["Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart.","Edit the interactions between the three visuals.","Enable personalization for the report.","Enable personalization for each visual."]', '[2]', 'Personalization can be enabled for each visual or the entire report. Here we have a single page report with 3
-visuals and all three visuals need personalization, the answer is ''enable personalization for the entire report''
-to minimize development efforts.
+What should you do?', '["Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart.","Edit the interactions between the three visuals.","Enable personalization for the report.","Enable personalization for each visual."]', '[2]', 'ترجمة السؤال بالعربي
+صفحة فيها خطان ورسم أعمدة. عايز المستهلك يبدل المقاييس ونوع الرسم ويضيف Legend في الثلاثة بأقل تطوير. تعمل إيه؟
 
-Enabling personalization allows users to modify the visuals in the report, including switching measures,
-changing visualization types, and adding legends. This feature minimizes development effort by letting users
+القصة والمعنى
+متعملش Bookmark لكل احتمال؛ عدد التركيبات هيكبر. افتح Personalize visuals والقارئ يجرب نسخته دون تعديل تصميم الكاتب.
 
-customize the visuals according to their preferences without requiring additional setup or bookmarks.
+مثال نفهم بيه
+طالب يعرض Revenue كأعمدة وزميله Profit كخط؛ كل واحد له عرض شخصي والتقرير الأصلي لا يتغير.
 
-Why Other Options Are Incorrect:
+طريقة التفكير خطوة بخطوة
+1. التخصيص الشخصي يدعم تبديل النوع والحقول والـLegend في الرسومات الداعمة.
+2. تمكين الميزة على مستوى التقرير يغطي المطلوب بأقل إعداد.
+3. هذا استكشاف للقارئ، لا صلاحية تعديل الموديل أو كتابة أي DAX جديد.
 
-A. Create a bookmark for each combination: This requires creating multiple bookmarks for all possible
-combinations, increasing complexity.
+الإجابة الصحيحة وليه
+C. Enable personalization for the report.
 
-B. Edit interactions between visuals: This helps with visual interactivity but doesn''t directly allow users to
-change measures or types.
+ليه كل اختيار صح أو غلط
+A. Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart.
+Bookmark لكل تركيبة حل ثقيل ولا يغطي الاستكشاف المفتوح بسهولة.
 
-D. Enable personalization for each visual: This is not necessary as enabling personalization for the report
-covers all visuals.', 'Final', '239', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. Edit the interactions between the three visuals.
+Edit interactions يضبط التأثير بين الرسومات لا أنواعها وحقولها.
+
+C. Enable personalization for the report.
+تمكين التقرير يحقق الوظيفة لكل الرسومات المطلوبة.
+
+D. Enable personalization for each visual.
+ضبط كل رسم منفصل مفيد للاستثناءات، لكنه ليس الأقل جهدًا هنا.
+
+الخلاصة اللي تتحفظ
+تبديل شخصي لنوع الرسم وحقوله = Personalize visuals، مش آلاف Bookmarks.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals', 'Final', '239', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-240-239', 'Model the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -11839,12 +12348,35 @@ You need to create a reference line to show which employees are above the median
 
 Solution: You create a median line by using the Salary measure.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Answer is Yes
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+Bar chart يعرض Salary بالدولار لكل Employee. مطلوب خط مرجعي يوضح الموظفين فوق الراتب الوسيط. الحل إنشاء Median line على Salary. هل يحقق الهدف؟
 
-We can definitely create a median line for the measure of salary (Tested)
+القصة والمعنى
+رتّب المرتبات وخد القيمة التي تقسم المجموعة نصفين. ده الوسيط، مش المتوسط الذي قد يسحبه راتب مدير ضخم لفوق.
 
-Also the other solution in this series is create a percentile line at 50% for the salary measure because
-percentile value at 50 % is exactly equal to the median value.', 'Final', '240', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+مرتبات 10 و 12 و 14 و 16 و 100: الوسيط 14 والمتوسط 30.4. خط الوسيط يميز 16 و 100 بدل المقارنة بمتوسط مختلف.
+
+طريقة التفكير خطوة بخطوة
+1. المطلوب Median والحل Median reference line على نفس Salary.
+2. الأعمدة التي تتجاوز المرجع أعلى من الوسيط في السياق المعروض.
+3. الخط أداة مقارنة بصرية؛ لا يغيّر المرتبات ولا يطبق صلاحيات.
+
+الإجابة الصحيحة وليه
+A. Yes.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+Yes صحيح لأن الخط والمقياس يطابقان Median salary المطلوب.
+
+B. No
+No غير صحيح؛ لا يوجد في السؤال مانع لإنشاء Median line على Salary الرقمي.
+
+الخلاصة اللي تتحفظ
+Median يعني الوسيط، لا Average ولا منتصف أصغر وأكبر راتب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final', '240', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-241-240', 'Model the data', 'manual', 'DRAG DROP
 
 -
@@ -11859,12 +12391,44 @@ range shown in the following table.
 
 Which three actions should you perform in sequence in Power BI Desktop? To answer, move the appropriate
 
-actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[3,0,1]', 'To apply conditional formatting to the Revenue column in Power BI, follow these steps:
+actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[3,0,1]', 'ترجمة السؤال بالعربي
+Table visual فيه مقياس Revenue من صفر إلى 5. مطلوب لون خلفية مختلف لكل نطاق: صفر أبيض، أكبر من صفر إلى 2 أصفر، أكبر من 2 إلى 3 أخضر فاتح، أكبر من 3 إلى 4 أخضر، وأكبر من 4 أخضر غامق. رتب ثلاث خطوات.
 
-Open the Background color dialog: Click on the Revenue column and open the formatting options.
-Set Format style to Rules: This allows you to create rules for different value ranges.
-Add and configure new rules: Define the color for each value range (e.g., setting one color for low revenue,
-another for high revenue).', 'Final', '241', '/dump-assets/f1-241-240-question.webp', '/dump-assets/f1-241-240-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الرقم موجود أصلًا، وإنت عايز تلوّن أرضية خليته حسب حدوده. مش مطلوب تحسب لونًا في عمود جديد؛ قواعد مباشرة تكفي.
+
+مثال نفهم بيه
+Revenue=2 يدخل في الأصفر؛ 2.01 يدخل في الأخضر الفاتح؛ 4 يدخل في الأخضر؛ 4.01 يدخل في الغامق. ضبط الحدود يمنع وجود قيمة بلا لون أو في نطاقين.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Background color لعمود Revenue.
+2. اختر Format style = Rules.
+3. أضف قاعدة لكل نطاق، مع مراعاة الحدود شاملة أو غير شاملة، ونوع الحد Number لا Percent.
+
+الإجابة الصحيحة وليه
+Open Background color → Rules → Add and configure a rule for each range.
+
+ليه كل اختيار صح أو غلط
+A. Set Format style to Rules.
+Rules صحيح؛ يحدد لونًا وفق حدود رقمية.
+
+B. Add and configure a new rule for each value range.
+إضافة القواعد تأتي بعد فتح التنسيق واختيار Rules.
+
+C. Set Format style to Field value.
+Field value يحتاج حقلًا يرجع لونًا مثل #FFFFFF، وليس الرقم Revenue نفسه.
+
+D. Open the Background color dialog for the Revenue column.
+Background color هو نوع التنسيق المطلوب، ويبدأ به التسلسل.
+
+E. Open the Font color dialog for the Revenue column.
+Font color يلوّن الكتابة، بينما السؤال يطلب الخلفية.
+
+الخلاصة اللي تتحفظ
+نطاقات أرقام إلى ألوان مباشرة = Rules. حقل يرجع كود اللون = Field value.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-conditional-table-formatting', 'Final', '241', '/dump-assets/f1-241-240-question.webp', '/dump-assets/f1-241-240-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-242-241', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains four pages.
 
 All the pages contain a slicer for a field named Country.
@@ -11873,17 +12437,41 @@ You need to ensure that when a user selects a country on page 1, the selection i
 
 The solution must prevent page 4 from being affected by selections on the other pages.
 
-What should you do?', '["Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.","Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.","Move the Country slicer from page 2 and page 3 to page 1.","Sync the Country slicer on page 1, page 2, and page 3."]', '[3]', 'Sync the Country slicer on page 1, page 2, and page 3.
+What should you do?', '["Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.","Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.","Move the Country slicer from page 2 and page 3 to page 1.","Sync the Country slicer on page 1, page 2, and page 3."]', '[3]', 'ترجمة السؤال بالعربي
+تقرير أربع صفحات، كل صفحة فيها Country slicer. اختيار الدولة على الصفحة الأولى لازم يستمر في الثانية والثالثة، ولا يؤثر على الرابعة. تعمل إيه؟
 
-Syncing the Country slicer across pages ensures that the selection made on Page 1 will be retained on Page 2
-and Page 3. The Country slicer on Page 4 will not be affected, as it is not synchronized with the other pages.
+القصة والمعنى
+مش هنحذف سلايسرات الصفحات؛ هنحدد مين بيشارك مين في الاختيار. الصفحة الرابعة خارج المجموعة.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+اختيار France في الأولى يجعل الثانية والثالثة تعرضان France. الرابعة لا تستقبل الاختيار من المجموعة ويمكن أن تعرض دولة مختلفة.
 
-A and B: Using filters at the page or report level doesn’t give the flexibility of controlling slicer behavior
-across individual pages.
+طريقة التفكير خطوة بخطوة
+1. فعّل Sync لنفس Country slicer على الصفحات 1 و 2 و 3.
+2. لا تضف الصفحة 4 إلى هذه المزامنة.
+3. إعدادات الظهور مستقلة عن المزامنة؛ مجرد نقل السلايسر أو إخفائه لا يضبط نطاق التأثير.
 
-C: Moving the slicer to Page 1 only doesn''t address the requirement to apply slicer selections across pages.', 'Final', '242', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+D. Sync the Country slicer on page1, page2, and page3.
+
+ليه كل اختيار صح أو غلط
+A. Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.
+Page-level filters مستقلة ولا تتبادل اختيارات المستخدم تلقائيًا.
+
+B. Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.
+Report-level filter يشمل الرابعة أيضًا، خلاف الشرط.
+
+C. Move the Country slicer from page 2 and page 3 to page 1.
+نقل السلايسرات لا ينشئ مزامنة عبر الصفحات.
+
+D. Sync the Country slicer on page 1, page 2, and page 3.
+Sync للصفحات الثلاث وحدها يطابق المطلوب.
+
+الخلاصة اللي تتحفظ
+اختيار واحد لصفحات محددة = Sync وحدد الصفحات بالاسم، لا Report filter.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '242', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-243-242', 'Visualize and analyze the data', 'manual', 'DRAG DROP
 
 -
@@ -11898,34 +12486,44 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct
 
-order.', '[]', '[2,4,1]', '1. From Power BI Desktop, get the Word Cloud visual from Microsoft AppSource
+order.', '[]', '[2,4,1]', 'ترجمة السؤال بالعربي
+عندك موديل وتقرير فارغ. مطلوب Word Cloud مثل الصورة بأقل تطوير. رتب إجراءات الحصول على الرسم وتغذيته وتنسيقه.
 
-2. Populate the Category, Value, and Excludes fields
+القصة والمعنى
+مش هنبرمج رسمًا من الصفر أو ننزل ملفات ونستوردها يدويًا طالما الرسم متاح من AppSource داخل Desktop. الأول نجيب المكون، ثم نديله الكلمات والأوزان.
 
-3. Format the data colors and title
+مثال نفهم بيه
+Category يحتوي نوع الشكوى، و Value عدد مرات ورودها؛ كلمة تكررت 50 مرة تكبر عن كلمة تكررت 5. Excludes يمكنه استبعاد كلمات غير مفيدة حسب دعم المكون.
 
-(Colors in the Exhibit are different from the default colours)
+طريقة التفكير خطوة بخطوة
+1. Get Word Cloud from AppSource من داخل Desktop هو المسار الأقصر.
+2. املأ Category و Value و Excludes بحسب دور كل حقل والرسم المختار.
+3. نسق الألوان والعنوان لتقترب من الشكل المطلوب. قد تمنع سياسة المؤسسة بعض Custom visuals، وهذا شرط بيئة لا خطوة إضافية مفروضة في السؤال.
 
-From Power BI Desktop, get the Word Cloud visual from Microsoft AppSource:
+الإجابة الصحيحة وليه
+Get Word Cloud from AppSource in Desktop → Populate Category, Value, Excludes → Format colors and title.
 
-Click on the ellipsis (three dots) in the Visualizations pane, select Get more visuals, and search for Word
-Cloud in the AppSource.
+ليه كل اختيار صح أو غلط
+A. From a web browser, download the PBIVIZ file for the Word Cloud visual from Microsoft AppSource.
+تنزيل PBIVIZ بالمتصفح ثم استيراده ممكن، لكنه أكثر خطوات من الحصول المباشر داخل Desktop.
 
-Populate the Category, Value, and Excludes fields:
+B. Format the data colors and title.
+الألوان والعنوان آخر خطوة بعد وجود الرسم وبياناته.
 
-Category: The field representing the words you want to visualize.
+C. From Power BI Desktop, get the Word Cloud visual from Microsoft AppSource.
+الحصول عليه داخل Desktop هو البداية الأقل جهدًا.
 
-Value: The field representing the size of the words (e.g., frequency).
+D. Populate the drillthrough fields.
+Drillthrough لا يغذي سحابة الكلمات؛ غرضه انتقال سياقي لصفحة أخرى.
 
-Excludes: Any words you wish to exclude from the visual.
+E. Populate the Category, Value, and Excludes fields.
+حقول Category و Value و Excludes هي التغذية المقصودة في نسخة الرسم المعروضة.
 
-Format the data colors and title:
+الخلاصة اللي تتحفظ
+Custom visual جاهز؟ AppSource أولًا، ثم ربط الحقول، ثم التنسيق.
 
-You can customize the colors for the words and adjust the title to suit your needs.
-
-Why This Works:
-
-This method gives you full control over how the Word Cloud is populated and formatted within Power BI.', 'Final', '243', '/dump-assets/f1-243-242-question.webp', '/dump-assets/f1-243-242-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals', 'Final', '243', '/dump-assets/f1-243-242-question.webp', '/dump-assets/f1-243-242-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-244-243', 'Visualize and analyze the data', 'manual', 'DRAG DROP
 
 -
@@ -11940,9 +12538,41 @@ be used once, more than once, or not at all. You may need to drag the split bar 
 
 content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[0,3,1]', 'Second step: Group the three bookmarks
+NOTE: Each correct selection is worth one point.', '[]', '[20003,20001]', 'ترجمة السؤال بالعربي
+تقرير فيه 5Bookmarks. عايز عنصرًا ينتقل بين ثلاث منها فقط. الصورة تعطي أول خطوة جاهزة: إضافة Bookmark navigator. أكمل الخطوتين المتبقيتين.
 
-Third step: Change the Bookmark property for the button.', 'Final', '244', '/dump-assets/f1-244-243-question.webp', '/dump-assets/f1-244-243-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الملاح يعرف Bookmarks كلها، وإنت عايزله قائمة أصغر. اعمل للثلاثة مجموعة، وقل للملاح يعرض هذه المجموعة فقط.
+
+مثال نفهم بيه
+عندك A و B و C و D و E، وتريد A و C و E. Group اسمها Analysis تضم الثلاثة، والملاح يعرض Analysis بدل All bookmarks.
+
+طريقة التفكير خطوة بخطوة
+1. الخطوة الأولى في المصدر ثابتة: Add a Bookmark navigator button؛ ليست خانة مطلوب سحبها.
+2. جمّع الـBookmarks الثلاث المطلوبة في Group.
+3. غيّر خاصية Bookmarks في الملاح لتشير إلى المجموعة. زر Bookmark منفرد يذهب لحالة واحدة فقط.
+
+الإجابة الصحيحة وليه
+الخطوة 2: Group the three bookmarks. الخطوة 3: Change the Bookmark property for the button إلى المجموعة.
+
+ليه كل اختيار صح أو غلط
+A. Add a Bookmark button.
+Add a Bookmark button منفرد لا ينشئ قائمة تتنقل بين ثلاث حالات؛ الـNavigator مضاف بالفعل في الخطوة المعطاة.
+
+B. Change the Bookmark property for the button.
+تغيير خاصية Bookmarks إلى المجموعة المطلوبة يأتي بعد إنشائها.
+
+C. Group the other two bookmarks.
+تجميع الاثنين المستبعدين لا يحدد المجموعة المطلوبة مباشرة.
+
+D. Group the three bookmarks.
+تجميع الثلاثة المقصودين صحيح، ثم ربط الملاح بمجموعتهم.
+
+الخلاصة اللي تتحفظ
+Bookmark navigator لجزء من الحالات = Group للمطلوب ثم اختيار هذه المجموعة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/button-navigators', 'Final', '244', '/dump-assets/f1-244-243-question.webp', '/dump-assets/f1-244-243-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-245-244', 'Visualize and analyze the data', 'single', 'You plan to use Power BI to create sales invoices for customers. The solution must meet the following
 
 requirements:
@@ -11951,17 +12581,41 @@ requirements:
 
 •The PDF exports must show all columns and rows clearly.
 
-What should you create?', '["a paginated report that contains a tablix","a dashboard that contains a table","an interactive report that contains a table","an interactive report that contains a matrix"]', '[0]', 'a paginated report that contains a tablix
+What should you create?', '["a paginated report that contains a tablix","a dashboard that contains a table","an interactive report that contains a table","an interactive report that contains a matrix"]', '[0]', 'ترجمة السؤال بالعربي
+عايز فواتير مبيعات للعملاء تتصدر PDF وتظهر فيها كل الأعمدة والصفوف بوضوح. تنشئ إيه؟
 
-A paginated report is the best option for creating invoices in Power BI because it allows for precise control
-over the layout, ensuring that all columns and rows are visible in the exported PDF format. The tablix is a
-flexible data region that can handle rows and columns, which is ideal for displaying invoice details in a clear,
-structured manner.
+القصة والمعنى
+الفاتورة مش لوحة استكشاف نعمل لها Screenshot. المطلوب مستند يعرف يقسم الصفوف على صفحات، ويكرر الرؤوس ويحافظ على مقاس الطباعة.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+فاتورة فيها 80 سطرًا يمكن أن تمتد لثلاث صفحات مع رؤوس واضحة، بدل تصدير الجزء الظاهر فقط من جدول عليه Scroll.
 
-B, C, D: Interactive reports (dashboards or reports with tables or matrices) are not suitable for static exports in
-PDF format, as they focus on dynamic and interactive viewing rather than structured page layout.', 'Final', '245', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. Paginated report مصمم للمخرجات ذات الصفحات والطباعة.
+2. Tablix منطقة بيانات للجدول أو المصفوفة تناسب أسطر الفاتورة.
+3. يلزم ضبط عرض الصفحة والهوامش والأعمدة؛ اختيار النوع الصحيح لا يمنع القص إذا كان التصميم أعرض من الورق.
+
+الإجابة الصحيحة وليه
+A. a paginated report that contains a tablix.
+
+ليه كل اختيار صح أو غلط
+A. a paginated report that contains a tablix
+Paginated مع Tablix يحقق مستندًا كامل الصفوف قابلًا للطباعة.
+
+B. a dashboard that contains a table
+Dashboard ليست قالب فواتير متعدد الصفحات.
+
+C. an interactive report that contains a table
+Interactive table يعتمد على مساحة الشاشة والتمرير؛ ليس الأفضل لضمان كل الصفوف في PDF.
+
+D. an interactive report that contains a matrix
+Interactive matrix يتيح تحليلًا وتجميعًا، لا تخطيط فواتير طباعي مماثل.
+
+الخلاصة اللي تتحفظ
+كل الصفوف في مستند مطبوع مضبوط = Paginated report، وليس Screenshot لتقرير تفاعلي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/paginated-reports/paginated-reports-report-builder-power-bi', 'Final', '245', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-246-245', 'Visualize and analyze the data', 'manual', 'DRAG DROP
 
 -
@@ -11984,14 +12638,41 @@ requirement. Each task may be used once, more than once, or not at all. You may 
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[1,3]', '- Configure the Country slicer to sync across all the pages
+NOTE: Each correct selection is worth one point.', '[]', '[1,3]', 'ترجمة السؤال بالعربي
+تقرير ثلاث صفحات وفي كل صفحة Country slicer. المطلوب اختيار الدولة من الأولى يفلتر باقي الصفحات، والثانية والثالثة تعرضان النتائج المفلترة فقط. اربط الإجراء بكل مطلب.
 
-- Hide the Country slicer on the second and third pages
+القصة والمعنى
+الصفحة الأولى هي لوحة التحكم، والباقي صفحات عرض. نحتاج مشاركة الاختيار ثم إخفاء أداة التحكم من صفحات النتائج، مش إلغاء الفلتر منها.
 
-When first page is filtered by country, the other two need to reflect the filter. Configure the country slicer to
-sync across all the pages will satisfy both questions. Hiding the country slicer from last two pages, is more
-about user experience and report design than functionality required to meet the given requirements. In the
-instructions it says that the same task may be used multiple times.', 'Final', '246', '/dump-assets/f1-246-245-question.webp', '/dump-assets/f1-246-245-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+اختر Egypt في الأولى؛ تفتح الثانية فتشاهد رسوم Egypt دون قائمة Country ظاهرة. عدم ظهور السلايسر لا يعني أن اختياره اختفى.
+
+طريقة التفكير خطوة بخطوة
+1. زامن Country slicer بين الصفحات الثلاث لنقل اختيار الأولى.
+2. أخفِ السلايسر في الثانية والثالثة مع بقاء Sync مفعّلًا.
+3. إخفاؤه حل العرض المقصود، لكنه ليس إجراء أمان: لا يمنع تغيير الفلاتر من وسائل أخرى إذا كانت متاحة. حرفيًا Sync وحده يكفي لفلترة النتائج؛ الإخفاء لتصميم واجهة العرض فقط.
+
+الإجابة الصحيحة وليه
+الأول: Sync across all pages. الثاني في قصد السؤال: Hide slicer on pages2 and3 مع بقاء المزامنة.
+
+ليه كل اختيار صح أو غلط
+A. Add the Country field to the filters on all the pages.
+نسخ Country كفلاتر صفحات لا ينقل اختيار المستخدم تلقائيًا.
+
+B. Configure the Country slicer to sync across all the pages.
+Sync لجميع الصفحات صحيح لنقل الاختيار من الأولى.
+
+C. Configure the Country slicer to sync only on the second and third pages.
+Sync للثانية والثالثة فقط يترك مصدر الاختيار الأول خارج المجموعة.
+
+D. Hide the Country slicer on the second and third pages.
+إخفاء السلايسر من صفحتي النتائج يحقق طريقة العرض المقصودة، وليس حظرًا أمنيًا لتغيير الدولة.
+
+الخلاصة اللي تتحفظ
+Sync ينقل الفلتر، و Hide ينظف واجهة النتائج. لا تخلط الإخفاء مع منع الوصول.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '246', '/dump-assets/f1-246-245-question.webp', '/dump-assets/f1-246-245-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-247-246', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains a page. The page contains the following:
 
 •A shape named Shape1
@@ -12002,12 +12683,41 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You need to ensure that Sales Summary renders on top of Shape1.
 
-What should you modify?', '["Tab order in the Selection pane","Layer order in the Selection pane","Maintain layer order in the General visual settings","Vertical alignment in the Canvas settings"]', '[1]', 'B. Layer order in the Selection paneTo ensure that Sales Summary renders on top of Shape1, you need to
-adjust their layer order in the Selection pane. Power BI renders visuals based on the layer order in the
-Selection pane, with the topmost visual being rendered last and therefore appearing on top of other visuals.To
-adjust the layer order, you can select the visuals in the Selection pane and drag them up or down to change
-their position in the layer order. In this case, you would want to select Sales Summary and drag it above
-Shape1 in the layer order to ensure it is rendered on top.', 'Final', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you modify?', '["Tab order in the Selection pane","Layer order in the Selection pane","Maintain layer order in the General visual settings","Vertical alignment in the Canvas settings"]', '[1]', 'ترجمة السؤال بالعربي
+صفحة فيها Shape1 و Card اسمها Sales Summary وأعمدة Sales by Region. عايز الكارت يرسم فوق الشكل. تعدل إيه؟
+
+القصة والمعنى
+حطيت مستطيل خلف الكارت لكنه غطاه. المشكلة ترتيب طبقات فوق وتحت، مش ترتيب التنقل بزر Tab.
+
+مثال نفهم بيه
+الكارت والعنصر الخلفي لهما نفس المكان؛ تغيير X أو Y ليس لازمًا. رفع الكارت في الطبقات يظهره فوق المستطيل.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Selection pane ورتّب Layer order.
+2. ارفع Sales Summary فوق Shape1 أو أرسل الشكل للخلف.
+3. Maintain layer order يحافظ على الترتيب عند التفاعل؛ لا يبدل الترتيب الخاطئ مبدئيًا.
+
+الإجابة الصحيحة وليه
+B. Layer order in the Selection pane.
+
+ليه كل اختيار صح أو غلط
+A. Tab order in the Selection pane
+Tab order لترتيب انتقال لوحة المفاتيح، لا تراكب الرسم.
+
+B. Layer order in the Selection pane
+Layer order هو التحكم المباشر في الأمام والخلف.
+
+C. Maintain layer order in the General visual settings
+Maintain layer order يحافظ على الترتيب الموجود، لا ينشئ المطلوب بدل ترتيب خاطئ.
+
+D. Vertical alignment in the Canvas settings
+Vertical alignment موضع رأسي لا ترتيب عمق الطبقات.
+
+الخلاصة اللي تتحفظ
+مين يغطي مين؟ Layer order. مين يأتي بعد مين مع Tab؟ Tab order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-view', 'Final', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-248-247', 'Visualize and analyze the data', 'single', 'You have a Power BI report named Report1 and a dashboard named Dashboard1. Report1 contains a line chart
 
 named Sales by month.
@@ -12018,37 +12728,85 @@ In Report1, you change the Sales by month visual to a bar chart.
 
 You need to ensure that the bar chart displays on Dashboard1.
 
-What should you do?', '["Refresh the dataset used by Report1 and Dashboard1.","Pin the Sales by month bar chart to Dashboard1.","Select Refresh visuals for Dashboard1.","Edit the details for the dashboard tile of Dashboard1."]', '[1]', 'B. Pin the Sales by month bar chart to Dashboard1.When you pin a visual to a dashboard, you are essentially
-taking a snapshot of that visual at that point in time and adding it to the dashboard as a tile. Any changes
-made to the original visual in the report will not automatically reflect in the dashboard tile. To display the bar
-chart on Dashboard1, you need to pin the new Sales by month bar chart to Dashboard1.
+What should you do?', '["Refresh the dataset used by Report1 and Dashboard1.","Pin the Sales by month bar chart to Dashboard1.","Select Refresh visuals for Dashboard1.","Edit the details for the dashboard tile of Dashboard1."]', '[1]', 'ترجمة السؤال بالعربي
+ثبتّ Line chart اسمها Sales by month من Report1 على Dashboard1. غيّرتها في التقرير إلى Bar chart. عايز اللوحة تعرض النوع الجديد. تعمل إيه؟
 
-https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-report-change-visualization-type', 'Final', '248', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+البلاطة المثبتة لرسم منفرد لا تعتبر نسخة حية من تصميم صفحة التقرير كلها. البيانات قد تتحدث، لكن تحويل نوع الرسم يحتاج تثبيت النسخة الجديدة.
+
+مثال نفهم بيه
+المبيعات الجديدة قد تظهر في البلاطة القديمة لكنها ستظل Line. تثبيت الرسم بعد تحوله ينشئ بلاطة Bar.
+
+طريقة التفكير خطوة بخطوة
+1. ثبّت Bar chart الجديدة على Dashboard1.
+2. أزل البلاطة القديمة إذا لم تعد مطلوبة لتجنب التكرار.
+3. Pin live page سلوك مختلف؛ السؤال يقول Pin visual منفرد.
+
+الإجابة الصحيحة وليه
+B. Pin the Sales by month bar chart to Dashboard1.
+
+ليه كل اختيار صح أو غلط
+A. Refresh the dataset used by Report1 and Dashboard1.
+Refresh للموديل يغير البيانات لا نوع البلاطة المثبتة.
+
+B. Pin the Sales by month bar chart to Dashboard1.
+إعادة تثبيت Bar chart تحقق النوع الجديد.
+
+C. Select Refresh visuals for Dashboard1.
+Refresh visuals لا يعيد إنشاء البلاطة بنوع تصميم مختلف.
+
+D. Edit the details for the dashboard tile of Dashboard1.
+Tile details لا توفر تحويل Line إلى Bar من تصميم المصدر.
+
+الخلاصة اللي تتحفظ
+تغيير نوع Visual مثبت منفردًا؟ Pin من جديد؛ لا تفترض أن Refresh ينقل كل تغيير تصميم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-tile-from-report', 'Final', '248', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-249-248', 'Visualize and analyze the data', 'multi', 'In Power BI Desktop, you are creating a report that will contain three pages.
 
 You need to create a custom tooltip page and prepare the page for use.
 
 Which three actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["For the tooltip page, set Allow use as tooltip to On.","For the target page, set Allow use as tooltip to On.","Configure filters on the target visual.","For the tooltip page, configure filters.","Add and configure visuals on the tooltip page."]', '[0,3,4]', 'A. For the tooltip page, set Allow use as tooltip to On
+NOTE: Each correct selection is worth one point.', '["For the tooltip page, set Allow use as tooltip to On.","For the target page, set Allow use as tooltip to On.","Configure filters on the target visual.","For the tooltip page, configure filters.","Add and configure visuals on the tooltip page."]', '[0,3,4]', 'ترجمة السؤال بالعربي
+بتصمم تقرير ثلاث صفحات وعايز صفحة Tooltip مخصصة وتجهيزها للاستخدام. اختار ثلاث إجراءات من المعروض.
 
-This step makes the page eligible to be used as a tooltip.
+القصة والمعنى
+النافذة الصغيرة اللي تظهر فوق نقطة في رسم هي صفحة مصغرة لها رسوماتها وسياقها. اللي نعلّمه Tooltip هو صفحة النافذة، مش الصفحة الأساسية.
 
-D. For the tooltip page, configure filters
+مثال نفهم بيه
+تمر على Product A فتظهر صفحة صغيرة تشرح مبيعاته وربحه. نفس الصفحة يمكن أن تخدم Product B بسياق مختلف بدل صفحة ثابتة لكل منتج.
 
-You can configure filters on the tooltip page to control the data displayed based on the hovered visual.
+طريقة التفكير خطوة بخطوة
+1. فعّل Allow use as tooltip على صفحة الـTooltip.
+2. أضف الرسومات التي تريدها داخلها.
+3. اضبط حقول أو فلاتر سياقها المناسبة؛ لا يلزم فلتر ثابت لكل Tooltip. بعد تجهيزها اربطها بالرسم الهدف تلقائيًا أو يدويًا، وهي خطوة ليست ضمن الخيارات هنا.
 
-E. Add and configure visuals on the tooltip page
+الإجابة الصحيحة وليه
+A و D و E: تفعيل صفحة Tooltip، تجهيز سياقها/فلاترها، وإضافة رسوماتها.
 
-The tooltip page should contain the visuals that will be shown when hovering over elements in the report.
+ليه كل اختيار صح أو غلط
+A. For the tooltip page, set Allow use as tooltip to On.
+صحيح؛ صفحة Tooltip نفسها يجب السماح باستخدامها بهذا الدور.
 
-Why Other Options Are Incorrect:
+B. For the target page, set Allow use as tooltip to On.
+الصفحة الأساسية لا تحتاج أن تتحول هي إلى Tooltip.
 
-B. For the target page, set Allow use as tooltip to On: The target page doesn’t need this setting; it''s the tooltip
-page that needs to have this enabled.
+C. Configure filters on the target visual.
+فلاتر الرسم الهدف قد تفيد التقرير لكنها ليست تجهيز صفحة Tooltip المطلوبة ضمن هذه الخيارات.
 
-C. Configure filters on the target visual: This step is not needed for tooltip configuration. The tooltip itself
-handles filtering.', 'Final', '249', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+D. For the tooltip page, configure filters.
+اختيار مقصود لتجهيز سياق صفحة Tooltip، وليس قاعدة أن كل Tooltip يتطلب فلترًا ثابتًا.
+
+E. Add and configure visuals on the tooltip page.
+رسومات صفحة Tooltip هي المحتوى الذي سيظهر للمستخدم.
+
+الخلاصة اللي تتحفظ
+جهّز صفحة النافذة نفسها: اسمح بدور Tooltip وضع محتواها واضبط سياقها، ثم اربطها بالهدف.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-tooltips', 'Final', '249', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-250-249', 'Prepare the data', 'manual', 'DRAG DROP
 
 -
@@ -12069,19 +12827,43 @@ outputs. Each service may be used once, more than once, or not at all. You may n
 
 panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[1,3,2]', 'Key Phrase Extraction
+NOTE: Each correct selection is worth one point.', '[]', '[1,3,2]', 'ترجمة السؤال بالعربي
+عايز AI insights يضيف معلومات من تعليقات العملاء: الموضوعات الأكثر ذكرًا، هل يحبون المنتج، ولغة التعليق. اربط كل ناتج بالخدمة المناسبة.
 
-Sentiment Analysis
+القصة والمعنى
+جملة زي «التوصيل ممتاز لكن التغليف ضعيف» فيها موضوعات ومشاعر ولغة. دول ثلاث أسئلة مختلفة؛ ما ينفعش نستخرج الكلمات ونعتبر أننا عرفنا الرأي.
 
-Language Detection
+مثال نفهم بيه
+«الخدمة ممتازة» قد تعطي عبارة «الخدمة»، ونبرة إيجابية، ولغة عربية. عدّ العبارات عبر التعليقات هو الذي يبين أي موضوع الأكثر ذكرًا.
 
-- Key Phrase Extraction: a text analysis technique that extracts important words and phrases from the input
-text
+طريقة التفكير خطوة بخطوة
+1. Key Phrase Extraction يستخرج الموضوعات والعبارات المهمة؛ يلزم تجميع النتائج لمعرفة الأكثر تكرارًا.
+2. Sentiment Analysis يقيّم النبرة الإيجابية أو السلبية أو المحايدة حسب الخدمة.
+3. Language Detection يحدد لغة النص. هذه تسميات خدمات السؤال، لا وعد أن تحليل المشاعر يفهم كل سخرية أو سياق.
 
-- Sentiment analysis: is the process of analyzing digital text to determine if the emotional tone of the message
-is positive, negative, or neutral
+الإجابة الصحيحة وليه
+الموضوعات: Key Phrase Extraction. الرأي: Sentiment Analysis. اللغة: Language Detection.
 
-- Language Detection: usually used to identify the language of business texts like emails and chats', 'Final', '250', '/dump-assets/f1-250-249-question.webp', '/dump-assets/f1-250-249-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Image Tagging
+Image Tagging للصور وليس تعليقات نصية.
+
+B. Key Phrase Extraction
+Key Phrase Extraction مناسب للموضوعات؛ لا يحسب ترتيب التكرار عبر الجدول وحده.
+
+C. Language Detection
+Language Detection يجيب عن لغة التعليق.
+
+D. Sentiment Analysis
+Sentiment Analysis يجيب عن الرأي أو النبرة، لا استخراج الموضوع بذاته.
+
+الخلاصة اللي تتحفظ
+بيتكلم عن إيه؟ Key phrases. مبسوط ولا زعلان؟ Sentiment. كاتب بأي لغة؟ Language detection.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/azure/ai-services/language-service/key-phrase-extraction/overview
+https://learn.microsoft.com/en-us/azure/ai-services/language-service/sentiment-opinion-mining/overview
+https://learn.microsoft.com/en-us/azure/ai-services/language-service/language-detection/overview', 'Final', '250', '/dump-assets/f1-250-249-question.webp', '/dump-assets/f1-250-249-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-251-250', 'Manage and secure Power BI', 'multi', 'You have a Power BI report named ReportA.
 
 You have a Power BI tenant that allows users to export data.
@@ -12090,67 +12872,158 @@ You need to ensure that consumers of ReportA cannot export any data from visuals
 
 Which two actions should you perform? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["From Power BI Desktop, modify the Report settings.","From Power BI Desktop, modify the Data Load settings.","From the Power BI service, modify the dataset permissions.","From the Power BI service, modify the Report settings."]', '[0,3]', 'A. From Power BI Desktop, modify the Report settings
+NOTE: Each correct selection is worth one point.', '["From Power BI Desktop, modify the Report settings.","From Power BI Desktop, modify the Data Load settings.","From the Power BI service, modify the dataset permissions.","From the Power BI service, modify the Report settings."]', '[0,3]', 'ترجمة السؤال بالعربي
+التننت يسمح بتصدير البيانات، لكن مطلوب منع مستهلكي ReportA من تصدير أي بيانات من رسوماته. اختار إجراءين، كل واحد حل كامل مستقل.
 
-In Power BI Desktop, you can modify report settings to disable the option to export data.
+القصة والمعنى
+السماح العام في المؤسسة لا يجبر كل تقرير يفتح التصدير. كاتب التقرير يقدر يقفل وظيفة Export data لهذا التقرير تحديدًا.
 
-D. From the Power BI service, modify the Report settings
+مثال نفهم بيه
+تترك التصدير مفتوحًا لتقرير عام وتقفله لـReportA من إعداداته. لا تحتاج أن تغيّر Data Load أو تمسح صلاحية قراءة الموديل.
 
-In the Power BI service, you can also configure report settings to prevent users from exporting data from
-visuals.
+طريقة التفكير خطوة بخطوة
+1. من Desktop افتح إعدادات التقرير واختر عدم السماح بتصدير بيانات الرسومات.
+2. يمكن ضبط نفس السياسة من Report settings على الخدمة؛ كل مسار بديل كامل.
+3. عدم منح Build لا يكفي لمنع كل تصدير؛ Summarized data قد يظل متاحًا. المنع هنا لوظيفة Export data، وليس ضمان منع التصوير أو النسخ بأي وسيلة.
 
-Why Other Options Are Incorrect:
+الإجابة الصحيحة وليه
+A و D: Report settings في Desktop أو Report settings في الخدمة.
 
-B. Modify the Data Load settings: These settings are related to how data is loaded and do not impact export
-permissions.
+ليه كل اختيار صح أو غلط
+A. From Power BI Desktop, modify the Report settings.
+Report settings في Desktop تتضمن منع تصدير بيانات المستهلكين.
 
-C. Modify the dataset permissions: This affects data access but does not specifically prevent data export from
-reports.', 'Final', '251', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. From Power BI Desktop, modify the Data Load settings.
+Data Load يخص التحميل للموديل، وليس أمر Export في واجهة المستهلك.
+
+C. From the Power BI service, modify the dataset permissions.
+صلاحيات الموديل ليست البديل المحدد لمنع جميع مسارات Export data للرسومات.
+
+D. From the Power BI service, modify the Report settings.
+Report settings في الخدمة توفر المسار الآخر المستقل.
+
+الخلاصة اللي تتحفظ
+منع Export data لتقرير واحد = إعداد التقرير، لا Data Load ولا نزع Build فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final', '251', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-252-251', 'Visualize and analyze the data', 'single', 'You have a Power BI report that will be rendered on a vertical display.
 
 You need to maximize the portion of the screen area used by the report.
 
-What should you do?', '["From the Canvas background setting of Power BI Desktop, configure the Image fit setting.","From the Canvas settings of Power BI Desktop, set a custom width and height.","From Power BI Desktop, select Personalize visuals.","From the Power BI service, enable the Pages pane."]', '[1]', 'From the Canvas settings of Power BI Desktop, set a custom width and height.
+What should you do?', '["From the Canvas background setting of Power BI Desktop, configure the Image fit setting.","From the Canvas settings of Power BI Desktop, set a custom width and height.","From Power BI Desktop, select Personalize visuals.","From the Power BI service, enable the Pages pane."]', '[1]', 'ترجمة السؤال بالعربي
+التقرير سيُعرض على شاشة رأسية. عايز تستغل أكبر مساحة منها. تعمل إيه؟
 
-To maximize the screen area used by the report on a vertical display, you should set a custom width and
-height for the canvas in Power BI Desktop. By adjusting the dimensions to match the aspect ratio of the
-display, you ensure the report fills the screen optimally.
+القصة والمعنى
+لو الصفحة أفقية على شاشة طويلة، هتفضل مساحات فاضية. محتاج مقاس الصفحة نفسها يناسب نسبة طول الشاشة لعرضها، مش تكبير صورة الخلفية.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+شاشة 1080×1920 قد يناسبها Canvas بنفس النسبة، بدل 16:9 أفقي. ليست هذه الأرقام مفروضة؛ النسبة هي الفكرة.
 
-A. Image fit setting: This applies to images, not the entire report.
+طريقة التفكير خطوة بخطوة
+1. غيّر Canvas settings إلى مقاس مخصص Width و Height.
+2. اجعل الارتفاع أكبر من العرض بما يناسب الشاشة الفعلية.
+3. أعد ترتيب الرسومات للمقاس الجديد؛ تغير أبعاد الصفحة لا يعيد تصميم كل Visual تلقائيًا.
 
-C. Personalize visuals: This allows end-users to modify visuals, not layout or display size.
+الإجابة الصحيحة وليه
+B. Set a custom width and height from Canvas settings.
 
-D. Enable the Pages pane: This only impacts navigation, not the canvas layout.', 'Final', '252', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. From the Canvas background setting of Power BI Desktop, configure the Image fit setting.
+Image fit يضبط صورة الخلفية لا أبعاد صفحة التقرير.
+
+B. From the Canvas settings of Power BI Desktop, set a custom width and height.
+المقاس المخصص هو التحكم المطلوب في نسبة الصفحة.
+
+C. From Power BI Desktop, select Personalize visuals.
+Personalize visuals يتيح استكشاف الرسوم، لا تغيير نسبة الشاشة.
+
+D. From the Power BI service, enable the Pages pane.
+Pages pane للملاحة ويستهلك مساحة، ولا يعيد مقاس اللوحة.
+
+الخلاصة اللي تتحفظ
+شاشة رأسية تحتاج Canvas بنسبة رأسية؛ Background image ليست مقاس الصفحة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-view', 'Final', '252', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-253-252', 'Visualize and analyze the data', 'single', 'You need to create a visual that compares profit across 10 product categories fora selected quarter.
 
-What is the best visual to use to achieve the goal?', '["an area chart","a funnel chart","a clustered bar chart","a line chart"]', '[2]', 'C. A clustered bar chart.
+What is the best visual to use to achieve the goal?', '["an area chart","a funnel chart","a clustered bar chart","a line chart"]', '[2]', 'ترجمة السؤال بالعربي
+عايز تقارن Profit بين عشر فئات منتجات في ربع سنة محدد. أنهي Visual أنسب؟
 
-A clustered bar chart is the best visual to use to compare profit across 10 product categories for a selected
-quarter. It allows you to easily compare the profit of each category side-by-side, making it easy to identify the
-highest and lowest performers. In addition, a clustered bar chart is effective at displaying discrete data, such
-as categories, which makes it the ideal choice for this scenario.', 'Final', '253', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+عندك عشر قيم جنب أسماء فئات، مش خط زمن ومش مراحل بيع. أعمدة أفقية تسهّل قراءة الأسماء ومقارنة أطوال الأرباح.
+
+مثال نفهم بيه
+فئة A ربحها 20 ألف و B 10 آلاف: طول العمودين يوضح المقارنة مباشرة. لو المطلوب تطور الأربع أرباع، ساعتها نفكر في Line.
+
+طريقة التفكير خطوة بخطوة
+1. Clustered bar chart يناسب مقارنة قيم عبر فئات منفصلة.
+2. الربع محدد كفلتر، وليس سلسلة أرباع مطلوب إظهار اتجاهها.
+3. يمكن الفرز حسب الربح لتوضيح الترتيب مع الحفاظ على الصفر ومقياس مفهوم.
+
+الإجابة الصحيحة وليه
+C. a clustered bar chart.
+
+ليه كل اختيار صح أو غلط
+A. an area chart
+Area مناسب لاتجاه عبر محور مرتب، لا مقارنة عشر فئات في نقطة زمنية واحدة.
+
+B. a funnel chart
+Funnel لمراحل متتابعة مثل زيارات ثم طلبات؛ الفئات ليست مراحل.
+
+C. a clustered bar chart
+Clustered bar يناسب مقارنة الأرباح والأسماء العشرة.
+
+D. a line chart
+Line يربط الفئات في تسلسل يوحي بعلاقة غير مطلوبة.
+
+الخلاصة اللي تتحفظ
+مقارنة قيمة بين فئات كثيرة بأسماء = Bar chart، لا Funnel ولا خط يوهم بتتابع.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-types-for-reports-and-q-and-a', 'Final', '253', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-254-253', 'Manage and secure Power BI', 'single', 'You have a Power BI dataset named Finance that is hosted in a Power BI workspace.
 
 The finance team at your company is NOT currently a member of any Power BI workspace roles.
 
 You need to enable the finance team to use Microsoft Excel to analyze the Finance dataset.
 
-What should you do?', '["Grant the finance team build permissions to the Finance dataset.","Provide an Excel workbook that is connected to the Finance dataset.","Create a row-level security (RLS) role and add the finance team to the role as members.","Grant the finance team write permissions to the Finance dataset."]', '[0]', 'you have to have at least build permissions on the dataset
+What should you do?', '["Grant the finance team build permissions to the Finance dataset.","Provide an Excel workbook that is connected to the Finance dataset.","Create a row-level security (RLS) role and add the finance team to the role as members.","Grant the finance team write permissions to the Finance dataset."]', '[0]', 'ترجمة السؤال بالعربي
+Finance semantic model في Workspace. فريق المالية ليس عضوًا في أي دور Workspace. عايزهم يحللوه من Excel. تمنحهم إيه؟
 
-Granting build permissions to the finance team on the Finance dataset allows them to access the dataset in
-Excel and analyze it. With these permissions, they can connect Excel to the dataset and use it for analysis.
+القصة والمعنى
+مش لازم تدخل الفريق كمحررين في المخزن كله علشان يعمل PivotTable. اديهم الإذن المطلوب على الموديل نفسه.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+محلل المالية يعمل PivotTable من Finance دون القدرة على تعديل جداول الموديل. لو عليه RLS يرى نطاقه المسموح رغم Build.
 
-B: Providing an Excel workbook does not allow direct analysis of the dataset.
+طريقة التفكير خطوة بخطوة
+1. Build permission تتيح إنشاء تحليلات ومحتوى من الموديل، ومنها Analyze in Excel مع الأذونات اللازمة للوصول.
+2. الأذونات على الموديل لا تستلزم عضوية Workspace.
+3. RLS يحدد الصفوف المتاحة ولا يمنح Build. إعدادات التننت والترخيص تظل شروط استخدام مستقلة.
 
-C: Row-level security (RLS) controls data access but doesn''t enable Excel analysis.
+الإجابة الصحيحة وليه
+A. Grant Build permission to the Finance dataset.
 
-D: Write permissions are unnecessary for Excel analysis and could lead to unwanted changes.
+ليه كل اختيار صح أو غلط
+A. Grant the finance team build permissions to the Finance dataset.
+Build هو الإذن المطلوب للتحليل من Excel، مع الوصول والترخيص المناسبين.
 
-https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-connect-power-bi-datasets-excel', 'Final', '254', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. Provide an Excel workbook that is connected to the Finance dataset.
+إرسال Workbook لا يمنح إذن الوصول للموديل الذي يتصل به.
+
+C. Create a row-level security (RLS) role and add the finance team to the role as members.
+RLS يقيد البيانات ولا يمنح صلاحية التحليل المطلوبة.
+
+D. Grant the finance team write permissions to the Finance dataset.
+Write صلاحية أوسع من اللازم لتعديل الموديل؛ لا يحتاجها المستهلك في Excel.
+
+الخلاصة اللي تتحفظ
+Analyze in Excel يحتاج Build، لا عضوية تحرير في Workspace ولا RLS بدل الإذن.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '254', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-255-254', 'Visualize and analyze the data', 'multi', 'You have a Power BI report that contains a visual. The visual contains a measure.
 
 You need to ensure that the report meets the following requirements:
@@ -12161,14 +13034,42 @@ You need to ensure that the report meets the following requirements:
 
 Which two actions should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["For the visual, apply conditional formatting to the background color.","Configure the measure to use a custom format.","For the visual, apply conditional formatting to the font color.","For the visual, set Value decimal places to 2."]', '[1,2]', 'B to format measure with parenthesis and decimals and c for configuring font color
+NOTE: Each correct selection is worth one point.', '["For the visual, apply conditional formatting to the background color.","Configure the measure to use a custom format.","For the visual, apply conditional formatting to the font color.","For the visual, set Value decimal places to 2."]', '[1,2]', 'ترجمة السؤال بالعربي
+Visual فيه مقياس. مطلوب كل القيم بمنزلتين عشريتين، والسالب أحمر وبين قوسين. اختار إجراءين يكملوا بعض.
 
-Because.. question each answer should be part of solutions...D. For the visual, set Value decimal places to 2, is
-partially correct but it only addresses the first requirement of setting all values to two decimal places.To
-address the second requirement of displaying negative values in red font and parentheses, we need to apply
-conditional formatting to the font color as stated in option C.Therefore, we need to perform both actions:
-configuring the measure to use a custom format and applying conditional formatting to the font color.No
-confusion, and no need to discuss further', 'Final', '255', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+شكل الرقم ولونه مش نفس الإعداد. Custom format يظبط 12.30 و(12.30)، و Font conditional formatting يجعل السالب أحمر.
+
+مثال نفهم بيه
+القيمة -12.3 تظل رقمًا صالحًا للحساب، لكن تظهر (12.30) بالأحمر. الموجب 12.3 يظهر 12.30 باللون العادي.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Custom format بأجزاء للموجب والسالب والصفر مثل 0.00;(0.00);0.00.
+2. اضبط Font color بقواعد تجعل السالب أحمر.
+3. لا تستخدم FORMAT لمجرد تغيير الشكل إن كنت تريد إبقاء المقياس رقميًا؛ تنسيق المقياس لا يغيّر نوع ناتجه.
+
+الإجابة الصحيحة وليه
+B و C: Custom format للمقياس، و Conditional formatting للخط.
+
+ليه كل اختيار صح أو غلط
+A. For the visual, apply conditional formatting to the background color.
+Background color يلوّن الخلفية لا الخط الأحمر المطلوب.
+
+B. Configure the measure to use a custom format.
+Custom format يحدد المنزلتين والأقواس للسالب.
+
+C. For the visual, apply conditional formatting to the font color.
+Font color شرطه Revenue<0 يحقق لون السالب.
+
+D. For the visual, set Value decimal places to 2.
+منزلتان على Visual وحدهما لا تحققان الأقواس ولا اللون؛ ليست بديلًا كاملًا عن Custom format ضمن الإجراءين.
+
+الخلاصة اللي تتحفظ
+شكل السالب بين قوسين = Custom format؛ لون كتابته = Font conditional formatting.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-conditional-table-formatting
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-custom-format-strings', 'Final', '255', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-256-255', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -12181,21 +13082,53 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '45
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+صورة Column profile لعمود Max Temp تعرض Count=41 و Distinct=25 و Unique=17 و Min=24 و Max=1431، وأعلى عمود توزيع عند 45. مطلوب الأكثر تكرارًا وأصغر قيمة غير NULL.
 
-24
+القصة والمعنى
+فيه أرقام إحصاءات وفيه قيم فعلية. العدد 41 مش درجة حرارة شائعة؛ هو عدد السجلات. والأعلى في الرسم يعني الأكثر تكرارًا، مش أكبر قيمة.
 
-The first question is asking which value was repeated the most in the column, as in, frequency.
+مثال نفهم بيه
+قيمة 1431 هي Maximum حتى لو ظهرت مرة واحدة. 45 قد تظهر مرات أكثر من أي قيمة، وهذا لا يجعلها الأكبر أو الأصغر.
 
-When the frequency of the value increases, the bar shown in "value distribution" also increases. So the
-biggest bar is of the value that is repeated the most, which is 45.
+طريقة التفكير خطوة بخطوة
+1. القيمة 45 أسفل أطول عمود تكرار، فهي Mode المعروضة.
+2. Min=24 يجيب عن أصغر قيمة غير فارغة.
+3. نتيجة Profiling تخص نطاق العينة المستخدم، إلا إذا كان مضبوطًا على كامل البيانات.
 
-For the second question, the smallest NON-null value, is a fancy way of saying the minimum value that is
-actually a value not an error, null or an empty field. Which is shown on the left hand side as 24.
+الإجابة الصحيحة وليه
+45؛ ثم 24.
 
-This view is Column Profiling it profiles just one column and brings a lot of statistics about it as you can see.
+ليه كل اختيار صح أو غلط
+A. The value occurring most frequently in the column: 25
+25 هو Distinct، لا القيمة الأكثر تكرارًا.
 
-You can read more here. https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '256', '/dump-assets/f1-256-255-question.webp', '/dump-assets/f1-256-255-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. The value occurring most frequently in the column: 41
+41 هو Count للسجلات، لا Mode.
+
+C. The value occurring most frequently in the column: 45
+45 صحيحة لأن عمود تكرارها الأعلى.
+
+D. The value occurring most frequently in the column: 1431
+1431 هو أعلى قيمة Max، وليس القيمة الأكثر تكرارًا Mode.
+
+E. The smallest non-NULL value: 0
+صفر لا يمثل Minimum هنا، و Zero count=0.
+
+F. The smallest non-NULL value: 17
+17 هو Unique count، لا أصغر قيمة.
+
+G. The smallest non-NULL value: 24
+24 هي القيمة الدنيا Min الظاهرة في إحصاءات العمود.
+
+H. The smallest non-NULL value: 33
+33 قيمة في التوزيع لكنها ليست Minimum.
+
+الخلاصة اللي تتحفظ
+الأكثر تكرارًا من ارتفاع عمود التوزيع؛ الأصغر من Min، لا Count أو Unique.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '256', '/dump-assets/f1-256-255-question.webp', '/dump-assets/f1-256-255-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-257-256', 'Visualize and analyze the data', 'manual', 'HOTSPOT
 
 -
@@ -12214,14 +13147,47 @@ the matrix. The card and the bar chart must change when a user selects a cell in
 
 What should you configure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Matrix
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+صفحة فيها Card و Matrix و Bar chart. عايز الدريل داون داخل Matrix لا يؤثر على الاثنين، لكن تحديد خلية فيها يغيرهما. تختار أنهي Visual وأنهي إعداد؟
 
-Apply drill down filters to Selected Visual
+القصة والمعنى
+فتح تفاصيل سنة إلى شهورها حاجة، والضغط على خلية مصر لاختيارها حاجة ثانية. المطلوب عزل حفر الهرمية، مش قطع كل تفاعل.
 
-https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions?tabs=powerbi-
-desktop#change-the-interactions-of-drillable-visualizationsBy default, a matrix will have "Entire Page" in the
-"Apply drill down filters to" option inside the Format tab, which is what we don''t want to happen, so changing
-to "Selected Visual" should give us the behavior we want', 'Final', '257', '/dump-assets/f1-257-256-question.webp', '/dump-assets/f1-257-256-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+تفتح 2024 داخل الماتريكس فتظل الكروت عامة. تضغط خلية France فتتغير الكروت بحسب تفاعل الاختيار المعتاد.
+
+طريقة التفكير خطوة بخطوة
+1. حدد Matrix لأنها مصدر عملية Drill down.
+2. اضبط Apply drill down filters to Selected visual.
+3. احتفظ بتفاعلات التحديد للرسوم الأخرى. اختيار None سيمنع تأثير الضغط أيضًا فيخالف الشرط الثاني.
+
+الإجابة الصحيحة وليه
+Matrix؛ Apply drill down filters to Selected visual.
+
+ليه كل اختيار صح أو غلط
+A. Visual type: Bar chart
+Bar chart مستقبِل هنا، ليس الرسم الذي يحدث فيه Drill down.
+
+B. Visual type: Card
+Card أيضًا مستقبِل ولا يحمل الهرمية المطلوب ضبطها.
+
+C. Visual type: Matrix
+Matrix صحيح لأنها مصدر الحفر.
+
+D. Set: Edit Interactions to Filter
+Filter في Edit interactions يضبط التحديد، ولا يعزل حفر الهرمية بذاته.
+
+E. Set: Edit Interactions to None
+None يمنع تأثير اختيار الخلية، خلاف المطلوب.
+
+F. Set: Apply drill down filters to Selected visual
+Selected visual يحصر فلاتر Drill down في Matrix مع بقاء تفاعل التحديد.
+
+الخلاصة اللي تتحفظ
+Drill down غير Selection. اعزل فلاتر الحفر، لا تقفل التفاعل كله.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '257', '/dump-assets/f1-257-256-question.webp', '/dump-assets/f1-257-256-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-258-257', 'Model the data', 'single', 'You have a Power BI model that contains two tables named Population and Date.
 
 The Population table contains two columns named PopulationAmount and DateKey.
@@ -12238,24 +13204,41 @@ Total Population = Sum(‘Population’[PopulationAmount])
 
 You create a table visual that displays Date[Year] and [2023 Population].
 
-What will the table visual show?', '["one row per year that contains blank values for every year except 2023","one row per date that contains the population value for the corresponding year repeated in each row","a single row for the year 2023 that contains the related population value","one row per year that contains the same value repeated for each year"]', '[3]', 'Correct answer is: D. one row per year that contains the same value repeated for each year.
+What will the table visual show?', '["one row per year that contains blank values for every year except 2023","one row per date that contains the population value for the corresponding year repeated in each row","a single row for the year 2023 that contains the related population value","one row per year that contains the same value repeated for each year"]', '[3]', 'ترجمة السؤال بالعربي
+Population فيها PopulationAmount و DateKey لأول يوم في السنة، ومرتبطة بجدول Date. Total Population يجمع السكان، و 2023 Population = CALCULATE([Total Population], Date[Year]=2023). جدول العرض فيه Date[Year] والمقياس الثاني. الناتج إيه؟
 
-Total Population calculates the sum of PopulationAmount across the entire Population table.
+القصة والمعنى
+كل صف يحاول يقول «احسب سنة الصف»، لكن CALCULATE يرد: لأ، السنة 2023. لأنه يبدل فلتر نفس عمود Year، النتيجة تتكرر.
 
-2023 Population is calculated by filtering the Date table to only include data for the year 2023.
+مثال نفهم بيه
+لو السكان 2022=100 و 2023=110 و 2024=120، فالصفوف الثلاثة تعرض 110 في المقياس المثبت على 2023.
 
-In the table visual, the 2023 Population measure will return the 2023 population value for every row. It doesn''t
-depend on the actual year but instead repeats the population of 2023 for all the years listed in the Date[Year]
-column.
+طريقة التفكير خطوة بخطوة
+1. صف الجدول ينشئ فلترًا على Date[Year].
+2. شرط CALCULATE على نفس العمود يستبدل فلتر السنة الحالي، دون KEEPFILTERS.
+3. كل سنة ظاهرة تحصل على سكان 2023، بافتراض وجود هذه البيانات وعدم وجود فلاتر أخرى تتعارض معها.
 
-Why Other Options Are Incorrect:
+الإجابة الصحيحة وليه
+D. one row per year that contains the same value repeated for each year.
 
-A: Blank values won''t appear as the measure still returns a value for 2023.
+ليه كل اختيار صح أو غلط
+A. one row per year that contains blank values for every year except 2023
+Blank خارج 2023 يحتاج تقاطعًا مثل KEEPFILTERS؛ هذا ليس التعبير المعطى.
 
-B: The value isn''t tied to individual dates, only to the year 2023.
+B. one row per date that contains the population value for the corresponding year repeated in each row
+العمود المعروض Year لا Date، فلا يصبح صفًا لكل تاريخ.
 
-C: The table doesn''t show a single row for only 2023. It shows all years, but with the same population value for
-2023 across each.', 'Final', '258', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. a single row for the year 2023 that contains the related population value
+فلتر المقياس لا يحذف تلقائيًا صفوف السنوات الأخرى عندما يعطيها نتيجة غير فارغة.
+
+D. one row per year that contains the same value repeated for each year
+صحيح؛ فلتر السنة يستبدل بسنة 2023 في كل صف.
+
+الخلاصة اللي تتحفظ
+CALCULATE بفلتر على نفس عمود الصف يستبدله افتراضيًا؛ KEEPFILTERS يغير هذا السلوك.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax', 'Final', '258', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-259-258', 'Prepare the data', 'single', 'You have a Power BI dataset that contains quarterly sales performance data.
 
 You need to enable managers to review the data in a format that meets the following requirements:
@@ -12264,36 +13247,80 @@ You need to enable managers to review the data in a format that meets the follow
 
 •Renders data in Microsoft Excel, Word, PowerPoint, and PDF formats.
 
-What should you create?', '["a template app","a dashboard","a paginated report","an interactive report"]', '[2]', 'Correct answer is C:a paginated report.
+What should you create?', '["a template app","a dashboard","a paginated report","an interactive report"]', '[2]', 'ترجمة السؤال بالعربي
+موديل فيه أداء مبيعات ربع سنوي. المديرون عايزين مخرجات مناسبة للطباعة وقابلة للتصدير إلى Excel و Word و PowerPoint و PDF. تنشئ إيه؟
 
-A paginated report is designed specifically for printing, with precise control over layout and formatting. It can
-be exported to various formats such as Excel, Word, PowerPoint, and PDF, meeting the requirements of
-rendering data in different formats and being optimized for print.
+القصة والمعنى
+المطلوب مستند تسليمه وطبعته واضحة، مش لوحة يضغط عليها المدير لاستكشاف الفروع. اختار أداة لها محركات إخراج مستندات.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+نفس تقرير الربع يخرج PDF للطباعة و Excel للتحليل و Word للمراجعة. توفر الصيغ لا يعني أن تخطيط كل صيغة متطابق بكسلًا ببكسل.
 
-A. Template app: Used for pre-packaged content and apps, not for print-friendly reports.
+طريقة التفكير خطوة بخطوة
+1. Paginated reports مصممة لمستندات بصفحات وخيارات تصدير متعددة.
+2. التصميم يمكن أن يمتد ليشمل كل الصفوف بدل الاعتماد على مساحة الشاشة.
+3. تنسيق كل صيغة قد يختلف؛ اضبط الصفحة والفواصل واختبر الصيغ المطلوبة.
 
-B. Dashboard: Primarily for interactive viewing, not optimized for printing.
+الإجابة الصحيحة وليه
+C. a paginated report.
 
-D. Interactive report: Designed for on-screen interaction, not print optimization.', 'Final', '259', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. a template app
+Template app توزع حزمة تحليلات، لا تحقق بذاتها تصميم مستند الطباعة والصيغ المطلوبة.
+
+B. a dashboard
+Dashboard موجزة وتفاعلية وليست مستندًا متعدد الصفحات بهذه المخرجات.
+
+C. a paginated report
+Paginated report هو النوع المناسب.
+
+D. an interactive report
+Interactive report للاستكشاف ولا يقدم نفس مجموعة مخرجات المستندات المطلوبة هنا.
+
+الخلاصة اللي تتحفظ
+طلب طباعة ومستندات Word و Excel و PDF = Paginated report.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/paginated-reports/report-builder/export-reports-report-builder', 'Final', '259', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-260-259', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains the visuals shown in the following table.
 
 You need to modify the location of each visual.
 
-What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', 'Correct answer is C:the position.
+What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', 'ترجمة السؤال بالعربي
+جدول المصدر يحدد إحداثيات الرسومات: Table عند X=300,Y=200، و Clustered column عند 700,200، و Slicer عند 20,100. لتغيير موقع كل رسم تعدل إيه؟
 
-The position refers to the horizontal and vertical coordinates of each visual in Power BI. In this case, to modify
-the location of each visual, you need to adjust its position by changing the horizontal and vertical coordinates
-provided (such as 300, 700 for the Clustered column chart).
+القصة والمعنى
+الرسمة مكانها بيتحدد بيمين وشمال وفوق وتحت. ده Position، مش ترتيب مين فوق مين ولا المسافة داخل إطار الرسمة.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+تغيير Slicer من 20,100 إلى 300,100 يحركه أفقيًا مع بقاء ارتفاعه الرأسي. لا يغير مقاسه أو فلاتره.
 
-A. Layer order: Affects the visibility of visuals overlapping one another, not the location.
+طريقة التفكير خطوة بخطوة
+1. عدّل X و Y من Position للرسم.
+2. X يحدد الإزاحة الأفقية و Y الإزاحة الرأسية على الصفحة.
+3. Layer order للعمق و Padding للمسافات الداخلية و Tab order لتنقل لوحة المفاتيح.
 
-B. Padding: Controls the space inside the visual, not its position.
+الإجابة الصحيحة وليه
+C. the position.
 
-D. Tab order: Refers to the sequence for navigating between visuals, not their position.', 'Final', '260', '/exhibit-assets/f1-260-259.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. the layer order
+Layer order يغير الأمام والخلف لا إحداثيات الصفحة.
+
+B. the padding
+Padding مسافة داخل الإطار، وليس نقل الكائن كله.
+
+C. the position
+Position هو الخاصية المطابقة لـX و Y.
+
+D. the tab order
+Tab order يحدد تسلسل التركيز مع لوحة المفاتيح.
+
+الخلاصة اللي تتحفظ
+X و Y = Position؛ Z أو الأمام والخلف = Layer order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-view', 'Final', '260', '/exhibit-assets/f1-260-259.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-261-260', 'Visualize and analyze the data', 'multi', 'You have a Power BI report. The report contains a line chart that displays sales data for several regions.
 
 You need to add an element to the report that will enable users to filter the sales data to include only a selected
@@ -12302,23 +13329,44 @@ region.
 
 Which two elements achieve the goal? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["a slicer visual","a drillthrough filter","a table visual","a card visual","a Key Performance Indicator (KPI) visual"]', '[0,2]', 'A. a slicer visual.
+NOTE: Each correct selection is worth one point.', '["a slicer visual","a drillthrough filter","a table visual","a card visual","a Key Performance Indicator (KPI) visual"]', '[0,2]', 'ترجمة السؤال بالعربي
+تقرير فيه Line chart لمبيعات مناطق متعددة. مطلوب عنصر يختار منه المستخدم منطقة واحدة فتقتصر المبيعات عليها. اختار حلين، كل واحد يحقق الهدف مستقلًا.
+
+القصة والمعنى
+السلايسر واضح، لكن جدول أسماء المناطق ممكن يقوم بنفس وظيفة الاختيار: تضغط سطر Cairo فيفلتر الخط، بشرط التفاعل مضبوط على Filter.
+
+مثال نفهم بيه
+الخط يعرض Cairo و Alex. اختيار Cairo من السلايسر أو من جدول المناطق يترك بيانات Cairo. إذا جعلت تفاعل الجدول None فلن يحقق الهدف.
+
+طريقة التفكير خطوة بخطوة
+1. Slicer على Region يطبق فلتر اختيار مباشر.
+2. Table يحتوي Region يمكن أن يرسل Cross-filter إلى Line chart عند اختيار الصف.
+3. Card و KPI يعرضان قيمة مجمعة، و Drillthrough ينقل لصفحة تفاصيل بدل إضافة أداة الاختيار المقصودة على الصفحة.
+
+الإجابة الصحيحة وليه
+A و C: a slicer visual؛ a table visual.
+
+ليه كل اختيار صح أو غلط
+A. a slicer visual
+Slicer مناسب مباشرة لتصفية Region.
+
+B. a drillthrough filter
+Drillthrough filter يخدم انتقالًا سياقيًا لصفحة هدف، لا عنصر اختيار المنطقة المطلوب هنا.
 
 C. a table visual
+Table يمكن أن يفلتر الخط بتحديد صف المنطقة والتفاعل المناسب.
 
-A. Slicer visual: Slicers allow users to filter data interactively and can be used to filter the sales data by region
-in this case.
+D. a card visual
+Card ليس قائمة مناطق يختار منها المستخدم.
 
-C. Table visual: While not a primary filter, a table visual can be used to display region data that can be clicked
-on for filtering, especially when combined with other visuals.
+E. a Key Performance Indicator (KPI) visual
+KPI يعرض مؤشرًا مقابل هدف، لا قائمة تصفية مناطق.
 
-Why Other Options Are Incorrect:
+الخلاصة اللي تتحفظ
+السلايسر ليس الوحيد الذي يفلتر: اختيار صف في Table قد يرسل Cross-filter أيضًا.
 
-B. Drillthrough filter: This is for filtering to a detailed page, not for filtering within the same page.
-
-D. Card visual: A card visual displays a single metric, not used for filtering.
-
-E. KPI visual: Similar to card visuals, KPIs are for showing performance indicators, not filtering.', 'Final', '261', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final', '261', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-262-261', 'Visualize and analyze the data', 'manual', 'DRAG DROP
 
 -
@@ -12335,9 +13383,44 @@ requirements. Each visual may be used once, more than once, or not at all. You m
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[3,4]', 'Pie Chart.
+NOTE: Each correct selection is worth one point.', '[]', '[3,4]', 'ترجمة السؤال بالعربي
+تقرير أرباح ربع سنوي مطلوب فيه إظهار مساهمة كل فئة منتجات في الإجمالي بالدولار والنسبة، ومقارنة هوامش الربح بين مناطق البيع. اربط كل مطلب برسم.
 
-Stacked Bar Chart.', 'Final', '262', '/dump-assets/f1-262-261-question.webp', '/dump-assets/f1-262-261-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+سؤال «كل فئة واخدة كام من الكعكة؟» يناسب Pie. أما «أي منطقة هامشها أعلى؟» فيحتاج أطوال أعمدة نقارنها مباشرة.
+
+مثال نفهم بيه
+أرباح فئتين 60 و 40 تعطي 60% و 40%. هامش منطقة A=20% و B=10% يقارن بطولي عمودين، ولا نجمعهما ونقول إجمالي الهامش 30%.
+
+طريقة التفكير خطوة بخطوة
+1. Pie يبرز الجزء من إجمالي الأرباح؛ يمكن إظهار القيمة والنسبة في Labels.
+2. Stacked bar هو خيار الأعمدة المتاح لمقارنة المناطق؛ وجود سلسلة واحدة لا يتطلب تكديس عدة هوامش.
+3. لا تجمع نسب هوامش مستقلة عشوائيًا؛ كل هامش يُحسب على مبيعات منطقته. Pie أيضًا يفترض إجماليًا ذا معنى وقيمًا مناسبة، لا أرباحًا سالبة متنافرة.
+
+الإجابة الصحيحة وليه
+المساهمة في الإجمالي: Pie chart. مقارنة المناطق: Stacked bar chart.
+
+ليه كل اختيار صح أو غلط
+A. Area chart
+Area يبرز تطورًا عبر محور مرتب، لا المقارنة المطلوبة في ربع محدد.
+
+B. Funnel chart
+Funnel لمراحل متتابعة، والفئات والمناطق ليست مراحل.
+
+C. Multi-row card
+Multi-row card يسرد أرقامًا لكنه لا يبرز الحصص والمقارنة بصريًا بنفس القوة.
+
+D. Pie chart
+Pie صحيح للمساهمة من إجمالي، مع إظهار القيمة والنسبة.
+
+E. Stacked bar chart
+Stacked bar هو الأنسب بين الخيارات لمقارنة قيم المناطق، دون جمع نسب لا يصح جمعها.
+
+الخلاصة اللي تتحفظ
+حصة من الإجمالي = Pie؛ مقارنة مناطق = Bar. نسب الهوامش لا تُجمع لمجرد أنها نسب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-pie-donut-charts', 'Final', '262', '/dump-assets/f1-262-261-question.webp', '/dump-assets/f1-262-261-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-263-262', 'Prepare the data', 'single', 'You have the CSV file shown in the following table.
 
 You use Power Query Editor to preview the data in the file.
@@ -12350,21 +13433,41 @@ You need to transform the data to meet the following requirements:
 
 •The third column must contain the order amount for the month and year.
 
-Which transformation should you use first?', '["remove","unpivot","transpose","pivot"]', '[1]', 'Correct answer is B:unpivot.
+Which transformation should you use first?', '["remove","unpivot","transpose","pivot"]', '[1]', 'ترجمة السؤال بالعربي
+CSV أعمدته Month و 2021 و 2022، وصفوفه January:1000,2500؛ February:4000,5000؛ March:2800,3400. المطلوب Month ثم Year ثم Order amount. تبدأ بأنهي تحويل؟
 
-The unpivot transformation is used to convert columns into rows, which is exactly what you need to transform
-the data. It will turn the order amounts (in columns) into rows under the corresponding month and year,
-making the data more manageable and meeting the requirement of having separate columns for month, year,
+القصة والمعنى
+السنة مستخبية في اسم العمود. عايزين ننزلها كقيمة داخل الصف، ويصبح لكل شهر صف لسنة 2021 وصف لسنة 2022.
 
-and order amount.
+مثال نفهم بيه
+January |2021|1000 ثم January|2022|2500. الصفوف الثلاثة تتحول إلى ستة صفوف دون فقد أي مبلغ.
 
-Why Other Options Are Incorrect:
+طريقة التفكير خطوة بخطوة
+1. احتفظ بـMonth كمفتاح واختر Unpivot للأعمدة السنوية أو Unpivot other columns.
+2. ينتج Attribute للسنة و Value للمبلغ؛ أعد تسميتهما Year و Order amount.
+3. اضبط الأنواع بعد التحويل. يبدأ السؤال بالتحويل وليس تسمية الناتج.
 
-A. Remove: This would delete unnecessary columns, but it doesn’t reshape the data.
+الإجابة الصحيحة وليه
+B. unpivot.
 
-C. Transpose: This swaps rows and columns, which is not the required transformation.
+ليه كل اختيار صح أو غلط
+A. remove
+Remove يحذف أعمدة أو صفوف ولا ينقل السنة لقيم.
 
-D. Pivot: This aggregates data but doesn''t turn columns into rows.', 'Final', '263', '/exhibit-assets/f1-263-262.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. unpivot
+Unpivot يحول عناوين السنوات إلى صفوف؛ صحيح.
+
+C. transpose
+Transpose يقلب الصفوف والأعمدة كلها ولا ينتج الشكل الطويل المطلوب مباشرة.
+
+D. pivot
+Pivot العكس: يحول قيم الفئات إلى أعمدة بدل إنزال السنوات لصفوف.
+
+الخلاصة اللي تتحفظ
+السنة اسم عمود وعايزها قيمة في عمود Year؟ Unpivot.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/unpivot-column', 'Final', '263', '/exhibit-assets/f1-263-262.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-264-263', 'Visualize and analyze the data', 'single', 'You are creating a Power BI single-page report.
 
 Some users will navigate the report by using a keyboard, and some users will navigate the report by using a screen
@@ -12373,19 +13476,41 @@ reader.
 
 You need to ensure that the users can consume content on a report page in a logical order.
 
-What should you configure on the report page?', '["the layer order","the X position","the bookmark order","the tab order"]', '[3]', 'the tab order.
+What should you configure on the report page?', '["the layer order","the X position","the bookmark order","the tab order"]', '[3]', 'ترجمة السؤال بالعربي
+تقرير صفحة واحدة يستخدمه أشخاص بلوحة مفاتيح وآخرون بقارئ شاشة. عايز استهلاك عناصر الصفحة بترتيب منطقي. تضبط إيه؟
 
-The tab order controls the navigation flow for keyboard users and ensures that all content is accessible in a
-logical sequence. This is important for both keyboard and screen reader users to navigate the report in an
-accessible and predictable manner.
+القصة والمعنى
+ممكن الرسم يكون فوق على الشاشة لكن زر Tab يوديك له بعد آخر عنصر. مكانه المرئي شيء ومسار التركيز شيء آخر.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+تبدأ بعنوان الصفحة ثم السلايسر ثم ملخص المؤشرات ثم التفاصيل، بدل أن ينتقل المستخدم عشوائيًا بين شكل خلفية وزر ورسم.
 
-A. Layer order: Controls which visuals are in front or behind other visuals, not the navigation order.
+طريقة التفكير خطوة بخطوة
+1. اضبط Tab order للصفحة من Selection pane.
+2. رتب المحتوى بحسب القراءة والعمل، وأخرج العناصر الزخرفية غير المفيدة من المسار.
+3. Alt text مهم لمعنى العنصر، لكنه لا يستبدل ترتيب التنقل المطلوب في هذا السؤال.
 
-B. X position: Determines horizontal placement but doesn''t affect navigation.
+الإجابة الصحيحة وليه
+D. the tab order.
 
-C. Bookmark order: Relevant for navigating between different views or sections, not for logical navigation.', 'Final', '264', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. the layer order
+Layer order يحدد تراكب العناصر لا تسلسل التركيز.
+
+B. the X position
+X position يحرك الرسم أفقيًا ولا يضمن تسلسل Tab.
+
+C. the bookmark order
+Bookmark order يغير قائمة الحالات المحفوظة لا كل عناصر الصفحة.
+
+D. the tab order
+Tab order هو تسلسل مرور لوحة المفاتيح وقارئ الشاشة بين العناصر.
+
+الخلاصة اللي تتحفظ
+ترتيب استهلاك الصفحة بالكيبورد = Tab order، لا Layer order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '264', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-265-264', 'Visualize and analyze the data', 'multi', 'You are configuring a Power BI report for accessibility as shown in the following table.
 
 You need to change the default colors of all three visuals to make the report more accessible to users who have
@@ -12396,11 +13521,42 @@ Which two settings should you configure in the Customize theme window? Each corr
 
 the solution.
 
-NOTE: Each correct selection is worth one point.', '["First-level elements colors","Theme colors","Divergent colors","Sentiment colors"]', '[1,2]', 'B- theme colors cause you can customize it yourself
+NOTE: Each correct selection is worth one point.', '["First-level elements colors","Theme colors","Divergent colors","Sentiment colors"]', '[2,3]', 'ترجمة السؤال بالعربي
+الصورة تعرض KPI أخضر، وجدولًا بتدرج ألوان، و Waterfall أخضر للزيادة وأحمر للنقص. مطلوب تغيير ألوان الأنواع الثلاثة لمراعاة ضعف تمييز الألوان من Customize theme. اختار إعدادين.
 
-C- Divergent specifically address color blind users
+القصة والمعنى
+مش كل لون في الرسمة راجع لنفس علبة الألوان. الأخضر والأحمر في KPI و Waterfall لهم معنى نجاح وفشل؛ تدرج الجدول له حد أدنى وأعلى.
 
-D is not correct because it uses colors like RED, GREEN, which hurts visual impaired users', 'Final', '265', '/exhibit-assets/f1-265-264.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+غيّر ألوان الزيادة والنقص إلى لونين مناسبين من Sentiment؛ وغيّر طرفي تدرج Budget Amount من Divergent. تغيير Data colors فقط لا يعالج ألوان الحالات ذات المعنى.
+
+طريقة التفكير خطوة بخطوة
+1. Sentiment colors تضبط Good و Neutral و Bad المستخدمة لحالات KPI و Waterfall.
+2. Divergent colors تضبط ألوان التدرج Min و Center و Max المستخدمة بالتنسيق الشرطي.
+3. الصحيح C و D لا B و C. وثيقة Create custom report themes تربط good/neutral/bad صراحة بالـWaterfall و KPI. بعد تغيير اللون، يستحسن إضافة إشارات غير لونية أيضًا.
+
+الإجابة الصحيحة وليه
+C و D: Divergent colors و Sentiment colors.
+
+ليه كل اختيار صح أو غلط
+A. First-level elements colors
+First-level elements تخص عناصر هيكلية ونصوصًا مثل عناوين ومحاور، لا هاتين مجموعتي ألوان البيانات.
+
+B. Theme colors
+Theme colors العامة للسلاسل لا تستبدل مجموعة Sentiment الخاصة بحالات KPI و Waterfall.
+
+C. Divergent colors
+Divergent colors صحيحة لتدرج الجدول.
+
+D. Sentiment colors
+Sentiment colors صحيحة للألوان الدلالية للـKPI و Waterfall.
+
+الخلاصة اللي تتحفظ
+KPI و Waterfall: Sentiment. تدرج شرطي في جدول: Divergent. لا تعتمد على حرف مفتاح يناقض النوع المعروض.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/report-themes-create-custom#theme-colors
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-reports-visual-defaults', 'Final', '265', '/exhibit-assets/f1-265-264.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-266-265', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -12417,33 +13573,76 @@ Report settings tab.)
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Yes, No, No.
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+مستخدمو المبيعات Viewer في Workspace، والتقرير يسمح بـPersonalize visuals. الصور تسمح بتصدير الملخص وتغيير أنواع الفلاتر. احكم: تغيير Bar إلى Pie؟ إعادة مشاركة التعديل خارج القسم؟ إنشاء Quick measure جديدة وإضافتها؟
 
-For the second one, the viewer role does not have access to share/reshare: https://learn.microsoft.com/en-
-us/power-bi/collaborate-share/service-roles-new-workspaces
+القصة والمعنى
+Personalize يديلك حرية تجرب العرض لنفسك، مش مفتاحًا لتعديل الموديل أو دعوة ناس جديدة. فرّق بين استكشافك وصلاحيات النشر والمشاركة.
 
-For third, there is no mention of being able to add a new measure:
+مثال نفهم بيه
+تحول Bar إلى Pie وتحتفظ بعرضك الشخصي؛ زميلك لا يرى تعديلًا عامًا. لو مُنحت Read و Reshare منفصلين، تصبح مشاركة العرض الشخصي ممكنة، لكن هذا غير معطى.
 
-https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals?tabs=powerbi-
-desktop', 'Final', '266', '/dump-assets/f1-266-265-question.webp', '/dump-assets/f1-266-265-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. يمكن تغيير نوع الرسم لأن Personalize مفعّل.
+2. Viewer وحده لا يمنح Reshare؛ لا توجد في السؤال منحة مستقلة تسمح بإعادة المشاركة.
+3. التخصيص يستخدم مقاييس وحقولًا موجودة ويغير تجميعات داعمة؛ لا ينشئ Quick measure جديدة في الموديل.
+
+الإجابة الصحيحة وليه
+Yes؛ No؛ No.
+
+ليه كل اختيار صح أو غلط
+الأولى Yes: تخصيص نوع الرسم مسموح للقارئ عند تفعيل الميزة.
+
+الثانية No ضمن الأذونات المعطاة؛ مشاركة العرض الشخصي تحتاج Read و Reshare، وليست ممنوحة بمجرد Viewer.
+
+الثالثة No: إضافة قياس Quick measure جديد عمل تأليف، وليس وظيفة Personalize.
+
+الخلاصة اللي تتحفظ
+Personalize يغيّر عرضك؛ لا يمنح تلقائيًا Reshare ولا كتابة مقاييس جديدة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-personalize-visuals
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '266', '/dump-assets/f1-266-265-question.webp', '/dump-assets/f1-266-265-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-267-266', 'Visualize and analyze the data', 'single', 'You need to use Power BI to create a visual that will allow users to compare the sales performance of five sales
 
 regions for the current month.
 
-Which visual should you use?', '["a line chart","a stacked bar chart","a 100% stacked bar chart","a waterfall chart"]', '[1]', 'Correct answer is B:a stacked bar chart.
+Which visual should you use?', '["a line chart","a stacked bar chart","a 100% stacked bar chart","a waterfall chart"]', '[1]', 'ترجمة السؤال بالعربي
+عايز Visual يقارن أداء مبيعات خمس مناطق في الشهر الحالي. الخيارات Line و Stacked bar و 100% stacked bar و Waterfall. تختار إيه؟
 
-A stacked bar chart allows you to compare sales performance across different sales regions, with each
-region''s performance represented as a segment of the bar. This visual is useful for showing both individual
-and total sales across multiple categories (regions), which aligns well with the requirement to compare five
-sales regions for the current month.
+القصة والمعنى
+كل منطقة رقم مستقل في نفس الشهر. لا تبحث عن ميل زمني ولا حصة نسبية تلغي فرق الحجم؛ قارن أطوال الأعمدة.
 
-Why Other Options Are Incorrect:
+مثال نفهم بيه
+Cairo=100 و Alex=50؛ الأعمدة العادية توضح ضعف المبيعات. تحويل كل منطقة إلى 100% يخفي هذا الفرق إذا لم توجد سلاسل فرعية.
 
-A. Line chart: Best suited for showing trends over time, not for comparing regions.
+طريقة التفكير خطوة بخطوة
+1. Stacked bar هو رسم الأعمدة المتاح بين الخيارات.
+2. مع قياس واحد وسلسلة واحدة يعرض عمودًا لكل منطقة دون حاجة إلى تكديس فعلي.
+3. 100% stacked قد يجعل كل عمود بنفس الطول إذا كان فيه سلسلة واحدة؛ يضيع فرق مبيعات المناطق.
 
-C. 100% stacked bar chart: Useful for showing proportional data, not for comparing absolute values.
+الإجابة الصحيحة وليه
+B. a stacked bar chart.
 
-D. Waterfall chart: Primarily used for visualizing incremental changes, not direct comparisons.', 'Final', '267', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. a line chart
+Line يوحي بتتابع عبر محور مرتب؛ المناطق هنا فئات منفصلة.
+
+B. a stacked bar chart
+Stacked bar يقارن القيم المطلقة بين المناطق وهو الأنسب المتاح.
+
+C. a 100% stacked bar chart
+100% stacked يركز على تركيب النسب داخل كل منطقة لا حجم المبيعات.
+
+D. a waterfall chart
+Waterfall لتغيرات تشرح الانتقال من قيمة بداية إلى نهاية، لا ترتيب خمس مناطق مستقلة.
+
+الخلاصة اللي تتحفظ
+اختار أفضل المتاح: مقارنة خمس مناطق بقيمة مطلقة = Bar، حتى لو اسمه Stacked ومعه سلسلة واحدة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-types-for-reports-and-q-and-a', 'Final', '267', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-268-267', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -12458,22 +13657,47 @@ You need to create two reports that meet the following requirements:
 
 Which format should you use for each report? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Box1:Power bi Paginated
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+مطلوب Report1 مناسب للطباعة ويوصل بإيميل مجدول، و Report2 مناسب للتفاعل الديناميكي. اختار صيغة كل تقرير.
 
-Box2:Power bi
+القصة والمعنى
+واحد مستند تتسلمه وتطبعه، والتاني شاشة تغير سلايسراتها وتحفر في تفاصيلها. الامتداد يعكس نوع الأداة، مش مجرد اسم ملف مختلف.
 
-Report1: Power BI Paginated (.rdl):
+مثال نفهم بيه
+كشف 80 صفحة بتقسيم مضبوط يخرج RDL؛ لوحة مبيعات فيها اختيار منتج وتفاعل رسومات تخرج PBIX. كلا النوعين قد يدعم الاشتراك، فلا تحفظ أن الإيميل خاص بنوع واحد فقط.
 
-Paginated reports are designed for printing and exporting. They are highly structured, with content fixed to a
-page, and are ideal for generating large reports that can be emailed or printed in a consistent format. They are
-optimized for scenarios where the report layout and distribution (via email or other methods) are key
-considerations.
+طريقة التفكير خطوة بخطوة
+1. Report1 يناسبه Power BI paginated بصيغة RDL.
+2. Report2 يناسبه Power BI بصيغة PBIX.
+3. الخيار يسمي SSRS مع RDLC؛ RDLC تقرير Local processing وليس صيغة Power BI paginated المطلوبة. الاشتراك وحده ليس ما يفرق؛ شرط الطباعة حاسم.
 
-Report2: Power BI (.pbix):
+الإجابة الصحيحة وليه
+Report1: Power BI paginated (.rdl). Report2: Power BI (.pbix).
 
-Power BI desktop files (.pbix) allow for dynamic interactivity. Users can filter, drill down, and interact with the
-data on the report. These are ideal for reports where users need to explore data interactively rather than just
-viewing static, printed information.', 'Final', '268', '/dump-assets/f1-268-267-question.webp', '/dump-assets/f1-268-267-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Report1: Microsoft SQL Server Reporting Services (SSRS) (.rdlc)
+SSRS (.rdlc) ليس ملف Power BI paginated المدعوم المقصود في Workspace.
+
+B. Report1: Power BI (.pbix)
+PBIX يدعم التقارير التفاعلية لكنه ليس الاختيار الأمثل لمطلب الطباعة بالصفحات.
+
+C. Report1: Power BI paginated (.rdl)
+RDL صحيح للتقرير الأول الطباعي.
+
+D. Report2: Microsoft SQL Server Reporting Services (SSRS) (.rdlc)
+RDLC ليس اختيار التقرير الثاني التفاعلي على Power BI.
+
+E. Report2: Power BI (.pbix)
+PBIX صحيح للتقرير الثاني.
+
+F. Report2: Power BI paginated (.rdl)
+RDL يقدم تفاعلات محددة لكنه ليس بديل التقرير الديناميكي المطلوب هنا.
+
+الخلاصة اللي تتحفظ
+مستند مضبوط الصفحات = RDL؛ تحليل تفاعلي = PBIX. الاشتراك ليس حكرًا على RDL.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/paginated-reports/paginated-reports-report-builder-power-bi', 'Final', '268', '/dump-assets/f1-268-267-question.webp', '/dump-assets/f1-268-267-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-269-268', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains the table shown in the following exhibit.
 
 The table contains conditional formatting that shows which stores are above, near, or below the monthly quota for
@@ -12482,26 +13706,80 @@ returns.
 
 You need to ensure that the table is accessible to consumers of reports who have color vision deficiency.
 
-What should you do?', '["Move the conditional formatting icons to a tooltip report.","Add alt text that lists the values in the table.","Change the icons to use a different shape for each color.","Remove the icons and use red, yellow, and green background colors instead."]', '[2]', 'Change the icons to use a different shape for each color.
+What should you do?', '["Move the conditional formatting icons to a tooltip report.","Add alt text that lists the values in the table.","Change the icons to use a different shape for each color.","Remove the icons and use red, yellow, and green background colors instead."]', '[2]', 'ترجمة السؤال بالعربي
+جدول Current Month Returns فيه دوائر حمراء وصفراء وخضراء تميز المتاجر أعلى أو قرب أو تحت حصة المرتجعات. عايز العرض مفهومًا لمن لديهم ضعف تمييز الألوان. تعمل إيه؟
 
-It''s a "color vision deficiency" so using different shapes would secure understanding of the report for that
-group of users', 'Final', '269', '/exhibit-assets/f1-269-268.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+لو الثلاث إشارات دوائر، الشخص اللي مش بيفرق ألوانها يفقد الحالة. خلي الشكل نفسه يقول المعنى، مش اللون وحده.
+
+مثال نفهم بيه
+الحالات الثلاث تصبح علامة تعجب ودائرة وعلامة صح، فيُعرف الفرق حتى عند عرض الصفحة بتدرج رمادي. الأشكال أمثلة وليست رموزًا مفروضة بالسؤال.
+
+طريقة التفكير خطوة بخطوة
+1. اختر شكلًا مختلفًا لكل حالة: مثلث تحذير ومربع ودائرة مثلًا مع معنى واضح.
+2. تستطيع إبقاء اللون كإشارة إضافية لا وحيدة.
+3. Alt text لا يعوض التمييز المرئي لكل صف، وإخفاء الإشارة في Tooltip يصعب الوصول للمعلومة.
+
+الإجابة الصحيحة وليه
+C. Change the icons to use a different shape for each color.
+
+ليه كل اختيار صح أو غلط
+A. Move the conditional formatting icons to a tooltip report.
+نقل الأيقونات إلى Tooltip يخفي المعلومة بدل جعلها مفهومة.
+
+B. Add alt text that lists the values in the table.
+Alt text مفيد لقارئ الشاشة لكنه لا يحل مشكلة تمييز حالات الصفوف بصريًا.
+
+C. Change the icons to use a different shape for each color.
+اختلاف الشكل لكل حالة يعالج الاعتماد على اللون.
+
+D. Remove the icons and use red, yellow, and green background colors instead.
+استبدال الدوائر بخلفيات حمراء وصفراء وخضراء يبقي الاعتماد على اللون وحده.
+
+الخلاصة اللي تتحفظ
+حالة مهمة؟ عبّر عنها بشكل أو نص مع اللون، لا بلون وحده.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '269', '/exhibit-assets/f1-269-268.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-270-269', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains one visual.
 
 You need to provide users with the ability to change the visual type without affecting the view for other users.
 
-What should you do?', '["From the Bookmarks pane, select Focus mode, and then select Add.","From Report settings, select Personalize visuals.","From Visual options in Report settings, select Use the modern visual header with updated styling options.","From Tabular Editor, create a new perspective."]', '[1]', 'From Report settings, select Personalize visuals.
+What should you do?', '["From the Bookmarks pane, select Focus mode, and then select Add.","From Report settings, select Personalize visuals.","From Visual options in Report settings, select Use the modern visual header with updated styling options.","From Tabular Editor, create a new perspective."]', '[1]', 'ترجمة السؤال بالعربي
+تقرير فيه رسم واحد. عايز كل مستخدم يقدر يبدل نوع الرسم لنفسه دون التأثير على بقية المستخدمين. تعمل إيه؟
 
-B. Personalize visuals enables users to modify visuals without affecting other users'' views. This option
-supports personalized visual customization at the individual user level.
+القصة والمعنى
+واحد بيحب Pie والتاني Bar. مش هنخليهم يعدلوا المصدر كل شوية؛ نسمح بالتخصيص الشخصي.
 
-Why other options are incorrect:
+مثال نفهم بيه
+مستخدم يحول الرسم لخط ويحفظه في Personal bookmark. المستخدم الآخر يفتح تصميم الكاتب الأصلي ما لم يختر عرضًا شخصيًا مختلفًا.
 
-A. Focus mode allows users to focus on one visual but doesn''t provide an option to change the visual type.
+طريقة التفكير خطوة بخطوة
+1. فعّل Personalize visuals من Report settings.
+2. التغيير الشخصي لا يعيد نشر تصميم التقرير لجميع القراء.
+3. يمكن حفظ حالة شخصية؛ مشاركة نسخة شخصية لها أذونات مستقلة. Perspective يحدد مجموعة حقول ولا يمنح الميزة وحده.
 
-C. Visual options in Report settings only changes how the visual header appears, not the visual type itself.
+الإجابة الصحيحة وليه
+B. From Report settings, select Personalize visuals.
 
-D. Tabular Editor is used for advanced model editing, not for enabling user visual customizations.', 'Final', '270', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. From the Bookmarks pane, select Focus mode, and then select Add.
+Focus mode يكبّر الرسم ولا يمكّن تبديل نوعه.
+
+B. From Report settings, select Personalize visuals.
+Personalize visuals صحيح لاستكشاف شخصي.
+
+C. From Visual options in Report settings, select Use the modern visual header with updated styling options.
+Modern visual header يغيّر الواجهة ولا يمنح وظيفة التخصيص بذاته.
+
+D. From Tabular Editor, create a new perspective.
+Perspective يحدد الحقول المعروضة، لا آلية تغيير النوع الشخصي وحدها.
+
+الخلاصة اللي تتحفظ
+تعديل لنفس المستخدم دون بقية الناس = Personalize visuals، لا Edit للتقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals', 'Final', '270', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-271-270', 'Visualize and analyze the data', 'manual', 'HOTSPOT
 
 -
@@ -12512,61 +13790,88 @@ You need to modify the visual to display as shown in the following exhibit.
 
 How should you configure the visual? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Why Other Options Are Incorrect
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+الأصل جدول بستة تواريخ وأعمدة Total Sales و Total Cost. الهدف صف باسم Total Cost وصف باسم Total Sales، والقيم تمتد أفقيًا مع الإجمالي 281.28 و 375.04. اختار نوع الرسم والتنسيق.
 
-Type: Table or Multi-row card
+القصة والمعنى
+دي مش مجموعة كروت؛ كل مقياس أصبح عنوان صف، وتحت كل تاريخ قيمة تخصه، وفي الآخر إجمالي. نحتاج Matrix تعرض المقاييس كصفوف.
 
-A Table visual displays data in a flat format, with no pivoting or hierarchical structures, making it impossible
-to organize dates as columns and measures (e.g., Total Cost and Total Sales) as rows.
+مثال نفهم بيه
+بدل صف 1 أكتوبر وتحته 10.75Sales و 8.06Cost، يصبح صف Cost يمر على التواريخ الستة، وصف Sales مثله. إجمالي Cost=281.28 و Sales=375.04 كما بالصورة.
 
-A Multi-row card is for displaying summarized data values, not structured row-column relationships.
+طريقة التفكير خطوة بخطوة
+1. غيّر النوع إلى Matrix وضع OrderDate في Columns والمقياسين في Values.
+2. فعّل Switch values to rows؛ قد يسمى Show values on rows في واجهة أحدث.
+3. Stepped layout ينظم تدرج عناوين الصفوف ولا ينقل المقاييس من أعمدة إلى صفوف.
 
-Format: Set Rows subtotals to Off
+الإجابة الصحيحة وليه
+Matrix؛ Set Switch values to rows to On.
 
-Subtotals are unrelated to achieving the desired layout; this setting only affects the visibility of subtotals,
-which is not relevant here.
+ليه كل اختيار صح أو غلط
+A. Type: Matrix
+Matrix صحيح لدعم محوري الصفوف والأعمدة وعرض القيم كصفوف.
 
-Format: Set Stepped layout to Off
+B. Type: Multi-row card
+Multi-row card لا يبني شبكة تواريخ ومقاييس بإجمالي كهذه.
 
-The Stepped layout adjusts hierarchical indentation for rows in a Matrix visual. It does not control the pivoting
-of values to rows, so it is irrelevant for this requirement.', 'Final', '271', '/dump-assets/f1-271-270-question.webp', '/dump-assets/f1-271-270-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Type: Table
+Table يبقي الأعمدة كحقول ولا يوفر Switch values to rows المقصود.
+
+D. Format: Set Rows subtotals to Off.
+Rows subtotals Off يخفي إجماليات فرعية ولا ينقل المقاييس.
+
+E. Format: Set Stepped layout to Off.
+Stepped layout Off يفرد مستويات عناوين الصفوف، وليس اتجاه Measures.
+
+F. Format: Set Switch values to rows to On.
+Switch values to rows On هو الإعداد الذي يحول أسماء المقاييس إلى صفوف.
+
+الخلاصة اللي تتحفظ
+المقاييس نفسها أسماء صفوف مع قيم أفقية؟ Matrix + Switch values to rows، وليس Multi-row card.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-matrix-visual', 'Final', '271', '/dump-assets/f1-271-270-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-272-271', 'Model the data', 'single', 'You have a Power BI report that contains a card. The card displays the value for year-to-date revenue.
 
 You need to ensure that screen reader users can read the value when initially interacting with the card. The value
 
 must stay updated as the dataset is refreshed.
 
-What should you do?', '["Convert the card into a text box.","Add the value to the chart title text.","Populate the alt text with a static value.","Populate the alt text by using conditional formatting with a DAX measure."]', '[3]', 'Populate the alt text by using conditional formatting with a DAX measure.
+What should you do?', '["Convert the card into a text box.","Add the value to the chart title text.","Populate the alt text with a static value.","Populate the alt text by using conditional formatting with a DAX measure."]', '[3]', 'ترجمة السؤال بالعربي
+Card تعرض الإيراد من بداية السنة. مطلوب أن يقرأ قارئ الشاشة القيمة عند بدء التفاعل مع الكارت، وأن تظل القيمة محدثة بعد تحديث الموديل. تعمل إيه؟
 
-Requirement:
+القصة والمعنى
+لو كتبت «الإيراد 100 ألف» في وصف ثابت، الرقم هيبقى قديم بكرة. خلي الوصف نفسه مربوطًا بمقياس يحول القيمة الحالية لجملة مقروءة.
 
-The value displayed in the card must be readable by screen readers.
+مثال نفهم بيه
+الوصف يقول «إيراد السنة حتى الآن: 125,000 دولار»، ثم يصبح 130,000 بعد التحديث. لا تحتاج أن تعدل النص يدويًا كل يوم.
 
-The value should stay updated dynamically when the dataset is refreshed.
+طريقة التفكير خطوة بخطوة
+1. أنشئ مقياسًا نصيًا يصف قيمة الإيراد من بداية السنة في السياق الحالي.
+2. اربط المقياس بخاصية Alt text عبر التنسيق الشرطي fx.
+3. القيمة تتغير مع البيانات والفلاتر؛ الوصف الثابت لا يحقق هذا. أبقِ مقياس الإيراد الأصلي رقميًا، واستخدم وصفًا منفصلًا.
 
-Why Option D is Correct:
+الإجابة الصحيحة وليه
+D. Populate alt text using conditional formatting with a DAX measure.
 
-Using conditional formatting with a DAX measure for the alt text ensures the alt text dynamically updates
-whenever the dataset is refreshed.
+ليه كل اختيار صح أو غلط
+A. Convert the card into a text box.
+تحويل الكارت إلى Text box لا يضمن وصفًا ديناميكيًا لقارئ الشاشة.
 
-Screen readers will read the updated alt text, making the value accessible and always accurate.
+B. Add the value to the chart title text.
+عنوان ثابت لا يحقق تحديث القيمة؛ الخيار لا يذكر ربطًا ديناميكيًا.
 
-Why Other Options Are Incorrect:
+C. Populate the alt text with a static value.
+Alt text ثابت سيصبح قديمًا مع تغير الإيراد.
 
-A. Convert the card into a text box:
+D. Populate the alt text by using conditional formatting with a DAX measure.
+Alt text مربوط بمقياس يحقق القراءة والتحديث.
 
-A text box does not support dynamic updates based on data refresh. You would need to manually update the
-text box whenever the dataset changes.
+الخلاصة اللي تتحفظ
+قيمة متغيرة لقارئ الشاشة = Alt text ديناميكي، لا رقم مكتوب مرة واحدة.
 
-B. Add the value to the chart title text:
-
-While chart titles can be read by screen readers, this option does not apply to cards. It also lacks flexibility in
-dynamically presenting values in the alt text for accessibility.
-
-C. Populate the alt text with a static value:
-
-A static alt text value would not update when the dataset refreshes, failing the requirement for dynamic
-updates.', 'Final', '272', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '272', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-273-272', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains a table visual. The visual contains a column.
 
 The column contains whole numbers ranging from of 1 to 20.
@@ -12581,21 +13886,41 @@ You need to use conditional formatting to meet the following requirements:
 
 •Minimize development effort.
 
-Which formatting should you use?', '["font color","icons","data bars","background color"]', '[2]', 'Correct answer is C:data bars.
+Which formatting should you use?', '["font color","icons","data bars","background color"]', '[2]', 'ترجمة السؤال بالعربي
+عمود ColumnA في Table يحتوي أعدادًا صحيحة من 1 إلى 20. مطلوب مقارنة القيم دون قراءة الرقم، شكل مختلف لكل قيمة، وإخفاء الرقم بأقل تطوير. أنهي تنسيق تختار؟
 
-C. Data bars are ideal for visually comparing values without displaying the actual numbers. They provide a
-visual representation of the data, with varying lengths indicating the size of each value. This minimizes the
-need to read text while fulfilling the requirement to show a different format for each distinct value.
+القصة والمعنى
+بدل عشرين لونًا أو عشرين أيقونة، خلي طول الشريط يقول الحجم. واحد شريط قصير، وعشرون أطول واحد. ونخفي الرقم نفسه.
 
-Why other options are incorrect:
+مثال نفهم بيه
+عند ضبط الحدود من صفر إلى 20، قيمة 5 تقارب ربع الطول، و 10 نصفه، و 20 كامل الطول. إخفاء الرقم لا يحذف قيمته من الموديل.
 
-A. Font color only changes the color of the text, but doesn''t provide a distinct visual representation of the
-values.
+طريقة التفكير خطوة بخطوة
+1. Data bars تمثل مقدار القيمة بطول شريط داخل الخلية.
+2. فعّل Show bar only لإخفاء القيمة النصية.
+3. اضبط حدود المقارنة بحيث تحصل القيم المختلفة على أطوال مختلفة. لا تحتاج عشرين قاعدة منفصلة.
 
-B. Icons can show distinct symbols, but data bars are better for comparing values.
+الإجابة الصحيحة وليه
+C. data bars.
 
-D. Background color would apply a color background, but it doesn''t offer the same comparison clarity as data
-bars.', 'Final', '273', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. font color
+Font color يعتمد على قراءة الرقم أو تمييز ألوان كثيرة، ولا يحقق المقارنة المطلوبة بسهولة.
+
+B. icons
+Icons تحتاج خرائط متعددة لعشرين قيمة ولا تعطي طولًا كميًا مباشرًا.
+
+C. data bars
+Data bars مع Show bar only تحقق المقارنة وإخفاء الرقم بأقل إعداد.
+
+D. background color
+Background color لا يمثل المقدار كطول واضح، ومقارنة عشرين درجة لون أصعب.
+
+الخلاصة اللي تتحفظ
+مقارنة حجم رقم وإخفاؤه = Data bars مع Show bar only.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-conditional-table-formatting', 'Final', '273', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-274-273', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -12608,69 +13933,130 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Unique is 0.
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+Resource Location يعرض Count=2,863 و Distinct=13 و Unique=0. في التوزيع US East أطول عمود، و Min=EU North و Max=ZA North. مطلوب عدد القيم التي ظهرت مرة واحدة والقيمة الأكثر تكرارًا.
 
-Most frequently occurred is US East
+القصة والمعنى
+Distinct يعني كام اسم مختلف، مش كام اسم ظهر مرة. ممكن عندك 13 منطقة وكل منطقة مكررة، فلا يوجد اسم واحد له ظهور وحيد.
 
-First solution must be ''0'' as there are no UNIQUE values.
+مثال نفهم بيه
+لو Egypt مرتين و France مرتين، يكون Distinct=2 و Unique=0 رغم وجود أربعة صفوف. هنا نفس الفكرة مع 13 اسمًا مختلفًا و 2,863 صفًا.
 
-13 is the number of DISTINCT values in the dataset.
+طريقة التفكير خطوة بخطوة
+1. السؤال الأول يطابق Unique=0.
+2. الأكثر تكرارًا يأتي من أطول عمود في التوزيع: US East.
+3. Min و Max للنص يخصان ترتيب القيم، لا تكرارها. النتائج تخص نطاق البيانات الذي تم تحليله.
 
-US East is the one occuring many more times than the reast (on top in the bar chart)', 'Final', '274', '/dump-assets/f1-274-273-question.webp', '/dump-assets/f1-274-273-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+0؛ US East.
+
+ليه كل اختيار صح أو غلط
+A. Values occurring only once in Resource Location: 0
+صفر صحيح لأنه Unique المعروض.
+
+B. Values occurring only once in Resource Location: 13
+13 هو Distinct، وليس عدد القيم ذات الظهور الوحيد.
+
+C. Values occurring only once in Resource Location: 2,863
+2,863 إجمالي Count وليس Unique.
+
+D. The value occurring most frequently: EU North
+EU North هو Min النصي وليس أطول عمود.
+
+E. The value occurring most frequently: Middle East And Africa
+Middle East And Africa ليست الأكثر تكرارًا في الرسم.
+
+F. The value occurring most frequently: US East
+US East صحيحة لأن عمود تكرارها هو الأطول.
+
+G. The value occurring most frequently: ZA North
+ZA North هو Max النصي، لا الأكثر شيوعًا.
+
+الخلاصة اللي تتحفظ
+Distinct = قيم مختلفة؛ Unique = قيم ظهرت مرة واحدة. اقرأ التكرار من الرسم، لا من Min و Max.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '274', '/dump-assets/f1-274-273-question.webp', '/dump-assets/f1-274-273-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-275-274', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains the visual shown in the following exhibit.
 
 You need to make the visual more accessible to users who have color vision deficiency.
 
-What should you do?', '["Change the font color of values in the Sales column to white.","Change the red background color to orange.","Add additional measures to the table values.","Add icons to represent the sales status of each product."]', '[3]', 'Add icons to represent the sales status of each product.
+What should you do?', '["Change the font color of values in the Sales column to white.","Change the red background color to orange.","Add additional measures to the table values.","Add icons to represent the sales status of each product."]', '[3]', 'ترجمة السؤال بالعربي
+جدول Product و Sales يستخدم خلفية حمراء أو خضراء لحالة المبيعات. مطلوب تحسينه للمستخدمين الذين لديهم ضعف تمييز الألوان. تعمل إيه؟
 
-D. Add icons helps to make the visual more accessible to users with color vision deficiencies by providing an
-additional layer of information. Icons can represent the sales status of each product, making it easier for users
-to understand the data without relying solely on color.
+القصة والمعنى
+الرقم واضح، لكن معنى الأحمر والأخضر قد لا يكون واضحًا. أضف رمزًا للحالة حتى لا تعتمد المعلومة على اللون وحده.
 
-Why other options are incorrect:
+مثال نفهم بيه
+المنتج الأقل من الهدف يظهر مثلث تحذير، وفوق الهدف علامة صح. المستخدم يميز الشكل حتى لو الألوان متقاربة؛ هذه أمثلة وليست رموزًا مفروضة.
 
-A. Changing font color improves readability but does not address color blindness.
+طريقة التفكير خطوة بخطوة
+1. أضف Icons مختلفة الشكل حسب حالة المبيعات.
+2. يمكن الاحتفاظ بالأرقام والألوان كقنوات إضافية، وليست الوحيدة.
+3. تغيير الأحمر إلى برتقالي قد لا يحل كل أنواع ضعف تمييز الألوان، ولا يضيف معنى غير لوني.
 
-B. Changing the background color might still be difficult for colorblind users to interpret.
+الإجابة الصحيحة وليه
+D. Add icons to represent the sales status of each product.
 
-C. Adding additional measures does not directly help users with color vision deficiencies.', 'Final', '275', '/exhibit-assets/f1-275-274.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Change the font color of values in the Sales column to white.
+تبييض الخط قد يحسن التباين، لكنه لا يشرح الحالة دون لون.
+
+B. Change the red background color to orange.
+استبدال لون بلون يبقي الحالة معتمدة على اللون فقط.
+
+C. Add additional measures to the table values.
+إضافة مقاييس لا تعالج طريقة عرض حالة المبيعات الموجودة.
+
+D. Add icons to represent the sales status of each product.
+Icons تعطي إشارة شكلية إضافية للحالة.
+
+الخلاصة اللي تتحفظ
+لا تجعل الأحمر والأخضر وحدهما يحملان معنى الحالة؛ أضف شكلًا أو نصًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '275', '/exhibit-assets/f1-275-274.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-276-275', 'Prepare the data', 'single', 'You have a Power BI app that contains a report named Report1.
 
 You add a new page to Report1.
 
 You need to ensure that users can view the new page. The solution must minimize administrative effort.
 
-What should you do?', '["Update the audience in the app.","Update the app.","Update the contact information in the app.","Unpublish and create a new app."]', '[1]', 'Update the app.
+What should you do?', '["Update the audience in the app.","Update the app.","Update the contact information in the app.","Unpublish and create a new app."]', '[1]', 'ترجمة السؤال بالعربي
+Power BI app تحتوي Report1. أضفت صفحة إلى التقرير، وعايز مستخدمي التطبيق يشوفوها بأقل جهد إداري. تعمل إيه؟
 
-Requirement:
+القصة والمعنى
+الـWorkspace مكان التأليف، والـApp نسخة التوزيع. تعديل التقرير في المخزن لا يغني عن تحديث نسخة الجمهور عندما يتغير محتواها.
 
-You added a new page to an existing report in a Power BI app.
+مثال نفهم بيه
+Report1 كان ثلاث صفحات وأصبح أربعًا. تحديث التطبيق ينقل التعديل لجمهوره، بشرط أن الصفحة الجديدة ليست مخفية عنهم بإعداد آخر.
 
-You need to make the new page visible to users with minimal administrative effort.
+طريقة التفكير خطوة بخطوة
+1. تأكد أن التقرير المعدل منشور في Workspace.
+2. نفذ Update app لتوزيع تحديث المحتوى على الجمهور.
+3. لا حاجة لإلغاء نشر التطبيق وإنشاء تطبيق جديد أو تغيير معلومات التواصل.
 
-Why Option B is Correct:
+الإجابة الصحيحة وليه
+B. Update the app.
 
-Updating the app allows you to include the new page in the app and publish the changes. This process does
-not require unpublishing or creating a new app, thus minimizing effort.
+ليه كل اختيار صح أو غلط
+A. Update the audience in the app.
+Audience تحدد من يرى المحتوى؛ المطلوب هنا تحديث المحتوى لا تغيير الجمهور.
 
-Existing users of the app will automatically see the changes after you update the app.
+B. Update the app.
+Update app هو المسار القياسي لتوزيع التعديل.
 
-Why Other Options Are Incorrect:
+C. Update the contact information in the app.
+Contact information بيانات للتواصل ولا تنشر صفحة جديدة.
 
-A. Update the audience in the app:
+D. Unpublish and create a new app.
+Unpublish ثم إنشاء تطبيق جديد جهد أكبر وقد يعطل الوصول دون حاجة.
 
-Updating the audience controls who can view the app but does not update the content within the app. This
-option does not address the need to make the new page visible.
+الخلاصة اللي تتحفظ
+عدلت محتوى داخل App؟ حدّث التطبيق بدل إعادة بناء التوزيع من الصفر.
 
-C. Update the contact information in the app:
-
-Contact information only provides user support details. It does not affect the visibility of pages or content
-within the app.
-
-D. Unpublish and create a new app:
-
-Unpublishing and recreating the app would involve significantly more effort and is unnecessary for simply
-adding a new page to an existing app.', 'Final', '276', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '276', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-277-276', 'Visualize and analyze the data', 'single', 'You have a Power BI semantic model that contains a table named Table1. Table1 contains the following columns:
 
 •WebsiteName
@@ -12685,19 +14071,41 @@ requirements:
 
 •Enable users to navigate to the website''s URL by selecting the website name.
 
-What should you use?', '["data categories","Conditional Formatting","inline hierarchy labels","URL icons"]', '[1]', '1. B- need to "Enable users to navigate to the website''s URL by selecting the website name"
+What should you use?', '["data categories","Conditional Formatting","inline hierarchy labels","URL icons"]', '[1]', 'ترجمة السؤال بالعربي
+Table1 فيها WebsiteName و URL. مطلوب جدول يعرض اسم الموقع، والضغط على الاسم يفتح عنوانه. تستخدم إيه؟
 
-To enable users to navigate to a website''s URL by selecting the website name, you should use conditional
-formatting to turn the website names into hyperlinks. In Power BI, this can be done by applying URL
-formatting to the column containing the website names, allowing them to function as clickable links.
+القصة والمعنى
+الاسم هو النص المقروء، والرابط حقل آخر خلفه. لا تعرض الرابط الطويل مكان الاسم ولا تضع أيقونة بدله؛ اربط الاسم بعنوانه.
 
-Why other options are incorrect:
+مثال نفهم بيه
+الخلية تعرض Microsoft وعنوانها مأخوذ من URL لنفس الصف. اختلاف النص الظاهر عن عنوان الموقع هو سبب الحاجة إلى تنسيق الرابط على حقل آخر.
 
-A. Data categories: Used for categorizing data types, not for creating hyperlinks.
+طريقة التفكير خطوة بخطوة
+1. طبّق Web URL conditional formatting على WebsiteName.
+2. اجعل الحقل المستخدم للرابط هو URL في الصف نفسه.
+3. Data category للرابط وحده تجعل الرابط المعروض قابلًا للنقر، لكنها لا تربط اسمًا مختلفًا بعنوانه.
 
-C. Inline hierarchy labels: Used for hierarchical visuals, not for linking URLs.
+الإجابة الصحيحة وليه
+B. Conditional Formatting.
 
-D. URL icons: Refers to icons for links, not for making text clickable.', 'Final', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. data categories
+Data categories للرابط وحده لا تكفي لربط WebsiteName بقيمة URL مستقلة.
+
+B. Conditional Formatting
+Web URL conditional formatting يحقق الضغط على الاسم لفتح رابطه.
+
+C. inline hierarchy labels
+Inline hierarchy labels تخص عرض التدرج، لا الربط بعناوين مواقع.
+
+D. URL icons
+URL icons تعرض رمزًا للنقر، والمطلوب النقر على الاسم نفسه.
+
+الخلاصة اللي تتحفظ
+اسم ظاهر ورابط في عمود آخر = Web URL conditional formatting على الاسم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-conditional-table-formatting', 'Final', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-278-277', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -12712,13 +14120,47 @@ You need to view the following information in the Data preview view for the Coun
 
 What should you enable? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Independent correction:
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+في Power Query عايز تعرف لعمود Country نسبة القيم التي تحتوي أخطاء، وعدد القيم الفارغة. تفعّل إيه لكل معلومة؟
 
-Percentage of error values: Column quality.
+القصة والمعنى
+واحد بيسألك «كام في المية؟»، والثاني محتاج عددًا محددًا. Quality يعطي ملخص النسب، و Profile يعرض إحصاءات تفصيلية للعمود المحدد.
 
-Count of empty values: Column profile.
+مثال نفهم بيه
+لو 500 صف فيها 10 أخطاء و 25 قيمة فارغة، Quality يعرض 2% Errors، و Profile يبين Empty=25. لا تعمم عينة على كامل الملف دون فحص نطاق التحليل.
 
-Column quality is the quick percentage bar. Column profile supplies detailed column statistics and value counts.', 'Final', '278', '/dump-assets/f1-278-277-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. Column quality هو الاختيار المباشر لنسبة Errors في شريط الجودة.
+2. Column profile يعرض Empty count ضمن إحصاءات العمود.
+3. Quality قد يظهر أعدادًا عند المرور عليه في بعض الإصدارات؛ السؤال يميز شريط النسب عن الإحصاءات التفصيلية. راجع هل التحليل لأول ألف صف أم كامل البيانات.
+
+الإجابة الصحيحة وليه
+نسبة الأخطاء: Column quality. عدد القيم الفارغة: Column profile.
+
+ليه كل اختيار صح أو غلط
+A. To view the percentage of values that contain errors: Column distribution
+Distribution يركز على التكرارات لا عرض نسبة الأخطاء المباشر.
+
+B. To view the percentage of values that contain errors: Column profile
+Profile يتضمن إحصاءات، لكن الاختيار المباشر لشريط Errors% هو Quality.
+
+C. To view the percentage of values that contain errors: Column quality
+Quality صحيح لنسبة الأخطاء.
+
+D. To view the count of empty values: Column distribution
+Distribution ليس عرض Empty count التفصيلي المقصود.
+
+E. To view the count of empty values: Column profile
+Profile صحيح لعرض Empty ضمن إحصاءات العمود.
+
+F. To view the count of empty values: Column quality
+Quality يركز على نسب الجودة؛ للإحصاء التفصيلي المطلوب اختَر Profile.
+
+الخلاصة اللي تتحفظ
+نسب صلاحية وخطأ وفراغ = Quality؛ إحصاءات العمود التفصيلية = Profile.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '278', '/dump-assets/f1-278-277-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-279-278', 'Model the data', 'single', 'You have a Power BI semantic model named Model1 that contains two fields named Sales and Quarter. Model1
 
 contains a DAX measure that sums the Sales column.
@@ -12727,12 +14169,41 @@ You need to create a report that will contain the visual shown in the following 
 
 The solution must NOT require additional DAX measures.
 
-Which type of visual should you use?', '["ribbon chart","line chart","100% stacked area chart","area chart"]', '[2]', 'You need to create a report that will contain the visual shown in the following exhibit.'', that is clearly meant
-for 100% stacked area chart. Cannot be B line chart as per the exhibited visual shown which is stacked
-category..
+Which type of visual should you use?', '["ribbon chart","line chart","100% stacked area chart","area chart"]', '[2]', 'ترجمة السؤال بالعربي
+الموديل يحتوي Sales و Quarter ومقياس جمع المبيعات. الصورة تعرض مساحات Products A إلى D عبر Q1 إلى Q3 بمحور من 0% إلى 100%. مطلوب نفس الشكل دون مقاييس DAX إضافية.
 
-B does not show referring to the visual diagram where you have different product category stacked up,
-question outlines', 'Final', '279', '/exhibit-assets/f1-279-278.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+كل ربع ممتلئ حتى 100% مهما كان إجمالي مبيعاته. الرسم نفسه يحوّل حصص المنتجات إلى نسب من مجموع الربع.
+
+مثال نفهم بيه
+ربع إجماليه 100 ومبيعات A فيه 25 يعطيها 25%. ربع آخر إجماليه 200 ومبيعات A فيه 50 يعطيها 25% أيضًا، دون مقياس نسبة يدوي.
+
+طريقة التفكير خطوة بخطوة
+1. المساحات متراكمة ومطبّعة إلى 100%؛ الاختيار 100% stacked area.
+2. استخدم Quarter للمحور، والمبيعات للقيمة، وفئة المنتج للـLegend كما بالصورة.
+3. النص يذكر حقلين، لكن الصورة تتطلب أيضًا حقلًا لفئة المنتج. نوع الرسم واضح، والتنفيذ الكامل يفترض وجود هذا الحقل غير المسمى في النص.
+
+الإجابة الصحيحة وليه
+C. 100% stacked area chart.
+
+ليه كل اختيار صح أو غلط
+A. ribbon chart
+Ribbon يبرز تغير ترتيب الفئات بشرائط؛ ليس الشكل المعروض.
+
+B. line chart
+Line لا يعرض طبقات مملوءة مجموعها 100%.
+
+C. 100% stacked area chart
+100% stacked area يطابق تطبيع كل شريحة زمنية إلى 100%.
+
+D. area chart
+Area العادي لا يفرض أن كل ربع ينتهي إلى 100%.
+
+الخلاصة اللي تتحفظ
+كل ربع مجموعه 100% ومساحات متراكمة = 100% stacked area. انتبه لحقل Legend الناقص من الوصف.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-area-charts', 'Final', '279', '/exhibit-assets/f1-279-278.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-280-279', 'Visualize and analyze the data', 'manual', 'DRAG DROP
 
 -
@@ -12751,7 +14222,45 @@ Each visual type may be used once, more than once, or not at all. You may need t
 
 or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[4,1]', 'Treemap is for hierarchical data and slicer is for filtering', 'Final', '280', '/dump-assets/f1-280-279-question.webp', '/dump-assets/f1-280-279-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[4,1]', 'ترجمة السؤال بالعربي
+مطلوب Visual1 لتوزيع بيانات هرمية، و Visual2 للبحث ثم تصفية القيم. اربط كل واحد بنوعه.
+
+القصة والمعنى
+تصنيف كبير جواه أقسام أصغر وعايزين نشوف حجم كل جزء؛ Treemap يقسم المساحة. أما أداة تكتب فيها اسمًا ثم تختاره لتفلتر الصفحة فهي Slicer.
+
+مثال نفهم بيه
+مستطيل الإلكترونيات بداخله هواتف وحواسيب. وفوق الصفحة Slicer تبحث فيه عن هاتف ثم تختاره فتتفلتر النتائج.
+
+طريقة التفكير خطوة بخطوة
+1. Treemap يعرض مستويات هرمية بمستطيلات مساحتها حسب قيمة مناسبة.
+2. Slicer بقائمة أو Dropdown قابل للبحث يسمح باختيار قيم لتصفية الرسومات.
+3. Table قد يرسل Cross-filter عند تحديد صف، لكن Slicer هو المكون المخصص للبحث والاختيار هنا.
+
+الإجابة الصحيحة وليه
+Visual1: Treemap. Visual2: Slicer.
+
+ليه كل اختيار صح أو غلط
+A. Gauge
+Gauge يقارن قيمة بهدف أو نطاق ولا يوزع بيانات هرمية على مستطيلات.
+
+B. Slicer
+Slicer صحيح للبحث واختيار قيم تصفي الصفحة.
+
+C. Smart narrative
+Smart narrative ملخص نصي، لا عرض هرمي ولا قائمة اختيار.
+
+D. Table
+Table يسرد صفوفًا؛ ليس أفضل خيار للعرض الهرمي المساحي أو أداة البحث المخصصة.
+
+E. Treemap
+Treemap صحيح لتوزيع الهرمية بالمساحات.
+
+الخلاصة اللي تتحفظ
+توزيع حجم الهرمية = Treemap؛ بحث واختيار للتصفية = Slicer.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-treemaps
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final', '280', '/dump-assets/f1-280-279-question.webp', '/dump-assets/f1-280-279-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-281-280', 'Prepare the data', 'manual', 'HOTSPOT
 
 -
@@ -12770,20 +14279,89 @@ Which column should you select, and which action should you perform on the colum
 
 appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Region
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
+في معاينة Power Query اسم المنطقة مكتوب في أول صف من كل مجموعة فقط، وباقي صفوف المنطقة فارغة. مطلوب كل صف يحمل منطقته الصحيحة بأقل شغل. تختار أي عمود وتعمل عليه إيه؟
 
-Fill down
+القصة والمعنى
+تخيل كشف مطبوع مكتوب فيه Mountain مرة واحدة، وتحتها ولايات Colorado و Idaho و Montana. إحنا فاهمين إنهم تابعين لنفس المنطقة، لكن الكمبيوتر محتاج الاسم في كل صف عشان يفلتر ويجمع صح.
 
-The Fill Down action in Power Query propagates the last non-blank value downward into subsequent blank
-cells within the same column. This ensures that all blank rows in the “Region” column are filled with the
-correct value from the previous row where the region was specified.', 'Final', '281', '/dump-assets/f1-281-280-question.webp', '/dump-assets/f1-281-280-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+Mountain | Colorado، ثم null | Idaho تصبح Mountain | Colorado، ثم Mountain | Idaho. عندما يظهر Midwest يبدأ الملء باسم Midwest، مش Mountain.
+
+طريقة التفكير خطوة بخطوة
+1. اختار Region، لأنه العمود الناقص. State مكتمل، و Jan-24 ليس عمود المنطقة.
+2. Fill down ينسخ آخر قيمة غير null للأسطر التالية حتى يقابل منطقة جديدة.
+3. حافظ على ترتيب المجموعات قبل الملء. لو الفراغ نص فارغ وليس null، حوّله إلى null أولًا؛ مش كل شكل خلية فاضية له نفس القيمة داخليًا.
+
+الإجابة الصحيحة وليه
+Region ثم Fill down.
+
+ليه كل اختيار صح أو غلط
+A. Column: Jan-24
+Jan-24 عمود مختلف؛ ملؤه لا يعالج أسماء المناطق.
+
+B. Column: Region
+Region هو المطلوب، لأن الفراغات في هذا العمود تحديدًا.
+
+C. Column: State
+State يحتوي الولاية؛ اختيار هذا العمود يترك Region ناقصًا.
+
+D. Action: Fill down
+Fill down صحيح: يأخذ المنطقة من الصف السابق داخل المجموعة المرتبة.
+
+E. Action: Fill up
+Fill up يأخذ من أسفل؛ وقد ينسب ولاية لاسم المجموعة التالية.
+
+F. Action: Replace values
+Replace values لا يميز أي فراغ تابع لأي منطقة، فلا يوجد بديل ثابت واحد يصلح للجميع.
+
+G. Action: Unpivot
+Unpivot يحول الأعمدة إلى صفوف ولا يسترجع اسم المنطقة الناقص.
+
+الخلاصة اللي تتحفظ
+عنوان المجموعة فوق والتفاصيل تحته؟ Fill down لعمود العنوان، مع مراجعة ترتيب الصفوف ونوع الفراغ.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/fill-values-column', 'Final', '281', '/dump-assets/f1-281-280-question.webp', '/dump-assets/f1-281-280-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-282-281', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains a bar chart. The bar chart displays sales by country.
 
 You need to ensure that a summary of the data shown on the bar chart is accessible by using a screen reader.
 
-What should you configure on the bar chart?', '["conditional formatting","alt text","the tab order","the layer order"]', '[1]', 'Alt text (alternative text) is used to provide a textual description of the visual content for users relying on
-screen readers. In this case, configuring alt text ensures that a summary of the bar chart (e.g., “Sales by
-country”) can be read out by a screen reader, making the data accessible.', 'Final', '282', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure on the bar chart?', '["conditional formatting","alt text","the tab order","the layer order"]', '[1]', 'ترجمة السؤال بالعربي
+Bar chart يعرض المبيعات حسب الدولة. عايز مستخدم قارئ الشاشة يسمع ملخصًا لمعنى الرسم. تضبط إيه؟
+
+القصة والمعنى
+المستخدم اللي مش شايف الأعمدة محتاج جملة تقول الرسم بيعرض إيه، ويمكن أبرز نتيجة فيه. تغيير ألوان الأعمدة مش هيوصل له المعلومة دي.
+
+مثال نفهم بيه
+«مبيعات الدول: مصر الأعلى مبيعًا هذا الشهر». ده وصف، بينما «Bar chart» وحدها لا تلخص النتيجة.
+
+طريقة التفكير خطوة بخطوة
+1. Alt text يوفر وصفًا نصيًا يمكن لقارئ الشاشة قراءته عند التفاعل مع العنصر.
+2. Tab order يحدد ترتيب الوصول للعناصر، لا محتوى الوصف نفسه.
+3. اكتب وصفًا مفيدًا، ولو ذكرت أرقامًا متغيرة فراجع تحديث الوصف أو اربطه بتعبير مناسب بدل ترك رقم قديم.
+
+الإجابة الصحيحة وليه
+B. Alt text.
+
+ليه كل اختيار صح أو غلط
+A. conditional formatting
+Conditional formatting يغير الشكل والألوان، ولا يوفر الوصف النصي المطلوب.
+
+B. alt text
+Alt text صحيح؛ يضع ملخصًا يمكن لقارئ الشاشة الوصول إليه.
+
+C. the tab order
+Tab order مهم للتنقل المنطقي، لكنه لا يكتب ملخص الرسم.
+
+D. the layer order
+Layer order يتحكم في تراكب العناصر، وليس وصفها لقارئ الشاشة.
+
+الخلاصة اللي تتحفظ
+السؤال عن وصف يُسمَع؟ Alt text. السؤال عن ترتيب التنقل؟ Tab order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '282', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-283-282', 'Model the data', 'manual', 'HOTSPOT
 
 -
@@ -12794,24 +14372,54 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The visual that has the slowest load time is [answer choice]."
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+من نتائج Performance analyzer اختار العنصر الأبطأ إجمالًا، والعنصر صاحب أكبر وقت انتظار/Other كما يقصد السؤال.
 
-This refers to the visual that takes the longest time to fully render.
+القصة والمعنى
+بص على عداد الوقت بدل ما تخمّن إن الاسم الطويل معناه DAX معقد. عنصر August 2024 Active User % ظاهر بإجمالي 474 ms: وقت DAX هو 12، والرسم 177، و Other نحو 286.
 
-Based on the selection, "August 2024 Active User %" is the visual with the longest individual load time.
+مثال نفهم بيه
+عنصر إجماله 474 و DAX فيه 12 لا يصح وصفه بأنه يقضي 474 في حساب DAX. ده زي رحلة ساعة قضيت منها دقيقتين قيادة والباقي انتظار.
 
-This is often due to complex DAX calculations, many filters, or large datasets.
+طريقة التفكير خطوة بخطوة
+1. قارن إجمالي Duration في النتائج المعروضة: 474 هو الأكبر، فيكون نفس العنصر إجابة الخانة الأولى.
+2. Other لهذا العنصر هو الأكبر في القيم الظاهرة، فيكون أيضًا الإجابة المقصودة في الخانة الثانية.
+3. Other قد يشمل الانتظار وتجهيز الاستعلامات وأعمال معالجة أخرى. الرقم وحده لا يثبت اعتماد العنصر على ناتج عنصر آخر أو أنه آخر عنصر بدأ التحميل.
+4. لا تقل إن DAX هو سبب البطء هنا: وقت DAX الظاهر 12 ms فقط. حلل المكونات قبل اقتراح تحسين الكود.
 
-waits the longest for other visuals to load."
+الإجابة الصحيحة وليه
+الخانتان: August 2024 Active User %. التفسير الدقيق: أكبر إجمالي، وأكبر Other ظاهر؛ لا دليل على اعتماد حسابي بين العناصر.
 
-This refers to the visual that starts loading only after other visuals finish, not necessarily due to its own
-complexity.
+ليه كل اختيار صح أو غلط
+A. The visual with the slowest load time: Adoption Button
+Adoption Button إجماله نحو 175؛ ليس أكبر إجمالي ظاهر.
 
-The same visual "August 2024 Active User % was selected, meaning:
+B. The visual with the slowest load time: Exec Sum Selected
+Exec Sum Selected إجماله نحو 172؛ أقل من 474.
 
-It is also the last visual to begin loading,
+C. The visual with the slowest load time: August 2024 Active User %
+August 2024 Active User % صحيح للخانة الأولى؛ إجماله 474 ms.
 
-Likely because it depends on outputs of other visuals or has lower priority in the rendering queue.', 'Final', '283', '/dump-assets/f1-283-282-question.webp', '/dump-assets/f1-283-282-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+D. The visual with the slowest load time: August 2024 Active and Enabled Users
+August 2024 Active and Enabled Users ليس صاحب أكبر إجمالي وفق مفتاح النتائج المعروضة.
+
+E. The visual waiting longest for other visuals to load: Adoption Button
+Adoption Button وقت Other الظاهر له نحو 37، وليس 286.
+
+F. The visual waiting longest for other visuals to load: Exec Sum Selected
+Exec Sum Selected لا تشير النتائج إلى أنه صاحب أكبر انتظار.
+
+G. The visual waiting longest for other visuals to load: August 2024 Active User %
+August 2024 Active User % هو المقصود للخانة الثانية بسبب أكبر Other ظاهر؛ لا تختزل معنى Other في انتظار فقط.
+
+H. The visual waiting longest for other visuals to load: August 2024 Active and Enabled Users
+August 2024 Active and Enabled Users ليس اختيار الخانة الثانية في المعطيات المتاحة.
+
+الخلاصة اللي تتحفظ
+Duration مجموع أوقات، و Other ليس دليلًا كافيًا على dependency أو تعقيد DAX.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/performance-analyzer', 'Final', '283', '/dump-assets/f1-283-282-question.webp', '/dump-assets/f1-283-282-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-284-283', 'Prepare the data', 'manual', 'DRAG DROP
 
 -
@@ -12828,80 +14436,123 @@ action may be used once, more than once, or not at all. You may need to drag the
 
 to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Step 1: Select the Location Name column
+NOTE: Each correct selection is worth one point.', '[]', '[20004,20002,20003]', 'ترجمة السؤال بالعربي
+مطلوب تعرف أقصى طول لقيم Location Name من غير تغيير البيانات. الخطوة الثانية مكتوبة أصلًا: اجعل Column profiling على كامل البيانات. رتّب الخطوات الناقصة 1 و 3 و 4 فقط.
 
-You begin by selecting the column you want to analyze.
+القصة والمعنى
+إحنا بنفحص أسماء الأماكن، مش بنستبدل الاسم بطوله. فرق بين عدسة تكشف لك طول الاسم، وتحويل يمسح الاسم ويحط رقم مكانه.
 
-Step 2: Set Column Profiling based upon entire dataset
+مثال نفهم بيه
+Cairo طوله 5 و Alexandria طوله 10. الفحص يعرض مجموعتي طول 5 و 10، وتظل أسماء المدن كما هي في الجدول.
 
-Ensures Power Query analyzes all rows, not just the top 1,000 preview rows.
+طريقة التفكير خطوة بخطوة
+1. حدد Location Name أولًا. الخطوة الثانية الثابتة توسع الفحص لكامل البيانات بدل أول 1000 صف.
+2. فعّل Column profile من View عشان تفتح تفاصيل العمود المختار.
+3. في توزيع القيم اختار التجميع حسب Text length؛ تقدر تشوف أطوال النصوص وأقصاها بدون تعديل القيم.
+4. الموقع يعرض ثلاث خانات لأن الخطوة الثانية معطاة بالفعل، وليس أربع خانات يعيد فيها الطالب نفس الخطوة.
 
-Done via: View > Column profiling > Based on entire dataset.
+الإجابة الصحيحة وليه
+Select Location Name → [الخطوة 2 معطاة] → View: Column profile → Group value distribution by text length.
 
-Step 3: From the View tab, select Column profile
+ليه كل اختيار صح أو غلط
+A. From the Transform tab, select Extract, and then select Length.
+Extract → Length يحول القيم إلى أطوال ويغير البيانات؛ يخالف شرط الفحص دون تغيير.
 
-This enables the detailed data profile pane, which shows:
+B. From the View tab, select Column distribution.
+Column distribution يعرض توزيعًا مختصرًا، وليس لوحة التفاصيل المطلوبة لتحليل طول النص بهذه الخطوات.
 
-Value distribution
+C. From the View tab, select Column profile.
+Column profile هو الخطوة الثالثة الصحيحة لفتح التفاصيل.
 
-Min/Max
+D. Group the value distribution by text length.
+Group by text length هو الاختيار الأخير الصحيح داخل توزيع القيم.
 
-Distinct values
+E. Select the Location Name column.
+Select Location Name هو البداية الصحيحة؛ لازم تحدد العمود الذي تفحصه.
 
-Empty count
+الخلاصة اللي تتحفظ
+عايز تعرف طول النص من غير ما تغيّره؟ Column profile وتجميع حسب Text length؛ Extract Length تحويل فعلي.
 
-Data type statistics
-
-Step 4: Group the value distribution by text length
-
-You group values based on length of text.
-
-This step helps spot anomalies — e.g., names that are too short or too long compared to the average.', 'Final', '284', '/dump-assets/f1-284-283-question.webp', '/dump-assets/f1-284-283-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '284', '/dump-assets/f1-284-283-question.webp', '/dump-assets/f1-284-283-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-285-284', 'Visualize and analyze the data', 'single', 'You plan to generate a line chart to visualize and compare the last six months of sales data for two departments.
 
 You need to increase the accessibility of the visual.
 
-What should you do?', '["Configure a unique marker for each series.","Configure a distinct color for each series.","Replace long text with abbreviations and acronyms.","Move important information to a tooltip."]', '[0]', 'A. Configure a unique marker for each series.
+What should you do?', '["Configure a unique marker for each series.","Configure a distinct color for each series.","Replace long text with abbreviations and acronyms.","Move important information to a tooltip."]', '[0]', 'ترجمة السؤال بالعربي
+Line chart يقارن مبيعات قسمين خلال ستة شهور. أي تعديل يزود إمكانية قراءة الرسم لمستخدمين مختلفين؟
 
-Line charts typically use color to distinguish between data series.
+القصة والمعنى
+لو الخطين أحمر وأخضر، مستخدم عنده صعوبة في تمييز الألوان ممكن يشوفهم متشابهين. خلّي واحد عليه دوائر والتاني مثلثات؛ كده الشكل نفسه يساعده.
 
-However, relying on color alone can create accessibility issues, especially for users with color vision
-deficiencies (color blindness).
+مثال نفهم بيه
+مبيعات Sales بعلامات دائرية، و Support بعلامات مربعة. حتى في طباعة أبيض وأسود تقدر تميز السلسلتين.
 
-By adding unique markers (e.g., circles, squares, triangles) to each series:
+طريقة التفكير خطوة بخطوة
+1. استخدم علامة مختلفة لكل سلسلة، ولا تعتمد على اللون وحده.
+2. ممكن تجمع العلامة مع اللون والتباين الجيد؛ السؤال يطلب أفضل اختيار من المتاح، مش إلغاء الألوان.
+3. المعلومة الأساسية لا يُفضّل حبسها في Tooltip لا يظهر إلا عند إجراء معين.
 
-The lines become distinguishable even without color.
+الإجابة الصحيحة وليه
+A. Configure a unique marker for each series.
 
-This significantly improves accessibility for all users.
+ليه كل اختيار صح أو غلط
+A. Configure a unique marker for each series.
+علامة مختلفة لكل سلسلة صحيحة؛ تضيف وسيلة تمييز غير اللون.
 
-Why not the others?
+B. Configure a distinct color for each series.
+لون مختلف يساعد بعض المستخدمين لكنه يظل اعتمادًا على اللون فقط.
 
-B. Configure a distinct color for each series
+C. Replace long text with abbreviations and acronyms.
+الاختصارات غير المعروفة قد تصعب الفهم بدل تحسينه.
 
-While helpful, it relies solely on color, which is not accessible to all users.
+D. Move important information to a tooltip.
+نقل المعلومات المهمة إلى Tooltip يخفيها عن العرض المباشر ولا يحل مشكلة تمييز الخطين.
 
-It’s better to combine color with shape/marker.
+الخلاصة اللي تتحفظ
+سهولة الوصول: لا تعتمد على اللون وحده. أضف شكلًا أو علامة مميزة.
 
-C. Replace long text with abbreviations and acronyms
-
-This can reduce clarity, especially for screen reader users or those unfamiliar with the acronyms.
-
-D. Move important information to a tooltip
-
-Tooltips are not always accessible—screen readers and keyboard users may not benefit from them.
-
-Key information should be visibly available in the chart, not hidden.', 'Final', '285', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '285', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-286-285', 'Visualize and analyze the data', 'single', 'You have a Power BI report. The report contains a single report page that uses the default theme.
 
 You need to configure the report page to match the formatting shown in the following exhibit.
 
-What should you change on the report page?', '["the wallpaper color only","the canvas background color only","the wallpaper color and the canvas background color only","the canvas background image only"]', '[2]', 'C. The wallpaper color and the canvas background color only.
+What should you change on the report page?', '["the wallpaper color only","the canvas background color only","the wallpaper color and the canvas background color only","the canvas background image only"]', '[2]', 'ترجمة السؤال بالعربي
+صفحة تقرير تستخدم الثيم الافتراضي. الصورة المطلوبة فيها لون داخل مساحة التقرير ولون آخر في المساحة المحيطة. تغيّر إيه؟
 
-Use this if you''re aiming for consistent branding or styling across the whole report page, including both:
+القصة والمعنى
+اعتبر التقرير ورقة على مكتب: لون الورقة هو Canvas background، ولون المكتب اللي ظاهر حواليها هو Wallpaper. الصورة مغيرة الاتنين.
 
-The visual workspace (canvas)
+مثال نفهم بيه
+لو عايز ورقة موف وحولها رمادي، تغيير Wallpaper وحده يترك الورقة بلونها القديم.
 
-The surrounding area (wallpaper)', 'Final', '286', '/exhibit-assets/f1-286-285.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. حدد حدود صفحة التقرير؛ اللون الخارجي يتبع Wallpaper.
+2. اللون داخل حدود الصفحة يتبع Canvas background، لا خلفية كل Visual على حدة.
+3. تغيير مساحة واحدة يترك الأخرى على الثيم الافتراضي، فلا يطابق الصورة. راجع شفافية الخلفية أيضًا أثناء التنفيذ.
+
+الإجابة الصحيحة وليه
+C. The wallpaper color and the canvas background color only.
+
+ليه كل اختيار صح أو غلط
+A. the wallpaper color only
+Wallpaper فقط يغير الإطار الخارجي ويترك خلفية الصفحة غير مطابقة.
+
+B. the canvas background color only
+Canvas background فقط يغير الصفحة ويترك ما حولها.
+
+C. the wallpaper color and the canvas background color only
+تغيير اللونين صحيح لأن الصورة تبين اختلاف المساحتين.
+
+D. the canvas background image only
+صورة خلفية ليست مطلوبة لتلوين مساحتين منفصلتين، ولا تغير Wallpaper بمجرد وضعها داخل Canvas.
+
+الخلاصة اللي تتحفظ
+داخل الصفحة Canvas؛ حول الصفحة Wallpaper. الصورة هنا تطلب الاثنين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-visual-elements-for-reports', 'Final', '286', '/exhibit-assets/f1-286-285.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-287-286', 'Visualize and analyze the data', 'manual', 'HOTSPOT
 
 -
@@ -12914,31 +14565,54 @@ following exhibit.
 
 What should you do? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'To change the column spacing.
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+مطلوب تعديل رسم أعمدة Actual و Plan حتى تتداخل أعمدته وتظهر تسميات التغير النسبي كما في الصورة. اختار تعديل المسافات وتعديل التسميات.
 
-Enable overlap for every series.
+القصة والمعنى
+بدل عمودين جنب بعض لكل فئة، المطلوب واحد ظاهر أمام التاني للمقارنة. وفوق Plan عايزين تسميات النسبة فقط، مش أرقام فوق كل سلسلة تزحم الرسم.
 
-In a clustered column chart, each category typically shows multiple columns side by side — one for each
-series.
+مثال نفهم بيه
+Actual=93 و Plan=100؛ التغير مقابل Plan يساوي ‎-7%. تشغيل تسمية Plan العادية قد يعرض 100، مش ‎-7%؛ لازم تحدد النسبة المعروضة.
 
-If spacing is too wide, the columns might appear too spread out, making comparison difficult.
+طريقة التفكير خطوة بخطوة
+1. الاختيار المقصود للمسافات هو Enable overlap for every series حتى تتداخل السلاسل.
+2. فعّل Data labels لسلسلة Plan وحدها للمظهر المطلوب.
+3. تنبيه: مجرد تشغيل Data labels لا يحسب نسبة التغير. لازم قيمة النسبة أو إعداد تفاصيل/قيمة التسمية يكون مجهزًا؛ السؤال والصورة يختصران هذه الخطوة.
+4. Category spacing يغير الفراغ بين الفئات، وليس تداخل Actual و Plan داخل الفئة.
 
-Enabling overlap for every series causes the bars to overlay or partially stack, reducing visual clutter and
-improving comparison.
+الإجابة الصحيحة وليه
+Enable overlap for every series؛ Enable data labels for the Plan series. إجابة المظهر المقصودة، بشرط إعداد قيمة النسبة للتسمية.
 
-It effectively reduces the gap between series columns for each category — which is interpreted here as
-"column spacing."
+ليه كل اختيار صح أو غلط
+A. To change the column spacing: Decrease category space.
+Decrease category space يقلل الفراغ بين الفئات ولا يحقق تداخل السلاسل المطلوب.
 
-To add the percent change labels.
+B. To change the column spacing: Enable overlap for every series.
+Enable overlap for every series صحيح للشكل المقصود.
 
-Enable data labels for the Plan series.
+C. To change the column spacing: Enable overlap for the Plan series.
+Overlap for Plan series وحدها ليس إعداد كل السلاسل المطلوب في الإجابة المعروضة.
 
-Data labels display values (or percent changes) directly on the chart.
+D. To change the column spacing: Increase category space.
+Increase category space يباعد الفئات بدل معالجة تداخل السلاسل.
 
-If percent changes are tied specifically to the Plan series, enabling data labels only for that series makes
-sense.
+E. To add the percent change labels: Enable data labels for every series.
+تسميات كل السلاسل تزحم الرسم ولا تطابق إظهار النسبة على Plan فقط.
 
-It improves clarity by not overcrowding the chart with labels from every series.', 'Final', '287', '/dump-assets/f1-287-286-question.webp', '/dump-assets/f1-287-286-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+F. To add the percent change labels: Enable data labels for the Plan series.
+Data labels for Plan هي الإجابة المقصودة للتسميات؛ إعداد نسبة التغير شرط منفصل.
+
+G. To add the percent change labels: Enable the X-axis title.
+X-axis title يضيف عنوان محور ولا يعرض نسب الفئات.
+
+H. To add the percent change labels: Enable the Y-axis title.
+Y-axis title يضيف عنوان محور ولا يضيف Data labels.
+
+الخلاصة اللي تتحفظ
+Overlap يعدّل ترتيب الأعمدة؛ Data labels تعرض قيمة مضبوطة مسبقًا، ولا تخلق حساب نسبة من نفسها.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-column-charts', 'Final', '287', '/dump-assets/f1-287-286-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-288-287', 'Visualize and analyze the data', 'single', 'You are creating a visual in a Power BI report. The associated semantic model contains sales from the last four
 
 years for three products.
@@ -12947,14 +14621,41 @@ You need to display the total sales by quarter categorized by product. The visua
 
 sales and individual product sales.
 
-Which type of visual should you use?', '["area chart","clustered column chart","stacked area chart","line chart"]', '[2]', 'Stacked Area Chart:
+Which type of visual should you use?', '["area chart","clustered column chart","stacked area chart","line chart"]', '[2]', 'ترجمة السؤال بالعربي
+عندك مبيعات ثلاث منتجات خلال أربع سنين. عايز تعرض الاتجاه ربع السنوي لإجمالي المبيعات ولمساهمة كل منتج. تختار أي رسم؟
 
-Total Sales Trend: The top edge of the stacked area chart clearly shows the trend of the total sales over time
-(quarters in this case).
+القصة والمعنى
+عايز تعرف حجم الكعكة مع الوقت، وفي نفس الرسم تشوف كل منتج واخد منها مساحة قد إيه. مش مجرد ثلاث خطوط منفصلة من غير إجمالي واضح.
 
-Individual Product Sales Trend: Each "layer" or "stack" within the chart represents an individual product''s
-sales, allowing you to see how each product''s sales contribute to the total and their own individual trends over
-time. This is excellent for part-to-whole relationships and trends.', 'Final', '288', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+في ربع معين مبيعات المنتجات 10 و 20 و 30. سمك الطبقات 10 و 20 و 30، وقمة الرسم عند 60 إجماليًا.
+
+طريقة التفكير خطوة بخطوة
+1. Stacked area يجمع مساهمات المنتجات فوق بعضها؛ الحد العلوي يمثل الإجمالي.
+2. سمك مساحة المنتج يعبر عن مبيعاته في الفترة، بينما ارتفاع قمتها يتأثر بالمنتجات الموجودة تحتها.
+3. استخدم Year-quarter مرتبًا عبر السنوات، لا اسم الربع وحده الذي قد يجمع Q1 لأربع سنوات. لا تختار 100% stacked لو المطلوب الإجمالي الفعلي.
+
+الإجابة الصحيحة وليه
+C. Stacked area chart.
+
+ليه كل اختيار صح أو غلط
+A. area chart
+Area عادي قد يغطي سلسلة بأخرى، ولا يبرز إجمالي السلاسل المتراكمة بنفس الشكل.
+
+B. clustered column chart
+Clustered column يقارن المنتجات لكل فترة، لكن اتجاه الإجمالي لا يظهر كحد واحد متصل.
+
+C. stacked area chart
+Stacked area صحيح: إجمالي متراكم ومساهمة المنتجات عبر الزمن.
+
+D. line chart
+Line يقارن اتجاه كل منتج جيدًا، لكن لا يجمع خطوط المنتجات تلقائيًا إلى إجمالي ظاهر.
+
+الخلاصة اللي تتحفظ
+اتجاه الإجمالي ومساهمة الأجزاء معًا عبر الزمن؟ Stacked area، مع الانتباه أن المقارنة تكون بسمك الطبقة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-area-charts', 'Final', '288', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-289-288', 'Visualize and analyze the data', 'single', 'You have a Power BI report that contains a clustered bar chart. The chart has an X-axis named Sales and a Y-axis
 
 named Year. The chart displays sales data for the years 2020 through 2024.
@@ -12963,7 +14664,41 @@ You need to create a visual calculation to show a cumulative total of sales that
 
 year''s sales plus all the sales from the previous year.
 
-Which DAX expression should you use?', '["MOVINGAVERAGE([Sales], 4)","RUNNINGSUM([Year])","CALCULATE ( [Sales], ''Date'' [Year] <= MAX ( ''Date''[Year] ) )","RUNNINGSUM([Sales])"]', '[3]', 'Independent correction: D. RUNNINGSUM([Sales]). A visual calculation runs on the visual matrix, and RUNNINGSUM adds the current Sales value to the preceding values on the axis. The CALCULATE option is a traditional model-measure pattern and does not answer the requested visual-calculation task.', 'Final', '289', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX expression should you use?', '["MOVINGAVERAGE([Sales], 4)","RUNNINGSUM([Year])","CALCULATE ( [Sales], ''Date'' [Year] <= MAX ( ''Date''[Year] ) )","RUNNINGSUM([Sales])"]', '[3]', 'ترجمة السؤال بالعربي
+رسم أعمدة يعرض Sales حسب Year من 2020 إلى 2024. مطلوب Visual calculation لإجمالي المبيعات المتراكم حتى السنة الحالية. أي تعبير؟
+
+القصة والمعنى
+لو كل سنة إيرادها 100، التراكم يبقى 100 ثم 200 ثم 300. مش متوسط آخر أربع سنين، ومش جمع أرقام السنوات نفسها.
+
+مثال نفهم بيه
+2020=10،2021=20،2022=30؛ الناتج التراكمي 10،30،60. آخر سنتين فقط كان سيعطي 10،30،50، وده حساب آخر.
+
+طريقة التفكير خطوة بخطوة
+1. Visual calculation تعمل على نتائج الرسم، و RUNNINGSUM تجمع القيمة الحالية مع القيم السابقة على المحور المحدد.
+2. المبلغ المطلوب جمعه هو Sales؛ Year دوره ترتيب الفترات وليس مقياس المبيعات.
+3. رتب السنوات زمنيًا واضبط محور الحساب عند الحاجة. المقصود cumulative total حتى السنة الحالية، وليس Current+Previous فقط كنافذة من سنتين.
+
+الإجابة الصحيحة وليه
+D. RUNNINGSUM([Sales]).
+
+ليه كل اختيار صح أو غلط
+A. MOVINGAVERAGE([Sales], 4)
+MOVINGAVERAGE يحسب متوسط نافذة، لا الإجمالي التراكمي.
+
+B. RUNNINGSUM([Year])
+RUNNINGSUM([Year]) يجمع أرقام السنوات، وليس المبيعات.
+
+C. CALCULATE ( [Sales], ''Date'' [Year] <= MAX ( ''Date''[Year] ) )
+CALCULATE نمط Measure على الموديل، وليس Visual calculation المطلوبة. ولا تفترض أن صيغة الفلترة المختصرة دي تعالج كل سياقات جدول التاريخ.
+
+D. RUNNINGSUM([Sales])
+RUNNINGSUM([Sales]) هي دالة التجميع التراكمي على قيمة المبيعات في الرسم.
+
+الخلاصة اللي تتحفظ
+تراكم داخل الرسم = RUNNINGSUM للمقياس، مع ترتيب ومحور صحيحين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/runningsum-function-dax', 'Final', '289', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-290-289', 'Prepare the data', 'manual', 'DRAG DROP
 
 -
@@ -12978,44 +14713,127 @@ requirements. Each option may be used once, more than once, or not at all. You m
 
 between panes or scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[1,3]', 'Column quality: Shows the percentage of valid, error, and empty values for each column.
+NOTE: Each correct selection is worth one point.', '[]', '[1,3]', 'ترجمة السؤال بالعربي
+داخل Power Query عايز تراجع نسبة الأخطاء وأقصى قيمة لكل عمود. اربط كل مطلب بالأداة المناسبة.
 
-Column profile: Provides a more detailed statistical profile for a selected column, including min/max values,
-average, standard deviation, count of empty/error/distinct/unique values, and a value distribution chart.', 'Final', '290', '/dump-assets/f1-290-289-question.webp', '/dump-assets/f1-290-289-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+فيه نظرة سريعة تقول العمود سليم بنسبة كام، وفيه فحص تفصيلي يقول أعلى وأقل قيمة. الأداتان مكملتان لبعض لكن مش نفس الوظيفة.
+
+مثال نفهم بيه
+من 100 صف فيها 5 أخطاء، Quality يظهر 5%. Profile لعمود أرقام قد يعرض Max=950. لو الصف 1200 فيه 2000 لن تراه في فحص أول 1000 فقط.
+
+طريقة التفكير خطوة بخطوة
+1. Column quality يعرض نسبة Valid و Error و Empty.
+2. Column profile يعرض إحصاءات تفصيلية للعمود المختار؛ منها Maximum عندما يلائم نوع البيانات.
+3. راجع نطاق الفحص: الافتراضي قد يكون أول 1000 صف. اختار كامل البيانات لو عايز النتيجة تعبر عن الجدول كله.
+
+الإجابة الصحيحة وليه
+Percentage of errors: Column quality. Maximum value: Column profile.
+
+ليه كل اختيار صح أو غلط
+A. Column distribution
+Column distribution يفيد في تكرارات القيم و Distinct/Unique، وليس الاختيار المباشر لنسبة الأخطاء أو Maximum.
+
+B. Column quality
+Column quality صحيح لنسبة الأخطاء.
+
+C. Monospaced
+Monospaced يغير طريقة عرض النص ولا يفحص جودة البيانات.
+
+D. Column profile
+Column profile صحيح للقيمة القصوى وإحصاءات العمود.
+
+E. Formula Bar
+Formula Bar يعرض تعبير M للخطوة وليس إحصاءات العمود.
+
+الخلاصة اللي تتحفظ
+نسبة سليم/خطأ/فارغ: Quality. إحصاءات العمود مثل Max: Profile. راجع نطاق العينة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final', '290', '/dump-assets/f1-290-289-question.webp', '/dump-assets/f1-290-289-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-291-290', 'Visualize and analyze the data', 'multi', 'You are creating a Power BI report that will contain multiple visuals.
 
 You need to ensure that the report is accessible to users who use a screen reader.
 
 Which two configurations should you perform? Each correct answer presents part of the solution.
 
-NOTE: Each correct selection is worth one point.', '["consistent fonts for each visual","alt text for each visual","the tab order for each page","consistent colors for each visual","Play Axis for each page"]', '[1,2]', 'B. Alt text for each visual.
+NOTE: Each correct selection is worth one point.', '["consistent fonts for each visual","alt text for each visual","the tab order for each page","consistent colors for each visual","Play Axis for each page"]', '[1,2]', 'ترجمة السؤال بالعربي
+تقرير فيه عناصر متعددة. اختار إعدادين يساعدان مستخدم قارئ الشاشة: واحد لفهم العنصر، والتاني للتنقل بين العناصر.
 
-Alt text helps screen reader users understand what a visual represents.
+القصة والمعنى
+تخيل حد بيمشي في التقرير بزر Tab وبيسمع وصف كل رسم. لو الوصف موجود لكن التنقل يقفز عشوائيًا، التجربة تتعبه. ولو التنقل مرتب لكن العناصر بلا وصف، برضه ناقصة.
 
-Each chart or image should have a clear, concise description of what it shows.
+مثال نفهم بيه
+ابدأ بعنوان التقرير، ثم Slicer الفترة، ثم KPI الإجمالي، ثم تفاصيل المبيعات؛ بدل الانتقال لتفصيل بعيد قبل اختيار الفترة.
 
-Essential for accessibility compliance (e.g., WCAG, Section 508).
+طريقة التفكير خطوة بخطوة
+1. اكتب Alt text مناسبًا لكل عنصر يحتاج وصفًا.
+2. اضبط Tab order لكل صفحة بحيث يمر على العناصر بترتيب منطقي، واستبعد الزخارف غير الضرورية.
+3. الخطوط والألوان المتسقة مفيدة بصريًا، لكنها لا تستبدل الوصف والترتيب المطلوبين لقارئ الشاشة.
 
-C. The tab order for each page.
+الإجابة الصحيحة وليه
+B و C: Alt text لكل Visual، و Tab order لكل صفحة.
 
-Tab order defines how users navigate through visuals using the keyboard.
+ليه كل اختيار صح أو غلط
+A. consistent fonts for each visual
+اتساق الخطوط يحسن المظهر، لكنه لا يوفر وصفًا مسموعًا أو ترتيب تنقل.
 
-Proper tab order ensures a logical and intuitive navigation experience, which is critical for users who can''t use
-a mouse.
+B. alt text for each visual
+Alt text صحيح؛ يشرح معنى العنصر لقارئ الشاشة.
 
-Set this under View → Selection → Tab Order in Power BI Desktop.', 'Final', '291', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. the tab order for each page
+Tab order صحيح؛ يضبط مسار التنقل بالكيبورد.
+
+D. consistent colors for each visual
+اتساق الألوان مفيد لكنه لا يكفي للوصول السمعي المطلوب.
+
+E. Play Axis for each page
+Play Axis خاص بتشغيل تسلسل في الرسومات التي تدعمه، وليس إعداد ترتيب التنقل في الصفحة.
+
+الخلاصة اللي تتحفظ
+قارئ الشاشة يحتاج معنى يسمعه ومسارًا يعرف يمشي فيه: Alt text + Tab order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final', '291', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-292-291', 'Model the data', 'single', 'You have a Power BI report that contains a stacked bar chart.
 
 You need to add a new field to the legend. The field must combine information from separate columns.
 
-What should you create?', '["a calculated column","a dynamic format string","a measure","a calculation group"]', '[0]', 'A. Calculated column .
+What should you create?', '["a calculated column","a dynamic format string","a measure","a calculation group"]', '[0]', 'ترجمة السؤال بالعربي
+عايز تضيف Legend لرسم Stacked bar من حقل يجمع معلومات عمودين منفصلين. تنشئ إيه؟
 
-A calculated column can concatenate or combine values from multiple existing columns (e.g., "Region" & " - "
-& "Category").
+القصة والمعنى
+عندك Region و Category، وعايز أسماء مجموعات زي «Cairo - Bikes». ده وصف لكل صف نستخدمه لتقسيم الألوان، مش رقم يتغير حسب اختيار المستخدم.
 
-Since the legend expects a column for categorization, a calculated column works perfectly.
+مثال نفهم بيه
+Group = Sales[Region] & " - " & Sales[Category]؛ تصبح Cairo - Bikes فئة مستقلة عن Alex - Bikes.
 
-You can then drag this new column to the "Legend" field well in the visual.', 'Final', '292', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. Calculated column تستطيع دمج قيم الأعمدة صفًا بصف.
+2. الـLegend في هذا السيناريو يحتاج عمود تصنيف. Measure تعيد قيمة حسب سياق التصفية ولا تتحول تلقائيًا لفئات Legend.
+3. اختار الحقل المدمج في Legend، وراجع عدد الفئات عشان الرسم يفضل مقروءًا. دمج Text في Power Query ممكن أيضًا، لكنه ليس أحد الخيارات هنا.
+
+الإجابة الصحيحة وليه
+A. A calculated column.
+
+ليه كل اختيار صح أو غلط
+A. a calculated column
+Calculated column صحيح لأنه ينتج تصنيفًا لكل صف يمكن وضعه في Legend.
+
+B. a dynamic format string
+Dynamic format string يغير تنسيق عرض قيمة ولا ينشئ عمود فئات.
+
+C. a measure
+Measure تنتج قيمة سياقية؛ ليست بديلًا مباشرًا لعمود التصنيف المطلوب في Legend.
+
+D. a calculation group
+Calculation group تنظم تغييرات حساب المقاييس، لا تجمع وصفي عمودين لكل صف لهذا الغرض.
+
+الخلاصة اللي تتحفظ
+اسم فئة لكل صف = Column. ناتج رقمي يتغير مع الفلتر = Measure.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-calculated-columns', 'Final', '292', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-293-292', 'Manage and secure Power BI', 'manual', 'HOTSPOT -
 
 You have a Power BI tenant that hosts the datasets shown in the following table.
@@ -13030,33 +14848,79 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Yes
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Sales يحتوي مبيعات ورواتب ويستخدم للأداء والمكافآت؛ Operations يحتوي قراءات حساسات؛ Finance يحتوي معاملات مالية وميزانيات. الشركة تريد منع تصدير PII ومراجعة بيانات القرارات المالية. قيّم عبارات التصنيف والاعتماد.
 
-No
+القصة والمعنى
+افصل سؤالين: البيانات حساسة فتحتاج حماية؟ وهل الناس هتبني عليها قرارات مالية فتحتاج اعتمادًا؟ ختم «معتمد» لا يشفر الملف، وملصق «سري» وحده لا يغلق زر التصدير.
 
-Yes
+مثال نفهم بيه
+ممكن تصدّر PDF عليه Label سري ومشفر حسب السياسة، ويظل التصدير نفسه تم. ده مختلف عن شرط منع خروج الملف أصلًا.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. وجود رواتب الموظفين في Sales يدعم احتياج التصنيف والحماية حسب السياسة.
+2. قراءات حساسات Operations لا يثبت النص احتواءها على PII أو استخدامها لقرار مالي؛ لا تلزمها بالحماية والاعتماد معًا بلا سبب.
+3. Finance يحتاج مراجعة واعتماد لأنه يستخدم في قرارات الميزانية. لكن النص لا يثبت أن بياناته PII ولا يحدد سياسة إلزام كل البيانات المالية بملصق.
+4. مفتاح الدامب Yes / No / Yes يفترض سياسة تصنيف مالية أوسع من المذكور. لا نقدمه كنتيجة قطعية من النص.
+5. Sensitivity label قد يورّث حماية وتشفيرًا للمخرجات المدعومة عند ضبط السياسة؛ منع التصدير نفسه يحتاج إعدادات وصلاحيات مناسبة.
 
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-security-sensitivity-label-overview', 'Final', '293', '/dump-assets/f1-293-292-question.webp', '/dump-assets/f1-293-292-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+المفتاح المقصود في المصدر: Yes؛ No؛ Yes. لكن الثالثة تحتاج افتراض سياسة تصنيف غير مذكورة، ولا يكفي الملصق وحده لمنع التصدير. السؤال ناقص سياسة الحماية للحسم الكامل.
+
+ليه كل اختيار صح أو غلط
+Sales: وجود الرواتب دليل مناسب لتطبيق ملصق حماية حسب سياسة PII، مع ضوابط التصدير المطلوبة.
+
+Operations: لا يبرر النص إلزامه بملصق واعتماد مالي معًا؛ المقصود No.
+
+Finance: الاعتماد المالي مبرر، لكن إلزام الملصق أيضًا غير محسوم من المعطيات؛ Yes في الدامب يعتمد افتراض سياسة إضافية.
+
+الخلاصة اللي تتحفظ
+تصنيف وحماية البيانات غير اعتماد جودتها، و Label ليس زر منع تصدير. لا تختلق سياسة PII غير مكتوبة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/fabric/enterprise/powerbi/service-security-sensitivity-label-overview
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-endorsement-overview', 'Final', '293', '/dump-assets/f1-293-292-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-294-293', 'Manage and secure Power BI', 'single', 'You have a Power BI tenant.
 
 You have reports that use financial datasets and are exported as PDF files.
 
 You need to ensure that the reports are encrypted.
 
-What should you implement?', '["Microsoft Intune policies","row-level security (RLS)","sensitivity labels","dataset certifications"]', '[2]', 'When you create a sensitivity label, you can restrict access to content that the label will be applied to.
-When a document or email is encrypted, access to the content is restricted, so that it:
-Can be decrypted only by users authorized by the label''s encryption settings.
-Remains encrypted no matter where it resides, inside or outside your organization, even if the file''s renamed.
+What should you implement?', '["Microsoft Intune policies","row-level security (RLS)","sensitivity labels","dataset certifications"]', '[2]', 'ترجمة السؤال بالعربي
+تقارير مالية تُصدَّر كملفات PDF. عايز الملفات تفضل مشفرة. تختار أي وسيلة من المتاح؟
 
-Incorrect:
-Not B: Row-level security (RLS) with Power BI can be used to restrict data access for given users. Filters
-restrict data access at the row level, and you can define filters within roles.
-Current limitations for row-level security:
+القصة والمعنى
+بعد خروج التقرير كملف، عايز الحماية تمشي معاه. فلتر المبيعات حسب الموظف داخل الموقع مش هيشفر الملف اللي بقى على جهازه.
 
-Reference:
-https://docs.microsoft.com/en-us/microsoft-365/compliance/encryption-sensitivity-labels', 'Final', '294', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+Label «Finance confidential» تضبطه بحيث لا يفك تشفير الملف إلا مجموعة Finance. الملصق التصنيفي بلا تشفير لا يحقق الشرط بمفرده.
+
+طريقة التفكير خطوة بخطوة
+1. Sensitivity labels مع سياسة تشفير مناسبة يمكن أن تطبق الحماية على PDF الناتج من مسار تصدير مدعوم.
+2. اختيار اسم ملصق بدون إعداد تشفير لا يضمن التشفير؛ لازم سياسة وإعدادات داعمة وصلاحيات صحيحة.
+3. RLS تحدد الصفوف التي يراها المستخدم داخل الموديل، والاعتماد Certification يثبت الثقة ولا يشفر المخرجات.
+
+الإجابة الصحيحة وليه
+C. Sensitivity labels، مع ضبط التشفير في سياسة الحماية.
+
+ليه كل اختيار صح أو غلط
+A. Microsoft Intune policies
+Intune يدير الأجهزة والتطبيقات؛ ليس الاختيار المباشر لتوريث تشفير ملف Power BI المصدَّر.
+
+B. row-level security (RLS)
+RLS تقيد الصفوف المعروضة ولا تضيف تشفير PDF بحد ذاتها.
+
+C. sensitivity labels
+Sensitivity labels صحيحة عندما تتضمن إعدادات تشفير ويكون مسار التصدير مدعومًا.
+
+D. dataset certifications
+Dataset certification علامة ثقة واعتماد، وليست حماية تشفير.
+
+الخلاصة اللي تتحفظ
+ملف مصدّر محتاج تشفير: Label بسياسة تشفير، وليس Label بالاسم فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/fabric/enterprise/powerbi/service-security-sensitivity-label-overview', 'Final', '294', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-295-294', 'Prepare the data', 'single', 'You have a Microsoft Excel file on a file server.
 
 You create a Power BI report and import a table from the Excel file.
@@ -13065,12 +14929,41 @@ You publish the report.
 
 You need to ensure that the data refreshes every four hours.
 
-What should you do first?', '["Upload the Excel file to a Power BI workspace.","Create a subscription to the report.","Deploy an on-premises data gateway.","Edit the data source credentials."]', '[2]', 'You can scheduled refresh for the On-premises data gateway (personal mode) and the On-premises data
-gateway. You specify refresh options in the following areas of the Power BI service: Gateway connection, Data
-source credentials, and Scheduled refresh.
+What should you do first?', '["Upload the Excel file to a Power BI workspace.","Create a subscription to the report.","Deploy an on-premises data gateway.","Edit the data source credentials."]', '[2]', 'ترجمة السؤال بالعربي
+استوردت جدولًا من Excel على File server داخل الشركة، ونشرت التقرير. مطلوب تحديث البيانات كل أربع ساعات. تبدأ بإيه؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh', 'Final', '295', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الخدمة في السحابة والملف جوه شبكة الشركة. قبل ما تقول لها «اقريه كل أربع ساعات»، لازم توفر لها طريق آمن يوصّلها للملف.
+
+مثال نفهم بيه
+الملف على \ServerShareSales.xlsx. حساب الخدمة يحتاج قراءة المسار، والجهاز المستضيف للبوابة يفضل شغال وقت التحديث.
+
+طريقة التفكير خطوة بخطوة
+1. جهّز On-premises data gateway على جهاز يمكنه الوصول للـFile server.
+2. بعدها اربط مصدر البيانات واضبط بيانات الاعتماد والصلاحيات ومسار الملف، ثم جدول التحديث.
+3. كل أربع ساعات يعني ست مرات يوميًا. نجاح التنفيذ يعتمد أيضًا على الترخيص وحدود الخدمة وتوفر الجهاز والملف، لا تركيب Gateway فقط.
+
+الإجابة الصحيحة وليه
+C. Deploy an on-premises data gateway.
+
+ليه كل اختيار صح أو غلط
+A. Upload the Excel file to a Power BI workspace.
+رفع الملف للـWorkspace يغير مسار العمل ولا يجهز اتصال الخدمة بالملف الأصلي على File server.
+
+B. Create a subscription to the report.
+Subscription ترسل إشعارًا/نسخة من التقرير؛ لا تستورد تحديثات Excel.
+
+C. Deploy an on-premises data gateway.
+Gateway هي الخطوة الأولى الصحيحة لربط السحابة بالمصدر الداخلي.
+
+D. Edit the data source credentials.
+Credentials مطلوبة لاحقًا، لكنها لا تنشئ طريق اتصال لشبكة داخلية غير متاحة للخدمة.
+
+الخلاصة اللي تتحفظ
+مصدر داخلي + تحديث من الخدمة: جهز الوصول بالـGateway قبل Credentials والجدول.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh', 'Final', '295', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-296-295', 'Manage and secure Power BI', 'multi', 'You have a dataset that is used infrequently and refreshes every hour.
 
 You receive a notification that the refresh was disabled due to inactivity.
@@ -13079,17 +14972,44 @@ Which two actions will cause the scheduled refresh schedule to resume? Each corr
 
 solution.
 
-NOTE: Each correct selection is worth one point.', '["Enable query caching for the dataset.","Import the dataset to Microsoft Excel.","From the Power BI service, open a dashboard that uses the dataset.","From the Power BI service, open a report that uses the dataset.","From PowerShell, run the get-powerbireport cmdlet."]', '[2,3]', 'After two months of inactivity, scheduled refresh on your dataset is paused. A dataset is considered inactive
-when no user has visited any dashboard or report built on the dataset. At that time, the dataset owner is sent
-an email indicating the scheduled refresh is paused. The refresh schedule for the dataset is then displayed as
-disabled. To resume scheduled refresh, simply revisit any dashboard or report built on the dataset.
-Incorrect:
+NOTE: Each correct selection is worth one point.', '["Enable query caching for the dataset.","Import the dataset to Microsoft Excel.","From the Power BI service, open a dashboard that uses the dataset.","From the Power BI service, open a report that uses the dataset.","From PowerShell, run the get-powerbireport cmdlet."]', '[2,3]', 'ترجمة السؤال بالعربي
+Semantic model قليل الاستخدام توقف تحديثه المجدول بسبب عدم النشاط. أي مسارين من الاختيارات يرتبطان بإعادة الاستخدام واستئناف التحديث؟
 
-Not E: get-powerbireport retrieves a list of Power BI reports that match the specified search criteria and
-scope.
+القصة والمعنى
+الخدمة وقفت الشغل المتكرر لموديل محدش بيستهلكه. فتح تقرير أو Dashboard مبني عليه هو استخدام فعلي؛ طلب قائمة أسماء التقارير من PowerShell ليس نفس الشيء.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh', 'Final', '296', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+ظهر الجدول Disabled بعد عدم نشاط. افتح Sales report، ثم ادخل إعدادات الموديل وتأكد أن الجدول On؛ لو ما زال Disabled فعّله.
+
+طريقة التفكير خطوة بخطوة
+1. المفتاح المقصود C و D: افتح Dashboard أو Report يستخدم الموديل.
+2. التوثيق الحالي يقول افتح أحدهما، ثم أعد تفعيل جدول التحديث إذا لزم. لا نعد الطالب أن مجرد الفتح دائمًا يكفي وحده لإرجاع Disabled إلى On.
+3. Query caching وقراءة معلومات التقرير لا تمثلان هذا المسار. استيراد شيء إلى Excel ليس الفعل المحدد الذي تعرضه الاختيارات لاستهلاك التقرير أو الـDashboard.
+
+الإجابة الصحيحة وليه
+C و D هما المساران المقصودان؛ وبعد الفتح راجع Scheduled refresh وأعد تفعيله عند الحاجة.
+
+ليه كل اختيار صح أو غلط
+A. Enable query caching for the dataset.
+Enable query caching إعداد أداء؛ لا يساوي زيارة تقرير ولا يعيد الجدول بمجرده.
+
+B. Import the dataset to Microsoft Excel.
+Import to Excel ليس فتح Report أو Dashboard بالطريقة المقصودة، ولا يضمن استئناف الجدول.
+
+C. From the Power BI service, open a dashboard that uses the dataset.
+فتح Dashboard يستخدم الموديل صحيح كمسار استئناف، مع مراجعة إعادة تفعيل الجدول عند الحاجة.
+
+D. From the Power BI service, open a report that uses the dataset.
+فتح Report يستخدم الموديل صحيح لنفس السبب، وليس وعدًا باستئناف تلقائي دائم.
+
+E. From PowerShell, run the get-powerbireport cmdlet.
+Get-PowerBIReport يجلب معلومات عن التقارير؛ لا يعني استعراض محتواها كمستخدم.
+
+الخلاصة اللي تتحفظ
+ارجع لاستهلاك Report أو Dashboard، ثم تأكد من إعادة تشغيل الجدول. صياغة الدامب اختصرت خطوة مهمة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh', 'Final', '296', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-297-296', 'Manage and secure Power BI', 'single', 'You have a Power BI workspace that contains a dataset, a report, and a dashboard. The following groups have
 
 access:
@@ -13104,48 +15024,124 @@ You need all users, including the external users, to be able to tag workspace ad
 
 issue with the dashboard. The solution must ensure that other users see the issues that were raised.
 
-What should you use?', '["comments","chat in Microsoft Teams","alerts","subscriptions"]', '[0]', 'Add a personal comment or start a conversation about a dashboard or report with your colleagues. The
-comment feature is just one of the ways a business user can collaborate with others.
-Note: Comments can be added to an entire dashboard, to individual visuals on a dashboard, to a report page,
-to a paginated report, and to individual visuals on a report page. Add a general comment or add a comment
-targeted at specific colleagues.
+What should you use?', '["comments","chat in Microsoft Teams","alerts","subscriptions"]', '[0]', 'ترجمة السؤال بالعربي
+موظفون ومديرون ومستخدمون خارجيون لهم وصول مناسب للـDashboard. مطلوب يبلغوا عن المشاكل ويعملوا Tag للمسؤولين، وبقية المستخدمين يشوفوا النقاش. تستخدم إيه؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/consumer/end-user-comment', 'Final', '297', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+واحد لقى إجمالي غلط؛ بدل ما يبعت رسالة خاصة وتتكرر الشكوى، يكتب المشكلة على الـDashboard ويشير للمسؤول. الباقي يشوف الرد في مكانه.
+
+مثال نفهم بيه
+«@Admin إجمالي أكتوبر أقل من المصدر، هل آخر Refresh نجح؟». يبقى السؤال والرد ظاهرين للمصرح لهم على نفس المحتوى.
+
+طريقة التفكير خطوة بخطوة
+1. Comments توفر نقاشًا مرتبطًا بالمحتوى و@mention للمستخدم المناسب.
+2. تأكد أن الخارجي مسجل ومصرح له، وأن إعدادات المؤسسة والترخيص تدعم الوصول والتفاعل المطلوبين؛ الرابط وحده ليس تصريحًا عامًا.
+3. Alerts تنبه إلى شرط رقمي، و Subscriptions ترسل محتوى دوريًا، ولا يحقق أي منهما سلسلة نقاش مشتركة.
+
+الإجابة الصحيحة وليه
+A. Comments.
+
+ليه كل اختيار صح أو غلط
+A. comments
+Comments صحيحة للنقاش والإشارة للمسؤول على المحتوى نفسه.
+
+B. chat in Microsoft Teams
+Teams محادثة منفصلة وقد تحتاج عضويات إضافية؛ ليس أبسط نقاش مشترك داخل الـDashboard هنا.
+
+C. alerts
+Alerts إشعارات قائمة على شروط، لا مساحة نقاش تظهر للجميع.
+
+D. subscriptions
+Subscriptions رسائل دورية أو لقطات من المحتوى، لا تعليقات وإشارات مشتركة.
+
+الخلاصة اللي تتحفظ
+مشكلة ونقاش و Tag على نفس المحتوى؟ Comments، مع صلاحيات وصول فعلية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/explore-reports/end-user-comment', 'Final', '297', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-298-297', 'Prepare the data', 'single', 'You have a PBIX file that imports several tables from an Azure SQL database.
 
 The data will be migrated to another Azure SQL database.
 
 You need to change the connections in the PBIX file. The solution must minimize administrative effort.
 
-What should you do?', '["From Power Query Editor, create new queries.","From Power Query Editor, modify the source of each query.","Create a PBIT file, open the file, and change the data sources when prompted.","Modify the Data source settings."]', '[3]', 'Open the PBIX file with Microsoft Power BI Desktop.
+What should you do?', '["From Power Query Editor, create new queries.","From Power Query Editor, modify the source of each query.","Create a PBIT file, open the file, and change the data sources when prompted.","Modify the Data source settings."]', '[3]', 'ترجمة السؤال بالعربي
+PBIX يستورد جداول متعددة من Azure SQL، والبيانات ستنتقل لقاعدة أخرى. عايز تغيّر الاتصال بأقل إدارة. تعمل إيه؟
 
-Then choose File -> Options and settings -> Data source settings >Right click data sources and change source.
+القصة والمعنى
+كل الجداول جاية من نفس العنوان القديم. بدل ما تفتح كل Query وتعدله واحدة واحدة، غيّر عنوان المصدر المشترك من مكان واحد في الواجهة التي تدعم ذلك.
 
-Note:
+مثال نفهم بيه
+خمس Queries تستخدم OldServer/OldDB. تعديل المصدر المشترك إلى NewServer/NewDB أقل من تعديل خمس خطوات Source يدويًا إذا كانت البنية متوافقة.
 
-Incorrect:
+طريقة التفكير خطوة بخطوة
+1. الإجابة التقليدية D: Data source settings ثم Change source للمصدر المعني.
+2. راجع Schema و Credentials بعد النقل؛ تغيير العنوان لا يصلح اختلاف أسماء الجداول أو الأعمدة.
+3. في واجهة Power Query الجديدة، Change source قد لا يكون متاحًا في هذا الموضع وفق قائمة القيود الحالية؛ استخدم المسار القديم عند الحاجة. فرّق بين إجابة السؤال الأصلية وتوفر الزر في نسختك.
 
-Not C: PBIT is a template file.
+الإجابة الصحيحة وليه
+D. Modify the Data source settings؛ المقصود مسار Change source المدعوم، مع مراعاة قيود الواجهة الجديدة.
 
-The PBIT file keeps your report structure and contains ''DataModelSchema File'' instead of ''''DataModel File''''.
-However, If you choose import mode, the PBIX file stores all imported data from data sources and the report
-structure.
+ليه كل اختيار صح أو غلط
+A. From Power Query Editor, create new queries.
+Queries جديدة تضيف شغلًا وتكرارًا وقد تحتاج إعادة بناء العلاقات والربط.
 
-Reference:
+B. From Power Query Editor, modify the source of each query.
+تعديل مصدر كل Query ممكن تقنيًا، لكنه يزيد العمل عندما يمكن تعديل المصدر المشترك.
 
-https://windowsreport.com/open-pbix-file/', 'Final', '298', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Create a PBIT file, open the file, and change the data sources when prompted.
+PBIT قالب، ولا يضمن سؤالًا عن كل مصدر وتغييره تلقائيًا؛ ليس المسار الأبسط المطلوب.
+
+D. Modify the Data source settings.
+Data source settings هو المسار المقصود لإدارة المصدر المشترك؛ راجع توفر Change source في إصدار الواجهة.
+
+الخلاصة اللي تتحفظ
+تغيير مصدر مشترك من مكان واحد أقل إدارة من تعديل كل Query؛ اسم الزر ومكانه يتأثران بإصدار الواجهة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/power-query-new-experience-limitations', 'Final', '298', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-299-298', 'Manage and secure Power BI', 'single', 'You have a Power BI workspace that contains several reports.
 
 You need to provide a user with the ability to create a dashboard that will use the visuals from the reports.
 
-What should you do?', '["Create a row-level security (RLS) role and add the user to the role.","Share the reports with the user.","Grant the Read permission for the datasets to the user.","Add the user as a member of the workspace.","Add the user as a Viewer of the workspace."]', '[3]', 'To grant access to a new workspace, assign those user groups or individuals to one of the workspace roles:
-Admin, Member, Contributor, or Viewer.
+What should you do?', '["Create a row-level security (RLS) role and add the user to the role.","Share the reports with the user.","Grant the Read permission for the datasets to the user.","Add the user as a member of the workspace.","Add the user as a Viewer of the workspace."]', '[3]', 'ترجمة السؤال بالعربي
+Workspace فيه تقارير، ومطلوب تمكين مستخدم من إنشاء Dashboard من عناصرها. أي صلاحية من الخيارات تمنحه الإنشاء داخل الـWorkspace؟
 
-Workspace roles -
+القصة والمعنى
+المشاهدة غير صناعة محتوى جديد في نفس المكان. Viewer يفتح الموجود، أما إنشاء Dashboard داخل مساحة العمل فمحتاج دور تحرير.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '299', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+عايز المستخدم يبني Dashboard مشتركًا بجوار تقارير الفريق: يحتاج دور تحرير. لو الهدف لوحة شخصية في مساحته، لازم نراجع السيناريو بدل منح Member تلقائيًا.
+
+طريقة التفكير خطوة بخطوة
+1. Member يمنح إنشاء محتوى داخل الـWorkspace، وهو دور التحرير الوحيد المتاح بين الاختيارات.
+2. Contributor عادة أقل صلاحية ويكفي لإنشاء المحتوى، لكنه ليس مطروحًا هنا؛ لا تحفظ Member كأقل دور ممكن دائمًا.
+3. النص مختصر بخصوص مكان الـDashboard: عند إنشاء Dashboard شخصي في My Workspace من تقرير مشترك، قد تختلف المتطلبات. إجابة D مبنية على الإنشاء داخل مساحة العمل المذكورة.
+
+الإجابة الصحيحة وليه
+D. Add the user as a member of the workspace، للإنشاء داخل هذه المساحة. ليست أقل صلاحية ممكنة خارج قائمة الخيارات.
+
+ليه كل اختيار صح أو غلط
+A. Create a row-level security (RLS) role and add the user to the role.
+RLS تقيد الصفوف ولا تمنح حق إنشاء Dashboard داخل مساحة العمل.
+
+B. Share the reports with the user.
+Share reports يمنح استهلاك المحتوى؛ قد يخدم لوحة شخصية بسيناريو آخر، وليس دور تأليف داخل مساحة العمل.
+
+C. Grant the Read permission for the datasets to the user.
+Read على الموديل لا يمنح حق إنشاء محتوى في مساحة العمل.
+
+D. Add the user as a member of the workspace.
+Member صحيح بين المتاح لإنشاء المحتوى داخل الـWorkspace؛ Contributor غير مطروح.
+
+E. Add the user as a Viewer of the workspace.
+Viewer دور مشاهدة وليس تأليف Dashboards في نفس الـWorkspace.
+
+الخلاصة اللي تتحفظ
+داخل نفس الـWorkspace تحتاج دور تحرير؛ Member هو المتاح هنا، لا قاعدة عامة لأقل صلاحية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '299', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-300-299', 'Visualize and analyze the data', 'manual', 'DRAG DROP -
 
 You have a Power BI workspace that contains a single-page report named Sales.
@@ -13158,100 +15154,168 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[3,4,1]', 'An entire report page can be pinned to a dashboard, which is called pinning a live tile. It''s called a live tile
-because you can interact with the tile on the dashboard.
-Unlike with individual visualization tiles, changes made in the report are automatically synced with the
+Select and Place:', '[]', '[3,4,1]', 'ترجمة السؤال بالعربي
+تقرير Sales من صفحة واحدة. عايز كل عناصره تظهر في Dashboard، وأي عناصر جديدة تُضاف للصفحة تظهر معها لاحقًا. رتب ثلاث خطوات.
 
-dashboard.
+القصة والمعنى
+لو علّقت صورة لكل رسم، الرسم الجديد مش هيتعلق لوحده. المطلوب تعلق صفحة التقرير كاملة كـLive page عشان التعديلات على الصفحة تنعكس في البلاطة عند تحديثها.
 
-Step 2: Open the Sales report -
-Step 3: Pin the page.
-1. Open a report in Editing view.
-2. With no visualizations selected, from the menu bar, select Pin to a dashboard.
-3. Pin the tile to an existing dashboard or to a new dashboard. Notice the highlighted text: Pin live page
-enables changes to reports to appear in the dashboard tile when the page is refreshed.
+مثال نفهم بيه
+الصفحة فيها رسمان، وبعد أسبوع أضفت KPI ثالثًا. بلاطة الصفحة الكاملة تشمل تخطيط الصفحة المحدث؛ بلاطتا الرسمين المنفردتين لا تنشئان بلاطة ثالثة تلقائيًا.
 
-4. Select Pin live. A Success message (near the top right corner) lets you know the page was added, as a tile,
-to your dashboard.
+طريقة التفكير خطوة بخطوة
+1. افتح Power BI service من powerbi.com؛ إنشاء الـDashboard وربط الصفحة يتم في الخدمة، لا Desktop.
+2. افتح تقرير Sales، ثم اختر Pin the page / Pin live page وفق الواجهة والصلاحيات المتاحة.
+3. Live page يعرض الصفحة كاملة فتنعكس تغييراتها عند تحديث البلاطة. كلمة Live لا تعني أن مصدر البيانات أصبح Streaming أو أن التحديث اللحظي مضمون.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-live-tile-from-report', 'Final', '300', '/dump-assets/f1-300-299-question.webp', '/dump-assets/f1-300-299-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+Open powerbi.com → Open the Sales report → Pin the page.
+
+ليه كل اختيار صح أو غلط
+A. Open Power BI Desktop.
+Power BI Desktop ليس مكان إنشاء Dashboard في الخدمة.
+
+B. Pin the page.
+Pin the page هي النهاية الصحيحة لإضافة صفحة حية كاملة.
+
+C. Pin each visual.
+Pin each visual يثبت عناصر منفردة ولا يضمن إضافة العناصر الجديدة تلقائيًا.
+
+D. Open powerbi.com.
+Open powerbi.com هي الخطوة الأولى الصحيحة للدخول للخدمة.
+
+E. Open the Sales report.
+Open Sales report هي الخطوة الثانية قبل تثبيت صفحته.
+
+F. Create a new report.
+Create a new report غير مطلوب؛ التقرير الموجود هو المصدر.
+
+الخلاصة اللي تتحفظ
+تغييرات الصفحة كلها لازم تتبعها الـDashboard؟ Pin live page، لا Pin كل رسم منفردًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-live-tile-from-report', 'Final', '300', '/dump-assets/f1-300-299-question.webp', '/dump-assets/f1-300-299-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-301-300', 'Manage and secure Power BI', 'single', 'You have a report in Power BI named report1 that is based on a shared dataset.
 
 You need to minimize the risk of data exfiltration for report. The solution must prevent other reports from being
 
 affected.
 
-What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Apply row-level security (RLS) to the shared dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report."]', '[3]', 'Besides the various permissions you can set, there are also two different options to disable the export
-functionality. First of all is the Export data in general and second the Export to Excel as a specific setting.
-Both have the same setup for permissions
+What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Apply row-level security (RLS) to the shared dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report."]', '[3]', 'ترجمة السؤال بالعربي
+تقرير Report1 مبني على موديل مشترك. قلّل خطر خروج بياناته من غير ما تغيّر بقية التقارير المبنية على نفس الموديل.
 
-Export Data -
+القصة والمعنى
+الموديل مطبخ بيخدم كذا مطعم. لو منعت التصدير من المطبخ كله هتأثر على الكل؛ المطلوب قفل زر التصدير في التقرير ده تحديدًا.
 
-Reference:
+مثال نفهم بيه
+تقرير الرواتب ممنوع تصديره، وتقرير إجمالي المصروفات يفضل بإعداداته الحالية رغم استخدامهما نفس الموديل.
 
-https://data-marc.com/2020/04/13/power-bi-governance-why-you-should-consider-to-disable-export-to-
-excel/', 'Final', '301', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. الإعداد المطلوب Report-level Export data، مش تغيير صلاحيات الموديل المشترك.
+2. اختار منع كل تصدير من التقرير. ده يقلل قناة إخراج البيانات، لكنه مش ضمان منع تصوير الشاشة أو الوصول بطرق أخرى مصرح بها.
+
+الإجابة الصحيحة وليه
+D: Don’t allow end users to export any data.
+
+ليه كل اختيار صح أو غلط
+A. Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.
+إلغاء Build أو Reshare على الموديل يغيّر استخدامه عبر تقارير أخرى، وهو خارج النطاق المطلوب.
+
+B. Apply row-level security (RLS) to the shared dataset.
+RLS يحدد الصفوف المسموحة على الموديل كله؛ لا يقفل تصدير Report1 وحده.
+
+C. Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.
+يسمح بالتصدير الملخص والتفصيلي، عكس تقليل إخراج البيانات.
+
+D. Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.
+صحيح؛ يعطل التصدير من التقرير المحدد مع عدم إعادة ضبط بقية التقارير.
+
+الخلاصة اللي تتحفظ
+لو المطلوب تقرير واحد فقط، ابدأ بإعداد التقرير، لا الموديل المشترك.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final', '301', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-302-301', 'Manage and secure Power BI', 'single', 'In Power BI Desktop, you are creating visualizations in a report based on an imported dataset.
 
 You need to allow Power BI users to export the summarized data used to create the visualizations but prevent the
 
 users from exporting the underlying data.
 
-What should you do?', '["From the Power BI service, configure the dataset permissions.","From Power BI Desktop, configure the Data Load settings for the current file.","From Power BI Desktop, modify the data source permissions.","From Power BI Desktop, configure the Report settings for the current file."]', '[3]', '1.) in Power BI Desktop > File > Options > Report Settings > Export data > Allow end users to export data with
-current layout, summarize data and underlying data from the service or Report Server.
+What should you do?', '["From the Power BI service, configure the dataset permissions.","From Power BI Desktop, configure the Data Load settings for the current file.","From Power BI Desktop, modify the data source permissions.","From Power BI Desktop, configure the Report settings for the current file."]', '[3]', 'ترجمة السؤال بالعربي
+تقرير Import: اسمح بتصدير ملخص الرسومات، وامنع تصدير الصفوف الأصلية التفصيلية. تعدّل أنهي إعداد؟
 
-2.) in Power BI Service in Report Settings > Export data section I found: "Choose the type of data you allow
-your end users to export." Here you can select one option from:
+القصة والمعنى
+الرسم بيقول إجمالي كل فرع. نسمح للمدير ياخد إجماليات الفروع، مش ملف بكل فاتورة وراء الإجمالي.
 
-- Summarized data and data with current layout
+مثال نفهم بيه
+تصدير القاهرة=100 ألف والإسكندرية=80 ألف مسموح؛ استخراج ألف صف فواتير من نفس الرسم غير مسموح.
 
-- Summarized data, with current layout and underlying data
+طريقة التفكير خطوة بخطوة
+1. من Options ثم Current file ثم Report settings، اضبط Export data على Summarized فقط.
+2. صلاحيات Build تؤثر في إمكانيات أخرى؛ سؤالنا يطلب اختيار نوع التصدير لهذا التقرير. إعدادات المسؤول الأعلى قد تفرض قيودًا أشد.
 
-- None
+الإجابة الصحيحة وليه
+D: Report settings for the current file.
 
-But this option is missing from offered answers, the correct answer is D.
+ليه كل اختيار صح أو غلط
+A. From the Power BI service, configure the dataset permissions.
+صلاحيات الموديل ليست موضع الاختيار المباشر بين summarized و underlying لهذا التقرير.
 
-A is incorrect as in Manage Dataset Permission you can grant access:
+B. From Power BI Desktop, configure the Data Load settings for the current file.
+Data Load يخص تحميل البيانات ولا يحدد أنواع Export للقراء.
 
--allow recipients to modify dataset,
+C. From Power BI Desktop, modify the data source permissions.
+صلاحيات المصدر تخص الاتصال وقواعد الاعتماد، لا تصدير الرسومات.
 
--allow recipients to share this dataset,
+D. From Power BI Desktop, configure the Report settings for the current file.
+صحيح؛ إعدادات التقرير بها اختيار السماح بالملخص فقط.
 
--allow recipients to build content with the data associated with dataset,
+الخلاصة اللي تتحفظ
+Summarized و Underlying اختياران تحت Export data في Report settings.
 
--send an email notification
-
-or remove granted reshare, remove build, remove write, remove access
-
-So here you can not change or limit data export.
-
-https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-permissions', 'Final', '302', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final', '302', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-303-302', 'Manage and secure Power BI', 'single', 'You have a Power BI report that uses row-level security (RLS).
 
 You need to transfer RLS membership maintenance to an Azure network security team. The solution must NOT
 
 provide the Azure network security team with the ability to manage reports, datasets, or dashboards.
 
-What should you do?', '["Grant the Read and Build permissions for the Power BI datasets to the Azure network security team.","Configure custom instructions for the Request access feature that instructs users to contact the Azure network security team.","Instruct the Azure network security team to create security groups. Configure RLS to use the groups.","Add the Azure network security team as members of the RLS role."]', '[2]', 'Configure row-level security group membership, Working with members
+What should you do?', '["Grant the Read and Build permissions for the Power BI datasets to the Azure network security team.","Configure custom instructions for the Request access feature that instructs users to contact the Azure network security team.","Instruct the Azure network security team to create security groups. Configure RLS to use the groups.","Add the Azure network security team as members of the RLS role."]', '[2]', 'ترجمة السؤال بالعربي
+عايز فريق الشبكات يدير مين داخل أدوار RLS، من غير صلاحيات إدارة تقارير أو موديلات أو داشبوردات.
 
-Add members -
-In the Power BI service, you can add a member to the role by typing in the email address or name of the user
-or security group.
-You can use the following groups to set up row level security.
+القصة والمعنى
+بدل ما تدي فريق الشبكات مفاتيح Power BI، اربط دور المنطقة بجروب. هم يدخلوا ويطلعوا الموظفين من الجروب في Entra، وإنت تدير تعريف الدور في Power BI.
 
-Distribution Group -
+مثال نفهم بيه
+دور EgyptSales مربوط بجروب Egypt. عند نقل سارة، مسؤول الشبكات يغير عضويتها، لا يفتح تقرير المبيعات للتعديل.
 
-Mail-enabled Group -
+طريقة التفكير خطوة بخطوة
+1. فريق الشبكات ينشئ أو يدير Security groups.
+2. اربط الجروبات بأدوار RLS مرة؛ تغيير العضوية بعدها يتم على الجروب، مع مراعاة وقت انتشار التغيير والجلسات الحالية.
 
-Security Group -
-Incorrect:
-Not A: Build permission applies to datasets. When you give users Build permission, they can build new content
-on your dataset, such as reports, dashboards, pinned tiles from Q&A, paginated reports, and Insights
-Discovery.
+الإجابة الصحيحة وليه
+C: Security groups ثم استخدام الجروبات في RLS.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '303', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Grant the Read and Build permissions for the Power BI datasets to the Azure network security team.
+Read و Build يسمحان بالاستهلاك والبناء، ولا يفوضان إدارة عضوية الأدوار في الدليل.
+
+B. Configure custom instructions for the Request access feature that instructs users to contact the Azure network security team.
+تعليمات Request access مجرد نص تواصل، وليست آلية إدارة العضوية.
+
+C. Instruct the Azure network security team to create security groups. Configure RLS to use the groups.
+صحيح؛ تفصل إدارة الناس في الجروب عن إدارة المحتوى وتعريف RLS.
+
+D. Add the Azure network security team as members of the RLS role.
+إضافتهم للدور تجعلهم مستهلكين تحت فلتره؛ لا تمنحهم إدارة عضوية الآخرين.
+
+الخلاصة اللي تتحفظ
+فوّض عضوية الجروب، مش صلاحيات تعديل المحتوى.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/guidance/rls-guidance', 'Final', '303', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-304-303', 'Manage and secure Power BI', 'single', 'You have four sales regions. Each region has multiple sales managers.
 
 You implement row-level security (RLS) in a data model. You assign the relevant mail-enabled security group to
@@ -13266,17 +15330,40 @@ A sales manager changes to a different region.
 
 You need to ensure that the sales manager can see the correct sales data.
 
-What should you do?', '["Change the Microsoft Power BI license type of the sales manager.","From Microsoft Power BI Desktop, edit the Row-Level Security setting for the reports.","Manage the permissions of the underlying dataset.","Request that the sales manager be added to the correct Azure Active Directory group."]', '[3]', 'You can use the following groups to set up row level security.
-* Distribution Group
-* Mail-enabled Group - This group also contains a list of email addresses of members and can also be used to
-control access to OneDrive and SharePoint.
-The Mail-Enabled Security Group can be created in the Office 365 Admin Portal.
-* Security Group - This is also known as an Active Directory Security Group. This group lives within Active
-Directory and Azure Active Directory.
+What should you do?', '["Change the Microsoft Power BI license type of the sales manager.","From Microsoft Power BI Desktop, edit the Row-Level Security setting for the reports.","Manage the permissions of the underlying dataset.","Request that the sales manager be added to the correct Azure Active Directory group."]', '[3]', 'ترجمة السؤال بالعربي
+كل منطقة لها دور RLS مربوط بجروب. مدير انتقل لمنطقة أخرى؛ إزاي يشوف بيانات منطقته الجديدة فقط؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
-https://www.fourmoo.com/2020/04/01/power-bi-which-groups-can-be-used-to-set-permissions-in-power-bi/', 'Final', '304', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+التذكرة القديمة بتفتح فرع القاهرة. نقل الموظف للإسكندرية معناه نبدّل عضوية الجروب، مش نغير الترخيص أو نكتب فلتر جديد لكل انتقال.
+
+مثال نفهم بيه
+مدير Cairo انتقل إلى West: يبقى في West فقط، ثم نختبر هويته بعد انتشار تحديث العضوية.
+
+طريقة التفكير خطوة بخطوة
+1. أضفه لجروب المنطقة الجديدة وأزله من القديمة إذا لم يعد مخولًا بها.
+2. عضوية أكثر من دور RLS تمنح اتحاد البيانات المسموحة، مش تقاطعها؛ ترك القديمة قد يكشف المنطقتين.
+
+الإجابة الصحيحة وليه
+D: عضوية جروب Entra الصحيح، مع إزالة عضوية المنطقة القديمة.
+
+ليه كل اختيار صح أو غلط
+A. Change the Microsoft Power BI license type of the sales manager.
+الترخيص يتيح استخدام الخدمة، لا يحدد منطقة الصفوف.
+
+B. From Microsoft Power BI Desktop, edit the Row-Level Security setting for the reports.
+تعريفات الأدوار صحيحة بالفعل؛ انتقال موظف لا يحتاج إعادة تصميمها.
+
+C. Manage the permissions of the underlying dataset.
+تغيير صلاحيات الموديل لا يغيّر الجروب المسؤول عن نطاقه الإقليمي.
+
+D. Request that the sales manager be added to the correct Azure Active Directory group.
+صحيح؛ عدّل عضوية جروبات الأدوار بما يعكس التكليف الحالي.
+
+الخلاصة اللي تتحفظ
+تغيير المنطقة = تغيير عضوية الجروب، وإياك تسيب الدور القديم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '304', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-305-304', 'Manage and secure Power BI', 'single', 'You have more than 100 published datasets.
 
 Ten of the datasets were verified to meet your corporate quality standards.
@@ -13285,33 +15372,40 @@ You need to ensure that the 10 verified datasets appear at the top of the list o
 
 search for existing datasets.
 
-What should you do?', '["Promote the datasets.","Certify the datasets.","Feature the dataset on the home page.","Publish the datasets in an app."]', '[1]', 'Once logged in, you will be presented with a list of datasets that you can access from your various
-workspaces. This is one reason why having official datasets promoted and certified is recommended, as these
-will appear at the top of the list, with certified datasets appearing before promoted datasets.
-Note: Power BI provides two ways you can endorse your valuable, high-quality content to increase its visibility:
-promotion and certification.
-Promotion: Promotion is a way to highlight content you think is valuable and worthwhile for others to use. It
-encourages the collaborative use and spread of content within an organization.
-Any content owner, as well as any member with write permissions on the workspace where the content is
+What should you do?', '["Promote the datasets.","Certify the datasets.","Feature the dataset on the home page.","Publish the datasets in an app."]', '[1]', 'ترجمة السؤال بالعربي
+من أكثر من 100 موديل، عندك 10 اجتازوا معايير جودة الشركة. عايز إبرازهم عند البحث عن موديلات موثوقة.
 
-located, can promote the content when they think it''s good enough for sharing.
-Certification: Certification means that the content meets the organization''s quality standards and can be
-regarded as reliable, authoritative, and ready for use across the organization.
-Currently it is possible to endorse
+القصة والمعنى
+في فرق بين صاحب ملف يقول «ده كويس» وبين جهة الشركة تقول «راجعناه واعتمدناه». المطلوب النوع التاني: Certified.
 
-Datasets -
+مثال نفهم بيه
+موديل Finance2026 عليه Certified بعد مراجعة الحسابات والتحديث، بينما ملف تجريبي Promoted لم يمر بنفس الاعتماد.
 
-Dataflows -
+طريقة التفكير خطوة بخطوة
+1. Certification علامة اعتماد بمعايير المؤسسة، وليس تفضيلًا شخصيًا من صاحب المحتوى.
+2. تحتاج تمكين الميزة ومخولين بالاعتماد؛ الشارة لا تمنح وصولًا جديدًا للبيانات، ولا نعد بترتيب ثابت في كل واجهة بحث متغيرة.
 
-Reports -
+الإجابة الصحيحة وليه
+B: Certify the datasets.
 
-Apps -
-If dataset discoverability has been enabled in your organization, endorsed datasets can be made discoverable.
-When a dataset is discoverable, users who don''t have access to it will be able to find it and request access.
+ليه كل اختيار صح أو غلط
+A. Promote the datasets.
+Promote يزيد الوضوح لكنه لا يشهد اجتياز معايير الجودة المؤسسية.
 
-Reference:
-https://exceleratorbi.com.au/new-power-bi-reports-golden-dataset/ https://docs.microsoft.com/en-us/power-
-bi/collaborate-share/service-endorse-content', 'Final', '305', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+B. Certify the datasets.
+صحيح؛ الاعتماد الرسمي يميز العشرة عن بقية المحتوى.
+
+C. Feature the dataset on the home page.
+Feature يبرز محتوى في واجهة معينة، لا يثبت جودة الموديل عبر اكتشافه.
+
+D. Publish the datasets in an app.
+App يوزع حزمة تقارير؛ ليس شهادة جودة للموديل.
+
+الخلاصة اللي تتحفظ
+معايير الشركة وتوثيق الثقة = Certification، لا مجرد Promotion.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-endorse-content', 'Final', '305', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-306-305', 'Manage and secure Power BI', 'manual', 'DRAG DROP -
 
 You have a Microsoft Power BI workspace.
@@ -13326,32 +15420,40 @@ role may be used once, more than once, or not at all. You may need to drag the s
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[2,1]', 'Box 1: Member -
+Select and Place:', '[]', '[2,1]', 'ترجمة السؤال بالعربي
+User1 ينشئ وينشر Apps. User2 ينشر تقارير ويحذف داشبوردات. اختار أقل دور Workspace لكل واحد.
 
-Only Admin and Member can publish, unpublish, and change permissions for an app.
+القصة والمعنى
+الأول بيسلّم باكدج التقارير للناس. التاني شغله جوه الورشة: إضافة تقرير وحذف محتوى، من غير إدارة الجمهور.
 
-Incorrect:
+مثال نفهم بيه
+منى تسلّم App الإدارة فتبقى Member؛ أحمد يصلح التقارير ويحذف Dashboard قديمة فيبقى Contributor.
 
-Contributors can update the app associated with the workspace, if the workspace Admin delegates this
-permission to them. However, they can''t publish a new app or change who has permission to it.
+طريقة التفكير خطوة بخطوة
+1. User1 يحتاج Member لإنشاء ونشر App؛ Contributor قد يُسمح له بتحديث App قائم بتفويض، وده مش إنشاء ونشر App جديد.
+2. User2 يحتاج Contributor؛ Viewer لا ينشر ولا يحذف، و Member يزيد صلاحيات غير مطلوبة.
 
-Box 2: Contributor -
+الإجابة الصحيحة وليه
+User1: Member. User2: Contributor.
 
-Admin , Member and Contributor can create, edit, and delete content, such as reports, in the workspace.
+ليه كل اختيار صح أو غلط
+A. Admin
+Admin ينجز المهام لكنه أوسع من اللازم للمستخدمين، وقد يدير ويحذف الـWorkspace.
 
-Note: Contributor - This role can access and interact with reports and dashboards. Additionally, this role can
-create, edit, copy, and delete items in a workspace, publish reports, schedule refreshes, and modify gateways.
+B. Contributor
+Contributor صحيح لـUser2؛ ينشئ ويعدل ويحذف محتوى داخل مساحة العمل.
 
-Incorrect:
+C. Member
+Member صحيح لـUser1 لإنشاء ونشر App وإدارة توزيعه ضمن صلاحيات الدور.
 
-Viewer - This role provides read only access to workspace items. Read access does provide report / dashboard
-consumers the ability to not only view, but also interact with visuals. Interaction does not mean changing a
-visual.
+D. Viewer
+Viewer للقراءة والتفاعل؛ لا ينشئ App ولا ينشر تقريرًا ولا يحذف Dashboard.
 
-Reference:
+الخلاصة اللي تتحفظ
+إنشاء App: Member. إنشاء/حذف المحتوى: Contributor.
 
-https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces
-https://www.mssqltips.com/sqlservertip/6487/power-bi-workspace-permissions-and-roles', 'Final', '306', '/dump-assets/f1-306-305-question.webp', '/dump-assets/f1-306-305-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '306', '/dump-assets/f1-306-305-question.webp', '/dump-assets/f1-306-305-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-307-306', 'Manage and secure Power BI', 'single', 'You create a dashboard by using the Microsoft Power BI Service. The dashboard contains a card visual that shows
 
 total sales from the current year.
@@ -13362,22 +15464,40 @@ A user wants to receive daily notifications of the number shown on the card visu
 
 You need to automate the notifications.
 
-What should you do?', '["Create a subscription.","Create a data alert.","Share the dashboard to the user.","Tag the user in a comment."]', '[0]', 'A is correct, you need a subscription, not an alert as alerts don''t include a snapshot and they will only be sent
-based on a certain condition whereas here you want daily notifications, not just when the value exceeds a
-certain threshold.
+What should you do?', '["Create a subscription.","Create a data alert.","Share the dashboard to the user.","Tag the user in a comment."]', '[0]', 'ترجمة السؤال بالعربي
+Dashboard بها Card لإجمالي مبيعات السنة. مستخدم Viewer عايز رسالة يومية بالرقم، بدون شرط تجاوز حد.
 
-In Power BI, subscriptions allow users to automatically receive scheduled reports or dashboard updates, such
-as daily notifications, based on the data they are interested in. By creating a subscription to the dashboard,
-the user will get daily updates on the total sales figure shown on the card visual.
+القصة والمعنى
+عايز نشرة كل صباح تقول وصلنا لكام، مش إنذار حريق يرن لما نعدّي رقم معين.
 
-Why other options are incorrect:
+مثال نفهم بيه
+كل يوم 9 صباحًا يستلم لقطة الداشبورد. لو المطلوب فقط عند تجاوز مليون يبقى Alert بدلها.
 
-B. Create a data alert: Alerts notify users when data meets specific conditions, but this doesn''t send daily
-updates.
+طريقة التفكير خطوة بخطوة
+1. Subscription يرسل تحديثًا دوريًا حسب الجدول وصلاحيات الاشتراك والترخيص.
+2. Alert يرسل عند تحقق شرط على Tile مدعوم؛ ليس اشتراكًا غير مشروط كل يوم.
 
-C. Share the dashboard: Sharing alone doesn''t automate notifications.
+الإجابة الصحيحة وليه
+A: Create a subscription.
 
-D. Tag the user in a comment: This is for communication within the dashboard, not for automated notifications.', 'Final', '307', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Create a subscription.
+صحيح؛ الاشتراك يحقق الإرسال الدوري المطلوب.
+
+B. Create a data alert.
+Data alert يحتاج شرطًا؛ لا يضمن نشرة يومية بالرقم في كل الأحوال.
+
+C. Share the dashboard to the user.
+Share يمنح وصولًا، ولا ينشئ إرسالًا متكررًا.
+
+D. Tag the user in a comment.
+Tag يرسل إشعار تعليق لحظي، لا جدول متابعة يومي.
+
+الخلاصة اللي تتحفظ
+كل يوم بصرف النظر عن القيمة = Subscription؛ عند حد = Alert.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-report-subscribe', 'Final', '307', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-308-307', 'Manage and secure Power BI', 'single', 'You have a Power BI workspace named Workspace1 that contains a dataset named DS1 and a report named RPT1.
 
 A user wants to create a report by using the data in DS1 and publish the report to another workspace.
@@ -13386,23 +15506,40 @@ You need to provide the user with the appropriate access. The solution must mini
 
 permissions granted to the user.
 
-What should you do?', '["Add the user as a Viewer of Workspace1.","Grant the Build permission for DS1 to the user.","Share RPT1 with the user.","Add the user as a member of Workspace1."]', '[1]', 'More granular permissions -
+What should you do?', '["Add the user as a Viewer of Workspace1.","Grant the Build permission for DS1 to the user.","Share RPT1 with the user.","Add the user as a member of Workspace1."]', '[1]', 'ترجمة السؤال بالعربي
+DS1 في Workspace1. مستخدم عايز يبني تقرير منه وينشره في Workspace أخرى بأقل صلاحيات على المصدر.
 
-Power BI provides the Build permission as a complement to the existing permissions, Read and Reshare. All
-users who already had Read permission for datasets via app permissions, sharing, or workspace access at that
-time also got Build permission for those same datasets. They got Build permission automatically because
-Read permission already granted them the right to build new content on top of the dataset, by using Analyze
-in Excel or Export.
+القصة والمعنى
+عايز يستخدم وصفة جاهزة، مش يغيّر المطبخ كله. اديله Build على الموديل المحدد، مش Member على مساحة المصدر.
 
-With this more granular Build permission, you can choose who can only view the content in the existing report
-or dashboard and who can create content connected to the underlying datasets.
+مثال نفهم بيه
+محلل يبني تقرير Budget في مساحة فريقه باستخدام FinanceModel في مساحة المالية، من غير تعديل FinanceModel.
 
-If your dataset is being used by a report outside the dataset workspace, you can''t delete that dataset. Instead,
-you see an error message.
+طريقة التفكير خطوة بخطوة
+1. Build يسمح بإنشاء محتوى يعتمد على DS1 دون منح صلاحية تحريره.
+2. النشر في الوجهة يحتاج صلاحية مناسبة هناك، مثل Contributor؛ السؤال يحدد أقل وصول لازم للمصدر.
 
-Reference:
+الإجابة الصحيحة وليه
+B: Grant Build permission on DS1.
 
-https://docs.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '308', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Add the user as a Viewer of Workspace1.
+Viewer على المصدر يفتح محتواه لكنه لا يمنح Build تلقائيًا، ويكشف عناصر أكثر من المطلوب.
+
+B. Grant the Build permission for DS1 to the user.
+صحيح؛ صلاحية على الموديل نفسه لإنشاء التقارير المبنية عليه.
+
+C. Share RPT1 with the user.
+مشاركة RPT1 لا تكفي للبناء ما لم يُمنح Build للموديل أيضًا.
+
+D. Add the user as a member of Workspace1.
+Member أوسع؛ يمنح تحرير محتوى المصدر وإمكانات إضافية غير مطلوبة.
+
+الخلاصة اللي تتحفظ
+استخدام موديل دون تعديله = Build؛ النشر يحتاج حقًا منفصلًا في الوجهة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '308', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-309-308', 'Manage and secure Power BI', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -13419,21 +15556,34 @@ You need to grant all organizational users read access to one dashboard and thre
 
 Solution: You publish an app to the entire organization.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'The answer is A..Yes
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+خمسة تقارير وداشبوردان. عايز كل المؤسسة تقرأ ثلاثة تقارير وداشبوردًا واحدًا. الحل نشر App للمؤسسة؛ هل يحقق المطلوب؟
 
-When you publish an app in Power BI, you can select the specific content you want to include in the app, such
+القصة والمعنى
+بدل ما تفتح المخزن كله، اعمل باكدج من الأربع حاجات المقصودة ووزعه. App وسيلة العرض، واختيار المحتوى هو الحد الفاصل.
 
-as reports and dashboards, and specify the access levels for each item. You can also choose to make the app
-available to specific users or groups, or publish it to the entire organization.
+مثال نفهم بيه
+App يضم R1,R2,R3 و D1؛ يفضل R4,R5 و D2 خارج جمهور القراء.
 
-If you publish an app to the entire organization, all users in your organization would have access to the app
-and its included content, as long as they have a Power BI license. You can set the appropriate access level for
-each item in the app, such as read-only access for the selected dashboard and reports, to ensure that users
-only have access to the content they need.
+طريقة التفكير خطوة بخطوة
+1. نعم عند تضمين الثلاثة تقارير والداشبورد المطلوبة فقط، ثم تحديد الجمهور المناسب.
+2. النشر للمؤسسة لا يلغي متطلبات التراخيص والسياسات؛ ولا يعني إدخال كل عناصر الـWorkspace تلقائيًا.
 
-Therefore, publishing an app to the entire organization with the appropriate access levels for the dashboard
-and reports would meet the goal of granting all organizational users read access to one dashboard and three
-reports.', 'Final', '309', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+Yes: App بالمحتوى المحدد، وليس كامل مساحة العمل.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح بشرط اختيار العناصر المطلوبة وتوفير التراخيص والإتاحة المؤسسية اللازمة.
+
+B. No
+غير صحيح في تفسير السؤال المقصود؛ App مصمم لتوزيع مجموعة مختارة، لا يشترط فتح مساحة العمل.
+
+الخلاصة اللي تتحفظ
+App ينشر الحزمة المختارة؛ راجع المحتوى والجمهور قبل النشر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '309', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-310-309', 'Visualize and analyze the data', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -13450,18 +15600,34 @@ You need to grant all organizational users read access to one dashboard and thre
 
 Solution: You enable included in app for all assets.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'You need to specify the dashboard and the three reports to be included in the app.
-Instead: You create an Azure Active Directory group that contains all the users. You share each selected
-report and the one dashboard to the group.
-Note: A published App can provide the required access.
-When the dashboards and reports in your workspace are ready, you choose which dashboards and reports you
-want to publish, then publish them as an app.
-In Power BI, you can create official packaged content, then distribute it to a broad audience as an app. You
-create apps in workspaces, where you can collaborate on Power BI content with your colleagues. Then you
-can publish the finished app to large groups of people in your organization.
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+نفس طلب الثلاثة تقارير وداشبورد واحد. الحل تفعيل Include in app لكل العناصر؛ هل يكفي؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '310', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+المطلوب أربع حاجات من سبع. إدخال السبعة في الشنطة لا يبقى اختيارًا للأربع، وحتى تجهيز الشنطة وحده مش نشرها للناس.
+
+مثال نفهم بيه
+إدخال D2 و R4 و R5 مع الحزمة يكشف محتوى لم يُطلب منحه للمؤسسة.
+
+طريقة التفكير خطوة بخطوة
+1. تضمين الجميع يتيح عناصر خارج النطاق المطلوب.
+2. لازم اختيار المحتوى المطلوب ثم نشر App للجمهور، مش الاكتفاء بزر تضمين المحتوى.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+خطأ؛ تفعيل كل العناصر لا يحترم نطاق التقارير المطلوبة ولا يثبت توزيعها.
+
+B. No
+صحيح؛ الاختيار والنشر للجمهور خطوتان لا يغني عنهما Include all.
+
+الخلاصة اللي تتحفظ
+Include all ليس انتقاء المحتوى المطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '310', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-311-310', 'Manage and secure Power BI', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -13478,23 +15644,75 @@ You need to grant all organizational users read access to one dashboard and thre
 
 Solution: You assign all the users the Viewer role to the workspace.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'In this way all users will see all workspace content not only the one dashboard and 3 reports', 'Final', '311', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+عايز المؤسسة تشوف ثلاثة تقارير وداشبوردًا واحدًا فقط. هل تعيين الجميع Viewer للـWorkspace يحقق الطلب؟
+
+القصة والمعنى
+Viewer معناه يتفرج على المخزن كله، مش رف مختار منه. صحيح مش هيعدل، بس هيشوف تقارير أكثر من المطلوبة.
+
+مثال نفهم بيه
+Viewer هيشوف R4 و R5 كمان؛ App الانتقائي يتركهم غير متاحين له.
+
+طريقة التفكير خطوة بخطوة
+1. Workspace Viewer يرى محتوى مساحة العمل، لا العناصر الأربعة المنتقاة فقط.
+2. وزع عبر App أو مشاركة العناصر المحددة بدل إعطاء دور على كل المساحة.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+خطأ؛ القراءة فقط لا تعني القراءة للعناصر المختارة فقط.
+
+B. No
+صحيح؛ نطاق Workspace أوسع من المطلوب.
+
+الخلاصة اللي تتحفظ
+فرق بين أقل صلاحية تعديل وأقل نطاق محتوى.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '311', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-312-311', 'Manage and secure Power BI', 'single', 'From Power BI Desktop, you publish a new dataset and report to a Power BI workspace. The dataset has a row-
 
 level security (RLS) role named HR.
 
 You need to ensure that the HR team members have RLS applied when they view reports based on the dataset.
 
-What should you do?', '["From powerbi.com, add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members.","From Power BI Desktop, change the Row-Level Security settings.","From Power BI Desktop, import a table that contains the HR team members."]', '[0]', 'Working with members -
+What should you do?', '["From powerbi.com, add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members.","From Power BI Desktop, change the Row-Level Security settings.","From Power BI Desktop, import a table that contains the HR team members."]', '[0]', 'ترجمة السؤال بالعربي
+نشرت موديل فيه دور HR معرف بالفعل. عايز أعضاء فريق HR يخضعوا لفلتر الدور عند مشاهدة التقارير.
 
-Add members -
+القصة والمعنى
+كتبت قاعدة الباب، بس لسه ما قلتش مين يستخدم الباب. الدور اسمه موجود، لكن الناس لازم تتضاف لعضويته في الخدمة.
 
-In the Power BI service, you can add a member to the role by typing in the email address or name of the user
-or security group.
+مثال نفهم بيه
+فلتر HR جاهز. نضيف HR-SecurityGroup ثم نختبر حساب موظف Viewer من الفريق.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. افتح Security للموديل في الخدمة وأضف المستخدمين أو الجروب المدعوم إلى HR.
+2. امنح وصول مشاهدة منفصلًا، ولا تجعلهم Admin أو Member أو Contributor للموديل لأن هذه الأدوار تتجاوز RLS.
 
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '312', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+الإجابة الصحيحة وليه
+A: Add users to HR role in powerbi.com.
+
+ليه كل اختيار صح أو غلط
+A. From powerbi.com, add users to the HR role for the dataset.
+صحيح؛ يربط الأشخاص بالدور الذي نُشر.
+
+B. From powerbi.com, share the dataset to the HR team members.
+المشاركة تمنح الوصول لكنها ليست تعيينًا لعضوية دور RLS.
+
+C. From Power BI Desktop, change the Row-Level Security settings.
+تغيير الفلتر غير مطلوب؛ المشكلة تعيين المستخدمين بعد النشر.
+
+D. From Power BI Desktop, import a table that contains the HR team members.
+جدول أسماء وحده لا يطبق أمنًا إلا لو صممنا وربطنا قواعد RLS المناسبة؛ ليس المطلوب هنا.
+
+الخلاصة اللي تتحفظ
+تعريف الدور ثم نشره ثم تعيين أعضائه. العضوية ليست مشاركة التقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '312', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-313-312', 'Visualize and analyze the data', 'single', 'You have a Power BI dashboard that monitors the quality of manufacturing processes. The dashboard contains the
 
 following elements:
@@ -13505,13 +15723,40 @@ following elements:
 
 You need to be notified when the daily percentage of defective products manufactured exceeds 3%.
 
-What should you create?', '["a subscription","an alert","a smart narrative visual","a Q&A visual"]', '[1]', 'Set alerts in the Power BI service to notify you when data on a dashboard changes above or below limits you
+What should you create?', '["a subscription","an alert","a smart narrative visual","a Q&A visual"]', '[1]', 'ترجمة السؤال بالعربي
+Dashboard جودة التصنيع بها KPI لنسبة المنتجات المعيبة. عايز إشعار لما النسبة اليومية تتجاوز 3%.
 
-set. Alerts can be set on tiles pinned from report visuals or from Power BI Q&A, and only on gauges, KPIs, and
-cards.
+القصة والمعنى
+مش عايز رسالة روتينية؛ عايز جرس يقول خط الإنتاج عدى الحد المقبول. الشرط هنا هو قلب السؤال.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/consumer/end-user-alerts', 'Final', '313', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+2.8% لا إنذار، 3.4% تحقق الشرط بعد التحديث. لو المقياس يخزن 0.034 راجع إدخال الحد بوحدة العرض الصحيحة.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ Data alert على KPI Tile المدعوم، واضبط الحد 3% وفق القيمة الرقمية والتنسيق.
+2. الفحص يعتمد على تحديث البيانات وإعداد تكرار التنبيه، وليس مراقبة لحظية مضمونة لكل تغير.
+
+الإجابة الصحيحة وليه
+B: An alert.
+
+ليه كل اختيار صح أو غلط
+A. a subscription
+Subscription للجدولة، لا يعبّر وحده عن تجاوز 3%.
+
+B. an alert
+صحيح؛ التنبيه مرتبط بحد على قيمة KPI.
+
+C. a smart narrative visual
+Smart narrative يلخص البيانات نصيًا، ولا ينشئ إخطار الحد المطلوب.
+
+D. a Q&A visual
+Q&A يجيب عن أسئلة المستخدم، وليس آلية إشعار شرطية.
+
+الخلاصة اللي تتحفظ
+قيمة KPI تتجاوز حدًا = Data alert، مش مجرد Subscription.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final', '313', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-314-313', 'Manage and secure Power BI', 'single', 'You create a report by using Microsoft Power BI Desktop.
 
 The report uses data from a Microsoft SQL Server Analysis Services (SSAS) cube located on your company''s
@@ -13522,14 +15767,40 @@ You plan to publish the report to the Power BI Service.
 
 What should you implement to ensure that users who consume the report from the Power BI Service have the most
 
-up-to-date data from the cube?', '["an OData feed","an On-premises data gateway","a subscription","a scheduled refresh of the dataset"]', '[1]', 'After you install the on-premises data gateway, you need to add data sources that can be used with the
-gateway. You can work with gateways and SQL Server
-Analysis Services (SSAS) data sources that are used either for scheduled refresh or for live connections.
-Note: Power BI service is a cloud-based business analytics and data visualization service that enables anyone
-to visualize and analyze data with greater speed, efficiency, and understanding.
+up-to-date data from the cube?', '["an OData feed","an On-premises data gateway","a subscription","a scheduled refresh of the dataset"]', '[1]', 'ترجمة السؤال بالعربي
+تقرير مبني على SSAS Cube داخل شبكة الشركة. عايز استهلاكه من Power BI Service بأحدث بيانات المكعب.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/connect-data/service-gateway-enterprise-manage-ssas', 'Final', '314', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+التقرير في السحابة والمكعب جوه الشركة. لازم كوبري آمن بينهم، مش إيميل ولا نسخة قديمة نحدثها كل شوية.
+
+مثال نفهم بيه
+تمت معالجة Cube الساعة 8؛ تقرير الخدمة يستطيع استعلام بياناتها عبر Gateway بدل انتظار تحميل نسخة Import جديدة.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم On-premises data gateway مع إعداد SSAS والهوية والصلاحيات.
+2. الاتصال Live يستعلم من المكعب؛ حداثة النتائج لا تتجاوز حداثة معالجة المكعب نفسه. Gateway لا يعالج بيانات SSAS تلقائيًا.
+
+الإجابة الصحيحة وليه
+B: On-premises data gateway.
+
+ليه كل اختيار صح أو غلط
+A. an OData feed
+OData ليس الجسر المطلوب لاتصال SSAS المنشور.
+
+B. an On-premises data gateway
+صحيح؛ يتيح الاتصال الآمن من الخدمة بالمصدر الداخلي.
+
+C. a subscription
+Subscription يرسل عرضًا، ولا يوفر وصولًا إلى المكعب الداخلي.
+
+D. a scheduled refresh of the dataset
+Scheduled refresh لا يحل مسار الاتصال؛ وفي Live ليست هناك نسخة بيانات مستوردة تُحدّث بهذه الطريقة.
+
+الخلاصة اللي تتحفظ
+SSAS داخلي + خدمة سحابية = Gateway مع Live وصلاحيات صحيحة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-gateway-enterprise-manage-ssas', 'Final', '314', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-315-314', 'Manage and secure Power BI', 'single', 'You have five sales regions. Each region is assigned a single salesperson.
 
 You have an imported dataset that has a dynamic row-level security (RLS) role named Sales. The Sales role filters
@@ -13546,9 +15817,40 @@ A salesperson reports that she believes she should see more data.
 
 You need to verify what data the salesperson currently sees.
 
-What should you do?', '["Use the Test as role option to view data as the salesperson''s user account.","Use the Test as role option to view data as the Sales role.","Instruct the salesperson to open the report in Microsoft Power BI Desktop.","Filter the data in the reports to match the intended logic in the filter on the sales transaction table."]', '[0]', 'A, to be able to see what the specific salesperson sees (and compare it to what she should see) you should
+What should you do?', '["Use the Test as role option to view data as the salesperson''s user account.","Use the Test as role option to view data as the Sales role.","Instruct the salesperson to open the report in Microsoft Power BI Desktop.","Filter the data in the reports to match the intended logic in the filter on the sales transaction table."]', '[0]', 'ترجمة السؤال بالعربي
+RLS ديناميكي يفلتر المبيعات حسب هوية مندوب. مندوبة تقول إنها ترى بيانات أقل من المتوقع؛ تتحقق إزاي مما تراه فعلًا؟
 
-test the report as that user account since the RLS is dynamic and based on the user accounts.', 'Final', '315', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الدور اسمه Sales لكل الناس، لكن كل هوية تدخل منه تشوف منطقة مختلفة. اختبار اسم الدور وحده لا يعيد بالضرورة تجربة المندوبة.
+
+مثال نفهم بيه
+اختبار Sales بهوية المدير قد يعرض منطقة المدير؛ اختيار sara@company يعرض النطاق المرتبط بسارة.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Test as role مع حساب المستخدم المحدد حتى تُقيّم USERNAME أو UPN له.
+2. قارن بالبيانات المتوقعة وتكليف المنطقة، وتأكد من عضوية الأدوار وصلاحيات مساحة العمل.
+
+الإجابة الصحيحة وليه
+A: Test as role using the salesperson’s account.
+
+ليه كل اختيار صح أو غلط
+A. Use the Test as role option to view data as the salesperson''s user account.
+صحيح؛ الهوية جزء من نتيجة RLS الديناميكي.
+
+B. Use the Test as role option to view data as the Sales role.
+اختبار الدور فقط لا يحدد المستخدم محل الشك؛ لازم إدخال هويته للاختبار الدقيق.
+
+C. Instruct the salesperson to open the report in Microsoft Power BI Desktop.
+فتح Desktop لا يعيد تلقائيًا صلاحيات حسابها المنشور.
+
+D. Filter the data in the reports to match the intended logic in the filter on the sales transaction table.
+فلتر تقرير يدوي قد يشبه النتيجة، لكنه لا يختبر قاعدة الأمن الفعلية أو الهوية.
+
+الخلاصة اللي تتحفظ
+Dynamic RLS اختبره باسم الشخص، مش اسم الدور وحده.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '315', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-316-315', 'Visualize and analyze the data', 'single', 'You have multiple dashboards.
 
 You need to ensure that when users browse the available dashboards from powerbi.com, they can see which
@@ -13557,13 +15859,40 @@ dashboards contain Personally Identifiable
 
 Information (PII). The solution must minimize configuration effort and impact on the dashboard design.
 
-What should you use?', '["Microsoft Information Protection sensitivity labels","tiles","comments","Active Directory groups"]', '[0]', 'In the Power BI service, sensitivity labels can be applied to datasets, reports, dashboards, and dataflows.
-Sensitivity labels on reports, dashboards, datasets, and dataflows are visible from many places in the Power
-BI service. Sensitivity labels on reports and dashboards are also visible in the Power BI iOS and Android mobile
-apps and in embedded visuals. In Desktop, you can see the sensitivity label in the status bar.
+What should you use?', '["Microsoft Information Protection sensitivity labels","tiles","comments","Active Directory groups"]', '[0]', 'ترجمة السؤال بالعربي
+عايز المستخدم أثناء تصفح الداشبوردات يعرف أيها يحتوي PII، بأقل تغيير في التصميم.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-security-sensitivity-label-overview', 'Final', '316', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+بدل ما تلزق Tile تحذير كبيرة داخل كل Dashboard، حط علامة تصنيف المحتوى نفسها. الناس تشوف الشارة في أماكن الخدمة المدعومة.
+
+مثال نفهم بيه
+Dashboard بيانات الموظفين تحمل Confidential/PII وفق سياسة المؤسسة، بدل مربع نص منفصل في كل صفحة.
+
+طريقة التفكير خطوة بخطوة
+1. Sensitivity labels تصنف حساسية المحتوى وتظهر دون إعادة تصميم كل الرسومات.
+2. العلامة لا تعني تلقائيًا أن كل البيانات الحساسة اكتُشفت، ولا تستبدل RLS أو صلاحيات الوصول؛ الحماية تعتمد أيضًا على سياسة التصنيف.
+
+الإجابة الصحيحة وليه
+A: Microsoft Information Protection sensitivity labels.
+
+ليه كل اختيار صح أو غلط
+A. Microsoft Information Protection sensitivity labels
+صحيح؛ تصنيف الحساسية هو الآلية المقصودة لإظهار طبيعة المحتوى.
+
+B. tiles
+Tile يغيّر مساحة التصميم ويحتاج تكرارًا يدويًا، ولا يمثل تصنيفًا موحدًا للخدمة.
+
+C. comments
+Comment ليس علامة تصنيف واضحة وثابتة أثناء اكتشاف المحتوى.
+
+D. Active Directory groups
+الجروبات تضبط من يدخل، لا توضّح للمستخدم أن المحتوى PII.
+
+الخلاصة اللي تتحفظ
+تسمية الحساسية تُعرّف نوع المحتوى؛ صلاحياته وأمنه مسألة مكملة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-security-sensitivity-label-overview', 'Final', '316', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-317-316', 'Manage and secure Power BI', 'manual', 'HOTSPOT -
 
 You have a dataset that has the permissions shown in the following exhibit.
@@ -13574,30 +15903,46 @@ presented in the graphic.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: use Analyze in Excel -
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+من شاشة صلاحيات الموديل: حدد ما يمكن لمجموعة Finance عمله، وما يمكن لمجموعة Corp منحه للآخرين.
 
-Build permission applies to datasets. When you give users Build permission, they can build new content on
-your dataset, such as reports, dashboards, pinned tiles from Q&A, paginated reports, and Insights Discovery.
+القصة والمعنى
+Finance معاها حق استخدام الموديل للبناء. Corp معاها Build مع Reshare؛ يعني تقدر تسمح لشخص آخر يبني عند مشاركة محتوى مبني عليه، بدون تحرير جداول الموديل.
 
-Users also need Build permissions to work with the data outside Power BI:
+مثال نفهم بيه
+Finance تعمل Pivot متصل بالموديل. Corp تشارك تقريرًا مع منح Build للمستلم؛ لا تحذف جدول Sales.
 
-To export the underlying data.
+طريقة التفكير خطوة بخطوة
+1. Build يتيح Analyze in Excel مع متطلبات الخدمة والترخيص.
+2. Build مع Reshare يتيح تمرير Build للمستلمين في مسار المشاركة المدعوم. لا تخلط ده مع Write أو حذف الجداول.
 
-To build new content on the dataset such as with Analyze in Excel.
+الإجابة الصحيحة وليه
+Finance: use Analyze in Excel with. Corp: grant the Build permission for.
 
-To access the data via the XMLA endpoint.
+ليه كل اختيار صح أو غلط
+A. Users in the finance group can ___ the semantic model. assign sensitivity labels to
+تعيين Sensitivity label يحتاج صلاحيات ومتطلبات تصنيف مناسبة؛ Build وحده ليس إذن إعادة تصنيف المحتوى.
 
-Box 2: Grant build permission
+B. Users in the finance group can ___ the semantic model. use Analyze in Excel with
+صحيح؛ Analyze in Excel من استخدامات Build.
 
-see: https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+C. Users in the finance group can ___ the semantic model. delete
+حذف الموديل ليس من حقوق القراءة والبناء.
 
-"Say you have Reshare and Build permission on a dataset. When you share a report or dashboard built on that
-dataset, you can specify that the recipients also get Build permission for the underlying dataset."
+D. Users in the corp group can ___ the semantic model. grant the Build permission for
+صحيح في سيناريو Build+Reshare المعروض؛ تستطيع تمرير حق Build عند المشاركة.
 
-Reference:
+E. Users in the corp group can ___ the semantic model. grant the Read permission for
+ليست الإجابة الأدق المطلوبة هنا؛ المعروض يستهدف قدرة تمرير Build، مع أن منح القراءة يمكن أن يكون جزءًا من المشاركة أيضًا.
 
-https://docs.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions https://data-
-marc.com/2021/07/30/transform-a-local-into-a-global-power-bi-solution-request-access-to-content/', 'Final', '317', '/dump-assets/f1-317-316-question.webp', '/dump-assets/f1-317-316-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+F. Users in the corp group can ___ the semantic model. remove a table from
+إزالة جدول تعديل بنيوي يحتاج Write؛ Build و Reshare ليسا Write.
+
+الخلاصة اللي تتحفظ
+Build للاستخدام والبناء؛ Build+Reshare لتمرير حق البناء في المشاركة، لا لتغيير البنية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '317', '/dump-assets/f1-317-316-question.webp', '/dump-assets/f1-317-316-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-318-317', 'Manage and secure Power BI', 'single', 'Note: This question is part of a series of questions that present the same scenario. Each question in the series
 
 contains a unique solution that might meet the stated goals. Some question sets might have more than one correct
@@ -13616,8 +15961,34 @@ Solution: You create an Azure Active Directory group that contains all the users
 
 and the one dashboard to the group.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Yes, from the documentation a suggestion made there to share with more than 100 separate users is to "Share
-with a user group that contains all the', 'Final', '318', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+خمسة تقارير وداشبوردان. تشارك ثلاثة تقارير وداشبوردًا واحدًا مع جروب المؤسسة. هل يحقق وصول القراءة للعناصر المطلوبة؟
+
+القصة والمعنى
+دي طريقة توزيع انتقائي: تدي الجروب مفاتيح الأربع أبواب المطلوبة، مش مفتاح مساحة العمل كلها.
+
+مثال نفهم بيه
+AllEmployees يصل إلى R1,R2,R3 و D1 فقط عبر المشاركة؛ بقية المساحة لا تُكشف لمجرد انضمامه للجروب.
+
+طريقة التفكير خطوة بخطوة
+1. نعم؛ المشاركة المباشرة للعناصر المختارة مع Security group تحقق نطاق الوصول.
+2. راعِ التراخيص وألغِ Reshare و Build لو غير مطلوبين؛ لا تمنح دور Workspace إضافيًا يوسع النطاق.
+
+الإجابة الصحيحة وليه
+Yes.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ المشاركة بالعناصر تحقق الهدف حتى لو كان App أسهل إداريًا في سيناريو آخر.
+
+B. No
+خطأ؛ السؤال لا يشترط App ولا يمنع المشاركة المباشرة للجروب.
+
+الخلاصة اللي تتحفظ
+حل ممكن صحيح حتى لو فيه حل آخر أريح؛ قيّم المتطلبات المكتوبة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards', 'Final', '318', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-319-318', 'Model the data', 'manual', 'DRAG DROP -
 
 You have a Power BI table named Customer that contains a field named Email Address.
@@ -13634,11 +16005,49 @@ bar between panes or scroll to view content.
 
 NOTE: Each correct selection is worth one point.
 
-Select and Place:', '[]', '[1,2,0]', 'Calculate
+Select and Place:', '[]', '[1,2,0]', 'ترجمة السؤال بالعربي
+جدول Customer فيه إيميلات مكررة. أكمل Calculated column تعد عدد الصفوف التي تحمل نفس إيميل الصف الحالي.
 
-Countrows
+القصة والمعنى
+وأنت واقف على عميل، خد إيميله في متغير، امسح فلتر العميل الحالي، وبعدها عد كل العملاء اللي إيميلهم مطابق. لو العدد أكبر من واحد يبقى مكرر.
 
-All', 'Final', '319', '/dump-assets/f1-319-318-question.webp', '/dump-assets/f1-319-318-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+صفوف a@x و b@x و a@x تنتج 2 و 1 و 2. لتسمية المكرر استخدم لاحقًا Count Email>1.
+
+طريقة التفكير خطوة بخطوة
+1. VAR Email يحفظ قيمة الصف الحالي قبل تعديل السياق.
+2. CALCULATE يعمل Context transition؛ ALL(Customer) يزيل فلترة الصف التي كانت ستجعل العد غالبًا واحدًا.
+3. فلتر Email Address=Email يعيد اختيار الصفوف المتطابقة، و COUNTROWS يعدها. الناتج عدد وليس Boolean تلقائيًا.
+
+الإجابة الصحيحة وليه
+CALCULATE ثم COUNTROWS ثم ALL.
+
+ليه كل اختيار صح أو غلط
+A. ALL
+ALL صحيح في الفراغ الثالث لإزالة فلتر Customer قبل اختيار الإيميل المطابق.
+
+B. CALCULATE
+CALCULATE صحيح في الفراغ الأول لتقييم العد في سياق الفلاتر المطلوب.
+
+C. COUNTROWS
+COUNTROWS صحيح في الفراغ الثاني؛ المطلوب عدد السجلات لا جمع نص الإيميل.
+
+D. EVALUATE
+EVALUATE عبارة استعلام DAX لإرجاع جدول، وليست الدالة الخارجية لهذا العمود.
+
+E. SUM
+SUM يجمع عمودًا رقميًا، ولا يعد الصفوف ذات الإيميل المتكرر.
+
+F. SUMX
+SUMX يحتاج تعبير جمع داخل تكرار؛ لا يطابق صيغة COUNTROWS(Customer) الموجودة هنا.
+
+الخلاصة اللي تتحفظ
+احفظ قيمة الصف، أزل فلتره، فلتر بالقيمة، ثم عد الصفوف المتطابقة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/all-function-dax
+https://learn.microsoft.com/en-us/dax/countrows-function-dax', 'Final', '319', '/dump-assets/f1-319-318-question.webp', '/dump-assets/f1-319-318-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-320-319', 'Prepare the data', 'manual', 'DRAG DROP
 
 -
@@ -13651,48 +16060,43 @@ You need to ensure that the Power BI service can connect to the database and ref
 
 Which four actions should you perform n sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[4,3,2,0]', '1.Configure an on-premises data gateway
+actions to the answer area and arrange them in the correct order.', '[]', '[4,3,2,0]', 'ترجمة السؤال بالعربي
+موديل منشور يسحب من SQL Server داخل الشركة. رتب أربع خطوات ليقدر Service يحدثه يوميًا.
 
-The gateway serves as a bridge between the Power BI service and the on-premises SQL Server database.
+القصة والمعنى
+هتفتح الطريق أولًا، تعرّف عنوان المصدر وبيانات دخوله، تسمح لصاحب الموديل باستخدامه، ثم تضبط ميعاد الرحلة اليومية.
 
-2.Add a data source
+مثال نفهم بيه
+Gateway على جهاز دائم التشغيل، اتصال SQL01/Finance، مستخدم الموديل مخوّل، ثم تحديث يومي 6 صباحًا.
 
-You need to define the connection to the on-premises SQL Server database within the configured gateway,
-including credentials and connection details.
+طريقة التفكير خطوة بخطوة
+1. جهّز On-premises gateway ثم أضف مصدر SQL Server بتفاصيل تطابق الموديل.
+2. امنح مالك الموديل حق استخدام المصدر واربط الموديل بالاتصال الصحيح، ثم فعّل Scheduled refresh.
+3. الترتيب يعبر عن الاعتماد بين الخطوات؛ تشغيل Gateway وحده لا يمنح الصلاحيات ولا ينشئ جدول تحديث.
 
-3.Add the dataset owner to the data source
+الإجابة الصحيحة وليه
+On-premises gateway → Add data source → Add dataset owner to data source → Scheduled refresh.
 
-Grant the dataset owner access to the data source to ensure they have the required permissions for dataset
-refresh.
+ليه كل اختيار صح أو غلط
+A. Configure a scheduled refresh.
+صحيح كآخر خطوة؛ الجدولة قبل صلاحية الاتصال تظل بلا طريق تحديث صالح.
 
-4.Configure a scheduled refresh
+B. Configure a virtual network data gateway.
+VNet gateway يناسب شبكات وسيناريوهات مدعومة محددة؛ ليس بديلًا افتراضيًا عن الجسر الداخلي المذكور هنا.
 
-Finally, set up the dataset''s refresh schedule in the Power BI service to automate daily updates.
+C. Add the dataset owner to the data source.
+صحيح بعد تعريف المصدر؛ يلزم السماح للمالك باستخدام الاتصال.
 
-Explanation:
+D. Add a data source.
+صحيح بعد تجهيز البوابة؛ أضف بيانات المصدر والاعتماد.
 
-Why this order?
+E. Configure an on-premises data gateway.
+صحيح أولًا؛ يوفر الجسر بين السحابة وقاعدة SQL الداخلية.
 
-The gateway must be configured first to enable connectivity to on-premises data.
+الخلاصة اللي تتحفظ
+Gateway ثم Connection ثم صلاحية الاستخدام ثم جدول التحديث.
 
-Adding a data source ensures that the gateway has the details to connect to the SQL Server database.
-
-Dataset owners need access to the data source to enable refresh permissions.
-
-Scheduling the refresh is the last step, as all prerequisites must be met before automation can be set up.
-
-Why other orders are incorrect?
-
-Without configuring the gateway first, there is no connection between Power BI and the on-premises
-database.
-
-Adding a data source before configuring the gateway is invalid since the data source depends on the gateway
-configuration.
-
-Scheduled refresh cannot be configured until the connection is established and permissions are set.
-
-https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-install
-
+مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/connect-data/service-gateway-sql-tutorial', 'Final', '320', '/dump-assets/f1-320-319-question.webp', '/dump-assets/f1-320-319-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-321-320', 'Manage and secure Power BI', 'single', 'You have a Power BI dataset and a connected report.
 
@@ -13700,15 +16104,41 @@ You need to ensure that users can analyze data in Microsoft Excel only by connec
 
 You grant the users the Build permission for the dataset.
 
-What should you do next?', '["Certify the dataset used by the report.","Change the default visual interaction for the report.","For the report, change the Export data setting to None.","For the report, change the Export data setting to Summarized data, data with current layout and underlying data."]', '[2]', 'C is the correct answer. Note the part of the question that says "ONLY by connecting directly to the dataset."
-As mentioned in https://www.designmind.com/blog/business-intelligence/export-underlying-data-in-power-
-bi, "You should export summarized data when you want to see the relevant data in the visualization."
-Therefore, D cannot be the right answer, as summarized data is not obtained from connecting directly to the
-dataset, but rather by effectively filtering the dataset based on the contents of the visualization.
+What should you do next?', '["Certify the dataset used by the report.","Change the default visual interaction for the report.","For the report, change the Export data setting to None.","For the report, change the Export data setting to Summarized data, data with current layout and underlying data."]', '[2]', 'ترجمة السؤال بالعربي
+المستخدمون عندهم Build. عايز استخدام Excel يكون باتصال مباشر بالموديل، لا تصدير نسخة مستقلة من رسومات التقرير. تعمل إيه؟
 
-Additionally, the "data with current layout and underlying data" part is irrelevant - by allowing Summarized
-data to be exported, we allow forms of analyzing data other than connecting directly to the dataset, and thus
-fail the requirements of the question.', 'Final', '321', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+في فرق بين Excel متوصل بالصنبور الأصلي وبين جردل أرقام أخده ومشي. Build فتح Analyze in Excel؛ ناقص نقفل Export من التقرير.
+
+مثال نفهم بيه
+المحلل يعمل Pivot متصل بالموديل، لكن زر Export للـVisual لا يعطيه ملف لقطة منفصلًا.
+
+طريقة التفكير خطوة بخطوة
+1. غيّر Export data للتقرير إلى None مع إبقاء Build للاتصال المباشر.
+2. ده يضبط مسار تصدير التقرير؛ لا يضمن منع كل نسخ أو استخراج ممكن من شخص مخوّل بقراءة البيانات عبر اتصال Excel.
+
+الإجابة الصحيحة وليه
+C: Export data=None.
+
+ليه كل اختيار صح أو غلط
+A. Certify the dataset used by the report.
+Certification علامة ثقة في الجودة، وليست ضبط طريقة استخراج البيانات إلى Excel.
+
+B. Change the default visual interaction for the report.
+Visual interactions تحدد التصفية بين الرسومات، لا Export أو Analyze in Excel.
+
+C. For the report, change the Export data setting to None.
+صحيح؛ يقفل تصدير الرسم ويترك Build للاتصال المباشر.
+
+D. For the report, change the Export data setting to Summarized data, data with current layout and underlying data.
+يسمح بمسار استخراج إضافي، فيخالف كلمة only في المطلوب.
+
+الخلاصة اللي تتحفظ
+Build يفتح الاتصال؛ إعداد Export يقفل نسخة الرسم المصدرة. لا تخلط المسارين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final', '321', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-322-321', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -13731,18 +16161,54 @@ requirements:
 
 What should you do? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Grant User 1 the Build Permission for the HR dataset
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10002]', 'ترجمة السؤال بالعربي
+HR في WorkspaceA. User1 يبني منه تقارير وينشرها في WorkspaceB، دون تعديل HR أو إضافة مستخدمين لمساحات العمل.
 
-Assign User 1 the Contributor role for Workspace B
+القصة والمعنى
+المصدر مكتبة للقراءة والبناء، والوجهة ورشة نشره. اديله مفتاح Build للمكتبة، و Contributor لورشته، من غير Member للمصدر أو الوجهة.
 
-Build and contributor role to workspace B because the user already has build permission for the HR dataset in
-workspace A and now should be able to publish in workspace B, so the user should be given Contributor role
-to workspace B.
+مثال نفهم بيه
+تقرير Recruitment الجديد يتخزن في B ويستعلم من HR في A؛ User1 لا يغير جداول HR ولا أعضاء B.
 
-To copy a report to another workspace, and to create a report in another workspace based on a dataset in the
-current workspace, you need Build permission for the dataset. You also need at least the Contributor role on
-the source and destination workspaces. For datasets in the original workspace, if you have at least the
-Contributor role, you automatically have Build permission through your workspace role.', 'Final', '322', '/dump-assets/f1-322-321-question.webp', '/dump-assets/f1-322-321-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+طريقة التفكير خطوة بخطوة
+1. Build على HR بالذات يحقق إعادة استخدامه دون Write على الموديل.
+2. Contributor على WorkspaceB يسمح بالنشر ولا يعطي صلاحية إضافة المستخدمين مثل Member أو Admin.
+3. لا يلزم Contributor على WorkspaceA لمجرد إنشاء تقرير جديد على موديل مشترك بامتلاك Build؛ لا تنقل نص شرح نسخ التقارير على أنه شرط عام هنا.
+
+الإجابة الصحيحة وليه
+HR: Grant Build. WorkspaceB: Contributor.
+
+ليه كل اختيار صح أو غلط
+A. To access the HR dataset: Assign User1 the Contributor role for WorkspaceA.
+Contributor على A يمنح تحرير المصدر ومحتوى إضافيًا؛ أوسع من اللازم.
+
+B. To access the HR dataset: Grant User1 the Build permission for the HR dataset.
+صحيح؛ Build على HR يعطي استخدامه لإنشاء تقرير.
+
+C. To access the HR dataset: Grant User1 read permissions for the HR dataset.
+Read وحده لا يعطي إنشاء تقارير جديدة على الموديل.
+
+D. To access the HR dataset: Grant User1 share permissions for the HR dataset.
+Reshare أو share ليس حق البناء المطلوب، ويزيد إمكانات غير مطلوبة.
+
+E. To publish reports to WorkspaceB: Assign User1 the Admin role for Workspaces.
+Admin يزيد صلاحيات إدارة الأعضاء والمحتوى؛ يخالف المنع.
+
+F. To publish reports to WorkspaceB: Assign User1 the Contributor role for WorkspaceA.
+Contributor على A هو المكان الخطأ للنشر المطلوب في B، ويعطي تحرير المصدر.
+
+G. To publish reports to WorkspaceB: Assign User1 the Contributor role for WorkspaceB.
+صحيح؛ Contributor على B ينشر المحتوى دون حق إضافة أعضاء.
+
+H. To publish reports to WorkspaceB: Assign User1 the Member role for WorkspaceB.
+Member على B يستطيع إضافة أعضاء أو أصحاب صلاحيات أدنى؛ أوسع من المطلوب.
+
+الخلاصة اللي تتحفظ
+حقوق المصدر Build؛ حقوق وجهة النشر Contributor.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '322', '/dump-assets/f1-322-321-question.webp', '/dump-assets/f1-322-321-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-323-322', 'Manage and secure Power BI', 'multi', 'You have a Power BI workspace named BI Data that contains a dataset named BI Finance.
 
 You have the Build permission for the BI Finance dataset, but you do NOT have permissions for the workspace.
@@ -13751,36 +16217,40 @@ You need to connect to BI Finance and create a report.
 
 Which two actions should you perform? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["From the Power BI service, create a dataflow to the dataset by using DirectQuery.","From Power BI Desktop, connect to a Dataverse data source.","From the Power BI service, create a new report and select a published dataset.","From Power BI Desktop, connect to a shared dataset."]', '[2,3]', 'The answer is correct : CD From the Power BI service, create a new report and select a published dataset.From
-Power BI Desktop, connect to a shared dataset.
+NOTE: Each correct selection is worth one point.', '["From the Power BI service, create a dataflow to the dataset by using DirectQuery.","From Power BI Desktop, connect to a Dataverse data source.","From the Power BI service, create a new report and select a published dataset.","From Power BI Desktop, connect to a shared dataset."]', '[2,3]', 'ترجمة السؤال بالعربي
+عندك Build على BI Finance لكن لا تملك دورًا في مساحة BI Data. اختار طريقتين مستقلتين لإنشاء تقرير على الموديل.
 
-Why C is Correct:
+القصة والمعنى
+مش لازم تدخل ورشة المالية كعضو عشان تستخدم الموديل اللي منحوه لك. تقدر تبدأ التقرير من الخدمة أو من Desktop وتختار الموديل المنشور.
 
-In the Power BI service, you can create a report by selecting a published dataset that you have Build
-permission for, even if you lack permissions for the workspace.
+مثال نفهم بيه
+من Service ابدأ تقريرًا على BI Finance واحفظه في My Workspace، أو اعمل thin report في Desktop بنفس الموديل.
 
-The Build permission allows you to connect to the dataset, build new reports, and save them in your own
-workspace or other workspaces where you have permissions.
+طريقة التفكير خطوة بخطوة
+1. إنشاء تقرير من Published semantic model في Service يستهلك Build الممنوح.
+2. Desktop يتصل بـPower BI semantic model المشترك؛ الحفظ أو النشر يحتاج مكانًا تملك حق الإنشاء فيه.
 
-Why D is Correct:
+الإجابة الصحيحة وليه
+C و D.
 
-Using Power BI Desktop, you can connect to a shared dataset in the Power BI service (via "Power BI Datasets"
-as the data source) if you have Build permission for it.
+ليه كل اختيار صح أو غلط
+A. From the Power BI service, create a dataflow to the dataset by using DirectQuery.
+Dataflow أداة إعداد بيانات، وليس طريقة DirectQuery لإنشاء تقرير على Published dataset بهذه الصياغة.
 
-After connecting, you can create a report in Power BI Desktop and then publish it to a workspace where you
-have appropriate permissions.
+B. From Power BI Desktop, connect to a Dataverse data source.
+Dataverse مصدر مختلف؛ لا يقود إلى BI Finance.
 
-Why Other Options Are Incorrect:
+C. From the Power BI service, create a new report and select a published dataset.
+صحيح؛ اختيار الموديل المنشور مع Build يكفي لبدء تقرير في الخدمة.
 
-A. From the Power BI service, create a dataflow to the dataset by using DirectQuery:
+D. From Power BI Desktop, connect to a shared dataset.
+صحيح؛ الاتصال بالموديل المشترك من Desktop يعيد استخدام مقاييسه وعلاقاته.
 
-Dataflows are not used to create reports or connect to published datasets. Dataflows are primarily for data
-preparation, not report creation.
+الخلاصة اللي تتحفظ
+Build على الموديل لا يشترط عضوية Workspace المصدر.
 
-B. From Power BI Desktop, connect to a Dataverse data source:
-
-This option is unrelated to the BI Finance dataset. Dataverse is a specific type of data source, not a way to
-connect to a published Power BI dataset.', 'Final', '323', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '323', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-324-323', 'Manage and secure Power BI', 'single', 'You publish a dataset to the Power BI service. The dataset contains a connection to an on-premises Microsoft SQL
 
 Server database.
@@ -13795,22 +16265,40 @@ You confirm the following with the administrator of the gateway:
 
 •The gateway has a status of Running.
 
-What is the most likely reason the gateway is unavailable?', '["The type of data source is not supported by the on-premises data gateway.","The server name in the PBIX file does not match the data source name in the gateway.","The credentials for the data source are invalid.","The data source is configured to use single sign-on (SSO)."]', '[1]', 'In Power BI, when you configure a data source to use an on-premises data gateway, the server name and other
-connection details in your PBIX file must match the data source configuration in the gateway. If there''s a
-mismatch in the server name or other connection details, the scheduled refresh won''t work, and you won''t be
-able to select the appropriate gateway.
+What is the most likely reason the gateway is unavailable?', '["The type of data source is not supported by the on-premises data gateway.","The server name in the PBIX file does not match the data source name in the gateway.","The credentials for the data source are invalid.","The data source is configured to use single sign-on (SSO)."]', '[1]', 'ترجمة السؤال بالعربي
+Gateway شغال، المصدر معرف، وصلاحياتك صحيحة؛ لكن لا يظهر للـScheduled refresh. ما السبب الأرجح؟
 
-The issue is most likely caused by a mismatch between the server name in the Power BI report (PBIX file) and
-the data source configuration in the on-premises data gateway. Power BI needs the server name in the report
-to exactly match the one configured in the gateway for the scheduled refresh to be available.
+القصة والمعنى
+البوابة بتقول عندي SQL01، والموديل بيقول عايز 10.0.0.12. حتى لو هما نفس الجهاز فعليًا، تعريف الاتصال قد لا يتطابق.
 
-Why other options are incorrect:
+مثال نفهم بيه
+PBIX يستخدم SQL01\Finance والبوابة تستخدم SQL01 فقط؛ صحح الاتصال للتعريف نفسه ثم أعد الربط.
 
-A: If the data source type was unsupported, it wouldn’t allow any connection, not just scheduled refresh.
+طريقة التفكير خطوة بخطوة
+1. طابق قيم Server و Database بين PBIX وتعريف مصدر البوابة.
+2. الاسم الظاهر للاتصال مجرد Display name؛ المهم تفاصيل الخادم والقاعدة، فلا تفهم خيار السؤال كاشتراط تطابق اسم العرض.
 
-C: Invalid credentials typically block access but would show a different error.
+الإجابة الصحيحة وليه
+B: عدم تطابق اسم الخادم/تفاصيل المصدر.
 
-D: Single sign-on would not prevent the selection of the gateway.', 'Final', '324', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. The type of data source is not supported by the on-premises data gateway.
+SQL Server مدعوم بالبوابة؛ ليس هذا تفسير السيناريو.
+
+B. The server name in the PBIX file does not match the data source name in the gateway.
+صحيح بالمعنى التقني: تفاصيل الخادم والقاعدة في تعريف البوابة لا تطابق الموديل.
+
+C. The credentials for the data source are invalid.
+الاعتماد الخاطئ يسبب فشل الاتصال أو التحديث غالبًا، لا يفسر أفضل من عدم المطابقة غياب الربط.
+
+D. The data source is configured to use single sign-on (SSO).
+SSO إعداد هوية مدعوم بشروط؛ وجوده ليس سببًا عامًا لاختفاء البوابة.
+
+الخلاصة اللي تتحفظ
+Gateway online لا يكفي؛ لازم تطابق Server و Database وصلاحية الاستخدام.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-gateway-sql-tutorial', 'Final', '324', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-325-324', 'Manage and secure Power BI', 'single', 'You create a report by using Microsoft Power BI Desktop.
 
 The report uses data from a Microsoft SQL Server Analysis Services (SSAS) tabular model located on your
@@ -13821,20 +16309,40 @@ You plan to publish the report to the Power BI Service.
 
 What should you implement to ensure that users who consume the report from the Power BI Service have the most
 
-up-to-date data from the tabular model?', '["a scheduled refresh of the semantic model","an OData feed","an On-premises data gateway","a subscription"]', '[2]', 'an On-premises data gateway.
+up-to-date data from the tabular model?', '["a scheduled refresh of the semantic model","an OData feed","an On-premises data gateway","a subscription"]', '[2]', 'ترجمة السؤال بالعربي
+تقرير يعتمد على SSAS Tabular داخل الشبكة. عايز أحدث بياناته في Power BI Service.
 
-To ensure that users in the Power BI Service always have the most up-to-date data from an on-premises SQL
-Server Analysis Services (SSAS) tabular model, you need to use an on-premises data gateway. This gateway
-securely connects the Power BI Service to on-premises data sources, allowing scheduled refreshes and real-
-time data access.
+القصة والمعنى
+الموديل التحليلي جاهز في الشركة. التقرير السحابي محتاج طريق يدخل عليه، مش نسخة ثانية نعملها كل صباح.
 
-Why other options are incorrect:
+مثال نفهم بيه
+تقرير Service يستعلم عن رصيد الحساب من SSAS عبر البوابة؛ لو SSAS لم يُعالج بعد فلن تصنع البوابة تحديثًا من عدم.
 
-A: Scheduled refresh is for cloud data sources, not for on-premises SSAS.
+طريقة التفكير خطوة بخطوة
+1. On-premises gateway يتيح Live connection للموديل الداخلي مع إعداد الهوية والخرائط اللازمة.
+2. Scheduled refresh موجود أيضًا للمصادر الداخلية في سيناريوهات Import؛ الخطأ في المصدر قوله إنه مخصص للسحابة فقط. هنا Live هو سياق أحدث بيانات الموديل.
 
-B: OData feed is not suitable for SSAS connections.
+الإجابة الصحيحة وليه
+C: On-premises data gateway.
 
-D: Subscriptions only deliver reports; they don''t ensure data refresh.', 'Final', '325', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. a scheduled refresh of the semantic model
+لا يحل الوصول الشبكي، ولا يحدّث نسخة Live مستوردة لأنها ليست موجودة بهذا الشكل.
+
+B. an OData feed
+OData لا يوفر مسار SSAS Tabular المطلوب هنا.
+
+C. an On-premises data gateway
+صحيح؛ الجسر للموديل الداخلي مع Live والهوية الصحيحة.
+
+D. a subscription
+Subscription يرسل التقرير ولا يوصل السحابة بمصدر SSAS.
+
+الخلاصة اللي تتحفظ
+Gateway طريق الاتصال؛ حداثة البيانات الأصلية مسؤولية معالجة SSAS أيضًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-gateway-enterprise-manage-ssas', 'Final', '325', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-326-325', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -13845,33 +16353,125 @@ Use the drop-down menus to select the answer choice that completes each statemen
 
 presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Use Analyze in Excel with.
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+شاشة صلاحيات Semantic model: أكمل قدرة Finance وقدرة Corp بناءً على Build و Reshare المعروضين.
 
-grant the Build permission for.
+القصة والمعنى
+Finance تستخدم الموديل للتحليل. Corp ليست مالكة لكل الجداول؛ عندها حق إعادة المشاركة والبناء، فتقدر تمرر Build في مشاركة مدعومة.
 
-see: https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+مثال نفهم بيه
+Finance تنشئ Pivot متصلًا. Corp تشارك تقريرًا وتسمح للمستلم بإنشاء تقرير آخر على الموديل.
 
-"Say you have Reshare and Build permission on a dataset. When you share a report or dashboard built on that
-dataset, you can specify that the recipients also get Build permission for the underlying dataset."
+طريقة التفكير خطوة بخطوة
+1. Build يسمح لـFinance باستخدام Analyze in Excel، وليس حذف الموديل.
+2. Corp تجمع Reshare و Build؛ الخيار المقصود تمرير Build للمستلمين. قدرة منح القراءة موجودة ضمن المشاركة أيضًا، لذلك لا نزعم أن الخيار الآخر مستحيل مطلقًا.
 
-If you have Reshare and Build permission on a dataset, and you share a report or dashboard you built on that
-dataset, you can specify that the recipients also get Build permission for the dataset. For more information,
-see Share Power BI reports and dashboards with coworkers and others.
+الإجابة الصحيحة وليه
+Use Analyze in Excel with؛ Grant the Build permission for.
 
+ليه كل اختيار صح أو غلط
+A. Users in the finance group can ___ the semantic model. assign sensitivity labels to
+Sensitivity labels تحتاج متطلبات وصلاحيات تصنيف؛ Build وحده لا يثبتها.
+
+B. Users in the finance group can ___ the semantic model. use Analyze in Excel with
+صحيح؛ اتصال Excel التحليلي من حقوق Build.
+
+C. Users in the finance group can ___ the semantic model. delete
+Delete يحتاج صلاحية تعديل/إدارة غير مبينة للمجموعة.
+
+D. Users in the corp group can ___ the semantic model. grant the Build permission for
+الإجابة المستهدفة؛ Build مع Reshare يتيح تمرير Build في المشاركة.
+
+E. Users in the corp group can ___ the semantic model. grant the Read permission for
+قد يحدث منح القراءة ضمن المشاركة؛ الصياغة ليست فصلًا حصريًا بين قدرات Corp، فالمفتاح يقيس Build تحديدًا.
+
+F. Users in the corp group can ___ the semantic model. remove a table from
+Remove a table تعديل بنيوي، لا تمنحه Build أو Reshare.
+
+الخلاصة اللي تتحفظ
+لا تساوي بين Build و Write، ولا تجعل اختيارات الصلاحيات متنافية بلا دليل.
+
+مراجع المراجعة
 https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '326', '/dump-assets/f1-326-325-question.webp', '/dump-assets/f1-326-325-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-327-326', 'Manage and secure Power BI', 'single', 'You have a Power BI semantic model named Model1 that contains sales data.
 
 You need to ensure that Model1 is refreshed on the first day of each month to include last month’s sales data.
 
-What should you configure?', '["a scheduled refresh","an incremental refresh","a Microsoft Power Automate flow","an on-premises data gateway"]', '[2]', 'Independent correction: C. Use a Microsoft Power Automate flow with a monthly recurrence on day 1, followed by the Power BI refresh action. Incremental refresh controls partitions, the gateway provides connectivity, and the classic scheduled-refresh settings do not directly express a first-day-of-month schedule.', 'Final', '327', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure?', '["a scheduled refresh","an incremental refresh","a Microsoft Power Automate flow","an on-premises data gateway"]', '[2]', 'ترجمة السؤال بالعربي
+Model1 لازم يحدث أول يوم في كل شهر لإدخال مبيعات الشهر السابق. تختار إيه للجدولة؟
+
+القصة والمعنى
+عايز رزنامة تقول يوم 1، مش كل يوم، ومش قاعدة تقول احتفظ بآخر 3 سنين. دي مشكلة تشغيل في موعد شهري.
+
+مثال نفهم بيه
+كل أول شهر الساعة 6 صباحًا بتوقيت القاهرة يبدأ Flow طلب تحديث الموديل بعد وصول ملفات الشهر السابق.
+
+طريقة التفكير خطوة بخطوة
+1. Power Automate: Recurrence شهري يوم 1 ثم Refresh a semantic model/dataset.
+2. حدد المنطقة الزمنية والساعة، وراعِ أن قبول طلب التحديث ليس اكتماله؛ راقب فشل أو تأخر العملية.
+3. Incremental refresh سياسة تقسيم وتحميل، لا مجدول يوم 1 بحد ذاته.
+
+الإجابة الصحيحة وليه
+C: Microsoft Power Automate flow.
+
+ليه كل اختيار صح أو غلط
+A. a scheduled refresh
+الجدولة التقليدية للتحديث اليومي/الأسبوعي لا تعبر مباشرة عن يوم 1 شهريًا في السيناريو.
+
+B. an incremental refresh
+Incremental يحدد أي partitions تُعالج، ولا يضبط التشغيل الشهري المطلوب.
+
+C. a Microsoft Power Automate flow
+صحيح؛ Recurrence شهري ثم إجراء Refresh.
+
+D. an on-premises data gateway
+Gateway يوفر الاتصال عند الحاجة، لا تقويم التشغيل.
+
+الخلاصة اللي تتحفظ
+موعد شهري محدد يحتاج Orchestration مثل Power Automate، مش سياسة partitions.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh
+https://learn.microsoft.com/en-us/power-automate/run-scheduled-tasks', 'Final', '327', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-328-327', 'Model the data', 'single', 'You need to create the
 
 required relationship for the executive''s visual.
 
-What should you do before you can create the relationship?', '["Change the data type of Sales[region_id] to Whole Number.","Change the data type of Sales[region_id] to Decimal Number.","In the Sales table, add a measure for Sum(sales_amount).","Change the data type of Sales[sales_id] to Text."]', '[0]', 'Executives require a visual that shows sales by region.
+What should you do before you can create the relationship?', '["Change the data type of Sales[region_id] to Whole Number.","Change the data type of Sales[region_id] to Decimal Number.","In the Sales table, add a measure for Sum(sales_amount).","Change the data type of Sales[sales_id] to Text."]', '[0]', 'ترجمة السؤال بالعربي
+Litware عايزة مبيعات حسب المنطقة. قبل ربط Sales بالمنطقة، تصلح إيه في مفاتيح العلاقة؟
 
-The data type of Sales[region_id] must be changed from varchar to Whole Number, as Sales[region_id] is
-Integer.', 'Final', '328', '/exhibit-assets/f1-328-327.webp', NULL, 'Litware, Inc. — Case Study
+القصة والمعنى
+رقم المنطقة في جدول مكتوب كنص «12»، وفي الجدول الآخر عدد 12. نفس الشكل للعين، لكن نوعان مختلفان للعلاقة.
+
+مثال نفهم بيه
+القيم النصية "1" و"2" تتحول إلى 1 و 2 لتطابق جدول Sales_Region؛ قيمة غير رقمية تحتاج علاجًا لا تحويلًا أعمى.
+
+طريقة التفكير خطوة بخطوة
+1. وحّد نوع Sales[region_id] مع مفتاح المنطقة الصحيح: Whole Number وفق مخطط الحالة.
+2. sales_id معرف فاتورة وليس مفتاح المنطقة، ومقياس المبيعات لا يصلح نوع عمود العلاقة.
+3. تحقق من قابلية تحويل جميع القيم وعدم فقد رموز مهمة قبل تغيير النوع.
+
+الإجابة الصحيحة وليه
+A: Sales[region_id] إلى Whole Number.
+
+ليه كل اختيار صح أو غلط
+A. Change the data type of Sales[region_id] to Whole Number.
+صحيح؛ يطابق نوع مفتاح المنطقة العددي في المخطط.
+
+B. Change the data type of Sales[region_id] to Decimal Number.
+Decimal لا يطابق التصميم الصحيح لمفتاح منطقة صحيح، وليس هناك كسور مطلوبة.
+
+C. In the Sales table, add a measure for Sum(sales_amount).
+SUM measure يحسب مبالغ، ولا يصلح أعمدة الربط.
+
+D. Change the data type of Sales[sales_id] to Text.
+sales_id مفتاح معاملة؛ تغيير نوعه لا يصلح ربط المنطقة.
+
+الخلاصة اللي تتحفظ
+العلاقة تربط مفاتيح متوافقة المعنى والنوع، لا مجرد شكل متشابه.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '328', '/exhibit-assets/f1-328-327.webp', NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -13926,9 +16526,42 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 from the Microsoft SQL Server tables.
 
-What should you use to configure the connection?', '["Import that uses a Microsoft account","Import that uses a database credential","DirectQuery that uses a database credential","DirectQuery that uses the end-user''s credentials"]', '[2]', 'C. DirectQuery that uses a database credential
+What should you use to configure the connection?', '["Import that uses a Microsoft account","Import that uses a database credential","DirectQuery that uses a database credential","DirectQuery that uses the end-user''s credentials"]', '[2]', 'ترجمة السؤال بالعربي
+Litware تستخدم Azure SQL ومعاها شرط حداثة لا يزيد عن 5 دقائق. اختار وضع الاتصال وبيانات اعتماده.
 
-If you used the credentials of the user (D) then all users would need to be created in the database.', 'Final', '329', '/exhibit-assets/f1-329-328.webp', NULL, 'Litware, Inc. — Case Study
+القصة والمعنى
+تحديث Import مرة كل صباح يخلّي مبيعات الظهر غير موجودة. DirectQuery يسأل القاعدة عند الاستعلام؛ وحساب قاعدة بيانات مشترك يقلل إعداد حساب منفصل لكل قارئ عندما لا يُطلب SSO.
+
+مثال نفهم بيه
+فاتورة 10:03 تظهر عند إعادة استعلام الرسم بعد وصولها للقاعدة، لا تنتظر تحديث Import الليلة. الشاشة الثابتة تحتاج أيضًا تحديثًا مناسبًا.
+
+طريقة التفكير خطوة بخطوة
+1. DirectQuery أنسب من Import التقليدي لتقليل تأخر البيانات وفق الاختيارات.
+2. Database credential هو الاتصال المقصود؛ Entra لتسجيل دخول المستخدم للخدمة لا يعني تلقائيًا إعداد SSO لقاعدة البيانات.
+3. DirectQuery وحده ليس ضمان SLA خمس دقائق؛ يلزم ضبط تحديث المرئيات والكاش والأداء، و RLS لحماية كل منطقة عند الاعتماد المشترك.
+
+الإجابة الصحيحة وليه
+C: DirectQuery using a database credential.
+
+ليه كل اختيار صح أو غلط
+A. Import that uses a Microsoft account
+Import مع Microsoft account لا يوفر حداثة 5 دقائق بمجرد اختيار نوع الحساب.
+
+B. Import that uses a database credential
+Database credential صحيح للهوية لكن Import التقليدي لا يحقق القيد الزمني من نفسه.
+
+C. DirectQuery that uses a database credential
+المقصود الصحيح بين البدائل؛ DirectQuery واعتماد مصدر مضبوط، مع استكمال إعداد الحداثة والأمن.
+
+D. DirectQuery that uses the end-user''s credentials
+SSO بهويات المستخدمين حل ممكن عند إعداده وصلاحيات القاعدة؛ ليس مفروضًا أو مهيأً بمجرد أن الشركة تستخدم Entra.
+
+الخلاصة اللي تتحفظ
+Storage mode يحدد مسار البيانات، والهوية تحدد من ينفذ الاستعلام؛ اضبط الاثنين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-azure-sql-database-with-direct-connect
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about', 'Final', '329', '/exhibit-assets/f1-329-328.webp', NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -13985,21 +16618,80 @@ You connect to a recently used data source and receive an error message indicati
 
 You need to update the credentials for the data source.
 
-What should you do?', '["From Data Source settings, select the data source, and then select Edit Permissions.","From Options, select Data Load, and then select Clear Cache.","From Power Query Editor, select Refresh Preview.","From the Modeling tab, select Manage Roles, and then add a role."]', '[0]', 'A. From Data Source settings, select the data source, and then select Edit Permissions.
+What should you do?', '["From Data Source settings, select the data source, and then select Edit Permissions.","From Options, select Data Load, and then select Clear Cache.","From Power Query Editor, select Refresh Preview.","From the Modeling tab, select Manage Roles, and then add a role."]', '[0]', 'ترجمة السؤال بالعربي
+بتتصل بمصدر استخدمته قبل كده ورسالة الخطأ بتقول الباسورد انتهى. تغيّر بيانات الاعتماد فين؟
 
-Data Source Settings: This option allows you to manage the credentials for your data sources. By selecting
-the data source and choosing to edit permissions, you can update the credentials, such as entering a new
-password if the old one has expired.', 'Final', '330', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+العنوان موجود، لكن المفتاح المخزن قديم. مسح الكاش مش هيجدد كلمة سر حساب قاعدة البيانات.
+
+مثال نفهم بيه
+IT جددت باسورد SQLLogin؛ حدّث القيمة المحفوظة ثم جرّب الاتصال، دون إرسال الباسورد داخل ملفات الشرح.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Data source settings، اختار المصدر، ثم Edit Permissions لتحديث Credentials.
+2. لازم كلمة السر تكون صحيحة ومجددة عند المصدر؛ Power BI يخزنها ولا يغير سياسة انتهاء الحساب نيابةً عن المصدر.
+
+الإجابة الصحيحة وليه
+A: Data Source settings → Edit Permissions.
+
+ليه كل اختيار صح أو غلط
+A. From Data Source settings, select the data source, and then select Edit Permissions.
+صحيح؛ هنا إدارة الاعتماد المحفوظ للمصدر.
+
+B. From Options, select Data Load, and then select Clear Cache.
+Clear Cache يمسح بيانات مخزنة مؤقتًا، لا يصلح الباسورد المنتهي.
+
+C. From Power Query Editor, select Refresh Preview.
+Refresh Preview يعيد الطلب بنفس الاعتماد الفاسد غالبًا.
+
+D. From the Modeling tab, select Manage Roles, and then add a role.
+Manage Roles لتعريف فلاتر RLS داخل الموديل، لا تسجيل الدخول للمصدر.
+
+الخلاصة اللي تتحفظ
+خطأ Password expired → راجع Credentials، لا RLS ولا Cache.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/connector-authentication', 'Final', '330', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-331-330', 'Prepare the data', 'single', 'You use Power BI Desktop to open a PBIX file that contains a Microsoft Excel data source.
 
 You attempt to refresh the data and receive the following error message.
 
 Expression.Error: The column ‘Cost’ of the table wasn''t found.
 
-What is a possible cause of the error?', '["The Cost column was renamed in the data source.","The privacy level of the data source does not allow combining the data with other data sources.","The data in the Cost column cannot be converted into the target data type.","The source file was moved to a new location."]', '[0]', 'A. The Cost column was renamed in the data source.
+What is a possible cause of the error?', '["The Cost column was renamed in the data source.","The privacy level of the data source does not allow combining the data with other data sources.","The data in the Cost column cannot be converted into the target data type.","The source file was moved to a new location."]', '[0]', 'ترجمة السؤال بالعربي
+تحديث Excel يفشل برسالة عمود Cost غير موجود. ما السبب المحتمل؟
 
-When a column name is changed in the data source (e.g., Microsoft Excel), Power BI will not be able to find the
-column with the original name during the refresh, leading to the error you encountered.', 'Final', '331', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الاستعلام بيقول اجمع عمود Cost، وصاحب Excel سمّاه UnitCost. الملف اتفتح، لكن اسم العمود اللي الخطوة بتدور عليه اختفى.
+
+مثال نفهم بيه
+Table.TransformColumnTypes يشير إلى Cost بينما Headers أصبحت UnitCost؛ عدل المرجع أو أصلح عقد المصدر.
+
+طريقة التفكير خطوة بخطوة
+1. إعادة تسمية أو إزالة Cost تجعل خطوة M التي تشير له تفشل.
+2. افحص أول Applied step يظهر عندها الخطأ وقارن الأعمدة؛ لا تعالج نوع البيانات قبل وجود العمود نفسه.
+
+الإجابة الصحيحة وليه
+A: Cost was renamed in the source.
+
+ليه كل اختيار صح أو غلط
+A. The Cost column was renamed in the data source.
+صحيح؛ يفسر لماذا لا تجد الخطوة العمود بالاسم القديم.
+
+B. The privacy level of the data source does not allow combining the data with other data sources.
+Privacy قد تمنع دمج مصادر، لكنها لا تفسر رسالة عمود واحد غير موجود بهذه الصورة.
+
+C. The data in the Cost column cannot be converted into the target data type.
+فشل التحويل يعطي خطأ قيمة/نوع، لا غياب اسم العمود.
+
+D. The source file was moved to a new location.
+نقل الملف يعطي مشكلة Path/Source عادةً قبل الوصول لأعمدته؛ ليس السبب الأقرب للرسالة.
+
+الخلاصة اللي تتحفظ
+Column not found راجع اسم العمود والخطوة السابقة، قبل تغيير نوعه.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/dealing-with-errors', 'Final', '331', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-332-331', 'Manage and secure Power BI', 'single', 'You have a Power BI tenant that contains a workspace named WS1. WS1 contains the following items:
 
 •A semantic model named SM1.
@@ -14026,12 +16718,42 @@ requirements:
 
 •Administrative effort must be minimized.
 
-What should you do?', '["Publish an app.","Assign Group1 the Viewer role for WS1.","Store PBIX files in a shared folder in Microsoft OneDrive.","Share each item individually."]', '[0]', 'Group1 must view specific reports and dashboards (RPT1, RPT2, DB1):•Publishing an app allows you to share
-selected reports and dashboards with specific groups or users.•Group1 must be prevented from viewing
-RPT3:•Apps allow fine-grained control, so you can exclude RPT3 from the app content.•Group1 must not
-create new reports or dashboards or share content:•When users access content via an app, they cannot edit or
-create new reports/dashboards or share the app itself.•Minimize administrative effort:•Publishing an app is
-simpler and more manageable than other options.', 'Final', '332', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Publish an app.","Assign Group1 the Viewer role for WS1.","Store PBIX files in a shared folder in Microsoft OneDrive.","Share each item individually."]', '[0]', 'ترجمة السؤال بالعربي
+Group1 ترى RPT1 و RPT2 و DB1 فقط؛ لا RPT3، ولا بناء جديد على SM1، ولا إعادة مشاركة. مطلوب أقل إدارة.
+
+القصة والمعنى
+كل التقارير في ورشة واحدة، لكن المجموعة داخلة كجمهور. نسلم لهم باكدج مختار، ونقفل Build وإعادة المشاركة، بدل Viewer يفتح كل الورشة.
+
+مثال نفهم بيه
+إضافة RPT4 للـWorkspace لاحقًا لا تجعلها متاحة للجمهور إلا إذا أضفتها وأتحتها في App.
+
+طريقة التفكير خطوة بخطوة
+1. انشر App لجمهور Group1 بالمحتوى المحدد فقط.
+2. لا تمنح Build أو Reshare، ولا دور Workspace للمجموعة يوسع الوصول. راجع تقارير Dashboard المرتبطة حتى لا توجد مسارات وصول غير مقصودة.
+3. عدم مشاركة App من داخل تجربة القارئ لا يعني أن منع إعادة مشاركة البيانات مطلق؛ صلاحيات المصدر والجروبات الأخرى تظل مهمة.
+
+الإجابة الصحيحة وليه
+A: Publish an app with the required audience and permissions.
+
+ليه كل اختيار صح أو غلط
+A. Publish an app.
+صحيح؛ يختار المحتوى والجمهور ويجمع الإدارة في حزمة واحدة.
+
+B. Assign Group1 the Viewer role for WS1.
+Viewer يفتح RPT3 أيضًا، فيفشل شرط إخفائه.
+
+C. Store PBIX files in a shared folder in Microsoft OneDrive.
+ملفات PBIX في OneDrive تكشف نموذجًا قابلًا للاستخدام خارج تجربة المشاهدة المطلوبة.
+
+D. Share each item individually.
+المشاركة الفردية قد تضبط النطاق، لكنها أكثر إدارة من App في هذه المجموعة من العناصر.
+
+الخلاصة اللي تتحفظ
+جمهور يستهلك عناصر مختارة دون Build = App مضبوط، لا Workspace Viewer.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '332', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-333-332', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -14054,25 +16776,49 @@ How many data sources require a data gateway, and which license mode will the wo
 
 scheduled refresh? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', '1. Data Sources: 2.
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+موديل يجمع Azure SQL خلف Private endpoint، و Excel في SharePoint Online، و SQL Server داخلي. يحتاج 12 تحديثًا يوميًا. كم مصدر يحتاج Gateway، وأنهي License mode؟
 
-This selection suggests that the system or report is using two data sources.
+القصة والمعنى
+مش كل حاجة اسمها Azure تبقى مفتوحة للسحابة. قاعدة Azure مقفولة داخل شبكة خاصة، وقاعدة الشركة داخلية، بينما SharePoint Online متاح كخدمة سحابية.
 
-Data sources in Power BI can include databases (SQL Server, Azure, etc.), cloud services, Excel files, APIs, and
-more.
+مثال نفهم بيه
+نستخدم Gateway يستطيع الوصول إلى القاعدتين، أو ترتيبات اتصال مناسبة لكل شبكة؛ لا نثبته فقط من أجل ملف SharePoint.
 
-The choice of "2" means the report is integrating data from two separate sources.
+طريقة التفكير خطوة بخطوة
+1. مصدران يحتاجان مسار Gateway مناسبًا: Azure SQL الخاص و SQL Server الداخلي؛ Excel السحابي لا يحتاج Gateway عادةً. العدد عدد المصادر لا عدد أجهزة البوابة.
+2. Pro يدعم 8 تحديثات مجدولة يوميًا؛ PPU يدعم 48، فيغطي 12.
+3. PPU هو المقصود للاستهلاك داخل Service من البدائل. Embedded/capacity قد يدعم تكرارًا أعلى في سياقه، فلا نقول إنه عاجز تقنيًا في كل السيناريوهات؛ لم يُطلب تضمين خارجي هنا.
 
-2. License Mode: Premium Per User (PPU).
+الإجابة الصحيحة وليه
+Data sources: 2. License mode: Premium Per User (PPU).
 
-Power BI offers different licensing modes:
+ليه كل اختيار صح أو غلط
+A. Data sources that require a gateway: 1
+1 غير كافٍ؛ يتجاهل أحد المصدرين المقفلين على شبكات خاصة.
 
-Embedded: Used for embedding reports in applications, typically for external users.
+B. Data sources that require a gateway: 2
+صحيح؛ القاعدتان تحتاجان جسرًا مناسبًا، وليس ملف SharePoint.
 
-Pro: Required for sharing reports and collaborating within an organization.
+C. Data sources that require a gateway: 3
+3 زائد؛ SharePoint Online لا يحتاج بوابة لمجرد كونه ملف Excel.
 
-Premium Per User (PPU): A mix of Power BI Pro and Premium, offering advanced AI, larger dataset storage,
-and paginated reports at a per-user cost.', 'Final', '333', '/dump-assets/f1-333-332-question.webp', '/dump-assets/f1-333-332-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+D. License mode: Embedded
+Embedded وضع لاستضافة/تضمين مختلف، وليس الاختيار المستهدف لخدمة التقارير هنا؛ لا نستنتج عجزه المطلق عن 12 تحديثًا.
+
+E. License mode: Premium Per User (PPU)
+صحيح؛ PPU يتجاوز حد Pro اليومي ويدعم استهلاك Service المطلوب.
+
+F. License mode: Pro
+Pro حدّه 8 تحديثات مجدولة في اليوم، أقل من 12.
+
+الخلاصة اللي تتحفظ
+Cloud private endpoint قد يحتاج Gateway. عدد التحديثات يحدد الترخيص أيضًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-use-directquery
+https://learn.microsoft.com/en-us/data-integration/vnet/overview', 'Final', '333', '/dump-assets/f1-333-332-question.webp', '/dump-assets/f1-333-332-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-334-333', 'Manage and secure Power BI', 'manual', 'DRAG DROP
 
 -
@@ -14083,20 +16829,41 @@ You need to configure row-level security (RLS) to restrict data access for users
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of
 
-actions to the answer area and arrange them in the correct order.', '[]', '[3,0,2]', '1. From Microsoft Power BI Desktop, create a new RLS role by using a DAX filter.
+actions to the answer area and arrange them in the correct order.', '[]', '[3,0,2]', 'ترجمة السؤال بالعربي
+عايز تطبيق RLS على مستخدمين Viewer. رتب ثلاث خطوات من القائمة.
 
-You must first define the RLS roles and the corresponding DAX filters in Power BI Desktop to determine how
-data is restricted for different users.
+القصة والمعنى
+ارسم قاعدة الدخول، انقلها للخدمة، ثم اربط الناس بها. لو جعلتهم Member بدل Viewer تكون فتحت لهم طريقًا يتجاوز الفلتر.
 
-2. Publish the semantic model.
+مثال نفهم بيه
+دور East يفلتر Region=East؛ بعد النشر نضيف EastGroup ونختبر مستخدم Viewer منه.
 
-After creating the RLS roles, you need to publish the semantic model to the Power BI Service to apply these
-roles in the cloud environment.
+طريقة التفكير خطوة بخطوة
+1. في Desktop أنشئ الدور وفلتر DAX.
+2. انشر Semantic model ليصل تعريف الدور إلى الخدمة.
+3. عيّن المستخدمين/الجروبات للدور في Service ثم اختبر View as/Test as role. يمكن تحرير نماذج مدعومة بالخدمة أيضًا، لكن قائمة السؤال تقصد المسار المعروض.
 
-3. From the Power BI service, assign the new RLS role to the users.
+الإجابة الصحيحة وليه
+Create RLS role/DAX → Publish model → Assign users to role.
 
-Once the model is published, you assign the roles to specific users or groups in the Power BI Service to
-enforce RLS.', 'Final', '334', '/dump-assets/f1-334-333-question.webp', '/dump-assets/f1-334-333-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
+ليه كل اختيار صح أو غلط
+A. Publish the semantic model.
+صحيح ثانيًا؛ يجب نشر تعريف الدور قبل تعيين أعضائه في الخدمة.
+
+B. Assign the users the Member role for the Power BI workspace.
+خطأ؛ Member صاحب صلاحية تحرير، ولا تفرض عليه RLS مثل Viewer.
+
+C. From the Power BI service, assign the new RLS role to the users.
+صحيح ثالثًا؛ العضوية تربط الهوية بالقاعدة المنشورة.
+
+D. From Microsoft Power BI Desktop, create a new RLS role by using a DAX filter.
+صحيح أولًا؛ عرّف الفلتر الذي سيحكم الصفوف.
+
+الخلاصة اللي تتحفظ
+عرّف → انشر → عيّن الأعضاء، ولا تمنح صلاحية تتجاوز الأمن.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '334', '/dump-assets/f1-334-333-question.webp', '/dump-assets/f1-334-333-answer.webp', NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-335-334', 'Manage and secure Power BI', 'multi', 'You have a Power BI report named Report1.
 
 You plan to share Report1 with multiple users.
@@ -14105,48 +16872,159 @@ You need to add the users to a group.
 
 Which two types of groups can you use? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["security group","distribution group","Microsoft Teams team","Microsoft 365 group"]', '[0,3]', 'To share a Power BI report named Report1 with multiple users by adding them to a group, you can use the
-following types of groups:A. Security groupD. Microsoft 365 groupBoth security groups and Microsoft 365
-groups can be used to manage access to Power BI reports. Security groups are typically used for managing
-permissions and access control, while Microsoft 365 groups provide a collaborative workspace with shared
-resources, including access to Power BI reports. Distribution groups and Microsoft Teams teams are not
-typically used for managing access to Power BI reports in this context.
+NOTE: Each correct selection is worth one point.', '["security group","distribution group","Microsoft Teams team","Microsoft 365 group"]', '[0,1]', 'ترجمة السؤال بالعربي
+عايز مشاركة Report1 مباشرةً مع مجموعة مستخدمين. أنهي نوعين من الجروبات يمكن استخدامهما؟
 
-A. security group Security groups can be used to manage user access and permissions in Power BI.D.
-Microsoft 365 group Microsoft 365 groups (formerly known as Office 365 groups) can also be used to
-manage access and permissions in Power BI, and they integrate well with other Microsoft 365 services.', 'Final', '335', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+نوع الجروب ينفع في مكان وما ينفعش في مكان تاني. Microsoft365 Group ممكن يدخل Workspace أو App، لكن ده لا يجعله مدعومًا في Direct sharing للتقرير.
+
+مثال نفهم بيه
+Finance-Security أو Finance-Distribution الداخلي المدعوم يصلحان للمشاركة؛ Teams team ليس نوع صلاحية بديلًا في نافذة Share.
+
+طريقة التفكير خطوة بخطوة
+1. وثائق المشاركة المباشرة تسمح بـSecurity groups و Email-enabled distribution groups، مع متطلبات Exchange/الهوية المذكورة.
+2. تستبعد Microsoft365 Unified groups من Direct sharing واشتراكات الإيميل؛ لا تنقل جدول Workspace groups إلى هذه الميزة.
+3. عند وجود أشخاص خارجيين، استخدم Security group وراجع شروط B2B؛ توزيع البريد وحده ليس تصريح وصول لكل عنوان خارجي.
+
+الإجابة الصحيحة وليه
+A و B: security group + distribution group. تصحيح للمفتاح A,D.
+
+ليه كل اختيار صح أو غلط
+A. security group
+صحيح؛ Security group مدعوم لتوزيع الوصول المباشر على مجموعة.
+
+B. distribution group
+صحيح في السيناريو المدعوم؛ يمكن استخدام عنوان Distribution group مع Exchange Online للمشاركة مع أعضائها.
+
+C. Microsoft Teams team
+Teams team ليس اختيارًا مباشرًا لهذا النوع من المشاركة؛ كونه مبنيًا على Microsoft365 Group لا يغير القيد.
+
+D. Microsoft 365 group
+غير صحيح للمشاركة المباشرة هنا؛ وثائق Microsoft تستبعد Unified Microsoft365 groups، رغم دعمها في مسارات أخرى.
+
+الخلاصة اللي تتحفظ
+حدّد الميزة: Direct sharing ≠ App audience ≠ Workspace role ≠ RLS membership.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards', 'Final', '335', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-336-335', 'Prepare the data', 'single', 'You plan to create a Power BI report that will be connected to multiple data sources. One of the data sources
 
 contains tax records.
 
 You need to ensure that other queries cannot access the tax record information.
 
-To what should you set Privacy Level for the data source?', '["None","Organizational","Private","Public"]', '[2]', 'Setting the Privacy Level to Private ensures that the data source is completely isolated from all other sources
-in Power Query.- This prevents data leakage through query folding or merging operations, which could
-otherwise expose sensitive tax record information to less secure sources.- Power BI will block any attempt to
-combine this data with other sources unless they are also marked Private and reside in the same isolation
-zone.', 'Final', '336', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+To what should you set Privacy Level for the data source?', '["None","Organizational","Private","Public"]', '[2]', 'ترجمة السؤال بالعربي
+مصدر فيه سجلات ضرائب حساسة ضمن مصادر متعددة. اختار Privacy level الذي يعزل تبادل بياناته مع المصادر الأخرى.
+
+القصة والمعنى
+وأنت بتدمج مصدرين، Power Query ممكن يرسل قيمًا من واحد للتاني لتحسين الاستعلام. بيانات الضرائب مش عايزينها تتسرب ضمن هذا التبادل.
+
+مثال نفهم بيه
+جدول TaxIDs لا يرسل قائمة أرقام ضريبية إلى خدمة عامة أثناء Query folding لمجرد أن الاستعلام يدمجهما.
+
+طريقة التفكير خطوة بخطوة
+1. Private هو مستوى العزل المناسب لمنع تمرير بيانات المصدر إلى مصادر أخرى في تقييمات الدمج.
+2. Privacy level ليس نظام صلاحيات صفوف ولا ضمان إخفاء البيانات عن مؤلف الاستعلام؛ لا يغني عن IAM/RLS. لا تتجاهل Privacy/Fast Combine لأن ذلك يزيل الحماية المقصودة.
+
+الإجابة الصحيحة وليه
+C: Private.
+
+ليه كل اختيار صح أو غلط
+A. None
+None ليس تصنيف عزل صالحًا لتحقيق الحماية المقصودة.
+
+B. Organizational
+Organizational يسمح بسياق ثقة مؤسسي، أوسع من عزل الضرائب المطلوب.
+
+C. Private
+صحيح؛ يضع المصدر في نطاق الخصوصية الأكثر تقييدًا.
+
+D. Public
+Public يعامل البيانات على أنها متاحة للمشاركة، عكس حساسية الضرائب.
+
+الخلاصة اللي تتحفظ
+Private لحماية تدفق البيانات بين المصادر، وليس بدل صلاحيات الوصول.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/privacy-levels', 'Final', '336', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-337-336', 'Manage and secure Power BI', 'single', 'You have a semantic model named Model1.
 
 You need to ensure that users can verify that the data in Model1 meets corporate standards.
 
-What should you do?', '["Create an image of Model1.","Promote Model1.","Certify Model1.","Apply a sensitivity label to Model1."]', '[2]', 'Certification is the highest level of endorsement in Power BI’s data governance framework.- It signals to users
+What should you do?', '["Create an image of Model1.","Promote Model1.","Certify Model1.","Apply a sensitivity label to Model1."]', '[2]', 'ترجمة السؤال بالعربي
+عايز المستخدم يتأكد أن Model1 اجتاز معايير الشركة. تختار إيه؟
 
-that Model1 has been reviewed and approved by trusted data stewards or administrators as meeting
-corporate standards for quality, accuracy, and compliance.- Certified datasets appear with a badge and are
-prioritized in search results, helping users confidently choose the right data source.', 'Final', '337', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+مش محتاج صورة جميلة للموديل أو كلمة «سري». محتاج ختم مراجعة الجودة الذي تمنحه الجهة المخولة في المؤسسة.
+
+مثال نفهم بيه
+موديل معتمد قد يحمل بيانات عامة، وموديل شديد السرية قد يكون غير معتمد جودةً. البعدان مختلفان.
+
+طريقة التفكير خطوة بخطوة
+1. Certify يعلن الاعتماد المؤسسي بعد إجراء المراجعة الفعلية.
+2. Sensitivity تحدد مدى حساسية البيانات، و Promotion توصية إبراز؛ لا يساوي أي منهما اعتماد الجودة.
+
+الإجابة الصحيحة وليه
+C: Certify Model1.
+
+ليه كل اختيار صح أو غلط
+A. Create an image of Model1.
+صورة الموديل توثيق بصري، لا شهادة مراجعة.
+
+B. Promote Model1.
+Promotion لا يتطلب نفس اعتماد المعايير المؤسسية.
+
+C. Certify Model1.
+صحيح؛ Certification آلية الاعتماد المقصودة.
+
+D. Apply a sensitivity label to Model1.
+Sensitivity label تصنيف حماية، وليس دليل اجتياز اختبارات الجودة.
+
+الخلاصة اللي تتحفظ
+الثقة المؤسسية في الجودة = Certified؛ الحساسية = Sensitivity label.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-endorse-content', 'Final', '337', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-338-337', 'Manage and secure Power BI', 'single', 'You attempt to open a PBIX file in Microsoft Power BI Desktop and receive the following error message in Power
 
 Query Editor.
 
 DataSource.Error: Could not find file D:\Data.txt.
 
-How should you resolve the issue?', '["Update the Microsoft OLE DB Provider client libraries on your client computer.","Change the file path of Data.txt.","Change the file format to CSV.","Use an on-premises data gateway."]', '[1]', 'B: Change the file path of Data.txt.
+How should you resolve the issue?', '["Update the Microsoft OLE DB Provider client libraries on your client computer.","Change the file path of Data.txt.","Change the file format to CSV.","Use an on-premises data gateway."]', '[1]', 'ترجمة السؤال بالعربي
+Power Query لا يجد الملف D:\Data.txt. تصلح السبب إزاي؟
 
-Placing the Data.txt file in D:\, if you have access to it, or
+القصة والمعنى
+الاستعلام معاه عنوان شقة قديم. تغيير شكل الملف أو تركيب Gateway مش هيخلق ملفًا في العنوان المفقود.
 
-Going to Power Query Editor → Source step and modifying the file path to wherever Data.txt is currently
-stored on your machine.', 'Final', '338', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+الملف انتقل إلى D:\Inputs\Data.txt؛ حدث المرجع بدل تعديل الامتداد إلى csv.
+
+طريقة التفكير خطوة بخطوة
+1. صحح المسار في Source أو Data source settings إلى مكان الملف المتاح بالفعل، أو أعده للمكان المعتمد حسب تصميم الحل.
+2. تأكد أيضًا من الوصول والصلاحيات؛ لا تنشئ ملفًا فارغًا باسم مشابه لإخفاء الخطأ.
+
+الإجابة الصحيحة وليه
+B: Change the file path of Data.txt.
+
+ليه كل اختيار صح أو غلط
+A. Update the Microsoft OLE DB Provider client libraries on your client computer.
+OLE DB libraries لا تصلح عنوان ملف نصي غير موجود.
+
+B. Change the file path of Data.txt.
+صحيح؛ يعالج مرجع المصدر المفقود عندما تغير مكانه.
+
+C. Change the file format to CSV.
+تغيير TXT إلى CSV لا يجعل المسار القديم صالحًا.
+
+D. Use an on-premises data gateway.
+Gateway للاتصال من الخدمة بالمصادر الداخلية، لا لعلاج عنوان مفقود في Desktop نفسه.
+
+الخلاصة اللي تتحفظ
+Could not find file: تحقّق من وجود الملف ومساره وصلاحية الوصول.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/dealing-with-errors', 'Final', '338', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-339-338', 'Manage and secure Power BI', 'single', 'You have a Fabric workspace named Workspace1 that contains two Power BI reports named Report1 and Report2.
 
 You create a workspace app that contains both reports.
@@ -14157,21 +17035,40 @@ You need to ensure that the app meets the following requirements:
 
 •Report2 must be visible to only a security group named Group1.
 
-What should you do next?', '["Assign Group1 the Viewer role for Workspace1.","Create an audience and assign Group1 to the audience.","Allow access to the hidden content of the app.","Share Report1 with the built-in All users security group."]', '[1]', 'B. Create an audience and assign Group1 to the audience.
+What should you do next?', '["Assign Group1 the Viewer role for Workspace1.","Create an audience and assign Group1 to the audience.","Allow access to the hidden content of the app.","Share Report1 with the built-in All users security group."]', '[1]', 'ترجمة السؤال بالعربي
+App فيه Report1 لكل المؤسسة و Report2 لجروب Group1 فقط. تضبط إيه؟
 
-Power BI apps now support audiences, which allow you to:
+القصة والمعنى
+App واحد ممكن يكون له واجهتا جمهور. كل الناس تشوف التقرير العام، والجروب المحدد يشوف التقرير الخاص كمان.
 
-Customize which reports are visible to which groups.
+مثال نفهم بيه
+موظف عادي يفتح App فيرى Report1. عضو Group1 يرى Report1 و Report2 من جمهوره المخول.
 
-Assign different content to different audiences (e.g., departments, roles, security groups).
+طريقة التفكير خطوة بخطوة
+1. أنشئ Audience لـGroup1 وحدد Report2 ضمن محتواه، واجعل الجمهور العام يرى Report1 دون Report2.
+2. راجع خيار Access hidden content؛ إخفاء العنصر من القائمة ليس حماية إذا أبقيت السماح بالوصول للمحتوى المخفي أو منحت وصولًا منفصلًا له.
 
-You can:
+الإجابة الصحيحة وليه
+B: Create an audience and assign Group1.
 
-Publish Report1 to the default (All Users) audience.
+ليه كل اختيار صح أو غلط
+A. Assign Group1 the Viewer role for Workspace1.
+Viewer للـWorkspace يفتح محتوى المساحة، ويتجاوز انتقاء App.
 
-Create a new audience for Group1 and publish Report2 only to them.
+B. Create an audience and assign Group1 to the audience.
+صحيح؛ Audiences تضبط من يرى أي محتوى داخل نفس App.
 
-This approach meets both requirements in a clean and scalable way.', 'Final', '339', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+C. Allow access to the hidden content of the app.
+إتاحة hidden content قد تسمح بوصول غير مقصود؛ لا تحقق قصر Report2 على Group1.
+
+D. Share Report1 with the built-in All users security group.
+مشاركة Report1 وحده لا تضبط عزل Report2 داخل App.
+
+الخلاصة اللي تتحفظ
+محتوى مختلف لجماهير مختلفة داخل App = Audiences، مع مراجعة hidden access.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final', '339', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-340-339', 'Manage and secure Power BI', 'manual', 'HOTSPOT
 
 -
@@ -14198,11 +17095,55 @@ How should you make the content available to the users in each department? To an
 
 options in the answer area.
 
-NOTE: Each collect selection is worth one point.', '[]', '[]', 'Independent correction:
+NOTE: Each collect selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+الإدارة ترى Headcount و Department Expenses فقط بلا Build. المحاسبة ترى Company Expenses فقط وتبني على Expenses. أقل صلاحيات وأقل إدارة؟
 
-Management: Publish an app.
+القصة والمعنى
+الـWorkspace مخزن فيه 5 عناصر، مش 5 تقارير مستقلة بموديل خاص لكل واحد. نسلم كل قسم حزمة تقاريره، وندي المحاسبة وحدها حق البناء على Expenses.
 
-Accounting: Publish the app with a dedicated audience, expose only the required report, and grant Build only on the Expenses semantic model when needed. This follows least privilege more closely than assigning the Viewer workspace role.', 'Final', '340', '/dump-assets/f1-340-339-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+مثال نفهم بيه
+نشر تقرير جديد في المخزن لا يكشفه للإدارة تلقائيًا؛ أما مستخدم المحاسبة فيبني تقريره الخاص على Expenses دون قراءة Headcount.
+
+طريقة التفكير خطوة بخطوة
+1. Management: Publish an app لجمهور الإدارة بتقريريه فقط ودون Build أو Reshare.
+2. Accounting: Publish an app لجمهور المحاسبة مع Company Expenses فقط؛ امنح Build على Expenses وحده من إعداد الجمهور/الموديل المناسب.
+3. Workspace Viewer يكشف التقارير الأخرى والحالية والمستقبلية؛ لا يحترم العزل. تقرير Company Expenses و Department Expenses يمكن أن يشتركا في Expenses؛ اسم التقرير لا يفرض موديلًا منفصلًا.
+
+الإجابة الصحيحة وليه
+Publish an app للقسمين، مع Audience مختلف و Build على Expenses للمحاسبة فقط.
+
+ليه كل اختيار صح أو غلط
+A. Management: Assign the Viewer role for the workspace to each management department user.
+Viewer يكشف كل محتوى Workspace، فيخالف منع التقارير الحالية والمستقبلية غير المطلوبة.
+
+B. Management: Embed the report into Microsoft SharePoint Online.
+SharePoint embedding لا يمنح وصولًا بذاته ولا يحل توزيع أقل الصلاحيات دون إعدادات مشاركة إضافية.
+
+C. Management: Publish an app.
+صحيح للإدارة؛ App بمحتوى مختار ومن غير Build.
+
+D. Management: Use Publish to web.
+Publish to web يجعل المحتوى عامًا؛ غير مقبول للبيانات الداخلية.
+
+E. Accounting: Assign the Viewer role for the workspace to each management department user.
+Viewer للمساحة يفتح تقارير غير Company Expenses، فلا يصلح للمحاسبة.
+
+F. Accounting: Embed the report into Microsoft SharePoint Online.
+التضمين في SharePoint طريقة عرض، لا بديل عن ضبط صلاحيات المحتوى و Build للموديل.
+
+G. Accounting: Publish an app.
+صحيح للمحاسبة؛ App محدد مع Build على Expenses فقط يحقق البناء والعزل.
+
+H. Accounting: Use Publish to web.
+Publish to web ليس مشاركة داخلية آمنة ولا يمنح Build مناسبًا على الموديل.
+
+الخلاصة اللي تتحفظ
+App للجمهور؛ Build مستقل للموديل المطلوب. Workspace ليس بوابة مشاهدة انتقائية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions', 'Final', '340', '/dump-assets/f1-340-339-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-341-340', 'Manage and secure Power BI', 'single', 'You have a PBIX file that contains sensitive information.
 
 You need to secure the information to meet the following requirements:
@@ -14213,13 +17154,77 @@ You need to secure the information to meet the following requirements:
 
 from the Power BI service.
 
-What should you do?', '["From Microsoft Power BI Desktop, apply a sensitivity label.","Certify the semantic model and the report.","Use a live connection for the file.","From the Power BI service, apply a sensitivity label."]', '[0]', 'A .From Microsoft Power BI Desktop, apply a sensitivity label: You can apply sensitivity labels directly in
-Power BI Desktop before publishing. When you publish a PBIX file with a sensitivity label, that label (and its
-associated protection settings) travels with the semantic model and report into the service.', 'Final', '341', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["From Microsoft Power BI Desktop, apply a sensitivity label.","Certify the semantic model and the report.","Use a live connection for the file.","From the Power BI service, apply a sensitivity label."]', '[0]', 'ترجمة السؤال بالعربي
+ملف PBIX حساس. لو اتبعت بالإيميل أو اتنزّل بعد النشر، لازم يفتحه مستخدم داخلي مخوّل فقط. تختار إيه؟
+
+القصة والمعنى
+صلاحية Workspace تحمي الموجود في الخدمة، لكن نسخة الإيميل خارجها. محتاج حماية تسافر مع الملف نفسه.
+
+مثال نفهم بيه
+ملف Internal المشفر يطلب هوية داخلية مخولة حتى لو شخص أعاد توجيه الإيميل خارج المؤسسة.
+
+طريقة التفكير خطوة بخطوة
+1. طبّق Sensitivity label في Desktop قبل نشر الملف، بسياسة تشفير تقصر الفتح على الهويات الداخلية المخولة.
+2. اسم العلامة وحده دون سياسة حماية مناسبة لا يكفي. التصنيف ينتقل للموديل والتقرير والتنزيل في المسارات المدعومة.
+
+الإجابة الصحيحة وليه
+A: Apply a sensitivity label in Desktop بسياسة حماية داخلية مناسبة.
+
+ليه كل اختيار صح أو غلط
+A. From Microsoft Power BI Desktop, apply a sensitivity label.
+صحيح؛ يحمي نسخة PBIX قبل خروجها ثم تنتقل العلامة في المسارات المدعومة.
+
+B. Certify the semantic model and the report.
+Certification اعتماد جودة، لا تشفير أو منع فتح خارجي.
+
+C. Use a live connection for the file.
+Live connection يغير مكان الاستعلام، ولا يفرض وحده سياسة فتح الملف.
+
+D. From the Power BI service, apply a sensitivity label.
+التطبيق بعد النشر لا يحمي النسخة الأصلية المرسلة قبل ذلك بالإيميل.
+
+الخلاصة اللي تتحفظ
+حماية الملف تبدأ قبل النشر، وبسياسة حماية فعلية لا مجرد اسم تصنيف.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-security-sensitivity-label-overview', 'Final', '341', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-342-341', 'Manage and secure Power BI', 'single', 'You need to create the dataset.
 
-Which dataset mode should you use?', '["Import","DirectQuery","Composite","live connection"]', '[0]', 'You wouldn''t use composite for all. I would say import as the SQL Server data is only 2GB and excel is really
-small. Also, only need it refreshing once a day so this dataset is very small. Answer is A (Import)', 'Final', '342', '/exhibit-assets/f1-342-341.webp', NULL, 'Northwind Traders — Case Study
+Which dataset mode should you use?', '["Import","DirectQuery","Composite","live connection"]', '[0]', 'ترجمة السؤال بالعربي
+Northwind تجمع Azure SQL بحجم 2GB و Excel بحجم 5MB من SharePoint. مطلوب موديل واحد سريع وبيانات يومية جاهزة 7 صباحًا. أنهي mode؟
+
+القصة والمعنى
+الشركة مش طالبة كل فاتورة تظهر فورًا. طالبة نسخة صباحية سريعة لثلاثة تقارير؛ نستورد ونعمل Refresh منظم.
+
+مثال نفهم بيه
+ملف العملاء يصل 5 صباحًا، ثم تحديث SQL و Excel ينتهي قبل 7؛ تصفح التقارير بعدها من النسخة المستوردة.
+
+طريقة التفكير خطوة بخطوة
+1. Import يناسب التحديث اليومي ودمج Excel مع SQL، ويخدم المرئيات من الذاكرة.
+2. حجم المصدر 2GB لا يساوي حجم الموديل المضغوط، ولا يثبت أنه داخل حد أي ترخيص؛ لازم قياس السعة.
+3. اجعل وصول ملف العملاء قبل التحديث، واختار Pacific Time مع هامش اكتمال قبل 7 صباحًا؛ لا تبدأ الساعة 7 وتعد أنه جاهز 7.
+
+الإجابة الصحيحة وليه
+A: Import.
+
+ليه كل اختيار صح أو غلط
+A. Import
+صحيح؛ يناسب الحداثة اليومية وسرعة التفاعل مع تصميم وسعة مناسبين.
+
+B. DirectQuery
+Excel ليس مصدر DirectQuery عاديًا، واستعلام القاعدة عند كل تفاعل غير مطلوب هنا.
+
+C. Composite
+Composite ممكن تقنيًا لكنه يضيف تعقيدًا دون ضرورة من المتطلبات.
+
+D. live connection
+Live connection يحتاج موديلًا تحليليًا قائمًا؛ هنا نبني من SQL و Excel.
+
+الخلاصة اللي تتحفظ
+تحديث يومي ومصادر مختلطة وسرعة تفاعل: Import، مع قياس الحجم الفعلي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-dataset-modes-understand', 'Final', '342', '/exhibit-assets/f1-342-341.webp', NULL, 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -14366,10 +17371,42 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 security requirements.
 
-What should you do?', '["Share each report to the Azure Active Directory group of the sales department.","Add the Azure Active Directory group of the sales department as an Admin of the reports workspace.","Distribute an app to the users in the Azure Active Directory group of the sales department.","Add the sales department as a member of the reports workspace."]', '[3]', 'D - Add the sales department as a member of the reports workspace.
+What should you do?', '["Share each report to the Azure Active Directory group of the sales department.","Add the Azure Active Directory group of the sales department as an Admin of the reports workspace.","Distribute an app to the users in the Azure Active Directory group of the sales department.","Add the sales department as a member of the reports workspace."]', '[]', 'ترجمة السؤال بالعربي
+Northwind تطلب من نفس قسم المبيعات تحرير المحتوى وإدارة App، وفي الوقت نفسه قصر كل موظف على منطقته بـRLS. هل يوجد اختيار يحقق الكل؟
 
-For the actions they need to perform (edit reports, publish app, etc) the Member role would be the least
-privilege', 'Final', '343', '/exhibit-assets/f1-343-342.webp', NULL, 'Northwind Traders — Case Study
+القصة والمعنى
+Member يعطي مفاتيح الورشة، وصاحب صلاحية تعديل الموديل لا يعامل كقارئ مقيد بـRLS. هنا متطلبات الحالة متعارضة.
+
+مثال نفهم بيه
+Sales Member يصل إلى الموديل رغم فلتر EmailAddress؛ Sales Viewer مع دور RLS يرى منطقته لكنه لا يدير App.
+
+طريقة التفكير خطوة بخطوة
+1. D هو المقصود لحقوق التأليف ونشر App، لكنه لا يحقق شروط الحالة كاملة.
+2. Admin و Member و Contributor يتجاوزون RLS على موديلات مساحة العمل. كذلك Member لا يزيل المستخدمين أو يغير جميع الأدوار الحالية مثل Admin.
+3. لا توجد إجابة واحدة من المعروض تجمع التحرير مع إلزام نفس الهوية بـRLS. افصل جمهور الاستهلاك المقيد عن أدوار التأليف الموثوقة أو أعد صياغة المتطلبات.
+
+الإجابة الصحيحة وليه
+لا يوجد اختيار يحقق كل المتطلبات. D مقصودة للتأليف فقط، لا للأمن الكامل.
+
+ليه كل اختيار صح أو غلط
+A. Share each report to the Azure Active Directory group of the sales department.
+مشاركة التقارير تعطي استهلاكًا، لا حقوق التحرير وإدارة App.
+
+B. Add the Azure Active Directory group of the sales department as an Admin of the reports workspace.
+Admin يمنح الإدارة لكنه أوسع ويتجاوز RLS.
+
+C. Distribute an app to the users in the Azure Active Directory group of the sales department.
+App يناسب الاستهلاك المقيد، ولا يمنح إدارة المساحة والتأليف.
+
+D. Add the sales department as a member of the reports workspace.
+Member يحقق مهام تأليف كثيرة لكنه يتجاوز RLS، فلا يعد حلًا كاملًا للحالة.
+
+الخلاصة اللي تتحفظ
+RLS لا يقيد محرر الموديل. السؤال المتعارض يحتاج تنبيهًا، لا حفظ D كحل أمني.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final', '343', '/exhibit-assets/f1-343-342.webp', NULL, 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -14520,18 +17557,47 @@ What should you do? To answer, select the appropriate options in the answer area
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: dashboard -
+Hot Area:', '[]', '[10002,10000]', 'ترجمة السؤال بالعربي
+Northwind تريد إخطار المخزن إذا نسبة الطلبات المتأخرة هذا الشهر تجاوزت 5%. اختار مكان العرض ونوع الإخطار.
 
-The warehouse shipping department must be notified if the percentage of late orders within the current
-month exceeds 5%.
+القصة والمعنى
+عايز جرس على رقم واحد: نسبة التأخير. نعرضها Card على Dashboard ونربطها بحد، مش إيميل يومي مهما كانت النتيجة.
 
-You can set alerts to notify you when data in your dashboards changes beyond limits you set.
+مثال نفهم بيه
+10 طلبات متأخرة من 100 تعطي 10% وتتجاوز الحد؛4 من 100 تعطي 4% ولا تتجاوزه.
 
-Box 2: data alert -
+طريقة التفكير خطوة بخطوة
+1. Dashboard بها Card من النوع المدعوم تعرض النسبة في سياق الشهر الحالي.
+2. Data alert يتجاوز 5% هو المقصود. التنبيه التقليدي شخصي؛ رتب وصول الإخطار للقسم، مثل تدفق Power Automate مناسب.
+3. الفحص يعتمد على تحديث البيانات؛ Import يومي لا يعني رقابة لحظية لكل شحنة.
 
-Reference:
+الإجابة الصحيحة وليه
+Dashboard ثم Data alert.
 
-https://docs.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final', '344', '/dump-assets/f1-344-343-question.webp', '/dump-assets/f1-344-343-answer.webp', 'Northwind Traders — Case Study
+ليه كل اختيار صح أو غلط
+A. Populate a ___ using a card visualization showing the late-order percentage: report
+Report يبني Card لكن التنبيه التقليدي المطلوب يعمل على Dashboard tile.
+
+B. Populate a ___ using a card visualization showing the late-order percentage: bookmark
+Bookmark يحفظ حالة عرض ولا ينشئ التنبيه.
+
+C. Populate a ___ using a card visualization showing the late-order percentage: dashboard
+صحيح؛ Dashboard تستضيف Tile المناسبة.
+
+D. Then configure a: data alert
+صحيح؛ Data alert يختبر تجاوز النسبة.
+
+E. Then configure a: phone view
+Phone view تنسيق موبايل لا إخطار شرطي.
+
+F. Then configure a: subscription
+Subscription دوري ولا يحقق شرط تجاوز 5% وحده.
+
+الخلاصة اللي تتحفظ
+Card على Dashboard ثم Alert للعتبة؛ رتب جمهور الإخطار وتحديث البيانات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final', '344', '/dump-assets/f1-344-343-question.webp', '/dump-assets/f1-344-343-answer.webp', 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -14678,19 +17744,40 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 between the product list and the revenue results. The solution must minimize the time it takes to render visuals.
 
-What should you set as the relationship cardinality?', '["One to one","Many to many","Many to one","One to many"]', '[3]', 'One product in the product list can occur many times in the revenue results.
-Note 1: One to many (1:*): In a one-to-many relationship, the column in one table has only one instance of a
-particular value, and the other related table can have more than one instance of a value.
-Note 2:
-Revenue data is provided at the date and product level.
-The board must be able to get the following information from the quarterly reports:
+What should you set as the relationship cardinality?', '["One to one","Many to many","Many to one","One to many"]', '[3]', 'ترجمة السؤال بالعربي
+Contoso عندها صف لكل منتج في Product list، وإيراد على مستوى التاريخ والمنتج. أنهي cardinality من القائمة للإيرادات؟
 
-Revenue trends over time -
-The percent of total revenue contributed by each product category
-A comparison of quarterly revenue versus the same quarter from the previous year
+القصة والمعنى
+الدراجة لها تعريف واحد، لكن بتتباع في أيام كثيرة. تعريف في بُعد المنتجات ونتائج كثيرة في حقائق الإيرادات.
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '345', '/exhibit-assets/f1-345-344.webp', NULL, 'Contoso, Ltd. — Case Study
+مثال نفهم بيه
+Bike01 صف في الكتالوج، وله نتائج إيراد في يناير وفبراير ومارس.
+
+طريقة التفكير خطوة بخطوة
+1. ProductID فريد في القائمة ومكرر عبر تواريخ Revenue، إذن العلاقة من القائمة إلى النتائج 1:*.
+2. تحقق من التفرد واجعل اتجاه الفلتر المعتاد من البعد إلى الحقائق، دون many-to-many بلا داعٍ.
+
+الإجابة الصحيحة وليه
+D: One to many.
+
+ليه كل اختيار صح أو غلط
+A. One to one
+One-to-one يمنع التكرار الصحيح للمنتج عبر تواريخ الإيراد.
+
+B. Many to many
+Many-to-many غير ضرورية مع قائمة منتجات ذات مفتاح فريد.
+
+C. Many to one
+Many-to-one تصح من الإيراد إلى المنتج، لا اتجاه السؤال العكسي.
+
+D. One to many
+صحيح؛ منتج واحد يقابله صفوف نتائج كثيرة.
+
+الخلاصة اللي تتحفظ
+اعرف معنى الصف: منتج مرة وإيراد عبر التواريخ يعني 1:*.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '345', '/exhibit-assets/f1-345-344.webp', NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -14813,43 +17900,77 @@ How should you complete the measure? To answer, select the appropriate options i
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: CALCULATE -
+Hot Area:', '[]', '[10002,10000,10003]', 'ترجمة السؤال بالعربي
+Contoso تريد نسبة مساهمة كل Product category في الإيراد. أكمل حساب إجمالي الفئات ثم قسمة الإيراد الحالي عليه.
 
-CALCULATE evaluates an expression in a modified filter context.
+القصة والمعنى
+أنت واقف على Bikes: البسط مبيعات Bikes. المقام يشيل فلتر Category فقط ليقارنها ببقية الفئات في نفس الفترة، لا كل تاريخ الشركة.
 
-Syntax: CALCULATE(<expression>[, <filter1> [, <filter2> [, �]]])
+مثال نفهم بيه
+Bikes40 و Accessories60 في Q1: مساهمة Bikes40%. عند اختيار Q2 نحسب مقام Q2 من جديد.
 
-Box 2: ALL-
+طريقة التفكير خطوة بخطوة
+1. CALCULATE يعدل سياق SUM(Revenue).
+2. ALL(ProductList[ProductCategory]) يزيل فلتر الفئة ويترك مثلًا التاريخ وفلاتر أخرى لم تُزل.
+3. DIVIDE يقسم الإيراد الحالي على AllCategoryRev بأمان عند الصفر.
+4. SUM([Revenue]) اختصار في المصدر؛ استخدم مرجع عمود حقيقي، أو [Revenue] دون SUM لو كان Measure بالفعل.
 
-Box 3: DIVIDE -
+الإجابة الصحيحة وليه
+CALCULATE → ALL → DIVIDE.
 
-DIVIDE performs a division.
+ليه كل اختيار صح أو غلط
+A. AllCategoryRev calculation: ALL
+ALL لا يحل محل حساب Scalar الإيراد في الفراغ الأول.
 
-Example: MEASURE FactInternetSales[%Sales] = DIVIDE([TotalSales],
-CALCULATE([TotalSales],REMOVEFILTERS()))
+B. AllCategoryRev calculation: ALLEXCEPT
+ALLEXCEPT يحتاج جدولًا وأعمدة؛ لا يطابق هذا القالب.
 
-Note: The RETURN keyword consumes variables defined in previous VAR statements.
+C. AllCategoryRev calculation: CALCULATE
+صحيح أولًا؛ يقيّم SUM بسياق معدل.
 
-VAR AllCategoryRev =
+D. AllCategoryRev calculation: DIVIDE
+DIVIDE يحتاج بسطًا ومقامًا لا فلترًا لتحضير الإجمالي.
 
-CALCULATE(SUM([Revenue]),
+E. AllCategoryRev calculation: FILTER
+FILTER يرجع جدولًا لا إجمالي الإيراد هنا.
 
-ALL(ProductList[ProductCategory]))
+F. Remove the ProductCategory filter: ALL
+صحيح ثانيًا؛ يزيل فلتر عمود الفئة.
 
-RETURN
+G. Remove the ProductCategory filter: ALLEXCEPT
+ALLEXCEPT لا يقبل عمود الفئة وحده بصيغة ALL.
 
-DIVIDE(SUM([Revenue]), AllCategoryRev
+H. Remove the ProductCategory filter: CALCULATE
+CALCULATE على عمود الفئة وحده لا يؤدي وظيفة إزالة فلتره.
 
-Anyone with experience in DAX would only need to read the question in these case study questions. The
-questions seem to hint the answer already.. for this question for example anyone would know that the moment
-you see a percentage of the total is required you would immediately go with the ALL function and the rest is
-easy.
+I. Remove the ProductCategory filter: DIVIDE
+DIVIDE لا يرجع الفئات أو يزيل فلترها.
 
-Reference:
+J. Remove the ProductCategory filter: FILTER
+FILTER يحتاج جدولًا وشرطًا لا وسيط عمود واحد.
 
-https://docs.microsoft.com/en-us/dax/calculate-function-dax
+K. Return the proportion: ALL
+ALL لا يقسم البسط على المقام.
 
-https://docs.microsoft.com/en-us/dax/removefilters-function-dax https://dax.guide/st/return/', 'Final', '346', '/dump-assets/f1-346-345-question.webp', '/dump-assets/f1-346-345-answer.webp', 'Contoso, Ltd. — Case Study
+L. Return the proportion: ALLEXCEPT
+ALLEXCEPT يعدل الفلاتر مع إبقاء أعمدة معينة؛ ليس دالة قسمة بسط على مقام.
+
+M. Return the proportion: CALCULATE
+CALCULATE لا يقسم وسيطيه؛ الثاني يفسر كفلتر.
+
+N. Return the proportion: DIVIDE
+صحيح ثالثًا؛ DIVIDE يحسب النسبة.
+
+O. Return the proportion: FILTER
+FILTER ينتج جدولًا لا نسبة الإيراد.
+
+الخلاصة اللي تتحفظ
+نسبة من إجمالي الفئات: أزل فلتر الفئة من المقام فقط، ثم اقسم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/all-function-dax
+https://learn.microsoft.com/en-us/dax/divide-function-dax', 'Final', '346', '/dump-assets/f1-346-345-question.webp', '/dump-assets/f1-346-345-answer.webp', 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -14972,20 +18093,44 @@ business unit analysts see the appropriate profit and loss data? To answer, move
 
 list of actions to the answer area and arrange them in the correct order.
 
-Select and Place:', '[]', '[3,1,4,2]', '1) Create four roles
+Select and Place:', '[]', '[3,1,4,2]', 'ترجمة السؤال بالعربي
+Contoso بها 4Business units. رتب إعداد RLS ليقرأ محلل كل وحدة P&L لوحدته فقط.
 
-2) add DAX filters
+القصة والمعنى
+أربع بوابات: نسميها، نكتب قاعدة كل بوابة، ننشرها، ثم نوزع الناس عليها. لا نعطي المحلل مفتاح تعديل البوابة نفسها.
 
-3) publish
+مثال نفهم بيه
+جروب UnitA مع دور UnitA. Build يسمح لهم بتقرير خاص مع استمرار فلتر الوحدة.
 
-4) add role members
+طريقة التفكير خطوة بخطوة
+1. أنشئ 4 أدوار ثم أضف DAX filter للوحدة الصحيحة في كل دور.
+2. انشر الموديل ثم أضف أعضاء الأدوار في الخدمة.
+3. يبقى المحللون مستهلكين مقيدين مع Build المسموح، لا Contributor على موديل P&L؛ راجع عدم جمعهم في وحدات غير مخولة.
 
-Contributor role give analysts a possibility to save reports to a workspace, which is not permitted by
-requirements
+الإجابة الصحيحة وليه
+Create four roles → DAX filters → Publish → Add role members.
 
-Reference:
+ليه كل اختيار صح أو غلط
+A. From powerbi.com, assign the analysts the Contributor role to the workspace.
+Contributor يحرر الموديل ويتجاوز RLS؛ ليس الحل.
 
-https://docs.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '347', '/dump-assets/f1-347-346-question.webp', '/dump-assets/f1-347-346-answer.webp', 'Contoso, Ltd. — Case Study
+B. From Power BI Desktop, add a Table Filter DAX Expression to the roles.
+صحيح ثانيًا؛ الفلتر يحدد صفوف الوحدة.
+
+C. From powerbi.com, add role members to the roles.
+صحيح أخيرًا؛ العضوية بعد وجود الدور المنشور.
+
+D. From Power BI Desktop, create four roles.
+صحيح أولًا؛ إنشاء الأدوار قبل كتابة فلاترها.
+
+E. From Power BI Desktop, publish the dataset to powerbi.com.
+صحيح ثالثًا؛ ينقل الأدوار إلى الخدمة لتعيين العضوية.
+
+الخلاصة اللي تتحفظ
+Role ثم Filter ثم Publish ثم Members؛ لا تحتاج Write لتستفيد من Build.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '347', '/dump-assets/f1-347-346-question.webp', '/dump-assets/f1-347-346-answer.webp', 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -15102,16 +18247,42 @@ A comparison of quarterly revenue versus the same quarter from the previous year
 The reports must be updated with the latest data by 5 AM each day.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-348-347', 'Model the data', 'single', 'Which DAX expression should you
 
-use to get the ending balances in the balance sheet reports?', '["CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), LASTDATE ( ''Date''[Date] ) )","CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), DATESQTD(''Date''[Date]) )","FIRSTNONBLANK (''Date''[Date] SUM( BalanceSheet[BalanceAmount] ) )","CALCULATE ( MAX( BalanceSheet[BalanceAmount] ), LASTDATE (''Date''[Date] ))"]', '[0]', 'A) - LASTDATE()
+use to get the ending balances in the balance sheet reports?', '["CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), LASTDATE ( ''Date''[Date] ) )","CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), DATESQTD(''Date''[Date]) )","FIRSTNONBLANK (''Date''[Date] SUM( BalanceSheet[BalanceAmount] ) )","CALCULATE ( MAX( BalanceSheet[BalanceAmount] ), LASTDATE (''Date''[Date] ))"]', '[0]', 'ترجمة السؤال بالعربي
+Contoso تخزن رصيد كل حساب نهاية كل شهر. أنهي DAX يعطي Ending balance للربع؟
 
-as we do not sum the balances of last 3 months
+القصة والمعنى
+رصيد يناير 100 وفبراير 120 ومارس 90 لا يعني 310 آخر الربع. معاك 90. نجمع الحسابات في نهاية الفترة، لا نفس الحساب عبر الشهور.
 
-The board meeting requires quarter balance. For example, Jan - Mar. So what we need is the balance as at 31
-Mar, the LASTDATE is appropriate. The balance sheet already gives you the number directly. No need to
-calculate up to 3 months.
+مثال نفهم بيه
+31 مارس Cash90 و Inventory50: الإجمالي 140، لا جمع Snapshots يناير وفبراير معهما.
 
-In case of using DATESQTD, daily sale and expenses will be listed in a table rather than balance in balance
-sheet.', 'Final', '348', '/exhibit-assets/f1-348-347.webp', NULL, 'Contoso, Ltd. — Case Study
+طريقة التفكير خطوة بخطوة
+1. LASTDATE يحدد آخر تاريخ في السياق؛ CALCULATE يقصر SUM على ذلك التاريخ.
+2. SUM يجمع الحسابات المختلفة؛ MAX يأخذ أعلى حساب ويهمل البقية.
+3. الحالة تضمن صفًا لكل حساب لكل شهر وربطًا بنهاية الشهر؛ لو البيانات غير مكتملة قد تحتاج آخر تاريخ به بيانات لا آخر يوم تقويم فقط.
+
+الإجابة الصحيحة وليه
+A: CALCULATE(SUM(BalanceSheet[BalanceAmount]),LASTDATE(''Date''[Date])).
+
+ليه كل اختيار صح أو غلط
+A. CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), LASTDATE ( ''Date''[Date] ) )
+صحيح؛ يجمع حسابات آخر تاريخ.
+
+B. CALCULATE ( SUM( BalanceSheet[BalanceAmount] ), DATESQTD(''Date''[Date]) )
+DATESQTD مع SUM يكرر الأرصدة عبر الربع.
+
+C. FIRSTNONBLANK (''Date''[Date] SUM( BalanceSheet[BalanceAmount] ) )
+FIRSTNONBLANK يبحث عن البداية لا النهاية، والصيغة منسوخة بفاصل ناقص.
+
+D. CALCULATE ( MAX( BalanceSheet[BalanceAmount] ), LASTDATE (''Date''[Date] ))
+LASTDATE مناسب لكن MAX يهمل أرصدة بقية الحسابات.
+
+الخلاصة اللي تتحفظ
+الرصيد يجمع عبر الحسابات، لا عبر الزمن.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/lastdate-function-dax', 'Final', '348', '/exhibit-assets/f1-348-347.webp', NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -15230,16 +18401,41 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 relationships to meet the reporting requirements of the customer service department.
 
-What should you create?', '["a one-to-many relationship from Date[date_id] to Sales[sales_date_id] and another one-to-many relationship from Date[date_id] to Weekly_Returns[week_id]","a one-to-many relationship from Sales[sales_date_id] to Date[date_id] and a one-to-many relationship from Sales[sales_ship_date_id] to Date[date_id]","an additional date table named ShipDate, a many-to-many relationship from Sales[sales_date_id] to Date[date_id], and a many-to-many relationship from Sales[sales_ship_date_id] to ShipDate[date_id]","an additional date table named ShipDate, a one-to-many relationship from Date[date_id] to Sales[sales_date_id], and a one-to-many relationship from ShipDate[date_id] to Sales[sales_skip_date_id]"]', '[3]', 'Two date dims, two 1:* relationships
+What should you create?', '["a one-to-many relationship from Date[date_id] to Sales[sales_date_id] and another one-to-many relationship from Date[date_id] to Weekly_Returns[week_id]","a one-to-many relationship from Sales[sales_date_id] to Date[date_id] and a one-to-many relationship from Sales[sales_ship_date_id] to Date[date_id]","an additional date table named ShipDate, a many-to-many relationship from Sales[sales_date_id] to Date[date_id], and a many-to-many relationship from Sales[sales_ship_date_id] to ShipDate[date_id]","an additional date table named ShipDate, a one-to-many relationship from Date[date_id] to Sales[sales_date_id], and a one-to-many relationship from ShipDate[date_id] to Sales[sales_ship_date_id]"]', '[3]', 'ترجمة السؤال بالعربي
+Litware تريد نفس الرسم يتفلتر بشهر البيع وشهر الشحن بشكل مستقل. كيف تصمم التواريخ؟
 
-The customer service department requires a visual that can be filtered by both sales month and ship month
-independently.
+القصة والمعنى
+عايز طلبات اتباعت في يناير واتشحنت في فبراير في نفس اللحظة. كل دور تاريخ محتاج سلايسر ومسار فلترة مستقلين.
 
-Need two date tables. Add a one-to-many relationship from both the Date tables to Sales table.
+مثال نفهم بيه
+OrderDate=Jan و ShipDate=Feb يظهران تقاطع الطلبات المباعة في يناير والمشحونة في فبراير.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. بعد Date للبيع ونسخة ShipDate للشحن، بمفتاح يوم فريد في كل واحد.
+2. علاقة Active1:* من Date إلى sales_date_id وأخرى من ShipDate إلى sales_ship_date_id.
+3. المصدر كتب sales_skip_date_id في D؛ خطأ مطبعي، والعمود الحقيقي sales_ship_date_id.
 
-https://docs.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive', 'Final', '349', '/exhibit-assets/f1-349-348.webp', NULL, 'Litware, Inc. — Case Study
+الإجابة الصحيحة وليه
+D، مع تصحيح skip إلى ship.
+
+ليه كل اختيار صح أو غلط
+A. a one-to-many relationship from Date[date_id] to Sales[sales_date_id] and another one-to-many relationship from Date[date_id] to Weekly_Returns[week_id]
+ربط مفتاح يوم بمفتاح أسبوع مختلف Grain لا يبني دور الشحن المستقل.
+
+B. a one-to-many relationship from Sales[sales_date_id] to Date[date_id] and a one-to-many relationship from Sales[sales_ship_date_id] to Date[date_id]
+يعكس جهة 1:* ويترك بعد تاريخ واحدًا دون استقلال الدورين.
+
+C. an additional date table named ShipDate, a many-to-many relationship from Sales[sales_date_id] to Date[date_id], and a many-to-many relationship from Sales[sales_ship_date_id] to ShipDate[date_id]
+Many-to-many غير لازمة لمفاتيح تواريخ فريدة.
+
+D. an additional date table named ShipDate, a one-to-many relationship from Date[date_id] to Sales[sales_date_id], and a one-to-many relationship from ShipDate[date_id] to Sales[sales_ship_date_id]
+صحيح؛ بعدان مستقلان 1:*، مع تصحيح typo العمود.
+
+الخلاصة اللي تتحفظ
+فلتران مستقلان لدورين في نفس الرسم: بعدا تواريخ بعلاقتين Active.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive', 'Final', '349', '/exhibit-assets/f1-349-348.webp', NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -15292,15 +18488,41 @@ independently.
 The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-350-349', 'Manage and secure Power BI', 'single', 'You need to provide a solution to provide the sales managers with the required access.
 
-What should you include in the solution?', '["Create a security role that has a table filter on the Sales Manager table where username = UserName().","Create a security role that has a table filter on the Sales Manager table where username = sales_manager_id.","Create a security role that has a table filter on the Region Manager table where sales_manager_id = UserPrincipalName().","Create a security role that has a table filter on the Sales_Manager table where name = UserName()."]', '[0]', 'The sales managers must be able to see only the sales data of their respective region.
+What should you include in the solution?', '["Create a security role that has a table filter on the Sales Manager table where username = UserName().","Create a security role that has a table filter on the Sales Manager table where username = sales_manager_id.","Create a security role that has a table filter on the Region Manager table where sales_manager_id = UserPrincipalName().","Create a security role that has a table filter on the Sales_Manager table where name = UserName()."]', '[0]', 'ترجمة السؤال بالعربي
+Litware تريد كل Sales manager يرى منطقة مبيعاته فقط. أنهي فلتر يطابق هوية المستخدم؟
 
-Use the username field of the Sales_manager table.
+القصة والمعنى
+جدول المديرين فيه username وربطه بالمنطقة. نبدأ من حساب الشخص الذي فتح التقرير، لا اسمه الظاهر الذي قد يتكرر.
 
-Also use the Username() DAX function to validate the username.
+مثال نفهم بيه
+ahmed@litware.com يحدد صف مدير Region3 ثم مبيعات Region3. الاسم الظاهر Ahmed لا يكفي.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. Sales Manager[username]=USERNAME() يحدد صف هوية المدير.
+2. يجب أن تطابق قيم username الهوية المرجعة فعلًا وأن تنتقل الفلترة عبر العلاقات إلى Sales. شكل USERNAME قد يختلف بين Desktop و Service؛ اختبره.
+3. لا تمنح المستخدم Write أو دور تحرير على نفس الموديل إذا أردت إلزامه بـRLS.
 
-https://powerbi.microsoft.com/en-my/blog/using-username-in-dax-with-row-level-security/', 'Final', '350', NULL, NULL, 'Litware, Inc. — Case Study
+الإجابة الصحيحة وليه
+A: username = USERNAME().
+
+ليه كل اختيار صح أو غلط
+A. Create a security role that has a table filter on the Sales Manager table where username = UserName().
+صحيح؛ يقارن هوية العمود بهوية المستخدم الحالي.
+
+B. Create a security role that has a table filter on the Sales Manager table where username = sales_manager_id.
+username مقابل sales_manager_id يخلط حساب الدخول بمعرف داخلي ولا يستخدم المستخدم الحالي.
+
+C. Create a security role that has a table filter on the Region Manager table where sales_manager_id = UserPrincipalName().
+sales_manager_id ليس UPN، وجدول Region Manager ليس صف هوية المندوب المطلوب.
+
+D. Create a security role that has a table filter on the Sales_Manager table where name = UserName().
+name اسم ظاهر لا يضمن مطابقة USERNAME، بخلاف عمود username المصمم لذلك.
+
+الخلاصة اللي تتحفظ
+هوية المستخدم تختار صفه، والعلاقات تنقل فلتر المنطقة إلى الحقائق.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '350', NULL, NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -15355,79 +18577,40 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 Region.
 
-What should you do next to meet the reporting requirements of the executives?', '["Create a DAX calculated column that retrieves the region manager from the Weekly_Returns table based on the sales_region_id column.","Apply row-level security (RLS) to the Region table based on the sales manager username.","Configure a bi-directional relationship between Region and Sales_Region.","In the Region table, create a hierarchy that has the manager name, and then the sales manager name."]', '[3]', 'D seems to be correct because the Executives will only be able to see Region managers and Sales managers
-that report to them in a hierarchy, besides there is nothing to measure there so A is actually wrong
+What should you do next to meet the reporting requirements of the executives?', '["Create a DAX calculated column that retrieves the region manager from the Weekly_Returns table based on the sales_region_id column.","Apply row-level security (RLS) to the Region table based on the sales manager username.","Configure a bi-directional relationship between Region and Sales_Region.","In the Region table, create a hierarchy that has the manager name, and then the sales manager name."]', '[3]', 'ترجمة السؤال بالعربي
+دمجت جداول المديرين والمناطق في Region. المطلوب عرض Returns حسب Region manager ثم Sales managers التابعين له. تضيف إيه؟
 
-Executives require a visual that shows returns by region manager and the sales managers that report to them.
+القصة والمعنى
+تفتح اسم مديرة الإقليم فتشوف فريقها تحته وأرقام المرتجعات لكل واحد. ده سلم عرض، مش قاعدة أمن جديدة.
 
-A hierarchy is a set of fields categorized in a hierarchical way that one level is the parent of another level.
-Values of the parent level can be drilled down to the lower level.
+مثال نفهم بيه
+Mona تفتحها فتظهر Ahmed و Sara، وكل اسم أمامه إجمالي المرتجعات في السياق الحالي.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. أنشئ Hierarchy: manager name ثم sales manager name في Region.
+2. ضع مقياس Returns الصحيح مع علاقاته؛ Hierarchy تنظم الحقول ولا تنشئ العلاقة أو المبلغ من نفسها.
 
-https://radacad.com/what-a-power-bi-hierarchy-is-and-how-to-use-it', 'Final', '351', NULL, NULL, 'Litware, Inc. — Case Study
+الإجابة الصحيحة وليه
+D: hierarchy of manager name then sales manager name.
 
-Overview -
+ليه كل اختيار صح أو غلط
+A. Create a DAX calculated column that retrieves the region manager from the Weekly_Returns table based on the sales_region_id column.
+استرجاع مدير من Fact مرتجعات في عمود جديد ليس ترتيب مستويات العرض المطلوب.
 
-Litware, Inc. is an online retailer that uses Power BI.
+B. Apply row-level security (RLS) to the Region table based on the sales manager username.
+RLS يحدد المسموح، لا يصنع سلم مدير ثم مرؤوس.
 
-Litware plans to leverage data from an Azure SQL database that stores data for the company''s live e-commerce
+C. Configure a bi-directional relationship between Region and Sales_Region.
+علاقة ثنائية لا تنشئ Hierarchy وقد تسبب مسارات فلترة ملتبسة.
 
-website.
+D. In the Region table, create a hierarchy that has the manager name, and then the sales manager name.
+صحيح؛ ينظم مستويي المدير والتابعين للـDrill.
 
-Litware uses Azure Active Directory (Azure AD) to authenticate users.
+الخلاصة اللي تتحفظ
+من مدير لمرؤوس في العرض = Hierarchy؛ الأمن والعلاقات أمران مكملان.
 
-Existing Environment. Sales Data
-
-Litware has online sales data that has the SQL schema shown in the following table.
-
-In the Date table, the date_id column has a format of yyyymmdd and the month column has a format of yyyymm.
-
-The week column in the Date table and the week_id column in the Weekly_Returns table have a format of yyyyww.
-
-In the Sales table, the sales_id column represents a unique transaction.
-
-The region id column can be managed by only one sales manager.
-
-Existing Environment. Data Concerns
-
-You are concerned with the quality and completeness of the sales data. You must ensure that negative and missing
-
-sales_amount values do NOT contribute to the total sales amount calculation.
-
-Existing Environment. Reporting Requirements
-
-Litware identifies the following reporting requirements:
-
-Executives require a visual that shows sales by region.
-
-Executives require a visual that shows returns by region manager and the sales managers that report to them.
-
-The sales managers must be able to see only the sales data of their respective region.
-
-The sales managers require a visual to analyze sales performance versus sales targets.
-
-The sales department requires reports that contain the number of sales transactions.
-
-Users must be able to see the month in each report as shown in the following example: Feb 2020.
-
-The customer service department requires a visual that can be filtered by both sales month and ship month
-
-independently.
-
-The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
-INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-352-351', 'Model the data', 'single', 'What should you create to meet the reporting requirements of the sales department?', '["a measure that uses a formula of COUNTROWS(Sales)","a calculated column that use a formula of COUNTA(Sales[sales_id])","a calculated column that uses a formula of SUM(Sales[sales_id])","a measure that uses a formula of SUM(Sales[sales_id])"]', '[0]', 'The sales department requires reports that contain the number of sales transactions.
-
-The COUNTROWS function counts the number of rows in the specified table, or in a table defined by an
-expression.
-
-Incorrect:
-
-The COUNTA function counts the number of cells in a column that are not empty.
-
-Reference:
-
-https://docs.microsoft.com/en-us/dax/countrows-function-dax', 'Final', '352', NULL, NULL, 'Litware, Inc. — Case Study
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-drill', 'Final', '351', NULL, NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -15478,8 +18661,125 @@ The customer service department requires a visual that can be filtered by both s
 independently.
 
 The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
-INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-353-352', 'Model the data', 'single', 'What should you do to address the existing environment data concerns?', '["a calculated column that uses the following formula: ABS(Sales[sales_amount])","a measure that uses the following formula: SUMX(FILTER(''Sales'', ''Sales''[sales_amount] > 0)),[sales_amount])","a measure that uses the following formula: SUM(Sales[sales_amount])","a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]),0, (Sales[sales_amount]))"]', '[1]', 'You are concerned with the quality and completeness of the sales data. You must ensure that negative and
-missing sales_amount values do NOT contribute to the total sales amount calculation.', 'Final', '353', NULL, NULL, 'Litware, Inc. — Case Study
+INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-352-351', 'Model the data', 'single', 'What should you create to meet the reporting requirements of the sales department?', '["a measure that uses a formula of COUNTROWS(Sales)","a calculated column that use a formula of COUNTA(Sales[sales_id])","a calculated column that uses a formula of SUM(Sales[sales_id])","a measure that uses a formula of SUM(Sales[sales_id])"]', '[0]', 'ترجمة السؤال بالعربي
+Litware تطلب عدد معاملات المبيعات. كل صف Sales يمثل عملية ذات sales_id فريد. تنشئ إيه؟
+
+القصة والمعنى
+أرقام الفواتير 5 و 9 و 30 تعني 3 عمليات، مش 44 عملية. المعرف اسم للعملية لا كمية نجمعها.
+
+مثال نفهم بيه
+Region1 بها 200 صف عمليات فريدة؛ المقياس يعطي 200 ثم يتغير مع فلتر الشهر.
+
+طريقة التفكير خطوة بخطوة
+1. Measure COUNTROWS(Sales) يعد الصفوف في السياق الحالي.
+2. يعتمد الحل على Grain المعطى. لو الصف بند فاتورة لا عملية كاملة لاحتجنا عد معرف العملية المميز.
+
+الإجابة الصحيحة وليه
+A: measure COUNTROWS(Sales).
+
+ليه كل اختيار صح أو غلط
+A. a measure that uses a formula of COUNTROWS(Sales)
+صحيح؛ Measure ديناميكي يعد العمليات وفق الفلاتر.
+
+B. a calculated column that use a formula of COUNTA(Sales[sales_id])
+COUNTA داخل Calculated column لا يقدم عدًا ديناميكيًا للعمليات، وقد يكرر إجماليًا لكل صف.
+
+C. a calculated column that uses a formula of SUM(Sales[sales_id])
+SUM للمعرفات في عمود ليس عدد العمليات.
+
+D. a measure that uses a formula of SUM(Sales[sales_id])
+SUM للمعرفات في Measure يظل يجمع الأرقام لا يعد المعاملات.
+
+الخلاصة اللي تتحفظ
+اعرف Grain أولًا؛ عملية واحدة لكل صف تعني COUNTROWS.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/countrows-function-dax', 'Final', '352', NULL, NULL, 'Litware, Inc. — Case Study
+
+Overview -
+
+Litware, Inc. is an online retailer that uses Power BI.
+
+Litware plans to leverage data from an Azure SQL database that stores data for the company''s live e-commerce
+
+website.
+
+Litware uses Azure Active Directory (Azure AD) to authenticate users.
+
+Existing Environment. Sales Data
+
+Litware has online sales data that has the SQL schema shown in the following table.
+
+In the Date table, the date_id column has a format of yyyymmdd and the month column has a format of yyyymm.
+
+The week column in the Date table and the week_id column in the Weekly_Returns table have a format of yyyyww.
+
+In the Sales table, the sales_id column represents a unique transaction.
+
+The region id column can be managed by only one sales manager.
+
+Existing Environment. Data Concerns
+
+You are concerned with the quality and completeness of the sales data. You must ensure that negative and missing
+
+sales_amount values do NOT contribute to the total sales amount calculation.
+
+Existing Environment. Reporting Requirements
+
+Litware identifies the following reporting requirements:
+
+Executives require a visual that shows sales by region.
+
+Executives require a visual that shows returns by region manager and the sales managers that report to them.
+
+The sales managers must be able to see only the sales data of their respective region.
+
+The sales managers require a visual to analyze sales performance versus sales targets.
+
+The sales department requires reports that contain the number of sales transactions.
+
+Users must be able to see the month in each report as shown in the following example: Feb 2020.
+
+The customer service department requires a visual that can be filtered by both sales month and ship month
+
+independently.
+
+The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
+INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-353-352', 'Model the data', 'single', 'What should you do to address the existing environment data concerns?', '["a calculated column that uses the following formula: ABS(Sales[sales_amount])","a measure that uses the following formula: SUMX(FILTER(Sales, Sales[sales_amount] > 0), Sales[sales_amount])","a measure that uses the following formula: SUM(Sales[sales_amount])","a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]), 0, Sales[sales_amount])"]', '[1]', 'ترجمة السؤال بالعربي
+Litware لا تريد أن تدخل sales_amount السالبة أو المفقودة في إجمالي المبيعات. أنهي صيغة تحقق ذلك؟
+
+القصة والمعنى
+100 وسالب 20 و BLANK: المطلوب 100، مش 80 ولا 120. السالب يُستبعد، لا نقلبه لموجب.
+
+مثال نفهم بيه
+100 و-20 و BLANK و 50: النتيجة 150؛ ABS يعطي 170 و SUM العادي 130.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم SUMX(FILTER(Sales,Sales[sales_amount]>0),Sales[sales_amount]).
+2. أصلح القوس الزائد في المصدر. الصفر لا يغير الإجمالي، فاستبعاده لا يضر مجموع المبالغ.
+3. Measure يحترم فلاتر التقرير؛ لا يعني استبعاد السالب من هذا المقياس حذف سجلاته من الموديل.
+
+الإجابة الصحيحة وليه
+B بعد إصلاح أقواس SUMX.
+
+ليه كل اختيار صح أو غلط
+A. a calculated column that uses the following formula: ABS(Sales[sales_amount])
+ABS يحول-20 إلى+20 فيضيف ما طُلب استبعاده.
+
+B. a measure that uses the following formula: SUMX(FILTER(Sales, Sales[sales_amount] > 0), Sales[sales_amount])
+صحيح؛ فلترة الموجب ثم جمعه، بعد إصلاح الصيغة.
+
+C. a measure that uses the following formula: SUM(Sales[sales_amount])
+SUM يتجاهل BLANK لكنه يضم السالب.
+
+D. a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]), 0, Sales[sales_amount])
+استبدال BLANK بصفر يترك السالب داخل الإجمالي.
+
+الخلاصة اللي تتحفظ
+استبعاد السالب لا يساوي تحويله لموجب؛ فلتر ثم اجمع.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/sumx-function-dax', 'Final', '353', NULL, NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -15532,25 +18832,41 @@ independently.
 The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-354-353', 'Model the data', 'single', 'You need to create a calculated column to display the month based on the reporting requirements.
 
-Which DAX expression should you use?', '["FORMAT(''Date''[date],MMM YYYY)","FORMAT(''Date''[date_id],MMM) & & FORMAT(''Date''[year], #)","FORMAT(''Date''[date_id],MMM YYYY)","FORMAT(''Date''[date],M YY)"]', '[0]', 'Users must be able to see the month in each report as shown in the following example: Feb 2020.
+Which DAX expression should you use?', '["FORMAT(''Date''[date], \"MMM YYYY\")","FORMAT(''Date''[date_id], \"MMM\") & \" \" & FORMAT(''Date''[year], \"#\")","FORMAT(''Date''[date_id], \"MMM YYYY\")","FORMAT(''Date''[date], \"M YY\")"]', '[0]', 'ترجمة السؤال بالعربي
+Litware تريد تسمية شهر مثل Feb 2020. أي عمود وصيغة نستخدم؟
 
-Custom date/time formats -
+القصة والمعنى
+date_id مثل 20200229 رقم مفتاح، مش تاريخ جاهز للتنسيق. خُد Date الحقيقي وأظهر الشهر المختصر والسنة الكاملة.
 
-The following format characters can be specified in the format_string to create custom date/time formats:
+مثال نفهم بيه
+تاريخ 2020-02-29 يظهر Feb 2020، ومفتاح 202002 يجعله قبل Mar 2020.
 
-* mmm
+طريقة التفكير خطوة بخطوة
+1. FORMAT(Date[date],"MMM YYYY") ينتج نصًا بالشكل المطلوب في لغة إنجليزية.
+2. علامتا الاقتباس حول format string ضروريتان؛ المصدر أسقطهما أثناء الاستخراج.
+3. اضبط Sort by column مثل Month=202002 لمنع الترتيب الأبجدي. استخدم locale إنجليزيًا إذا كانت Feb مطلوبة حرفيًا.
 
-Display the month as an abbreviation (Jan-Dec). Localized.
+الإجابة الصحيحة وليه
+A: FORMAT(''Date''[date], "MMM YYYY").
 
-* yyyy
+ليه كل اختيار صح أو غلط
+A. FORMAT(''Date''[date], "MMM YYYY")
+صحيح؛ تاريخ حقيقي، شهر مختصر، وسنة 4 أرقام.
 
-Display the year as a 4-digit number (100-9999).
+B. FORMAT(''Date''[date_id], "MMM") & " " & FORMAT(''Date''[year], "#")
+تنسيق date_id العددي لا يفسره كتاريخ yyyymmdd تلقائيًا؛ ليس بديلًا مناسبًا لعمود Date.
 
-* Etc.
+C. FORMAT(''Date''[date_id], "MMM YYYY")
+نفس المشكلة: رقم المفتاح ليس تاريخًا لمجرد ترتيب أرقامه.
 
-Reference:
+D. FORMAT(''Date''[date], "M YY")
+M YY يعطي شهرًا رقميًا وسنة قصيرة، لا Feb 2020.
 
-https://docs.microsoft.com/en-us/dax/format-function-dax#predefined-datetime-formats', 'Final', '354', NULL, NULL, 'Litware, Inc. — Case Study
+الخلاصة اللي تتحفظ
+اسم الشهر للعرض، ومفتاح سنة/شهر للترتيب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/format-function-dax', 'Final', '354', NULL, NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -15611,25 +18927,35 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: No-
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Northwind: هل نربط CustomerID بالاسم نفسه بين Excel و Orders؟ هل نوع مفاتيح الربط Text؟ وهل Region لتقرير Top Customers من Orders؟
 
-Customer ID in Orders is text ("VINET") while Customer ID in Customer Details is number ("1").
+القصة والمعنى
+Excel عنده CustomerID عددي 1، لكن Orders عنده VINET. المقابل الحقيقي لـVINET هو CustomerCRMID في Excel. عنوان الفاتورة أيضًا مش لازم عنوان الشحن.
 
-Box 2: Yes-
+مثال نفهم بيه
+عميل رقمه الداخلي 1 و CRMID=VINET، فاتورته فرنسا وشحنته ألمانيا؛ لا نبدل هوية العميل أو منطقته بعنوان الشحنة.
 
-Relationship between Orders and Customer Details will be via column Customer CRMID in Customer Details
-and Customer ID in Orders, which are both text.
+طريقة التفكير خطوة بخطوة
+1. اربط Customer Details[CustomerCRMID] بـOrders[CustomerID]؛ لا تربط 1 بـVINET.
+2. المفتاحان الفعليان نصيان. تحويل 1 إلى Text لا يجعله VINET.
+3. Orders يحمل ShipRegion، بينما تقرير العملاء يصنف بمنطقة العميل/المبيعات في الحالة، لا موقع شحن كل طلب.
 
-Box 3: No -
+الإجابة الصحيحة وليه
+No؛ Yes؛ No.
 
-the Orders table only contains shipping address, which is different from the billing address which should be
-used for sales region. Thus, it should come from Customer Details table.
+ليه كل اختيار صح أو غلط
+No؛ CustomerID في Excel ليس نفس معنى وقيم CustomerID في Orders.
 
-No - Yes - No. According to the sample data the Customer ID in Customer Details is a number (1 through 10 is
-shown in the example data) and the Customer ID in the Orders table has an example value of VINET, which
-looks like it corresponds to the value of Customer CRMID instead of Customer ID from the Customer Details
-worksheet so the first answer should be No. The second answer should be Yes, the Customer ID from Orders
-has example value VINET, which is text.', 'Final', '355', '/dump-assets/f1-355-354-question.webp', '/dump-assets/f1-355-354-answer.webp', 'Northwind Traders — Case Study
+Yes؛ CustomerCRMID و Orders.CustomerID نصيان وهما طرفا العلاقة الصحيحة.
+
+No؛ Orders يعطي منطقة الشحن، لا منطقة العميل المطلوبة لتحليل مبيعات العملاء.
+
+الخلاصة اللي تتحفظ
+اربط معنى المفتاح وقيمه لا اسمه؛ Billing region ليست Shipping region.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '355', '/dump-assets/f1-355-354-question.webp', '/dump-assets/f1-355-354-answer.webp', 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -15780,41 +19106,66 @@ How should you complete the DAX expression? To answer, select the appropriate op
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: CALCULATE -
+Hot Area:', '[]', '[10002,10000,10003]', 'ترجمة السؤال بالعربي
+Northwind تعرف التأخير بأنه ShippedDate بعد RequiredDate. أكمل نسبة الطلبات المتأخرة إلى إجمالي Orders.
 
-CALCULATE evaluates an expression in a modified filter context.
+القصة والمعنى
+عد كل طلبات الفترة، ثم عد منها اللي اتشحنت بعد موعدها. اقسم الثاني على الأول؛ لا تعد بنود الطلب وكأنها طلبات منفصلة.
 
-Syntax: CALCULATE(<expression>[, <filter1> [, <filter2> [, ¦]]]) expression - The expression to be evaluated.
-filter1, filter2,.. - (Optional) Boolean expressions or table expressions that defines filters, or filter modifier
+مثال نفهم بيه
+3 طلبات متأخرة من 20 تعطي 15%. الطلب الذي شُحن في RequiredDate بالضبط لا يدخل في الثلاثة.
 
-functions.
+طريقة التفكير خطوة بخطوة
+1. OrderCount=COUNTROWS(Orders) هو المقام الحالي.
+2. CALCULATE يعيد العد بعد FILTER للطلبات التي تحقق ShippedDate>RequiredDate.
+3. DIVIDE يحسب النسبة بأمان. الشحن في الموعد بالضبط ليس تأخيرًا؛ التواريخ المفقودة تحتاج سياسة واضحة إن ظهرت.
 
-Incorrect:
+الإجابة الصحيحة وليه
+CALCULATE؛ FILTER؛ Orders[ShippedDate] > Orders[RequiredDate].
 
-* COUNTX - Counts the number of rows that contain a non-blank value or an expression that evaluates to a
-non-blank value, when evaluating an expression over a table.
+ليه كل اختيار صح أو غلط
+A. VAR LateOrders = SUM
+SUM لا يملأ موضع تعديل سياق العد في القالب.
 
-* CALCULATETABLE evaluates a table expression in a modified filter context.
+B. VAR LateOrders = COUNTX
+COUNTX يحتاج جدولًا وتعبيرًا ولا يطابق القالب المعروض.
 
-Syntax: CALCULATETABLE(<expression>[, <filter1> [, <filter2> [, ¦]]])
+C. VAR LateOrders = CALCULATE
+صحيح؛ يحسب العد بسياق الطلبات المفلترة.
 
-Expression - The table expression to be evaluated.
+D. VAR LateOrders = CALCULATETABLE
+CALCULATETABLE يرجع جدولًا، بينما المطلوب عدد Scalar.
 
-Box 2: FILTER -
+E. Restrict Orders rows with: FILTER
+صحيح؛ FILTER يرجع صفوف Orders المتأخرة.
 
-FILTER returns a table that represents a subset of another table or expression.
+F. Restrict Orders rows with: ALLEXCEPT
+ALLEXCEPT يعدل فلاتر ولا يختبر كل صف بهذا القالب.
 
-Syntax: FILTER(<table>,<filter>)
+G. Restrict Orders rows with: CALCULATE
+CALCULATE ليس بديل FILTER الذي يأخذ Orders ثم شرط صف ويعيد جدولًا هنا.
 
-Box 3: Orders[Shipped Date] > Orders[Required Date]
+H. Restrict Orders rows with: DATEBETWEEN
+DATEBETWEEN اسم غير صحيح؛ وحتى DATESBETWEEN تحتاج عمود تاريخ وحدين لا هذا القالب.
 
-Northwind Traders defines late orders as those shipped after the required shipping date.
+I. Late-order condition: Orders[OrderDate] > Orders[RequiredDate]
+OrderDate مقابل RequiredDate لا يقيس وقت الشحن الفعلي.
 
-Reference:
+J. Late-order condition: Orders[ShippedDate] >= Orders[OrderDate]
+الشحن بعد أو وقت تاريخ الطلب طبيعي؛ لا يعني تجاوز الموعد المطلوب.
 
-https://docs.microsoft.com/en-us/dax/calculate-function-dax
+K. Late-order condition: Orders[ShippedDate] < Orders[RequiredDate]
+أقل من RequiredDate يعني شحنًا مبكرًا، عكس التأخير.
 
-https://docs.microsoft.com/en-us/dax/filter-function-dax', 'Final', '356', '/dump-assets/f1-356-355-question.webp', '/dump-assets/f1-356-355-answer.webp', 'Northwind Traders — Case Study
+L. Late-order condition: Orders[ShippedDate] > Orders[RequiredDate]
+صحيح؛ هذا تعريف الحالة حرفيًا للتأخير.
+
+الخلاصة اللي تتحفظ
+Late = Shipped بعد Required؛ وعد الطلبات من Orders لا Order Details.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/filter-function-dax', 'Final', '356', '/dump-assets/f1-356-355-question.webp', '/dump-assets/f1-356-355-answer.webp', 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -15959,16 +19310,41 @@ RLS will be applied only to the sales department users. Users in all other depar
 data.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-357-356', 'Prepare the data', 'single', 'You need to minimize the size of the dataset. The solution must meet the report requirements.
 
-What should you do?', '["Group the Categories table by the CategoryID column.","Remove the QuantityPerUnit column from the Products table.","Filter out discontinued products while importing the Products table.","Change the OrderID column in the Orders table to the Text data type."]', '[1]', 'Removing a column which isn''t used in the reports reduces the dataset size.
+What should you do?', '["Group the Categories table by the CategoryID column.","Remove the QuantityPerUnit column from the Products table.","Filter out discontinued products while importing the Products table.","Change the OrderID column in the Orders table to the Text data type."]', '[1]', 'ترجمة السؤال بالعربي
+Northwind تريد تقليل حجم الموديل دون إفساد التقارير وتاريخها. أي إجراء نختار؟
 
-Incorrect:
+القصة والمعنى
+خفف الشنطة بإخراج عمود غير مستخدم، لا برمي منتج قديم له مبيعات ضمن السنوات المطلوبة.
 
-Not A: Grouping does not affect size.
+مثال نفهم بيه
+منتج توقف في 2025 وله مبيعات 2024. نحتفظ به لحساب Top Products ونحذف وصف عبوة غير مستخدم.
 
-Not C: Cannot filter out discontinued products as: The reports must show historical data for the current
-calendar year and the last three calendar years.
+طريقة التفكير خطوة بخطوة
+1. احذف QuantityPerUnit لأنه ليس مطلوبًا في تقارير الحالة.
+2. لا تحذف discontinued products؛ قد يكون لها تاريخ بيع مطلوب في السنة الحالية والثلاث السابقة.
+3. Grouping على CategoryID الفريد لا يقلل الصفوف المفيدة؛ ليست كل عمليات Grouping عديمة تأثير الحجم عمومًا.
 
-Not D: OrderID must be Integer.', 'Final', '357', NULL, NULL, 'Northwind Traders — Case Study
+الإجابة الصحيحة وليه
+B: Remove QuantityPerUnit.
+
+ليه كل اختيار صح أو غلط
+A. Group the Categories table by the CategoryID column.
+CategoryID فريد أصلًا؛ تجميعه لا يزيل تكرارًا مفيدًا هنا.
+
+B. Remove the QuantityPerUnit column from the Products table.
+صحيح؛ إزالة صفة غير مستخدمة توفر ذاكرة دون تغيير التحليل.
+
+C. Filter out discontinued products while importing the Products table.
+يحذف تاريخ منتجات مطلوبة ويغير نتائج المبيعات.
+
+D. Change the OrderID column in the Orders table to the Text data type.
+تحويل OrderID إلى Text ليس خفض الحجم المناسب وقد يزيد تكلفة التخزين.
+
+الخلاصة اللي تتحفظ
+قلل الأعمدة غير المستخدمة قبل حذف كيانات لها تاريخ مطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final', '357', NULL, NULL, 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -16113,13 +19489,42 @@ RLS will be applied only to the sales department users. Users in all other depar
 data.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-358-357', 'Model the data', 'single', 'You need to design the data model to meet the report requirements.
 
-What should you do in Power BI Desktop?', '["From Power Query, add a date table. Create an active relationship to the OrderDate column in the Orders table and an inactive relationship to the ShippedDate column in the Orders table.","From Power Query, add columns to the Orders table to calculate the calendar quarter and the calendar month of the OrderDate column.","From Power BI Desktop, use the Auto date/time option when creating the reports.","From Power Query, use a DAX expression to add columns to the Orders table to calculate the calendar quarter of the OrderDate column, the calendar month of the OrderDate column, the calendar quarter of the ShippedDate column, and the calendar month of the ShippedDate column."]', '[0]', 'Because we do have visuals that need a filter on either order or shipping date, but no visual requires a filter on
-both at the same time.
+What should you do in Power BI Desktop?', '["From Power Query, add a date table. Create an active relationship to the OrderDate column in the Orders table and an inactive relationship to the ShippedDate column in the Orders table.","From Power Query, add columns to the Orders table to calculate the calendar quarter and the calendar month of the OrderDate column.","From Power BI Desktop, use the Auto date/time option when creating the reports.","From Power Query, use a DAX expression to add columns to the Orders table to calculate the calendar quarter of the OrderDate column, the calendar month of the OrderDate column, the calendar quarter of the ShippedDate column, and the calendar month of the ShippedDate column."]', '[0]', 'ترجمة السؤال بالعربي
+Northwind تحلل المبيعات بـOrderDate والشحن بـShippedDate، دون اشتراط فلترين مستقلين في الرسم نفسه. أنهي تصميم أصغر؟
 
-Auto date/time does not meet the criteria: The data model must minimize the size of the dataset as much as
-possible, while meeting the report requirements and the technical requirements.
+القصة والمعنى
+مرة نسأل الطلب اتباع إمتى، ومرة اتشحن إمتى. نستخدم تقويمًا واحدًا ونختار مسار الشحن في مقياسه بدل نسخ تقاويم خفية كثيرة.
 
-The correct answer is A', 'Final', '358', NULL, NULL, 'Northwind Traders — Case Study
+مثال نفهم بيه
+مارس الافتراضي يحدد مبيعاتمارس. مقياس الشحن يُفعّل علاقة ShippedDate فيعد ما شُحن فيمارس ولو بيع فيفبراير.
+
+طريقة التفكير خطوة بخطوة
+1. Date table بعلاقة Active إلى OrderDate و Inactive إلى ShippedDate.
+2. مقاييس الشحن تستخدم USERELATIONSHIP؛ وجود Inactive relationship وحدها لا يغير تاريخ المقياس تلقائيًا.
+3. لو احتجنا سلايسرين مستقلين لدوري التاريخ في الوقت نفسه نختار بعدين كما في Litware349. Power Query تستخدم M لا DAX.
+
+الإجابة الصحيحة وليه
+A، مع USERELATIONSHIP في مقاييس الشحن.
+
+ليه كل اختيار صح أو غلط
+A. From Power Query, add a date table. Create an active relationship to the OrderDate column in the Orders table and an inactive relationship to the ShippedDate column in the Orders table.
+صحيح بين المعروض؛ تقويم موحد ودوران مع تفعيل دور الشحن داخل المقياس.
+
+B. From Power Query, add columns to the Orders table to calculate the calendar quarter and the calendar month of the OrderDate column.
+أعمدة شهر وربع OrderDate لا تغطي تاريخالشحن.
+
+C. From Power BI Desktop, use the Auto date/time option when creating the reports.
+Auto date/time قد يزيد جداول خفية وحجمًا بدل أقل نموذج مضبوط.
+
+D. From Power Query, use a DAX expression to add columns to the Orders table to calculate the calendar quarter of the OrderDate column, the calendar month of the OrderDate column, the calendar quarter of the ShippedDate column, and the calendar month of the ShippedDate column.
+لا تُكتب DAX بهذه الطريقة من PowerQuery؛ كما أنه يكررأعمدة بدل التقويم الموحد.
+
+الخلاصة اللي تتحفظ
+Active/Inactive يناسب اختيار دور داخل المقياس؛ ليس فلترين مستقلين تلقائيًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive
+https://learn.microsoft.com/en-us/dax/userelationship-function-dax', 'Final', '358', NULL, NULL, 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -16270,30 +19675,55 @@ What should you do? To answer, select the appropriate options in the answer area
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: many-to-many -
+Hot Area:', '[]', '[10003,10003]', 'ترجمة السؤال بالعربي
+Northwind بها عدة موظفين وعدة عملاء لكل Region. اربط Sales Employees بأي جدول وبأي cardinality لتنتقل RLS حسب المنطقة؟
 
-Users in the sales department must be able to access only the data of the sales region to which they are
-assigned in the Sales Employees table.
+القصة والمعنى
+أحمد ومنى في WA، ومئة عميل في WA. Region متكرر في الجانبين؛ هوية أحمد تختار منطقته ثم كل عملائها، لا طلباته المباشرة فقط.
 
-With composite models, you can establish a many-to-many relationship between tables, which removes
-requirements for unique values in tables. It also removes previous workarounds, such as introducing new
-tables only to establish relationships.
+مثال نفهم بيه
+Email أحمد → WA → عملاء WA → طلباتهم. لو WA رمز متكرر في بلدين نحتاج مفتاح منطقة واضحًا يشمل البلد.
 
-Box 2: Customer details
+طريقة التفكير خطوة بخطوة
+1. المقصود Many-to-many من Sales Employees[Region] إلى Customer Details[Region].
+2. لازم مسار فلترة أمنية صحيح من الموظف إلى العميل ثم Orders وبنودها؛ cardinality وحدها لا تطبق RLS.
+3. بعد Region فريد قد يكون تصميمًا أوضح عمليًا؛ وراجع تكرار رمز Region بين بلدين. هذا البديل ليس ضمن المعروض هنا.
+4. تعارض Member مع RLS في 343 لا تصلحه هذه العلاقة؛ محرر الموديل يتجاوز RLS.
 
-Sales employees should see the sales of their region only, so all sales ordered by customers whose billing
-address belongs to the sales employee''s region.
+الإجابة الصحيحة وليه
+Many-to-many مع Customer Details worksheet.
 
-Therefore, the relationship between sales employees (region) and customer details (region) should be many-
-to-many (a sales employee has many customers in his region and a customer in a region can have many sales
-employees for that region).
+ليه كل اختيار صح أو غلط
+A. Create a ___ relationship from Sales Employees: one-to-one
+One-to-one يفترض تفرد Region في الجانبين، وهو غير موجود.
 
-In this case, as the customer table is related to the order table, the sales employees will only be able to see
-the orders of the customers in their region.
+B. Create a ___ relationship from Sales Employees: one-to-many
+One-to-many يفترض تفرد Region عند الموظفين، والحالة تنص على عدة موظفين للمنطقة.
 
-Reference:
+C. Create a ___ relationship from Sales Employees: many-to-one
+Many-to-one يفترض تفرد Region عند العملاء، وهناك عملاء كثيرون بالمنطقة.
 
-https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships', 'Final', '359', '/dump-assets/f1-359-358-question.webp', '/dump-assets/f1-359-358-answer.webp', 'Northwind Traders — Case Study
+D. Create a ___ relationship from Sales Employees: many-to-many
+صحيح؛ Region متكرر في الجانبين.
+
+E. Related table: Orders table
+Orders قد يربط موظفًا مباشرًا أو عنوان شحن، لا كل عملاء Billing Region المطلوبة.
+
+F. Related table: Suppliers table
+Suppliers خاص بالموردين لا منطقة العملاء المخولة للموظف.
+
+G. Related table: Order Details table
+Order Details بنود طلبات لا جدول تصنيف منطقة العميل.
+
+H. Related table: Customer Details worksheet
+صحيح؛ Customer Details يحمل منطقة العميل التي تنقل النطاق إلى Orders.
+
+الخلاصة اللي تتحفظ
+تكرار Region في الجانبين يعني Many-to-many؛ تحقق من اتجاه الأمن ومفتاح المنطقة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-many-to-many', 'Final', '359', '/dump-assets/f1-359-358-question.webp', '/dump-assets/f1-359-358-answer.webp', 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -16440,13 +19870,40 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 unit to product in a visual.
 
-What should you create?', '["a group","a calculated table","a hierarchy","a calculated column"]', '[2]', 'Drill requires a hierarchy.
+What should you create?', '["a group","a calculated table","a hierarchy","a calculated column"]', '[2]', 'ترجمة السؤال بالعربي
+Contoso تريد تجهيز Drill-down من Business unit إلى Product بسرعة للمحللين. تنشئ إيه؟
 
-When a visual has a hierarchy, you can drill down to reveal additional details.
+القصة والمعنى
+الوحدة فوق، تحتها الفئة، وتحت الفئة المنتجات. جهّز السلم مرة بدل ما كل رسم يعيد ترتيبه.
 
-Reference:
+مثال نفهم بيه
+Unit A → Accessories → Sport100 Helmet. Drill ينتقل من الوحدة للفئة للمنتج.
 
-https://docs.microsoft.com/en-us/power-bi/consumer/end-user-drill', 'Final', '360', NULL, NULL, 'Contoso, Ltd. — Case Study
+طريقة التفكير خطوة بخطوة
+1. أنشئ Hierarchy بالمستويات بالترتيب المناسب داخل جدول البعد الذي يحملها.
+2. Hierarchy تنظم حقول الانتقال؛ لا تنشئ بيانات مفقودة ولا تجمع حقول جداول متفرقة بلا موديل ملائم.
+
+الإجابة الصحيحة وليه
+C: A hierarchy.
+
+ليه كل اختيار صح أو غلط
+A. a group
+Group يجمع قيمًا؛ لا يجهز سلمًا متعدد المستويات بالمقصود.
+
+B. a calculated table
+Calculated table قد تضيف بيانات ولا تمثل إعداد Drill المطلوب بذاته.
+
+C. a hierarchy
+صحيح؛ Hierarchy تجمع المستويات بترتيب جاهز في الرسم.
+
+D. a calculated column
+Calculated column تنشئ صفة واحدة، لا سلم Business unit ثم فئة ثم منتج.
+
+الخلاصة اللي تتحفظ
+سلم مستويات جاهز للتنقل = Hierarchy، مش Group.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-drill', 'Final', '360', NULL, NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -16571,22 +20028,47 @@ appropriate options in the answer area.
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: Top N -
+Hot Area:', '[]', '[10000,10001]', 'ترجمة السؤال بالعربي
+Northwind عايزة أعلى 20 عميل حسب مبلغ المبيعات بعد اختيار الفترة وفئة المنتج والمنطقة. اختار نوع الفلتر ومستواه.
 
-The Top Customers report will show the top 20 customers based on the highest sales amounts in a selected
-order month or quarter, product category, and sales region.
+القصة والمعنى
+مش قائمة ثابتة بأغنى 20 عميل طول العمر. بنسأل داخل الفترة والمنطقة المختارة: مين أعلى 20 دلوقتي؟ والفلتر يخص رسم العملاء نفسه.
 
-Box 2: Visual -
+مثال نفهم بيه
+أحمد أعلى عميل في مارس قد يخرج من القائمة عند اختيار أبريل؛ الترتيب يتغير مع السياق.
 
-The reports must show historical data for the current calendar year and the last three calendar years.
+طريقة التفكير خطوة بخطوة
+1. استخدم Top N على حقل العميل، وحدد Top20 و By value بمقياس مبلغ المبيعات لا عدد الطلبات.
+2. المستوى Visual. فلاتر الشهر والمنطقة والفئة تحدد السياق الذي يحسب فيه الترتيب.
+3. لو المطلوب 20 بالضبط عند تعادل القيم، حدد سياسة التعادل؛ لا تفترض أن كل صيغ Top N و Rank تعالج التعادل بنفس الطريقة.
 
-Applying specific measures to the visual-level filter of a visualization is a very powerful technique to
-completely customize the items shown in a report. The presence of this filter requires special measures in
-order to display values related to items not included in the visual level filter.
+الإجابة الصحيحة وليه
+Top N؛ Visual.
 
-Reference:
+ليه كل اختيار صح أو غلط
+A. Filter type: Top N
+صحيح؛ Top N يختار العملاء الأعلى حسب مبلغ المبيعات.
 
-https://www.sqlbi.com/articles/filtering-the-top-3-products-for-each-category-in-power-bi/', 'Final', '361', '/dump-assets/f1-361-360-question.webp', '/dump-assets/f1-361-360-answer.webp', 'Northwind Traders — Case Study
+B. Filter type: Basic
+Basic يختار أسماء ثابتة، ولا يعيد ترتيب أعلى N بمقياس.
+
+C. Filter type: Advanced
+Advanced يحدد شروطًا على القيم، وليس إعداد ترتيب أعلى N المطلوب.
+
+D. Level: Page
+Page ليس مستوى Top N لحقل الرسم المحدد.
+
+E. Level: Visual
+صحيح؛ الفلتر على العميل في مستوى Visual مع By value.
+
+F. Level: Report
+Report يوسع النطاق لكل التقرير، ولا يمثل موضع الفلتر المقصود هنا.
+
+الخلاصة اللي تتحفظ
+Top N على العميل داخل Visual، و By value على مبلغ المبيعات الصحيح.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-report-add-filter', 'Final', '361', '/dump-assets/f1-361-360-question.webp', '/dump-assets/f1-361-360-answer.webp', 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -16733,17 +20215,37 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 of late orders.
 
-Which type of visualization should you create?', '["pie chart","scatterplot","bar chart"]', '[2]', 'The On-Time Shipping report will show the following metrics for a selected shipping month or quarter:
+Which type of visualization should you create?', '["pie chart","scatterplot","bar chart"]', '[2]', 'ترجمة السؤال بالعربي
+Northwind تريد نسبة الطلبات المتأخرة حسب البلد ومنطقة الشحن لفترة شحن مختارة. أنهي رسم أنسب؟
 
-The percentage of orders that were shipped late by country and shipping region
+القصة والمعنى
+عايز تقارن مصر 6% وفرنسا 12% وألمانيا 4%. كل بلد له مقام طلباته؛ دي معدلات مستقلة مش أجزاء من تورتة واحدة.
 
-Bar and column charts are some of the most widely used visualization charts in Power BI. They can be used for
-one or multiple categories. Both these chart types represent data with rectangular bars, where the size of the
-bar is proportional to the magnitude of data values.
+مثال نفهم بيه
+بلد له 2 متأخرة من 10:20%. بلد آخر 10 من 100:10%. الأول أسوأ نسبة رغم أن عدد متأخراته أقل.
 
-Reference:
+طريقة التفكير خطوة بخطوة
+1. Bar chart يقارن معدلًا واحدًا بين فئات البلدان أو مناطق الشحن بوضوح.
+2. اضبط النسبة على محور واحد، والفترة على ShippedDate حسب متطلب التقرير. لا تستخدم إجمالي طلبات العالم مقامًا لكل بلد.
 
-https://www.pluralsight.com/guides/bar-and-column-charts-in-power-bi', 'Final', '362', NULL, NULL, 'Northwind Traders — Case Study
+الإجابة الصحيحة وليه
+C: Bar chart.
+
+ليه كل اختيار صح أو غلط
+A. pie chart
+Pie يوحي بحصص تجمع 100%، بينما معدلات البلدان ذات مقامات مختلفة.
+
+B. scatterplot
+Scatterplot أنسب لعلاقة متغيرين عدديين، لا المقارنة المباشرة لمعدل واحد حسب بلد.
+
+C. bar chart
+صحيح؛ طول العمود يمثل نسبة التأخير لكل بلد أو منطقة.
+
+الخلاصة اللي تتحفظ
+قارن المعدلات المستقلة بأعمدة، لا Pie لحصص غير متكاملة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-types-for-reports-and-q-and-a', 'Final', '362', NULL, NULL, 'Northwind Traders — Case Study
 
 General Overview -
 
@@ -16894,29 +20396,74 @@ How should you create the visualization? To answer, select the appropriate optio
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'The sales managers require a visual to analyze sales performance versus sales targets.
+Hot Area:', '[]', '[10001,10000,10003]', 'ترجمة السؤال بالعربي
+Litware تريد KPI يقارن أداء المبيعات بالهدف عبر الزمن. اختار المؤشر ومحور الاتجاه والهدف.
 
-Box 1: Sales[sales_amount]
+القصة والمعنى
+حققنا كام؟ اتحركنا إزاي بالشهور؟ كنا مستهدفين كام؟ كل سؤال له مكانه، فلا نحط التاريخ مكان المبلغ أو الهدف مكان الإنجاز.
 
-Value; The main measure which we want to evaluate
+مثال نفهم بيه
+آخر شهر: الفعلي 90 ألف والهدف 100 ألف. الفرق 10 آلاف، والمحور الزمني يعرض حركة الإنجاز عبر الأشهر.
 
-Example:
+طريقة التفكير خطوة بخطوة
+1. Indicator: Sales[sales_amount] بتجميع صحيح يستبعد السالب والمفقود حسب الحالة.
+2. Trend axis: Date[month] بصيغة yyyymm مرتبة زمنيًا.
+3. Target goals: Targets[sales_target] بتجميع يطابق فترة ومنطقة المبيعات. KPI يعرض عادة قيمة آخر نقطة زمنية، لا إجمالي كل الشهور تلقائيًا.
 
-Sales = sum(FactInternetSales[SalesAmount])
+الإجابة الصحيحة وليه
+Sales[sales_amount]؛ Date[month]؛ Targets[sales_target].
 
-Box 2: Date[month]
+ليه كل اختيار صح أو غلط
+A. Indicator: Date[month]
+month ليس مبلغ إنجاز؛ مكانه محور الاتجاه.
 
-Trend; How Value perfoms in a time period, is it going upward, downward¦?
+B. Indicator: Sales[sales_amount]
+صحيح للمؤشر؛ مبلغ المبيعات الفعلي بالتجميع المناسب.
 
-You can use Months as trend axis.
+C. Indicator: Sales[sales_id]
+sales_id معرف عملية لا مبلغ أداء.
 
-Box 3: Targets[sales_target]
+D. Indicator: Targets[sales_target]
+sales_target الهدف وليس الإنجاز الفعلي.
 
-Target; What we want to compare the Value with
+E. Indicator: Weekly_Returns[total_returns]
+total_returns مرتجعات لا مبيعات فعلية.
 
-Reference:
+F. Trend axis: Date[month]
+صحيح للمحور؛ month يحدد شهرًا وسنة مرتبين.
 
-https://radacad.com/kpi-visual-in-power-bi-explained', 'Final', '363', '/dump-assets/f1-363-362-question.webp', '/dump-assets/f1-363-362-answer.webp', 'Litware, Inc. — Case Study
+G. Trend axis: Sales[sales_amount]
+sales_amount قيمة قياس لا فترة زمنية.
+
+H. Trend axis: Sales[sales_id]
+sales_id معرف معاملات لا تسلسل أشهر.
+
+I. Trend axis: Targets[sales_target]
+sales_target ليس حقل زمن للمحور.
+
+J. Trend axis: Weekly_Returns[total_returns]
+total_returns ليست محور شهر.
+
+K. Target goals: Date[month]
+month لا يمثل هدفًا ماليًا.
+
+L. Target goals: Sales[sales_amount]
+sales_amount هو الفعلي؛ مقارنته بنفسه لا تحقق الهدف.
+
+M. Target goals: Sales[sales_id]
+sales_id معرف لا قيمة هدف.
+
+N. Target goals: Targets[sales_target]
+صحيح؛ sales_target مستوى المبيعات المطلوب تحقيقه.
+
+O. Target goals: Weekly_Returns[total_returns]
+total_returns ليست هدف المبيعات في الحالة.
+
+الخلاصة اللي تتحفظ
+KPI: الفعلي، ثم زمن مرتب، ثم هدف بنفس سياق ووحدة الفعلي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-kpi', 'Final', '363', '/dump-assets/f1-363-362-question.webp', '/dump-assets/f1-363-362-answer.webp', 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -16975,22 +20522,38 @@ For each of the following statements, select Yes if the statement is true. Other
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'No
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Litware تنشر DirectQuery على Azure SQL إلى الخدمة. هل تحتاج Gateway داخليًا؟ هل تحتاج Scheduled refresh لصفوف المصدر؟ هل يمكن اعتماد SQL Basic؟
 
-Azure SQL Server, therefore no need for an on-premise Gateway as Service and Azure are in the cloud.
+القصة والمعنى
+الصفوف تفضل في Azure SQL والخدمة تستعلم منها. اختيار الاعتماد قد اسمه Database في Desktop و Basic في مسار الخدمة؛ اختلاف الاسم مش منع تقني.
 
-No
+مثال نفهم بيه
+قاعدة Azure SQL قابلة للوصول مع SQL login صالح: الخدمة تستعلم بالاعتماد المخزن. إغلاق القاعدة خلف Private Link يحتاج إعادة تقييم طريق الاتصال.
 
-Direct Query mode for the DB connection, so no need to schedule a refresh. Direct Query is a live connection.
+طريقة التفكير خطوة بخطوة
+1. لا Gateway داخلي عندما يكون Azure SQL متاحًا مباشرة للخدمة. Private endpoint أو شبكة خاصة يغير هذا الافتراض.
+2. Pure DirectQuery لا يستورد صفوفًا في تحديث مجدول. تحديث المرئيات والكاش والـMetadata أمور منفصلة. DirectQuery ليس نفس Live connection.
+3. SQL username/password مدعوم باسم Database/Basic حسب المضيف. لذلك No الثالثة في المصدر ليست صحيحة لمجرد أن Desktop يسميه Database.
 
-No
+الإجابة الصحيحة وليه
+No؛ No؛ Yes في مسار SQL authentication المدعوم بالخدمة، بدل No/No/No في المصدر.
 
-Azure SQL supports the following connections from Power BI: Windows, Database and Microsoft Account.
-(Basic is reserved for Power Query Online. Do not confuse Database with Basic.):
+ليه كل اختيار صح أو غلط
+No مع وصول سحابي مباشر؛ لا نعمم الحكم على مصدر خاص مغلق بالشبكة.
 
-https://learn.microsoft.com/en-us/power-query/connectors/azuresqldatabase
+No لتحديث صفوف Pure DirectQuery؛ ليس معناه أن الشاشة المفتوحة ستعيد الاستعلام تلقائيًا.
 
-https://learn.microsoft.com/en-us/power-bi/connect-data/service-azure-sql-database-with-direct-connect', 'Final', '364', '/dump-assets/f1-364-363-question.webp', '/dump-assets/f1-364-363-answer.webp', 'Litware, Inc. — Case Study
+Yes لاعتماد SQL باسم المستخدم وكلمة المرور في مسار الخدمة المدعوم؛ راجع اسم ونوع المصادقة بحسب المضيف.
+
+الخلاصة اللي تتحفظ
+Cloud reachable و Pure DQ لا يحتاجان Import refresh، ولا تخلط اسم Database مع منع Basic.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-use-directquery
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-azure-sql-database-with-direct-connect
+https://learn.microsoft.com/en-us/power-query/connectors/sql-server
+https://learn.microsoft.com/en-us/power-query/connectors/azure-sql-database', 'Final', '364', '/dump-assets/f1-364-363-question.webp', NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -17043,23 +20606,42 @@ independently.
 The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-365-364', 'Model the data', 'single', 'What should you create
 
-to meet the reporting requirements of the sales department?', '["a measure column that uses the following formula: SUMX(FILTER(''Sales'', ''Sales''[sales_amount] > 0)), [sales_amount])","a calculated column that uses the following formula: ABS(Sales[sales_amount])","a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]),0, (Sales[sales_amount]))","a measure that uses the following formula: SUM(Sales[sales_amount])"]', '[0]', 'A. a measure column using:
+to meet the reporting requirements of the sales department?', '["a measure that uses the following formula: SUMX(FILTER(Sales, Sales[sales_amount] > 0), Sales[sales_amount])","a calculated column that uses the following formula: ABS(Sales[sales_amount])","a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]), 0, Sales[sales_amount])","a measure that uses the following formula: SUM(Sales[sales_amount])"]', '[0]', 'ترجمة السؤال بالعربي
+صياغة Litware تقول متطلبات قسم المبيعات، لكن الخيارات تتعلق بمجموع المبيعات بعد استبعاد السالب والمفقود. أنهي اختيار مقصود؟
 
-DAX
+القصة والمعنى
+لازم نقرا الخيارات والحالة مع بعض. لو المطلوب عدد العمليات حرفيًا، ولا صيغة هنا تعدها. لكن SUMX في A يقصد إجمالي المبالغ النظيفة.
 
-Copy
+مثال نفهم بيه
+100 و-20 و BLANK تعطي 100 للمبلغ النظيف. عدد العمليات سؤال مختلف وقد يكون 3 حسب تعريف البيانات.
 
-Edit
+طريقة التفكير خطوة بخطوة
+1. لإجمالي الموجب استخدم SUMX(FILTER(Sales,Sales[sales_amount]>0),Sales[sales_amount]).
+2. أصلح القوس الزائد وكلمة measure column: هي Measure لا Calculated column.
+3. متطلب قسم المبيعات لعدد المعاملات يحتاج COUNTROWS(Sales)، وهو غير معروض. لذلك الإجابة مش قطعية لكل تفسير للصياغة.
 
-SUMX(FILTER(''Sales'', ''Sales''[sales_amount] > 0), [sales_amount])
+الإجابة الصحيحة وليه
+A مقصودة لمجموع المبيعات الموجبة بعد إصلاح الصيغة، لا لعدد المعاملات.
 
-This filters out negative or zero values and sums only positive sales_amount values.
+ليه كل اختيار صح أو غلط
+A. a measure that uses the following formula: SUMX(FILTER(Sales, Sales[sales_amount] > 0), Sales[sales_amount])
+صحيح لمجموع الموجب فقط؛ أصلح الصيغة واجعله Measure.
 
-Use case: Reporting only positive sales, e.g., excluding refunds/returns.
+B. a calculated column that uses the following formula: ABS(Sales[sales_amount])
+ABS يحول السالب إلى موجب ويضيفه بدل استبعاده.
 
-It''s a measure, not a column—good for dynamic aggregation in visuals.
+C. a calculated column that uses the following formula: IF(ISBLANK(Sales[sales_amount]), 0, Sales[sales_amount])
+استبدال BLANK بصفر يترك السالب مساهمًا في المجموع.
 
-Likely a good candidate if the requirement is to report only positive sales totals.', 'Final', '365', '/exhibit-assets/f1-365-364.webp', NULL, 'Litware, Inc. — Case Study
+D. a measure that uses the following formula: SUM(Sales[sales_amount])
+SUM العادي يدخل القيم السالبة فلا يحقق شرط الجودة.
+
+الخلاصة اللي تتحفظ
+عد العمليات غير مجموع المبالغ. السؤال ملتبس، والمفتاح A يحتاج هذا القيد.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/sumx-function-dax
+https://learn.microsoft.com/en-us/dax/countrows-function-dax', 'Final', '365', '/exhibit-assets/f1-365-364.webp', NULL, 'Litware, Inc. — Case Study
 
 Overview -
 
@@ -17118,29 +20700,49 @@ What should you configure? To answer, select the appropriate options in the answ
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', 'Box 1: The Viewer role to the workspace
+Hot Area:', '[]', '[]', 'ترجمة السؤال بالعربي
+Contoso: المحللون يقرؤون حزمة المجلس، يبنون من P&L فقط، ولا يعدلون الحزمة أو يعيدون مشاركتها. اختار وصول القراءة وحق الموديل.
 
-The Viewer role gives a read-only experience to its users. They can view dashboards, reports, or workbooks in
-the workspace, but can''t browse the datasets or dataflows. Use the Viewer role wherever you would
-previously use a classic workspace set to Members can only view Power BI content.
+القصة والمعنى
+ممكن تكون قارئًا للحزمة ومؤلفًا لتقريرك الخاص. Build يسمح باستخدام P&L، لكنه مش إذن وضع تقريرك في ورشة المجلس.
 
-Box 2: Build -
+مثال نفهم بيه
+محلل UnitA يقرأ الأرصدة ويبني تقرير P&L لوحدته في My Workspace، دون إضافة تقريره إلى حزمة المجلس.
 
-The analysts must be able to build new reports from the dataset that contains the profit and loss data.
+طريقة التفكير خطوة بخطوة
+1. Build على P&L فقط يسمح بالبناء، وتستمر RLS على المستهلك غير المحرر. لا تمنح Build على BalanceSheet.
+2. المفتاح التقليدي Viewer للـWorkspace مع Build صحيح لو المطلوب استعراض كل محتوى المساحة المعتمد.
+3. App access مع Build مخصص مسار صالح وأقل نطاقًا لحزمة مختارة. الصياغة لا تفرض Workspace membership؛ فلا يصح رفض App مطلقًا.
 
-Scenario: The reports must be made available to the board from powerbi.com.
+الإجابة الصحيحة وليه
+Build على P&L. Viewer هو مفتاح المصدر؛ App access مع Build بديل مدعوم للحزمة المختارة.
 
-The analysts responsible for each business unit must see all the data the board sees, except the profit and
-loss data, which must be restricted to only their business unit''s data. The analysts must be able to build new
-reports from the dataset that contains the profit and loss data, but any reports that the analysts build must
-not be included in the quarterly reports for the board. The analysts must not be able to share the quarterly
-reports with anyone.
+ليه كل اختيار صح أو غلط
+A. Permissions required in powerbi.com: Access permissions to an app
+App access صالح للحزمة المختارة، ويمكن جمعه مع Build محدد؛ ليس مستحيلًا تقنيًا.
 
-Reference:
+B. Permissions required in powerbi.com: The Member role to the workspace
+Member يمنح تحريرًا ويتجاوز RLS؛ أوسع من استهلاك مقيد.
 
-https://www.nickyvv.com/2019/08/the-new-power-bi-workspace-viewer-role-explained.html
+C. Permissions required in powerbi.com: The Viewer role to the workspace
+Viewer صحيح لو مشاهدة مساحة العمل كلها مقصودة، ولا يمنح Build تلقائيًا.
 
-Deploy and Maintain Deliverables', 'Final', '366', '/dump-assets/f1-366-365-question.webp', '/dump-assets/f1-366-365-answer.webp', 'Contoso, Ltd. — Case Study
+D. Permissions for the profit and loss dataset: Build
+صحيح؛Build على P&L فقط، دون Write أو Build على BalanceSheet.
+
+E. Permissions for the profit and loss dataset: Delete
+Delete لحذف الموديل وليس حق البناء المطلوب.
+
+F. Permissions for the profit and loss dataset: Reshare
+Reshare يسمح بتمرير الوصول، وهو ممنوع ولا يعادل Build.
+
+الخلاصة اللي تتحفظ
+قراءة حزمة و Build محدد لا تعني Contributor على مساحة المجلس؛ راجع نطاق App و Viewer.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final', '366', '/dump-assets/f1-366-365-question.webp', NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -17261,38 +20863,48 @@ How should you distribute the reports to the board? To answer, select the approp
 
 NOTE: Each correct selection is worth one point.
 
-Hot Area:', '[]', '[]', '1. Using an App
+Hot Area:', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+Contoso تريد للمجلس حزمة تقارير واحدة بتنقل وروابط، وتوزيعًا بجروب Entra بأقل صيانة. اختار الطريقة والجروب.
 
-2. A mail-enabled security group in Azure Active Directory
+القصة والمعنى
+المجلس مش فريق بيصلح التقارير. بيستلم كتابًا منظمًا، وجروب واحد يحدد مين له حق فتحه.
 
-Box 1: Using an App
+مثال نفهم بيه
+جروب Board-Access له App بتقارير الربع وروابط الملحقات؛ تغيير عضو يتم في الجروب بدل مشاركة كل تقرير من جديد.
 
-Box 2: A mail-enabled security group in Azure Active Directory
+طريقة التفكير خطوة بخطوة
+1. App يجمع التقارير والتنقل والمحتوى المختار في حزمة.
+2. Mail-enabled security group هو الخيار المدعوم من المعروض للتحكم بالوصول مركزيًا.
+3. Dynamic distribution list تحدد مستلمي البريد، وليست البديل المقصود لجروب الأمن في جمهور App. راعِ تراخيص الاستهلاك.
 
-Mail-Enabled Security Group -
+الإجابة الصحيحة وليه
+Using an app؛ Mail-enabled security group in Azure Active Directory.
 
-This group also contains a list of email addresses of members and can also be used to control access to
-OneDrive and SharePoint.
+ليه كل اختيار صح أو غلط
+A. Grant access by: Sharing individual reports
+المشاركة الفردية ممكنة للوصول، لكنها لا تقدم نفس حزمة التنقل وتزيد الإدارة.
 
-The Mail-Enabled Security Group can be created in the Office 365 Admin Portal
+B. Grant access by: Using a workspace membership
+Workspace membership تفتح بيئة التعاون بدل الحزمة المختارة.
 
-Note: The reports must be made available to the board from powerbi.com. An Azure Active Directory (Azure
-AD) group will be used to share information with the board.
+C. Grant access by: Using an app
+صحيح؛App يجمع المحتوى والتنقل والجمهور.
 
-Incorrect:
+D. Grant access to: A dynamic distribution list
+Dynamic distribution list ليست Security group المقصودة لصلاحيات الجمهور هنا.
 
-* Distribution Group
+E. Grant access to: A mail-enabled security group in Azure Active Directory
+صحيح؛Mail-enabled security group تدير العضوية والوصول مركزيًا.
 
-This group can also be called and Distribution List. The Distribution Group is a group which contains a list of
-email addresses of members, all of whom will be sent an email when an email is sent to the distribution groups
-email address.
+F. Grant access to: Individual user emails
+إيميلات فردية تخالف شرط الجروب وتزيد الصيانة مع تغيّر المجلس.
 
-The Distribution Group can be created in the Azure Active Directory
+الخلاصة اللي تتحفظ
+حزمة مجلس منظمة = App، والعضوية بجروب أمن لا مشاركة فردية متكررة.
 
-Reference:
-
-https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards
-https://www.fourmoo.com/2020/04/01/power-bi-which-groups-can-be-used-to-set-permissions-in-power-bi/', 'Final', '367', '/dump-assets/f1-367-366-question.webp', '/dump-assets/f1-367-366-answer.webp', 'Contoso, Ltd. — Case Study
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards', 'Final', '367', '/dump-assets/f1-367-366-question.webp', '/dump-assets/f1-367-366-answer.webp', 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -17411,13 +21023,42 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 updated to meet the report requirements. The solution must minimize configuration effort.
 
-What should you do?', '["From each report in powerbi.com, select Refresh visuals.","From Power BI Desktop, download the PBIX file and refresh the data.","Configure a scheduled refresh without using an on-premises data gateway.","Configure a scheduled refresh by using an on-premises data gateway."]', '[2]', 'C is the answer. The database is on Azure database, not on-premise
+What should you do?', '["From each report in powerbi.com, select Refresh visuals.","From Power BI Desktop, download the PBIX file and refresh the data.","Configure a scheduled refresh without using an on-premises data gateway.","Configure a scheduled refresh by using an on-premises data gateway."]', '[2]', 'ترجمة السؤال بالعربي
+Contoso تستورد من Azure SQL ذي Public endpoint و Business Central السحابي. عايزة البيانات جاهزة 5 صباحًا بأقل عمل. تختار إيه؟
 
-"Scheduled refresh of reports isn’t supported with Dynamics 365 (on-premises) datasets that are published to
-the Power BI service. You can refresh reports using in Microsoft Power BI Desktop or Microsoft Office Excel
-and then upload the reports to the Power BI service."
+القصة والمعنى
+المصادر متاحة للخدمة سحابيًا. نحتاج ساعة تحديث تلقائية، مش موظف ينزل PBIX كل صباح أو يضغط Refresh visuals.
 
-So D is impossible. C is correct.', 'Final', '368', '/exhibit-assets/f1-368-367.webp', NULL, 'Contoso, Ltd. — Case Study
+مثال نفهم بيه
+تحديث 3:30 صباحًا بعد تحميل المصدر مع مراقبة الفشل وهامش قبل 5، لا تشغيل الساعة 5 وادعاء اكتماله فورًا.
+
+طريقة التفكير خطوة بخطوة
+1. Scheduled refresh دون On-premises gateway يناسب المصادر السحابية القابلة للوصول في الحالة.
+2. ابدأ بعد جاهزية المصدر بوقت يكفي للاكتمال قبل 5، مع الاعتمادات والمراقبة وهامش التأخر.
+3. شرح المصدر عن Dynamics365 on-premises لا ينطبق هنا؛ لا تحول Business Central السحابي إلى مصدر داخلي بلا دليل.
+
+الإجابة الصحيحة وليه
+C: Scheduled refresh without on-premises gateway.
+
+ليه كل اختيار صح أو غلط
+A. From each report in powerbi.com, select Refresh visuals.
+Refresh visuals يعيد قراءة نسخة الموديل الحالية ولا يستورد جديد المصدر إلى Import.
+
+B. From Power BI Desktop, download the PBIX file and refresh the data.
+Download و Desktop refresh يدويان ومتكرران، عكس تقليل الجهد.
+
+C. Configure a scheduled refresh without using an on-premises data gateway.
+صحيح؛ تحديث تلقائي مع اتصال سحابي مباشر.
+
+D. Configure a scheduled refresh by using an on-premises data gateway.
+Gateway زائدة دون مصدر داخلي أو شرط شبكة خاصة في الحالة.
+
+الخلاصة اللي تتحفظ
+Import يحتاج تحديث الموديل، و Cloud public لا يحتاج Gateway لمجرد أن اسمه SQL.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-scheduled-refresh
+https://learn.microsoft.com/en-us/power-query/connectors/dynamics365businesscentral', 'Final', '368', '/exhibit-assets/f1-368-367.webp', NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -17534,29 +21175,42 @@ A comparison of quarterly revenue versus the same quarter from the previous year
 The reports must be updated with the latest data by 5 AM each day.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f1-369-368', 'Model the data', 'single', 'What is the minimum number of
 
-Power BI datasets needed to support the reports?', '["a single imported dataset","two imported datasets","two DirectQuery datasets","a single DirectQuery dataset"]', '[1]', 'Note:
+Power BI datasets needed to support the reports?', '["a single imported dataset","two imported datasets","two DirectQuery datasets","a single DirectQuery dataset"]', '[1]', 'ترجمة السؤال بالعربي
+Contoso تسمح للمحللين بقراءة BalanceSheet لكن Build على P&L فقط مع RLS للوحدة. أقل عدد Datasets من الخيارات؟
 
-Analysts must be able to create new reports from the dataset that contains the profit and loss data, but the
-reports built by the analysts must NOT be included in the quarterly reports for the board.
+القصة والمعنى
+Build في الموديل العادي مش زرًا لكل جدول. لو كل البيانات في موديل واحد وأعطيت Build عليه، لم تمنع البناء على BalanceSheet كما طلبت الحالة.
 
-Analysts must NOT be able to make new reports by using the balance sheet data.
+مثال نفهم بيه
+ModelA للأرصدة للقراءة فقط، و ModelB للأرباح والخسائر مع Build و RLS. App المجلس يعرض تقارير الاثنين.
 
-Two datasets are required.
+طريقة التفكير خطوة بخطوة
+1. افصل BalanceSheet و P&L في اثنين Import models، وامنح Build على P&L فقط.
+2. App واحد يمكن أن يعرض تقارير من الموديلين؛ لا يشترط موديلًا واحدًا لكل App.
+3. Import يناسب التحديث اليومي والتفاعل السريع. لا تستبعد DirectQuery بحجة أنه يمنع كل DAX أو مقارنة السنوات؛ السبب ملاءمة التصميم والمصادر.
 
-Need DAX for: A comparison of quarterly revenue versus the same quarter from the previous year. Also see
-other questions in this Case study which uses DAX expressions.
+الإجابة الصحيحة وليه
+B: Two imported datasets.
 
-Incorrect:
+ليه كل اختيار صح أو غلط
+A. a single imported dataset
+موديل واحد لا يفصل Build على P&L عن Build على BalanceSheet بالحقوق المعطاة.
 
-Not Direct Query: Direct Query Limited Transformations.
+B. two imported datasets
+صحيح؛ يفصل حدود إعادة الاستخدام ويناسب التحديث اليومي.
 
-You are not able to use all of the normal Power Query transformation features. Particular DAX functions are
-not available in this method as well. So if your data is poorly structured or needing lots of transformation,
-sometimes Direct Query is not a viable option.
+C. two DirectQuery datasets
+اثنان DirectQuery ليسا الخيار الأنسب للمصادر والمتطلبات هنا، وليس لأن كل DAX ممنوع عليهما.
 
-Reference:
+D. a single DirectQuery dataset
+موديل DirectQuery واحد يترك Build موحدة على الجداول ولا يحل المشكلة.
 
-https://www.tessellationtech.io/import-vs-direct-query-power-bi/', 'Final', '369', '/exhibit-assets/f1-369-368.webp', NULL, 'Contoso, Ltd. — Case Study
+الخلاصة اللي تتحفظ
+Build على جزء من البيانات فقط قد يحتاج حد موديل منفصل في هذا التصميم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-dataset-modes-understand', 'Final', '369', '/exhibit-assets/f1-369-368.webp', NULL, 'Contoso, Ltd. — Case Study
 
 Overview -
 
@@ -17675,18 +21329,480 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You need to create a relationship between the Weekly_Returns table and the Date table to meet the reporting requirements of the regional managers. What should
 
-you do?', '["In the Weekly.Returns table, create a new calculated column named date-id in a format of yyyymmdd and use the calculated column to create a relationship to the Date table.","Add the Weekly_Returns data to the Sales table by using related DAX functions.","Create a new table based on the Date table where date-id is unique, and then create a many-to-many relationship to Weekly_Return."]', '[0]', 'Scenario: Region managers require a visual to analyze weekly sales and returns. To relate the two tables we need a common column.', 'Final 2', '2', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+you do?', '["In the Weekly.Returns table, create a new calculated column named date-id in a format of yyyymmdd and use the calculated column to create a relationship to the Date table.","Add the Weekly_Returns data to the Sales table by using related DAX functions.","Create a new table based on the Date table where date-id is unique, and then create a many-to-many relationship to Weekly_Return."]', '[0]', 'ترجمة السؤال بالعربي
+Litware بها Weekly_Returns بمفتاح أسبوع yyyyww، و Date بمفتاح يوم yyyymmdd. كيف تربطهما لتحليل أسبوعي؟
+
+القصة والمعنى
+الأسبوع 202005 مش اليوم 20200501. لازم تختار تاريخًا مرجعيًا صحيحًا للأسبوع، مثل بدايته، ليطابق يومًا في التقويم.
+
+مثال نفهم بيه
+Week202005 يرتبط بيوم بدايته وفق تقويم الشركة؛ لا نفترض أنه 5 يناير أو أولمايو من شكل الرقم فقط.
+
+طريقة التفكير خطوة بخطوة
+1. A المقصودة: أنشئ date_id مشتقًا من الأسبوع بتنسيق yyyymmdd ثم اربطه بمفتاح Date الفريد.
+2. ليس مجرد تغيير Format للرقم؛ حوّل سنة/أسبوع حسب تعريف الأسبوع في المصدر، خاصة عند حدود السنة.
+3. الربط بيوم تمثيلي يحتاج تعريفًا لتحليل شهور تتقاطع فيها الأسابيع. بعد Week فريد قد يكون تصميمًا أوضح لكنه غير معروض.
+
+الإجابة الصحيحة وليه
+A، بشرط اشتقاق تاريخ مرجعي صحيح للأسبوع لا مجرد تغيير شكل الرقم.
+
+ليه كل اختيار صح أو غلط
+A. In the Weekly.Returns table, create a new calculated column named date-id in a format of yyyymmdd and use the calculated column to create a relationship to the Date table.
+المقصود الصحيح؛ مفتاح يوم مشتق بدلالة أسبوع واضحة يتيح العلاقة.
+
+B. Add the Weekly_Returns data to the Sales table by using related DAX functions.
+RELATED لا يدمج حقائق أسبوعية في Sales دون علاقة و Grain؛ قد يكرر مبلغ المرتجعات مع كل بيع.
+
+C. Create a new table based on the Date table where date-id is unique, and then create a many-to-many relationship to Weekly_Return.
+جدول Date فريد أصلًا، و many-to-many لا تحول week_id إلى date_id أو تصلح اختلاف Grain.
+
+الخلاصة اللي تتحفظ
+Daily key غير Weekly key. اتفق على معنى الأسبوع وتاريخه المرجعي قبل العلاقة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/star-schema
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-many-to-many', 'Final 2', '2', NULL, NULL, 'Litware, Inc. — Case Study
+
+Overview -
+
+Litware, Inc. is an online retailer that uses Power BI.
+
+Litware plans to leverage data from an Azure SQL database that stores data for the company''s live e-commerce
+
+website.
+
+Litware uses Azure Active Directory (Azure AD) to authenticate users.
+
+Existing Environment. Sales Data
+
+Litware has online sales data that has the SQL schema shown in the following table.
+
+In the Date table, the date_id column has a format of yyyymmdd and the month column has a format of yyyymm.
+
+The week column in the Date table and the week_id column in the Weekly_Returns table have a format of yyyyww.
+
+In the Sales table, the sales_id column represents a unique transaction.
+
+The region id column can be managed by only one sales manager.
+
+Existing Environment. Data Concerns
+
+You are concerned with the quality and completeness of the sales data. You must ensure that negative and missing
+
+sales_amount values do NOT contribute to the total sales amount calculation.
+
+Existing Environment. Reporting Requirements
+
+Litware identifies the following reporting requirements:
+
+Executives require a visual that shows sales by region.
+
+Executives require a visual that shows returns by region manager and the sales managers that report to them.
+
+The sales managers must be able to see only the sales data of their respective region.
+
+The sales managers require a visual to analyze sales performance versus sales targets.
+
+The sales department requires reports that contain the number of sales transactions.
+
+Users must be able to see the month in each report as shown in the following example: Feb 2020.
+
+The customer service department requires a visual that can be filtered by both sales month and ship month
+
+independently.
+
+The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-003-371', 'Prepare the data', 'single', '- (Topic 1)
 
-You need to create a calculated column to display the month based on the reporting requirements. Which DAX expression should you use?', '["FORMAT(''Date''[date], \"MMM YYYY\")","FORMAT(''Date'' [date], \"M YY\")","FORMAT(''Date''[date_id], \"MMM\") & \"\" & FORMAT(''Date''[year], \"#\")","FORMAT(''Date'' [date_id], \"MMM YYYY\")"]', '[0]', 'FORMAT(''Date''[date], "MMM YYYY") returns a text label such as Oct 2026 from each date. The format string supplies the abbreviated month and four-digit year required by the report.', 'Final 2', '3', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to create a calculated column to display the month based on the reporting requirements. Which DAX expression should you use?', '["FORMAT(''Date''[date], \"MMM YYYY\")","FORMAT(''Date'' [date], \"M YY\")","FORMAT(''Date''[date_id], \"MMM\") & \"\" & FORMAT(''Date''[year], \"#\")","FORMAT(''Date'' [date_id], \"MMM YYYY\")"]', '[0]', 'ترجمة السؤال بالعربي
+نسخة أخرى من سؤال Litware: أنشئ تسمية شهر مثل Feb2020. أنهي تعبير يستخدم العمود الصحيح؟
+
+القصة والمعنى
+اسم شهر يقراه الناس من تاريخ حقيقي، ومفتاح ترتيب يضع فبراير بعد يناير. تنسيق رقم yyyymmdd لا يفسره تلقائيًا كتاريخ.
+
+مثال نفهم بيه
+2020-02-15 تظهر Feb2020، وترتيب 202002 يضعها قبل Mar2020 بدل ترتيب أبجدي.
+
+طريقة التفكير خطوة بخطوة
+1. FORMAT(Date[date],"MMM YYYY") يستخدم عمود Date الحقيقي ويخرج نصًا.
+2. اضبط Sort by column على مفتاح مثل 202002، واستخدم Locale إنجليزيًا لو Feb مطلوبة حرفيًا.
+
+الإجابة الصحيحة وليه
+A: FORMAT(''Date''[date], "MMM YYYY").
+
+ليه كل اختيار صح أو غلط
+A. FORMAT(''Date''[date], "MMM YYYY")
+صحيح؛ شهر مختصر وسنة 4 أرقام من تاريخ حقيقي.
+
+B. FORMAT(''Date'' [date], "M YY")
+M YY يعطي شهرًا رقميًا وسنة قصيرة، لا الشكل المطلوب.
+
+C. FORMAT(''Date''[date_id], "MMM") & "" & FORMAT(''Date''[year], "#")
+date_id رقم مفتاح لا Date، والربط بلا مسافة لا يطابق النموذج.
+
+D. FORMAT(''Date'' [date_id], "MMM YYYY")
+تنسيق date_id لا يحوله من رقم yyyymmdd إلى Date صحيح بمجرد Format.
+
+الخلاصة اللي تتحفظ
+نسّق Date الحقيقي، ورتب اسم الشهر بمفتاح سنة/شهر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/format-function-dax', 'Final 2', '3', NULL, NULL, 'Litware, Inc. — Case Study
+
+Overview -
+
+Litware, Inc. is an online retailer that uses Power BI.
+
+Litware plans to leverage data from an Azure SQL database that stores data for the company''s live e-commerce
+
+website.
+
+Litware uses Azure Active Directory (Azure AD) to authenticate users.
+
+Existing Environment. Sales Data
+
+Litware has online sales data that has the SQL schema shown in the following table.
+
+In the Date table, the date_id column has a format of yyyymmdd and the month column has a format of yyyymm.
+
+The week column in the Date table and the week_id column in the Weekly_Returns table have a format of yyyyww.
+
+In the Sales table, the sales_id column represents a unique transaction.
+
+The region id column can be managed by only one sales manager.
+
+Existing Environment. Data Concerns
+
+You are concerned with the quality and completeness of the sales data. You must ensure that negative and missing
+
+sales_amount values do NOT contribute to the total sales amount calculation.
+
+Existing Environment. Reporting Requirements
+
+Litware identifies the following reporting requirements:
+
+Executives require a visual that shows sales by region.
+
+Executives require a visual that shows returns by region manager and the sales managers that report to them.
+
+The sales managers must be able to see only the sales data of their respective region.
+
+The sales managers require a visual to analyze sales performance versus sales targets.
+
+The sales department requires reports that contain the number of sales transactions.
+
+Users must be able to see the month in each report as shown in the following example: Feb 2020.
+
+The customer service department requires a visual that can be filtered by both sales month and ship month
+
+independently.
+
+The maximum allowed latency to include transactions in reports is five minutes.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-005-373', 'Model the data', 'single', '- (Topic 2)
 
 You need to recommend a strategy to consistently define the business unit, department, and product category data and make the data usable across reports.
 
-What should you recommend?', '["Create a shared dataset for each standardized entity.","Create dataflows for the standardized data and make the dataflows available for use in all imported datasets.","For every report, create and use a single shared dataset that contains the standardized data.","For the three entities, create exports of the data from the Power Bl model to Excel and store the data in Microsoft OneDrive for others to use as a source."]', '[1]', 'Create reusable dataflows for the standardized Business Unit, Department, and Product Category entities. Multiple imported semantic models can then consume the same governed definitions instead of repeating transformation logic.', 'Final 2', '5', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you recommend?', '["Create a shared dataset for each standardized entity.","Create dataflows for the standardized data and make the dataflows available for use in all imported datasets.","For every report, create and use a single shared dataset that contains the standardized data.","For the three entities, create exports of the data from the Power Bl model to Excel and store the data in Microsoft OneDrive for others to use as a source."]', '[1]', 'ترجمة السؤال بالعربي
+Contoso تريد تعريف Business unit و Department و Product category موحدًا وقابلًا لإعادة الاستخدام في Import models متعددة. توصي بإيه؟
+
+القصة والمعنى
+بدل كل فريق يقول المنتج تابع وحدة مختلفة، جهّز قاموس أبعاد معتمدًا مرة وخلي الموديلات تسحب منه نفس التعريف.
+
+مثال نفهم بيه
+Product42 يتبع UnitB في قاموس واحد، فتستهلكه موديلات المبيعات و P&L بنفس التصنيف.
+
+طريقة التفكير خطوة بخطوة
+1. Dataflows تجهز كيانات الأبعاد المشتركة لعدة موديلات مستوردة.
+2. الموديل المشترك يوحد طبقة دلالية أوسع، لكن الحالة تحتاج بيانات أبعاد موحدة عبر نماذج مختلفة، ومنها نماذج ذات حدود Build مختلفة.
+3. حدد مالك تعريف الأعمال وجدول تحديث Dataflow قبل الموديلات؛ الأداة لا تصلح تعريفًا خاطئًا تلقائيًا.
+
+الإجابة الصحيحة وليه
+B: Dataflows for standardized data reused by imported datasets.
+
+ليه كل اختيار صح أو غلط
+A. Create a shared dataset for each standardized entity.
+موديل منفصل لكل كيان ليس طبقة إعداد أبعاد للدمج المطلوبة، وقد يفرض Composite معقدًا.
+
+B. Create dataflows for the standardized data and make the dataflows available for use in all imported datasets.
+صحيح؛ يوحد التحويلات والتعريفات ويتيح إعادة استخدامها في Import models.
+
+C. For every report, create and use a single shared dataset that contains the standardized data.
+فرض موديل واحد لكل التقارير لا يلزم من المتطلبات وقد يصطدم بفصل Build للأرصدة و P&L.
+
+D. For the three entities, create exports of the data from the Power Bl model to Excel and store the data in Microsoft OneDrive for others to use as a source.
+Excel exports تخلق نسخًا وصيانة واختلافات تعريف وتوقيت، عكس هدف التوحيد.
+
+الخلاصة اللي تتحفظ
+أبعاد محضرة مشتركة بين موديلات = Dataflow، وليس إعادة كتابة نفس التحويلات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/dataflows/dataflows-introduction-self-service', 'Final 2', '5', NULL, NULL, 'Contoso, Ltd. — Case Study
+
+Overview -
+
+Contoso, Ltd. is a manufacturing company that produces sports equipment. Contoso holds quarterly board
+
+meetings for which financial analysts manually prepare
+
+Microsoft Excel reports, including balance sheets and profit and loss statements for each of the company''s four
+
+business units.
+
+Existing Environment -
+
+Data and Sources -
+
+Data for the reports comes from the sources shown in the following table.
+
+The balance sheet data is unrelated to the profit and loss results other than they both relate to dates.
+
+Balance Sheet Data -
+
+The balance sheet data is imported and includes the final monthly balances of each account in the format shown in
+
+the following table.
+
+The balance sheet data always includes a row for each account for each month.
+
+Product Catalog Data -
+
+The product catalog shows how products roll up to product categories, which roll up to the business units. The
+
+product list is provided in the format shown in the following table.
+
+Revenue data is provided at the date and product level. Expense data is provided at the date and department level.
+
+Business Issues -
+
+Historically, it has taken two analysts a week to prepare the reports for the quarterly board meetings. Also, there is
+
+usually at least one issue each quarter where a value in a report is wrong because of a bad cell reference in an
+
+Excel formula. On occasion, there are conflicting results in the reports because the products and departments that
+
+roll up to each business unit are not defined consistently.
+
+Requirements -
+
+Planned Changes -
+
+Contoso plans to automate and standardize the quarterly reporting process by using Power BI. The company wants
+
+to reduce how long it takes to populate the reports to less than two days. The company wants to create common
+
+logic for the business units, products, and departments. The logic will be used across all reports, including but not
+
+limited to the quarterly reporting for the board.
+
+Technical Requirements -
+
+Contoso wants the reports and datasets refreshed with minimum manual effort.
+
+The company wants to provide the board with a single package of reports that will contain custom navigation and
+
+links to supplementary information.
+
+Maintenance, including manually updating data and access, must be minimized as much as possible.
+
+Security Requirements -
+
+The reports must be made available to the board from powerbi.com. An Azure Active Directory (Azure AD) group
+
+will be used to share information with the board.
+
+Contoso identifies the following security requirements for analyst access:
+
+Analysts must be able to access all balance sheet and product catalog data.
+
+Analysts must be able to access only the profit and loss data of their respective business unit.
+
+Analysts must be able to create new reports from the dataset that contains the profit and loss data, but the
+
+reports built by the analysts must NOT be included in the quarterly reports for the board.
+
+Analysts must NOT be able to share the quarterly reports with anyone.
+
+Analysts must NOT be able to make new reports by using the balance sheet data.
+
+Report Requirements -
+
+You plan to relate the balance sheet table to a date table in Power BI in a many-to-one relationship based on the
+
+last day of the month. At least one of the balance sheet reports in the quarterly reporting package must show the
+
+ending balances for the quarter, as well as for the previous quarter.
+
+The date table will contain the columns shown in the following table.
+
+The definitions and attributes for the products, departments, and business units must be consistent across all the
+
+reports.
+
+The board must be able to get the following information from the quarterly reports:
+
+Revenue trends over time
+
+The ending balances of each account
+
+Changes in long-term liabilities from the previous quarter
+
+The percent of total revenue contributed by each product category
+
+A comparison of quarterly revenue versus the same quarter from the previous year
+
+The reports must be updated with the latest data by 5 AM each day.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-006-374', 'Model the data', 'single', '- (Topic 2)
 
-Which DAX expression should you use to get the ending balances in the balance sheet reports?', '["CALCULATE (SUM( BalanceSheet [BalanceAmount] ), DATESQTD( ''Date''[Date] ))","CALCULATE (SUM( BalanceSheet [BalanceAmount] ), LASTDATE( ''Date''[Date] ))","FIRSTNONBLANK ( ''Date'' [Date]SUM( BalanceSheet[BalanceAmount] ))","CALCULATE (MAX( BalanceSheet[BalanceAmount] ), LASTDATE( ''Date'' [Date] ))"]', '[1]', 'Independent correction: B. CALCULATE(SUM(BalanceSheet[BalanceAmount]), LASTDATE(''Date''[Date])). Ending balance is a semi-additive calculation: aggregate accounts for the last date in the selected quarter. DATESQTD is appropriate for additive flows, not snapshot balances.', 'Final 2', '6', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX expression should you use to get the ending balances in the balance sheet reports?', '["CALCULATE (SUM( BalanceSheet [BalanceAmount] ), DATESQTD( ''Date''[Date] ))","CALCULATE (SUM( BalanceSheet [BalanceAmount] ), LASTDATE( ''Date''[Date] ))","FIRSTNONBLANK ( ''Date'' [Date]SUM( BalanceSheet[BalanceAmount] ))","CALCULATE (MAX( BalanceSheet[BalanceAmount] ), LASTDATE( ''Date'' [Date] ))"]', '[1]', 'ترجمة السؤال بالعربي
+Contoso تخزن أرصدة شهرية. أي DAX يعطي رصيد نهاية الربع بدل مجموع أرصدة شهوره؟
+
+القصة والمعنى
+مخزون يناير 50 وفبراير 60 ومارس 40 معناه آخر الربع 40، مش 150. لكن حسابين مختلفين فيمارس نجمعهما.
+
+مثال نفهم بيه
+Cash90 و Inventory50 في 31 مارس =140. MAX يعطي 90 فقط، وجمع الشهور يكرر الأصول.
+
+طريقة التفكير خطوة بخطوة
+1. CALCULATE مع LASTDATE يقصر SUM على آخر تاريخ في سياق الفترة.
+2. الحالة تضمن صفًا لكل حساب لكل شهر والربط بنهاية الشهر؛ لو Snapshots ناقصة قد نحتاج آخر تاريخ به بيانات.
+3. DATESQTD مناسب لتجميع Flow مثل الإيراد، لا جمع Snapshots الأرصدة.
+
+الإجابة الصحيحة وليه
+B: CALCULATE(SUM(BalanceSheet[BalanceAmount]),LASTDATE(Date[Date])).
+
+ليه كل اختيار صح أو غلط
+A. CALCULATE (SUM( BalanceSheet [BalanceAmount] ), DATESQTD( ''Date''[Date] ))
+DATESQTD مع SUM يكرر أرصدة الشهور بدل لقطة النهاية.
+
+B. CALCULATE (SUM( BalanceSheet [BalanceAmount] ), LASTDATE( ''Date''[Date] ))
+صحيح؛ يجمع الحسابات عند آخر تاريخ.
+
+C. FIRSTNONBLANK ( ''Date'' [Date]SUM( BalanceSheet[BalanceAmount] ))
+FIRSTNONBLANK يذهب للبداية لا النهاية، والصيغة كذلك ناقصة فاصلًا.
+
+D. CALCULATE (MAX( BalanceSheet[BalanceAmount] ), LASTDATE( ''Date'' [Date] ))
+MAX يهمل بقية الحسابات؛ نحتاج SUM عند التاريخ الأخير.
+
+الخلاصة اللي تتحفظ
+الأرصدة تجمع عبر الحسابات، ولا تجمع عبر الزمن كالحركات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/lastdate-function-dax', 'Final 2', '6', NULL, NULL, 'Contoso, Ltd. — Case Study
+
+Overview -
+
+Contoso, Ltd. is a manufacturing company that produces sports equipment. Contoso holds quarterly board
+
+meetings for which financial analysts manually prepare
+
+Microsoft Excel reports, including balance sheets and profit and loss statements for each of the company''s four
+
+business units.
+
+Existing Environment -
+
+Data and Sources -
+
+Data for the reports comes from the sources shown in the following table.
+
+The balance sheet data is unrelated to the profit and loss results other than they both relate to dates.
+
+Balance Sheet Data -
+
+The balance sheet data is imported and includes the final monthly balances of each account in the format shown in
+
+the following table.
+
+The balance sheet data always includes a row for each account for each month.
+
+Product Catalog Data -
+
+The product catalog shows how products roll up to product categories, which roll up to the business units. The
+
+product list is provided in the format shown in the following table.
+
+Revenue data is provided at the date and product level. Expense data is provided at the date and department level.
+
+Business Issues -
+
+Historically, it has taken two analysts a week to prepare the reports for the quarterly board meetings. Also, there is
+
+usually at least one issue each quarter where a value in a report is wrong because of a bad cell reference in an
+
+Excel formula. On occasion, there are conflicting results in the reports because the products and departments that
+
+roll up to each business unit are not defined consistently.
+
+Requirements -
+
+Planned Changes -
+
+Contoso plans to automate and standardize the quarterly reporting process by using Power BI. The company wants
+
+to reduce how long it takes to populate the reports to less than two days. The company wants to create common
+
+logic for the business units, products, and departments. The logic will be used across all reports, including but not
+
+limited to the quarterly reporting for the board.
+
+Technical Requirements -
+
+Contoso wants the reports and datasets refreshed with minimum manual effort.
+
+The company wants to provide the board with a single package of reports that will contain custom navigation and
+
+links to supplementary information.
+
+Maintenance, including manually updating data and access, must be minimized as much as possible.
+
+Security Requirements -
+
+The reports must be made available to the board from powerbi.com. An Azure Active Directory (Azure AD) group
+
+will be used to share information with the board.
+
+Contoso identifies the following security requirements for analyst access:
+
+Analysts must be able to access all balance sheet and product catalog data.
+
+Analysts must be able to access only the profit and loss data of their respective business unit.
+
+Analysts must be able to create new reports from the dataset that contains the profit and loss data, but the
+
+reports built by the analysts must NOT be included in the quarterly reports for the board.
+
+Analysts must NOT be able to share the quarterly reports with anyone.
+
+Analysts must NOT be able to make new reports by using the balance sheet data.
+
+Report Requirements -
+
+You plan to relate the balance sheet table to a date table in Power BI in a many-to-one relationship based on the
+
+last day of the month. At least one of the balance sheet reports in the quarterly reporting package must show the
+
+ending balances for the quarter, as well as for the previous quarter.
+
+The date table will contain the columns shown in the following table.
+
+The definitions and attributes for the products, departments, and business units must be consistent across all the
+
+reports.
+
+The board must be able to get the following information from the quarterly reports:
+
+Revenue trends over time
+
+The ending balances of each account
+
+Changes in long-term liabilities from the previous quarter
+
+The percent of total revenue contributed by each product category
+
+A comparison of quarterly revenue versus the same quarter from the previous year
+
+The reports must be updated with the latest data by 5 AM each day.', NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-014-381', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -17699,11 +21815,34 @@ You create a parameter named DataSourceExcel that holds the file name and locati
 
 You need to update the query to reference the parameter instead of multiple hard-coded copies of the location within each query definition.
 
-Solution: You create a new query that references DataSourceExcel. Does this meet the goal?', '["Yes","No"]', '[1]', 'Instead modify the source step of the queries to use DataSourceExcel as the file path.
-Note: Parameterising a Data Source could be used in many different use cases. From connecting to different data sources defined in Query Parameters to load
-different combinations of columns.
-Reference:
-https://www.biinsight.com/power-bi-desktop-query-parameters-part-1/', 'Final 2', '14', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Solution: You create a new query that references DataSourceExcel. Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+Parameter اسمه DataSourceExcel يحفظ مسار Excel. عايز الاستعلامات تستخدمه بدل المسارات الثابتة. هل إنشاء Query جديدة تشير له يكفي؟
+
+القصة والمعنى
+كتبت العنوان الجديد في ورقة جانبية، لكن السواقين لسه معاهم العنوان القديم. الورقة لا تعدل طلباتهم تلقائيًا.
+
+مثال نفهم بيه
+QueryA مازالت File.Contents("D:/old.xlsx"). إنشاء QueryB=DataSourceExcel لا يغير A.
+
+طريقة التفكير خطوة بخطوة
+1. لازم Source في كل استعلام معني يستخدم Parameter فعلًا، مثل File.Contents(DataSourceExcel).
+2. Query مرجعية قد تساعد إذا غيرت كل المستهلكين لاستخدامها، لكن الحل المذكور لم يفعل ذلك.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+خطأ؛ Query جديدة لا تستبدل الثوابت في تعريفات الاستعلامات القائمة.
+
+B. No
+صحيح؛ الحل ناقص ربط Source بالـParameter أو بالمصدر المشترك فعليًا.
+
+الخلاصة اللي تتحفظ
+Parameter لا يغير الاتصال إلا إذا استخدمته خطوة المصدر المنفذة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/power-query-query-parameters', 'Final 2', '14', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-018-382', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -17720,7 +21859,34 @@ Microsoft Entra. you create
 
 a group that contains all the users. You share each selected report and the one dashboard to the group.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Independent correction: Yes. Directly sharing the selected reports and dashboard with a Microsoft Entra security group grants the group access to those items without exposing the other workspace content.', 'Final 2', '18', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+جروب Entra يضم المؤسسة. تشارك معه 3 تقارير و Dashboard واحدة من مساحة بها عناصر أكثر. هل يحقق الوصول المحدد؟
+
+القصة والمعنى
+بندي الجروب مفاتيح الأربع أبواب المطلوبة، مش مفتاح مساحة العمل كلها. المشاركة هنا انتقائية.
+
+مثال نفهم بيه
+AllStaff يفتح R1 و R2 و R3 و D1، ولا يفتح R4 لمجرد عضويته في الجروب.
+
+طريقة التفكير خطوة بخطوة
+1. نعم؛ مشاركة العناصر المطلوبة مع Security group تحقق نطاق المشاهدة المحدد.
+2. راعِ التراخيص وحقوق Build و Reshare غير المطلوبة، وافحص وصول الجروبات الأخرى حتى لا يوسع النطاق.
+
+الإجابة الصحيحة وليه
+Yes.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ المشاركة الانتقائية حل صالح حتى لو App أريح لحزم أكبر.
+
+B. No
+خطأ؛ السؤال لا يلزم App أو Workspace Viewer، والمشاركة للجروب مدعومة.
+
+الخلاصة اللي تتحفظ
+صلاحية عنصر لا تساوي دورًا على كل Workspace.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-share-dashboards', 'Final 2', '18', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-019-383', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bl report
@@ -17735,7 +21901,41 @@ You have a table named Dalai that contains 10 million rows. Data is used in the 
 
 You need to modify the scatter plot to make it easier for users to identify meaningful patterns. The solution must not affect the accuracy of the other visuals-What
 
-should you do?', '["Apply a row filter to the Dalai query in Power Query Editor.","Add a trend line to the scatter plot","Enable high-density sampling on the scatter plot","Add a count field of the transaction amount to the size bucket of the scatter plot"]', '[2]', 'Independent correction: C. Enable high-density sampling. It improves the scatter plot representation for dense data and keeps the other visuals and underlying model unchanged. A trend line summarizes direction but does not solve point sampling and overlap.', 'Final 2', '19', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+should you do?', '["Apply a row filter to the Dalai query in Power Query Editor.","Add a trend line to the scatter plot","Enable high-density sampling on the scatter plot","Add a count field of the transaction amount to the size bucket of the scatter plot"]', '[2]', 'ترجمة السؤال بالعربي
+10 ملايينصف، و Card للعدد و Bar للإجمالي و Scatter للمبلغ والربح. حسّن وضوح Scatter دون تغيير دقة بقية الرسومات.
+
+القصة والمعنى
+النقط متكدسة فمش باين نمطها. لا نقص الداتا من Power Query فيتغير العدد والإجمالي؛ نحسن تمثيل النقط في الرسم فقط.
+
+مثال نفهم بيه
+Card يبقى 10 ملايين والـBar بنفس المبالغ؛ Scatter يقدم التوزيع أوضح بدل حذف 90% من المصدر.
+
+طريقة التفكير خطوة بخطوة
+1. High-density sampling يختار عرضًا تمثيليًا للنقط ضمن حدود Scatter، دون حذف صفوف الموديل.
+2. لا يعد بعرض 10 ملايين نقطة منفردة. بقية الرسومات تظل تحسب من الموديل الكامل.
+3. Trendline تلخص الاتجاه لكنها لا تعالج آلية عينة النقط وكثافتها بنفس الطريقة.
+
+الإجابة الصحيحة وليه
+C: Enable high-density sampling.
+
+ليه كل اختيار صح أو غلط
+A. Apply a row filter to the Dalai query in Power Query Editor.
+فلتر Query يحذف من الموديل فيغير Card و Bar ويخالف الشرط.
+
+B. Add a trend line to the scatter plot
+Trendline تساعد فهم العلاقة، لكنها ليست حل تمثيل كثافة النقط المقصود.
+
+C. Enable high-density sampling on the scatter plot
+صحيح؛ تحسين خاص بالرسم لا يحذف صفوف الموديل.
+
+D. Add a count field of the transaction amount to the size bucket of the scatter plot
+Count في Size يغير حجم الفقاعات ومعناها، لا يعالج عينة العرض الكثيفة المطلوبة.
+
+الخلاصة اللي تتحفظ
+حل كثافة النقط داخل Scatter، لا بحذف الداتا التي تحسب منها كل الرسومات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-high-density-scatter-charts', 'Final 2', '19', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-020-384', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You need to create a visual as shown in the following exhibit.
@@ -17744,14 +21944,93 @@ The indicator color for Total Sales will be based on % Growth to Last Year. The 
 
 How should you configure the visual? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Reviewed answer: Background color, then Rules. Apply conditional formatting to the Total Sales cell background and define rules based on % Growth to Last Year. Field value is for a field or measure that already returns color names or color codes.', 'Final 2', '20', '/dump-assets/f2-020-384-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+خلفيات Total Sales تتلون حسب%Growth to Last Year. مطلوب الحسابات الحالية فقط. اختار نوع التنسيق وطريقته.
+
+القصة والمعنى
+المقياس الحالي بيرجع نسبة، مش Red أو كود لون. نكتب Rules تربط النسبة بلون خلفية الخلية، دون Measure لون جديدة.
+
+مثال نفهم بيه
+قاعدة نمو 0% حمراء و 60% فأكثر خضراء توضح الفكرة. الأرقام مثال وليست استنتاجًا لحدود الصورة الأصلية.
+
+طريقة التفكير خطوة بخطوة
+1. الصورة تلون خلفية الخلايا؛ النوع Background color.
+2. Rules تربط نطاقات المقياس الرقمي بالألوان. Field value تحتاج حقلًا يرجع اسم لون أو كوده.
+3. Color scale تعطي تدرجًا، لا القواعد الفئوية المستهدفة؛ لا نستنتج حدود الألوان الرقمية الدقيقة من الصورة وحدها.
+
+الإجابة الصحيحة وليه
+Background color؛ Rules.
+
+ليه كل اختيار صح أو غلط
+A. Conditional formatting: Background color
+صحيح؛ التلوين خلف رقم Total Sales.
+
+B. Conditional formatting: Data bars
+Data bars أشرطة داخلية لا الخلفيات المعروضة.
+
+C. Conditional formatting: Font color
+Font color يلون الأرقام لا خلفيتها.
+
+D. Conditional formatting: Icons
+Icons رموز، وليست الخلفيات الظاهرة.
+
+E. Conditional formatting: Web URL
+Web URL ينشئ رابطًا ولا يحل ألوان النمو.
+
+F. Format by: Color scale
+Color scale تدرج لوني لا الحدود الفئوية المطلوبة بالمفتاح المراجع.
+
+G. Format by: Field value
+Field value يحتاج لونًا مرجعًا من حقل؛ النسبة وحدها ليست اسم لون.
+
+H. Format by: Rules
+صحيح؛ Rules تفسر النسبة الحالية كحدود ألوان بلا حساب إضافي.
+
+الخلاصة اللي تتحفظ
+مقياس نسبة فقط: Rules. مقياس يرجع لونًا: Field value.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-conditional-table-formatting', 'Final 2', '20', '/dump-assets/f2-020-384-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-021-385', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are creating a Power Bl report by using Power Bi Desktop.
 
 You need to include a visual that shows trends and other useful information automatically. The visual must update based on selections in other visuals.
 
-Which type of visual should you use?', '["key influencers","decomposition tree","Q&A","smart narrative"]', '[3]', 'A Smart narrative visual automatically generates a natural-language summary of trends and important values, and recalculates that narrative when selections in other visuals change the filter context.', 'Final 2', '21', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of visual should you use?', '["key influencers","decomposition tree","Q&A","smart narrative"]', '[3]', 'ترجمة السؤال بالعربي
+مطلوب Visual يعرض الاتجاهات ومعلومات مفيدة تلقائيًا، ويتحدث مع الاختيارات في الرسومات الأخرى. تختار إيه؟
+
+القصة والمعنى
+بدل كتابة «المبيعات زادت» يدويًا ثم نسيانها، خلي ملخصًا نصيًا يقرأ الفلاتر ويحدث حقائقه المحسوبة.
+
+مثال نفهم بيه
+اختيار East يجعل الملخص يصف مبيعات East بدل إجمالي المؤسسة.
+
+طريقة التفكير خطوة بخطوة
+1. Smart narrative يلخص معلومات واتجاهات بلغة طبيعية، ويتفاعل مع سياق الفلاتر المدعوم.
+2. راجع صحة المقاييس والملخص. هذا ليس إثباتًا لسبب إحصائي ولا سؤال Q&A يكتبه المستخدم.
+
+الإجابة الصحيحة وليه
+D: Smart narrative.
+
+ليه كل اختيار صح أو غلط
+A. key influencers
+Key influencers لتحليل عوامل تغير نتيجة، لا الملخص النصي العام المطلوب.
+
+B. decomposition tree
+Decomposition tree تفكك مقياسًا عبر حقول لا تكتب السرد التلقائي نفسه.
+
+C. Q&A
+Q&A تستقبل سؤال المستخدم؛ هنا المطلوب ملخص آلي دون سؤال كل مرة.
+
+D. smart narrative
+صحيح؛ Smart narrative تبني سردًا عدديًا يتغير بسياق التقرير.
+
+الخلاصة اللي تتحفظ
+ملخص نصي آلي مع الفلاتر = Smart narrative، لا Q&A أو شجرة تفكيك.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-smart-narrative', 'Final 2', '21', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-026-386', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You build a report about warehouse inventory data. The dataset has more than 10 million product records from 200 warehouses worldwide. You have a table
@@ -17768,23 +22047,136 @@ must minimize the model size.
 
 Which three actions should you perform in sequence? To answer, move the appropriate
 
-actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[]', 'The fourth segment of ProductDescription is the product name. Extract it first, then build the hierarchy from broad category to detailed specification, and finally replace the long description field in report visuals with that hierarchy.', 'Final 2', '26', '/dump-assets/f2-026-386-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+actions from the list of actions to the answer area and arrange them in the correct order.', '[]', '[3,5,6]', 'ترجمة السؤال بالعربي
+وصف المنتج 5 أجزاء تفصلها>. الاسم الجزء الرابع. جهز Hierarchy للاستكشاف بأقل حجم، ورتب 3 خطوات.
+
+القصة والمعنى
+الوصف Bikes > Adventure Works > Mountain Bikes > Super Carbon Bike > 26in wheels. نريد الاسم وحده وسلّمًا يبدأ بالفئة وينتهي بالمواصفات، ثم نستعمله بدل الوصف.
+
+مثال نفهم بيه
+الجزء الرابع Super Carbon Bike. أخذ كل ما بعد ثالث> يعطي الاسم والمواصفات معًا، فيفشل فصل الحقلين.
+
+طريقة التفكير خطوة بخطوة
+1. استخرج النص بين ثالث ورابع> في ProductName بمرحلة Power Query. كل ما بعد ثالث> يشمل المواصفات أيضًا.
+2. Hierarchy: ProductCategory ثم ProductSubcategory ثم Manufacturer ثم ProductName ثم ProductSpecifications.
+3. استبدل ProductDescription بالـHierarchy في الرسومات؛ خيار Replace سقط من قائمة الموقع وكان موجودًا بالصورة الأصلية.
+4. لحجم أقل، احذف الوصف المركب الزائد من الموديل إذا لم يعد له استخدام آخر. الإخفاء وحده لا يوفر ذاكرة.
+
+الإجابة الصحيحة وليه
+Extract between third/fourth > → hierarchy broad-to-detail → Replace ProductDescription. الفهارس بعد إلحاق الخيار السابع:[3,5,6].
+
+ليه كل اختيار صح أو غلط
+A. Create a product hierarchy of Manufacturer, ProductSpecifications, ProductName, ProductSubcategory, and ProductCategory.
+ترتيب يبدأ Manufacturer ثم Specs وينتهي Category يعكس التدرج من العام للتفاصيل.
+
+B. Transform the ProductDescription column to contain only the text between the first and fourth > symbol.
+بين أول ورابع> يشمل عدة أجزاء، لا اسم المنتج وحده.
+
+C. Add the product hierarchy as an extra field in visuals where ProductDescription is used.
+إضافة Hierarchy كحقل إضافي لا تستبدل الوصف كما طلب الإجراء الأخير.
+
+D. Add a column named ProductName that contains only the text between the third and fourth > symbol in the ProductDescription column.
+صحيح أولًا؛ الاسم الرابع محصور بين الفاصلين الثالث والرابع.
+
+E. Add a column named ProductName that contains all the text after the third > symbol in the ProductDescription column.
+كل ما بعد الثالث يشمل Name و Specs، وليس الاسم فقط.
+
+F. Create a product hierarchy of ProductCategory, ProductSubcategory, Manufacturer, ProductName, and ProductSpecifications.
+صحيح ثانيًا؛ يبدأ Category وينتهي Specifications بترتيب التفاصيل المطلوب.
+
+G. Replace the use of ProductDescription in the report with the product hierarchy.
+صحيح ثالثًا؛ استبدال ProductDescription بالـHierarchy. أُعيد هذا الخيار من الصورة الأصلية.
+
+الخلاصة اللي تتحفظ
+استخرج الجزء الرابع فقط، ثم Hierarchy صحيحة، ثم استبدل الحقل بدل إضافته مرتين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/powerquery-m/text-betweendelimiters
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-drill', 'Final 2', '26', '/dump-assets/f2-026-386-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-027-387', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have the Power Bl model shown in the following exhibit.
 
 There are four departments in the Departments table.
 
-You need to ensure that users can see the data of their respective department only. What should you do?', '["Create a row-level security (RLS) role for each department, and then define the membership of the role.","Create a DepartmentID parameter to filter the Departments table.","To the ConfidentialData table, add a calculated measure that uses the currentgroup DAX function.","Create a slicer that filters Departments based on DepartmentID."]', '[0]', 'Create row-level security roles that filter each department and assign the corresponding users to those roles in the Power BI service. RLS enforces the restriction at the semantic-model level rather than relying on editable report filters.', 'Final 2', '27', '/exhibit-assets/f2-027-387.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that users can see the data of their respective department only. What should you do?', '["Create a row-level security (RLS) role for each department, and then define the membership of the role.","Create a DepartmentID parameter to filter the Departments table.","To the ConfidentialData table, add a calculated measure that uses the currentgroup DAX function.","Create a slicer that filters Departments based on DepartmentID."]', '[0]', 'ترجمة السؤال بالعربي
+الموديل به 4 أقسام. المطلوب كل شخص يرى بيانات قسمه فقط كقيد أمني، لا فلترًا يقدر يلغيه. تعمل إيه؟
+
+القصة والمعنى
+السلايسر ستارة المستخدم يقدر يفتحها. RLS قفل في الموديل يحدد الصفوف المسموحة حتى لو بدل الرسم.
+
+مثال نفهم بيه
+Finance user في Finance role يبقى مقيدًا بقسمه حتى عبر Analyze in Excel المصرح. سلايسر Finance وحده لا يضمن ذلك.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ RLS role لكل قسم بفلتره، وعيّن أعضائه في الخدمة.
+2. تحقق من انتقال فلتر Departments إلى ConfidentialData واختبر هوية Viewer فعلية.
+3. عضوية أكثر من دور تجمع المسموح، وأدوار Admin/Member/Contributor على الموديل تتجاوز RLS.
+
+الإجابة الصحيحة وليه
+A: RLS role for each department, then role membership.
+
+ليه كل اختيار صح أو غلط
+A. Create a row-level security (RLS) role for each department, and then define the membership of the role.
+صحيح؛ أدوار RLS تربط المستخدمين بقواعد أمن صفوف على الموديل.
+
+B. Create a DepartmentID parameter to filter the Departments table.
+Parameter يضبط التحميل أو الاستعلام، ولا يعيّن وحده أمنًا لكل مستهلك.
+
+C. To the ConfidentialData table, add a calculated measure that uses the currentgroup DAX function.
+CURRENTGROUP تخص GROUPBY؛Measure لا تطبق حدود RLS على كل الوصول.
+
+D. Create a slicer that filters Departments based on DepartmentID.
+Slicer اختياري يمكن تغييره وإزالته، فلا تعتمد عليه للأمن.
+
+الخلاصة اللي تتحفظ
+إخفاء أمني = RLS؛ تسهيل تصفح = Slicer. الاختلاف في الإنفاذ لا شكل الشاشة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final 2', '27', '/exhibit-assets/f2-027-387.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-030-388', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a report that contains three pages. One of the pages contains a KPI visualization. You need to filter all the visualizations in the report except for the KPI
 
-visualization. Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Add the same slicer to each page and configure Sync slicers.","Edit the interactions of the KPI visualization.","Configure a page-level filter.","Edit the interactions of the slicer that is on the same page as the KPI visualization.","Configure a report-level filter."]', '[0,3]', 'Slicers are another way of filtering. They narrow the portion of the dataset that is shown in the other report visualizations.
-By default, slicers on report pages affect all the other visualizations on that page, including each other. Use visual interactions to exclude some page visualizations
-from being affected by others.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final 2', '30', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+visualization. Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Add the same slicer to each page and configure Sync slicers.","Edit the interactions of the KPI visualization.","Configure a page-level filter.","Edit the interactions of the slicer that is on the same page as the KPI visualization.","Configure a report-level filter."]', '[0,3]', 'ترجمة السؤال بالعربي
+تقرير ثلاث صفحات، وعايز الفلتر يؤثر على كل الرسومات إلا KPI واحد. اختار خطوتين.
+
+القصة والمعنى
+عايز مدير المبيعات يختار فرعًا، فيشوف تفاصيل الفرع في الصفحات كلها، لكن مؤشر الهدف العام يفضل زي ما هو. محتاج فلتر ينتقل بين الصفحات واستثناء محلي للمؤشر.
+
+مثال نفهم بيه
+اختيار القاهرة يغير جداول الصفحات الثلاث، بينما KPI يظل يعرض مبيعات الشركة كلها.
+
+طريقة التفكير خطوة بخطوة
+1. ضع slicer متزامنًا على الصفحات المطلوبة.
+2. حدد الـ slicer في صفحة KPI، ثم Edit interactions واجعل تأثيره على KPI هو None.
+3. الاستثناء يضبط على الرسم المستقبل بعد تحديد مصدر الاختيار، لا بتحديد KPI أولًا.
+
+الإجابة الصحيحة وليه
+A و D: Sync slicers، وتعديل تفاعل الـ slicer الموجود مع KPI.
+
+ليه كل اختيار صح أو غلط
+A. Add the same slicer to each page and configure Sync slicers.
+صحيح؛ المزامنة تنقل الاختيار بين الصفحات.
+
+B. Edit the interactions of the KPI visualization.
+يعدل تأثير KPI على غيره، وليس تأثير السلايسر عليه.
+
+C. Configure a page-level filter.
+فلتر الصفحة لا يغطي الصفحات الأخرى ولا يسمح باستثناء KPI بهذه الطريقة.
+
+D. Edit the interactions of the slicer that is on the same page as the KPI visualization.
+صحيح؛ اختر None فوق KPI بعد تحديد السلايسر.
+
+E. Configure a report-level filter.
+فلتر التقرير سيؤثر على KPI أيضًا؛ Edit interactions لا يعطل report filters.
+
+الخلاصة اللي تتحفظ
+فلتر مشترك مع استثناء رسم = Sync slicers + Edit interactions.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final 2', '30', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-034-389', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Your company has employees in 10 states.
@@ -17797,7 +22189,41 @@ include region information.
 
 You have a report that shows the employees by state.
 
-You need to view the employees by region as quickly as possible. What should you do?', '["Create a new aggregation that summarizes by employee.","Create a new group on the state column and set the Group type to List.","Create a new group on the state column and set the Group type to Bin.","Create a new aggregation that summarizes by state."]', '[1]', 'https://www.mssqltips.com/sqlservertip/4720/binning-and-grouping-data-with- power-bi/', 'Final 2', '34', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to view the employees by region as quickly as possible. What should you do?', '["Create a new aggregation that summarizes by employee.","Create a new group on the state column and set the Group type to List.","Create a new group on the state column and set the Group type to Bin.","Create a new aggregation that summarizes by state."]', '[1]', 'ترجمة السؤال بالعربي
+عندك موظفون في عشر ولايات، والشركة جمعتها في East و West و North. الموديل ليس به Region؛ كيف تعرض المناطق بسرعة؟
+
+القصة والمعنى
+الأسماء موجودة، لكن التجميع الإداري جديد. بدل بناء مصدر جديد، جمع أسماء الولايات تحت اسم المنطقة داخل الموديل.
+
+مثال نفهم بيه
+New York و New Jersey يدخلان مجموعة East، فيظهر مجموع موظفيهما كمنطقة واحدة.
+
+طريقة التفكير خطوة بخطوة
+1. حدد State واعمل New group.
+2. استخدم List لأن الولايات فئات نصية، وسمّ كل مجموعة بمنطقتها.
+3. ضع الحقل المجمع في الرسم بدل State.
+
+الإجابة الصحيحة وليه
+B: Group على State من نوع List.
+
+ليه كل اختيار صح أو غلط
+A. Create a new aggregation that summarizes by employee.
+تجميع الموظفين عدديًا لا ينشئ تعيين ولاية لمنطقة.
+
+B. Create a new group on the state column and set the Group type to List.
+صحيح؛ List يجمع فئات محددة بأسماء تختارها.
+
+C. Create a new group on the state column and set the Group type to Bin.
+Bin يقسم قيمًا رقمية أو تواريخ إلى فترات، لا خرائط إدارية نصية.
+
+D. Create a new aggregation that summarizes by state.
+تلخيص كل ولاية يبقي الولايات منفصلة دون Region.
+
+الخلاصة اللي تتحفظ
+فئات بأسماء تختارها = List grouping؛ فترات رقمية = Bins.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-grouping-and-binning', 'Final 2', '34', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-038-390', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a power BI tenant that hosts the datasets shown in the following table.
@@ -17808,28 +22234,174 @@ You have the following requirements:
 
 • Data used for financial decisions must be reviewed and approved before use.
 
-For each of the following statements, select Yes if the statement is true. Otherwise select No. NOTE: Each correct selection is worth one point', '[]', '[]', 'Apply the appropriate sensitivity labels and protection settings to the semantic models. A label can travel with supported exports and protection can restrict export, while endorsement is used to mark trusted data for decision-making. The three statements evaluate to Yes, No, and Yes in the order shown.', 'Final 2', '38', '/dump-assets/f2-038-390-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+For each of the following statements, select Yes if the statement is true. Otherwise select No. NOTE: Each correct selection is worth one point', '[]', '[]', 'ترجمة السؤال بالعربي
+Sales يحتوي رواتب ويحسب مكافآت، Operations قراءات حساسات، و Finance معاملات وقرارات ميزانية. قيّم الحاجة لتصنيف الحساسية والاعتماد.
+
+القصة والمعنى
+فيه ختم يقول البيانات حساسة، وختم تاني يقول الأرقام اتراجعت. دول وظيفتان مختلفتان؛ الرواتب حساسة، وأرقام الميزانية والمكافآت محتاجة ثقة قبل القرار.
+
+مثال نفهم بيه
+ملف ميزانية عليه Confidential قد يظل قابلًا للتصدير للمصرح له؛ Certification تؤكد المراجعة ولا تمنع تنزيله.
+
+طريقة التفكير خطوة بخطوة
+1. Sales تحتوي رواتب شخصية، فيناسبها sensitivity label حسب سياسة المؤسسة.
+2. Operations لا يظهر أنها تستخدم لقرارات مالية أوتحتاج تصنيفًا حساسًا من الوصف.
+3. Finance تحتاج مراجعة واعتمادًا للقرارات المالية، لكن حساسية كل بياناتها لم تُحدد في سياسة التصنيف المعروضة.
+4. منع تصدير PII يحتاج سياسة إنفاذ فعلية؛ label وحدها لا توقف كل مسارات التصدير.
+
+الإجابة الصحيحة وليه
+لا يوجد حل فريد مكتمل من المعطيات. المصدر يقصد Yes/No/Yes، لكن Finance لا يُذكر لها تصنيف إلزامي، والتصنيف وحده لا يمنع تصدير PII؛ لذلك لا نعتمد المفتاح كحل أمني كامل.
+
+ليه كل اختيار صح أو غلط
+Yes من ناحية الحاجة لتصنيف بيانات الرواتب؛ لا يعني أن مجرد التصنيف ينفذ منع التصدير المطلوب.
+
+No وفق الوصف؛ ليس هناك ما يفرض اعتمادًا ماليًا وحساسية على قراءات الحساسات.
+
+المصدر يقصد Yes، لكن الاعتماد مطلوب بينما حساسية Finance ليست مثبتة؛ العبارة تجمع شرطين لا يمكن حسمهما معًا من المعطيات.
+
+الخلاصة اللي تتحفظ
+Sensitivity للحساسية، Certification للثقة، ومنع التصدير سياسة مستقلة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/fabric/enterprise/powerbi/service-security-sensitivity-label-overview
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-endorsement-overview', 'Final 2', '38', '/dump-assets/f2-038-390-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-042-392', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You build a Power Bl report that displays 10T temperature data streaming from a refrigerator.
 
 You publish the report to the Bl service.
 
-You need to be notified when the temperature rises above four degrees Celsius. What should you do?', '["Pin a report page to a dashboard and set an alert on the page.","Set an alert on a KPI visual in the report.","Pin a card visual to a dashboard and set an alert on the tile.","Pin a card visual to a dashboard and create a subscription."]', '[2]', 'Independent correction: C. Pin a card visual to a dashboard, then configure an alert on that dashboard tile. Power BI data alerts support gauge, KPI, and card tiles.', 'Final 2', '42', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to be notified when the temperature rises above four degrees Celsius. What should you do?', '["Pin a report page to a dashboard and set an alert on the page.","Set an alert on a KPI visual in the report.","Pin a card visual to a dashboard and set an alert on the tile.","Pin a card visual to a dashboard and create a subscription."]', '[2]', 'ترجمة السؤال بالعربي
+تقرير لحرارة ثلاجة IoT، وعايز إشعارًا إذا تجاوزت الحرارة أربع درجات. تعمل إيه؟
+
+القصة والمعنى
+مش عايز بريدًا كل صباح حتى لو الثلاجة سليمة؛ عايز إنذارًا عند تخطي حد محدد. إنذار Power BI التقليدي يشتغل على dashboard tile مناسب.
+
+مثال نفهم بيه
+الحرارة المحدثة أصبحت 5 بدل 3، فيتحقق شرط >4 ويرسل تنبيهًا وفق إعداداته.
+
+طريقة التفكير خطوة بخطوة
+1. اعرض الحرارة الحالية في Card.
+2. ثبّت الكارد على dashboard، ثم أنشئ alert أكبر من 4.
+3. التنبيه يتقييم عند تحديث بيانات البلاطة؛ لا يفحص الحساس باستمرار من تلقاء نفسه.
+
+الإجابة الصحيحة وليه
+C: Pin a card visual ثم alert على البلاطة.
+
+ليه كل اختيار صح أو غلط
+A. Pin a report page to a dashboard and set an alert on the page.
+البلاطة لصفحة كاملة ليست نوع tile مدعومًا لهذا التنبيه.
+
+B. Set an alert on a KPI visual in the report.
+KPI داخل التقرير ليس dashboard tile؛ يلزم تثبيته أولًا.
+
+C. Pin a card visual to a dashboard and set an alert on the tile.
+صحيح؛ Card tile يدعم data alerts.
+
+D. Pin a card visual to a dashboard and create a subscription.
+Subscription إرسال دوري وليس شرط حرارة >4.
+
+الخلاصة اللي تتحفظ
+حد رقمي يتخطى قيمة = alert على Card/KPI/Gauge tile.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final 2', '42', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-044-393', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a collection of reports for the HR department of your company.
 
 You need to create a visualization for the HR department that shows historical employee counts and predicts trends during the next six months.
 
-Which type of visualization should you use?', '["key influences","ribbon chart","line chart","scatter chart"]', '[2]', 'Use a line chart with the historical date on the axis, then add Forecast from the Analytics pane for the next six months. A line chart is the supported time-series visual for forecasting.', 'Final 2', '44', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which type of visualization should you use?', '["key influences","ribbon chart","line chart","scatter chart"]', '[2]', 'ترجمة السؤال بالعربي
+HR يريد رسمًا يظهر عدد الموظفين تاريخيًا ويتنبأ بالستة أشهر التالية. تختار أي visual؟
+
+القصة والمعنى
+عندك أعداد شهرية وعايز تمد خط الزمن لتقدير المستقبل. المطلوب forecasting، مش تفسير أسباب ارتفاع العدد.
+
+مثال نفهم بيه
+الأعداد 100،104،108 عبر شهور؛ forecast يعرض امتدادًا تقديريًا مع نطاق ثقة.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Line chart بتواريخ وأعداد تاريخية.
+2. أضف Forecast من Analytics وحدد ستة أشهر.
+3. تأكد من شروط محور الزمن والسلسلة المدعومة؛ التوقع تقدير وليس ضمانًا.
+
+الإجابة الصحيحة وليه
+C: Line chart.
+
+ليه كل اختيار صح أو غلط
+A. key influences
+Key influencers يفسر عوامل النتيجة، لا يمد السلسلة ستة أشهر.
+
+B. ribbon chart
+Ribbon يقارن تغير الترتيب بين فئات.
+
+C. line chart
+صحيح؛ يدعم forecast للسلاسل الزمنية المناسبة.
+
+D. scatter chart
+Scatter يربط متغيرين رقميين، وليس رسم التوقع المطلوب.
+
+الخلاصة اللي تتحفظ
+تاريخ ومستقبل زمني = Line chart + Forecast.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final 2', '44', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-048-394', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You open powerbi.com as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The breadcrumb shows Insurance Data as the workspace and Customers as the dashboard. The visible Sale badge is the data-classification shorthand. The Q&A suggestions are grouped under INSURANCE, which identifies the dataset used by the dashboard.', 'Final 2', '48', '/dump-assets/f2-048-394-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10001]', 'ترجمة السؤال بالعربي
+من لقطة Power BI القديمة، حدد اختصار تصنيف البيانات واسم الموديل الذي تستخدمه الداشبورد.
+
+القصة والمعنى
+الصورة فيها أربعة أسماء لأربع حاجات مختلفة. Insurance Data هو المخزن، Customers هو اسم الداشبورد، Sale شارة تصنيف، و Insurance ظاهر فوق اقتراحات Q&A كمصدر البيانات.
+
+مثال نفهم بيه
+زي فولدر اسمه Insurance Data جواه داشبورد Customers مبني على موديل Insurance؛ أسماء العناصر مش لازم تتطابق.
+
+طريقة التفكير خطوة بخطوة
+1. اقرأ مكان الاسم في الواجهة، لا تختار الاسم الأقرب للمجال.
+2. شارة Sale بجوار العنوان هي shorthand للتصنيف القديم.
+3. عنوان INSURANCE فوق اقتراحات Q&A يحدد dataset.
+4. هذا نظام data classification قديم؛ التصنيف الحالي يعتمد sensitivity labels.
+
+الإجابة الصحيحة وليه
+الأول Sale، والثاني Insurance.
+
+ليه كل اختيار صح أو غلط
+A. The tenant data classification has this shorthand: Customers
+Customers اسم الداشبورد، وليس شارة التصنيف.
+
+B. The tenant data classification has this shorthand: Insurance
+Insurance اسم dataset، وليس الشارة.
+
+C. The tenant data classification has this shorthand: Insurance Data
+Insurance Data اسم workspace.
+
+D. The tenant data classification has this shorthand: Sale
+صحيح للأول؛ Sale هو النص الظاهر في الشارة.
+
+E. The dashboard uses this dataset: Customers
+Customers اسم العرض، لا الموديل.
+
+F. The dashboard uses this dataset: Insurance
+صحيح للثاني؛ Q&A يوضح INSURANCE كمصدر.
+
+G. The dashboard uses this dataset: Insurance Data
+اسم workspace لا يحدد dataset المستخدم.
+
+H. The dashboard uses this dataset: Sale
+Sale تصنيف قديم وليس dataset.
+
+الخلاصة اللي تتحفظ
+اقرأ موقع الاسم: workspace غير dashboard غير dataset غير label.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-q-and-a
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-dashboards', 'Final 2', '48', '/dump-assets/f2-048-394-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-050-395', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are creating an analytics report that will consume data from the tables shown in the following table.
@@ -17838,7 +22410,53 @@ There is a relationship between the tables.
 
 There are no reporting requirements on employeejd and employee_photo. You need to optimize the data model
 
-What should you configure for employeejd and employee.photo? To answer, select the appropriate options in the answer area.', '[]', '[]', 'employee_id remains necessary for the relationship, so hide it from report authors instead of removing it. employee_photo has no reporting or relationship use, so removing it reduces model size.', 'Final 2', '50', '/dump-assets/f2-050-395-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure for employeejd and employee.photo? To answer, select the appropriate options in the answer area.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+Sales مرتبط بـ Employee، ولا يوجد طلب تقارير على employee_id أو employee_photo. كيف تحسن الموديل لكل منهما؟
+
+القصة والمعنى
+مفتاح الموظف زي رقم البطاقة: المستخدم مش محتاج يشوفه، لكن العلاقة محتاجاه. صورة الموظف بالعكس لا تدخل علاقة ولا تقرير، فوجودها حمل بلا فائدة.
+
+مثال نفهم بيه
+ربط 200 عملية بموظفها يحتاج الرقم، أما صورة كل موظف فلا تضيف شيئًا لتحليل المبيعات المطلوب.
+
+طريقة التفكير خطوة بخطوة
+1. احتفظ بمفتاح employee_id حتى تبقى العلاقة صحيحة.
+2. اخفه من قائمة حقول التأليف.
+3. احذف employee_photo من الاستيراد لتوفير مساحة؛ الإخفاء وحده لا يوفر التخزين.
+
+الإجابة الصحيحة وليه
+Employee_id: Hide. Employee_photo: Delete.
+
+ليه كل اختيار صح أو غلط
+A. Employee_id: Change Type
+تغيير نوع المفتاح ليس طلبًا هنا؛ هو Integer مناسب أصلًا.
+
+B. Employee_id: Delete
+حذف المفتاح يكسر العلاقة.
+
+C. Employee_id: Hide
+صحيح؛ الإخفاء يقلل الزحام دون حذف وظيفة الربط.
+
+D. Employee_id: Sort
+الفرز لا يحل استخدام المفتاح أو تعقيد الحقول.
+
+E. Employee_photo: Change Type
+تغيير نوع الصورة لا يلغي البيانات غير المطلوبة.
+
+F. Employee_photo: Delete
+صحيح؛ الحذف يحقق تقليل الحجم.
+
+G. Employee_photo: Hide
+الصورة المخفية ما زالت مخزنة ويمكن الوصول إليها بالصلاحيات المناسبة.
+
+H. Employee_photo: Sort
+الفرز لا يوفر مساحة الصور.
+
+الخلاصة اللي تتحفظ
+مفتاح لازم للربط؟ اخفيه. عمود لا حاجة له؟ احذفه.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '50', '/dump-assets/f2-050-395-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-054-396', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bi model mat contains a table named Date. The Date table contains the fallowing columns:
@@ -17861,7 +22479,41 @@ You have a Power Bi model mat contains a table named Date. The Date table contai
 
 You need to create a calculated table based on the Date table. The calculated tab*e must contain only unique combinations of values for Calendar Year. Calendar
 
-Quarter and Calendar Month. Which DAX function should you include in the table deflation?', '["DATATABLE","ADDCOLUMS","SUMMARIZE","CALCULATE"]', '[2]', 'SUMMARIZE groups the Date table by Calendar Year, Calendar Quarter, and Calendar Month and returns one row per unique combination, which is the required calculated table grain.', 'Final 2', '54', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Quarter and Calendar Month. Which DAX function should you include in the table deflation?', '["DATATABLE","ADDCOLUMS","SUMMARIZE","CALCULATE"]', '[2]', 'ترجمة السؤال بالعربي
+عايز جدولًا محسوبًا من Date يحتوي تركيبات فريدة من السنة والربع والشهر التقويمي. أي دالة؟
+
+القصة والمعنى
+Date فيه صف لكل يوم، لكن المطلوب صف لكل شهر داخل سنته وربعه. يعني نجمع حسب الأعمدة دي ونرجع المجموعات، مش نضيف عمودًا على الأيام كلها.
+
+مثال نفهم بيه
+31 يومًا في يناير 2026 يصبحوا صفًا واحدًا: 2026 / Q1 / January.
+
+طريقة التفكير خطوة بخطوة
+1. حدد grain المطلوب: Year + Quarter + Month.
+2. SUMMARIZE يرجع صفًا لكل تركيبة group-by موجودة.
+3. اسم Calendar Month في الطلب يقابله عمود الشهر الموجود فعليًا في النموذج.
+
+الإجابة الصحيحة وليه
+C: SUMMARIZE.
+
+ليه كل اختيار صح أو غلط
+A. DATATABLE
+DATATABLE يكتب بيانات ثابتة يدويًا، لا يستخرج مجموعات المصدر تلقائيًا.
+
+B. ADDCOLUMS
+ADDCOLUMNS يضيف أعمدة إلى صفوف جدول موجود ولا يزيل تكرار المجموعات وحده.
+
+C. SUMMARIZE
+صحيح؛ يجمع حسب الأعمدة المحددة.
+
+D. CALCULATE
+CALCULATE يرجع قيمة scalar بعد تعديل الفلاتر، وليس جدول المجموعات المطلوب.
+
+الخلاصة اللي تتحفظ
+صف لكل تركيبة أعمدة = SUMMARIZE مع أعمدة التجميع.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/summarize-function-dax', 'Final 2', '54', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-059-397', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You plan to create a report that will display sales data from the last year for multiple regions
@@ -17870,18 +22522,90 @@ You need to restrict access to individual rows of the data on a per region-basis
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[1,3,0,4]', 'Role definitions are authored in Desktop, but user membership is assigned only after publishing in the service. This order creates and then activates row-level security correctly.', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[1,3,0,4]', 'ترجمة السؤال بالعربي
+عايز RLS يحدد الصفوف حسب المنطقة. رتب أربع خطوات من الاستيراد إلى صلاحيات المستخدمين.
+
+القصة والمعنى
+الأول تبني البيانات والقواعد عندك، وبعد ما ترفع الموديل تعيّن مين يدخل كل دور. نشر التقرير لا يختار أعضاء الأدوار تلقائيًا.
+
+مثال نفهم بيه
+دور East يفلتر Region="East"؛ بعد النشر تضيف فريق الشرق للدور وتختبر View as.
+
+طريقة التفكير خطوة بخطوة
+1. Import في Desktop.
+2. إنشاء Role definition مع مرشح المنطقة.
+3. Publish إلى الخدمة.
+4. إضافة المستخدمين أو مجموعاتهم للدور من Security في الخدمة.
+
+الإجابة الصحيحة وليه
+Import data → Create role definition → Publish → Assign users to role.
+
+ليه كل اختيار صح أو غلط
+A. Publish the report.
+خطوة ثالثة؛ يجب أن يكون الموديل والأدوار جاهزين أولًا.
+
+B. Import the data to Power BI Desktop.
+خطوة أولى؛ لا دور صفوف بدون بيانات.
+
+C. Add a filter to the report.
+فلتر التقرير ليس بديلًا أمنيًا عن RLS.
+
+D. Create a role definition.
+خطوة ثانية؛ القاعدة تتحدد قبل تعيين الأعضاء في الخدمة.
+
+E. Assign users to the role.
+خطوة رابعة؛ العضوية تتم بعد النشر.
+
+الخلاصة اللي تتحفظ
+تعريف الدور في Desktop، وتعيين أعضائه بعد النشر في Service.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final 2', '59', '/dump-assets/f2-059-397-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-061-398', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are creating a query to be used as a Country dimension in a star schema. A snapshot of the source data is shown in the following table.
 
 You need to create the dimension. The dimension must contain a list of unique countries. Which two actions should you perform? Each correct answer presents
 
-part of the solution.', '["Remove duplicates from the Country column.","Remove duplicates from the City column.","|Remove duplicates from the table.","Delete the City column.","Delete the Country column."]', '[0,3]', 'To create a dimension table for Country from your source data, you need to perform these two actions34:
-? Delete the City column. You don’t need this column for your Country dimension, as
-it is not a descriptive attribute of Country. You can create another dimension table for City if you want to use it in your analysis.
-? Remove duplicates from the Country column. You want to have a list of unique
-countries in your dimension table, so you need to remove any duplicate values from this column.', 'Final 2', '61', '/exhibit-assets/f2-061-398.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+part of the solution.', '["Remove duplicates from the Country column.","Remove duplicates from the City column.","|Remove duplicates from the table.","Delete the City column.","Delete the Country column."]', '[0,3]', 'ترجمة السؤال بالعربي
+مصدر به Country و City، وعايز Country dimension يحتوي دولًا فريدة فقط. اختار عمليتين.
+
+القصة والمعنى
+مصر موجودة مرة مع القاهرة ومرة مع الإسكندرية. الصفان مختلفان كمدن، لكن بُعد الدولة المطلوب محتاج مصر مرة واحدة.
+
+مثال نفهم بيه
+Egypt/Cairo و Egypt/Alexandria و France/Paris تصبح Egypt و France فقط.
+
+طريقة التفكير خطوة بخطوة
+1. احذف City لأنه يحدد مستوى أدق من grain الدولة.
+2. Remove duplicates على Country.
+3. لا تحذف البلد ولا تعتمد على إزالة تكرار الصف الكامل مع بقاء المدن.
+
+الإجابة الصحيحة وليه
+A و D: إزالة تكرار Country وحذف City.
+
+ليه كل اختيار صح أو غلط
+A. Remove duplicates from the Country column.
+صحيح؛ يجعل مفتاح الدولة فريدًا.
+
+B. Remove duplicates from the City column.
+تفرد المدن لا يضمن تفرد الدول.
+
+C. |Remove duplicates from the table.
+مع بقاء City، الصفوف المختلفة لمدن الدولة لا تعتبر مكررة.
+
+D. Delete the City column.
+صحيح؛ الناتج المطلوب دولة فقط.
+
+E. Delete the Country column.
+يحذف العمود الذي ستبني عليه البعد.
+
+الخلاصة اللي تتحفظ
+قبل إزالة التكرار حدد: الصف الواحد في البعد يمثل إيه؟
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/star-schema
+https://learn.microsoft.com/en-us/power-query/working-with-duplicates', 'Final 2', '61', '/exhibit-assets/f2-061-398.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-071-400', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI report that contains four pages. All the pages contain a slicer for a field named Country,
@@ -17890,7 +22614,41 @@ You need to ensure that when a user selects a county on page l, the selection is
 
 affected by
 
-selections on the other pages, What should you do?', '["Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.","Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.","Sync the Country slicer on page 1, page 2, and page 3,","Move the Country slicer from page 2 and page 3 to page 1."]', '[2]', 'Independent correction: C. Sync the Country slicer across pages 1, 2, and 3 and do not sync it to page 4. This preserves the selection on the selected pages only.', 'Final 2', '71', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+selections on the other pages, What should you do?', '["Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.","Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.","Sync the Country slicer on page 1, page 2, and page 3,","Move the Country slicer from page 2 and page 3 to page 1."]', '[2]', 'ترجمة السؤال بالعربي
+أربع صفحات بها Country slicer. عايز اختيار صفحة 1 ينتقل إلى 2 و 3 لكن 4 تفضل مستقلة.
+
+القصة والمعنى
+ثلاث صفحات رحلة تحليل واحدة، والرابعة لها اختيار منفصل. الحل هو تحديد بالضبط مين مشترك في نفس مجموعة السلايسر.
+
+مثال نفهم بيه
+اختيار Egypt في 1 يظهر في 2 و 3؛ صفحة 4 ممكن تفضل France.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Sync slicers للسلايسر.
+2. فعّل Sync للصفحات 1 و 2 و 3 فقط.
+3. اترك صفحة 4 خارج المزامنة؛ Visibility أمر مختلف عن Sync.
+
+الإجابة الصحيحة وليه
+C: Sync Country slicer على الصفحات 1 و 2 و 3.
+
+ليه كل اختيار صح أو غلط
+A. Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the report-level filters.
+Report filter سيؤثر على 4 أيضًا.
+
+B. Remove the Country slicer from page 1, page 2, and page 3. Add the Country field to the page-level filters.
+Page filters مستقلة ولا تنتقل اختياراتها تلقائيًا بين الصفحات.
+
+C. Sync the Country slicer on page 1, page 2, and page 3,
+صحيح؛ يحدد نطاق مشاركة الاختيار.
+
+D. Move the Country slicer from page 2 and page 3 to page 1.
+نقل السلايسر لا يزامن الصفحات وحده.
+
+الخلاصة اللي تتحفظ
+المزامنة اختيار صفحات، مش شرط كل التقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final 2', '71', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-076-401', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a table that contains a column named Phone. The following is a sample of the data in the Phone column.
@@ -17901,7 +22659,54 @@ appropriate
 
 options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Text.End keeps the final 12 characters, which removes the optional leading country code. Text.Replace then changes spaces to hyphens so every result has the nnn-nnn-nnnn format.', 'Final 2', '76', '/dump-assets/f2-076-401-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+أرقام Phone أغلبها nnn-nnn-nnnn، وبعضها به كود بلد ومسافات. أكمل M لتوحيدها.
+
+القصة والمعنى
+خد آخر 12 حرفًا؛ دول الرقم المحلي نفسه في العينة. بعدين بدّل المسافة بشرطة حتى الرقم المختلف يدخل نفس الشكل.
+
+مثال نفهم بيه
+1 (11) 500 555-0122 → 500 555-0122 → 500-555-0122.
+
+طريقة التفكير خطوة بخطوة
+1. Text.End([Phone],12) يحذف البادئة الاختيارية من اليسار.
+2. Text.Replace(...," ","-") يوحد الفاصل.
+3. الحل مبني على صيغة العينة؛ ليس تنظيفًا عالميًا لكل أرقام البلدان.
+
+الإجابة الصحيحة وليه
+الأول Replace، والثاني End.
+
+ليه كل اختيار صح أو غلط
+A. Outer Text function: Insert
+Insert يضيف نصًا في موضع، لا يستبدل المسافات.
+
+B. Outer Text function: Remove
+Remove يحذف حروفًا، ولا يضع الشرطات المطلوبة.
+
+C. Outer Text function: Replace
+صحيح؛ Replace يبدل المسافة بشرطة.
+
+D. Outer Text function: ReplaceRange
+ReplaceRange يحتاج موضعًا وطولًا وليس الوسائط الموجودة.
+
+E. Inner Text function: At
+At يرجع حرفًا واحدًا من موضع محدد.
+
+F. Inner Text function: End
+صحيح؛ End يأخذ آخر 12 حرفًا.
+
+G. Inner Text function: Middle
+Middle يحتاج موضع البداية ولا يطابق الصيغة الحالية.
+
+H. Inner Text function: Range
+Range يأخذ جزءًا بموقع، وليس آخرعدد حروف بهذه الوسائط.
+
+الخلاصة اللي تتحفظ
+End لاختيار نهاية النص؛ Replace لتبديل فاصل.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/powerquery-m/text-end
+https://learn.microsoft.com/en-us/powerquery-m/text-replace', 'Final 2', '76', '/dump-assets/f2-076-401-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-081-402', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -17926,7 +22731,35 @@ Solution; You create measures that use the uSEREIATIOHSHIP DAX function to filte
 
 table.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'No. USERELATIONSHIP activates one inactive relationship inside a measure, but one shared Date table still cannot filter Due Date, Order Date, and Delivery Date simultaneously for independent analysis. Use separate role-playing date tables when all three date roles must be available at the same time.', 'Final 2', '81', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+Sales له Due و Order و Delivery dates. هل USERELATIONSHIP على علاقات Date غير النشطة يكفي لتحليل الأدوار الثلاثة باستقلال في نفس الوقت؟
+
+القصة والمعنى
+سلايسر تاريخ واحد لا يقدر يعني يناير للطلب وفبراير للتسليم في نفس اللحظة. تبديل العلاقة داخل measure يغيّر طريق الحساب، لكنه لا ينشئ اختيار تاريخ مستقلًا جديدًا.
+
+مثال نفهم بيه
+طلبات يناير التي وصلت في فبراير تحتاج Order Date=January و Delivery Date=February كفلترين مستقلين.
+
+طريقة التفكير خطوة بخطوة
+1. USERELATIONSHIP يفعّل مسارًا داخل حساب معين.
+2. للتصفية والتجميع المستقل المتزامن تحتاج جداول Date بأدوار منفصلة وعلاقات نشطة.
+3. تميّز بين مقارنة measures بنفس الفترة وبين اختيار فترتين مستقلتين.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+لا؛ يخلط تبديل مسار measure مع دعم أدوار تاريخ مستقلة متزامنة.
+
+B. No
+صحيح؛ أنشئ role-playing date tables لتلبية الشرط.
+
+الخلاصة اللي تتحفظ
+تاريخان باختيارين مستقلين = جدول لكل دور.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive', 'Final 2', '81', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-083-403', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have two CSV files named Products and Categories. The Products file contains the following columns:
@@ -17965,18 +22798,89 @@ You need to create a Power BI dataset that will contain a single table named Pro
 
 How should you combine the queries, and what should you do on the Categories query? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Merge adds the category columns to Products by matching CategoryID. The helper query must remain available to the merge, but disabling its load prevents an unnecessary standalone model table.', 'Final 2', '83', '/dump-assets/f2-083-403-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10001]', 'ترجمة السؤال بالعربي
+Products و Categories من CSV. عايز جدول Product واحد يضيف اسم ووصف الفئة، ولا يظهر Categories كجدول مستقل.
+
+القصة والمعنى
+كل منتج معاه CategoryID، واسم الفئة موجود في قائمة تانية. هتوصل القائمتين بالرقم وتوسع بيانات الفئة، مع إبقاء استعلامها مساعدًا في الخلفية.
+
+مثال نفهم بيه
+منتج CategoryID=2 يأخذ CategoryName=Beverages من صف الفئة 2.
+
+طريقة التفكير خطوة بخطوة
+1. Merge على CategoryID ثم Expand للاسم والوصف.
+2. Disable load لاستعلام Categories؛ استعلام Product ما زال يعتمد عليه.
+3. حذف الاستعلام يكسر الاعتماد، وإلغاء refresh ليس هو منع تحميل جدول.
+
+الإجابة الصحيحة وليه
+Merge؛ Disable the query load.
+
+ليه كل اختيار صح أو غلط
+A. Combine the queries by performing a: Append
+Append يضيف صفوف المنتجات والفئات تحت بعض بدل إضافة خصائص الفئة.
+
+B. Combine the queries by performing a: Merge
+صحيح؛ Merge يطابق المفتاح ويضيف الأعمدة.
+
+C. Combine the queries by performing a: Transpose
+Transpose يبدل صفوف وأعمدة بلا ربط مفاتيح.
+
+D. On the Categories query: Delete the query.
+حذف Categories يزيل الاستعلام الذي يستخدمه الدمج.
+
+E. On the Categories query: Disable the query load.
+صحيح؛ يمنع الجدول المستقل دون إلغاء الاعتماد.
+
+F. On the Categories query: Exclude the query from report refresh.
+إلغاء refresh ليس الحل لجدول لا تريد تحميله.
+
+الخلاصة اللي تتحفظ
+استعلام مساعد لازم للتحويل لكن مش للموديل = Disable load.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/merge-queries-overview
+https://learn.microsoft.com/en-us/power-bi/connect-data/refresh-include-in-report-refresh', 'Final 2', '83', '/dump-assets/f2-083-403-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-088-404', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a large dataset that contains more than 1 million rows. The table has a datetime column named
 
 Date.
 
-You need to reduce the size of the data model. What should you do?', '["Round the hour of the Date column to startOfHour.","Change the data type of the Date column to Text.","Trim the Date column.","Split the Date column into two columns, one that contains only the time and another that contains only the date."]', '[3]', 'We have to separate date & time tables. Also, we don’t need to put the time into the date table, because the time is repeated every day.
-Split your DateTime column into a separate date & time columns in fact table, so that you can join the date to the date table & the time to the time table. The time
-need to be converted to the nearest round minute or second so that every time in your data corresponds to a row in your time table.
-Reference:
-https://intellipaat.com/community/6461/how-to-include-time-in-date-hierarchy-in-power-bi', 'Final 2', '88', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to reduce the size of the data model. What should you do?', '["Round the hour of the Date column to startOfHour.","Change the data type of the Date column to Text.","Trim the Date column.","Split the Date column into two columns, one that contains only the time and another that contains only the date."]', '[3]', 'ترجمة السؤال بالعربي
+أكثر من مليون صف فيها DateTime، والمطلوب تقليل حجم الموديل. أي تغيير مناسب دون افتراض فقد الدقة؟
+
+القصة والمعنى
+اللحظة الكاملة ممكن تكون مختلفة في كل عملية، فيكبر قاموس القيم. فصل اليوم عن الساعة يسمح بتكرار كل جزء وضغطه أفضل، بدل تخزين مليون تركيبة مختلفة.
+
+مثال نفهم بيه
+ألف عملية في يوم واحد لها ألف لحظة؛ عمود Date يحتوي قيمة واحدة، و Time يعاد استخدام قيمه عبر الأيام.
+
+طريقة التفكير خطوة بخطوة
+1. افصل Date و Time إلى عمودين واحذف DateTime الأصلي إذا لم يعد مطلوبًا.
+2. الحل المعتاد يقلل cardinality لكل عمود، لكنه يحتاج قياسًا فعليًا.
+3. تقريب الساعة يفقد تفاصيل دقائق وثوانٍ لم يسمح السؤال بإلغائها.
+
+الإجابة الصحيحة وليه
+D: فصل التاريخ والوقت.
+
+ليه كل اختيار صح أو غلط
+A. Round the hour of the Date column to startOfHour.
+قد يقلل الحجم لكنه يغيّر الدقة؛ ليس بديلًا يحافظ على كل التفاصيل.
+
+B. Change the data type of the Date column to Text.
+Text ليس تحسينًا مضمونًا وقد يزيد حجم القاموس.
+
+C. Trim the Date column.
+Trim تنظيف نصوص وليس علاج cardinality لتاريخ/وقت.
+
+D. Split the Date column into two columns, one that contains only the time and another that contains only the date.
+صحيح في النمط المقصود؛ افصل الجزأين ولا تحتفظ بالأصل زائدًا.
+
+الخلاصة اللي تتحفظ
+قلل عدد القيم المختلفة دون إلغاء معلومة مطلوبة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '88', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-090-405', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -17993,11 +22897,35 @@ You need to create a reference line to show which employees are above the median
 
 salary.
 
-Solution: You create an average line by using the Salary measure. Does this meet the goal?', '["Yes","No"]', '[1]', 'Instead create a percentile line by using the Salary measure and set the percentile to 50%. Note: The 50th percentile is also known as the median or middle value
-where 50 percent of
-observations fall below.
-Reference:
-https://dash-intel.com/powerbi/statistical_functions_percentile.php', 'Final 2', '90', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Solution: You create an average line by using the Salary measure. Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+عايز خطًا مرجعيًا لوسيط رواتب الموظفين. هل Average line يحقق الهدف؟
+
+القصة والمعنى
+موظف راتبه مليون يرفع المتوسط جدًا، بينما الوسيط هو الراتب الذي يقع في المنتصف بعد الترتيب. الاتنين مش نفس المقياس.
+
+مثال نفهم بيه
+رواتب 10 و 20 و 90: المتوسط 40، لكن الوسيط 20؛ خط 40 لا يجاوب سؤال فوق الوسيط.
+
+طريقة التفكير خطوة بخطوة
+1. المطلوب Median، أي percentile50.
+2. Average line يحسب المتوسط الحسابي وليس الوسيط.
+3. استخدم Median line إن توفرت أو Percentile line=50 في الرسم المدعوم.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+لا؛ المتوسط والوسيط قد يتساويان صدفة فقط.
+
+B. No
+صحيح؛ Average لا يحقق تعريف Median.
+
+الخلاصة اللي تتحفظ
+Median =50th percentile، مش Average.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final 2', '90', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-100-407', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You are building a dataset from a JSON file that contains an array of documents.
@@ -18008,14 +22936,87 @@ Microsoft Power BI reports.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'A JSON array arrives as a list. Convert it to a table, expand each record into columns, and only then assign types so date attributes can support date hierarchies.', 'Final 2', '100', '/dump-assets/f2-100-407-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+JSON فيه array من documents. عايز attributes أعمدة، والتواريخ تصلح لهرمية تاريخ. رتب ثلاث خطوات.
+
+القصة والمعنى
+الملف زي كيس فيه كروت؛ الكيس List، وكل كارت Record له خانات. لازم تحول الكروت لصفوف وتفتح الخانات لأعمدة قبل تحديد أنواعها.
+
+مثال نفهم بيه
+[{name:"Ali",date:"2026-01-01"}] يصبح صفًا بعمودي name و date ثم date بنوع Date.
+
+طريقة التفكير خطوة بخطوة
+1. Convert list to table.
+2. Expand records إلى أعمدة attributes.
+3. Set data types، خصوصًا Date للتاريخ؛ الهرمية تعتمد أيضًا على إعداد Auto date/time وشروطه.
+
+الإجابة الصحيحة وليه
+Convert list to table → Expand records → Set data types.
+
+ليه كل اختيار صح أو غلط
+A. Expand the columns.
+الأعمدة قبل فتح Record ليست attributes المستهدفة؛ الاختيار الأدق Expand records.
+
+B. Expand the records.
+صحيح كخطوة ثانية؛ يفرد حقول كل document.
+
+C. Add columns that use data type conversions.
+إضافة أعمدة تحويل جديدة ليست لازمة ما دام تغيير النوع متاحًا.
+
+D. Set the data types.
+صحيح ثالثًا؛ النص الشبيه بالتاريخ ليس Date حتى يتحول.
+
+E. Convert the list to a table.
+صحيح أولًا؛ يجعل عناصر القائمة صفوفًا.
+
+الخلاصة اللي تتحفظ
+List → Table → Expand Record → Types.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/connectors/json
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-auto-date-time', 'Final 2', '100', '/dump-assets/f2-100-407-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-102-408', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a BI dataset and a connected report.
 
 You need to ensure that users can analyze data in Microsoft Excel by connecting directly to the dataset.
 
-You grant the users the Build permission for dataset What Should do next?', '["Change default visual interaction for the report","For the report change the Export data setting to Summarized data, data with current layout and underlying data","For the report, change the Export data setting to None","Certify the dataset used by the report."]', '[2]', 'Independent correction: C. Build permission enables Analyze in Excel against the semantic model. Report visual export is a separate capability, so set Export data to None when it is not required.', 'Final 2', '102', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You grant the users the Build permission for dataset What Should do next?', '["Change default visual interaction for the report","For the report change the Export data setting to Summarized data, data with current layout and underlying data","For the report, change the Export data setting to None","Certify the dataset used by the report."]', '[]', 'ترجمة السؤال بالعربي
+منحت المستخدمين Build ليحللوا semantic model من Excel. السؤال يطلب خطوة تالية، لكن الخيارات كلها إعدادات تقرير أو اعتماد.
+
+القصة والمعنى
+Build هي مفتاح باب التحليل. إعداد تصدير رسومات التقرير باب مختلف؛ قفله لا يفتح Analyze in Excel ولا يشكل شرطًا له.
+
+مثال نفهم بيه
+مستخدم Build يقدر يبدأ Analyze in Excel سواء كان تصدير visual مسموحًا أو محظورًا، ما لم تمنعه سياسة أخرى.
+
+طريقة التفكير خطوة بخطوة
+1. راجع Build وتفعيل Analyze in Excel على مستوى المؤسسة والتراخيص.
+2. لا يلزم تغيير Export data إلى None لتحقيق اتصال Excel المباشر.
+3. الاختيارات لا تتضمن خطوة تالية لازمة حسب نص السؤال؛ لا نعلم الطالب أن C شرط تقني.
+
+الإجابة الصحيحة وليه
+السؤال معيب: C موجودة في المفتاح لكنها ليست مطلوبة. Build مع المتطلبات التنظيمية هي الأساس.
+
+ليه كل اختيار صح أو غلط
+A. Change default visual interaction for the report
+التفاعلات بين الرسومات لا تضبط اتصال Excel بالموديل.
+
+B. For the report change the Export data setting to Summarized data, data with current layout and underlying data
+تصدير البيانات من visual ليس نفس live connection إلى semantic model.
+
+C. For the report, change the Export data setting to None
+يمكن حظر تصدير التقرير بهذا الاختيار، لكنه لا يتيح Analyze in Excel ولا يلزم لتحقيقه.
+
+D. Certify the dataset used by the report.
+Certification علامة ثقة وليست صلاحية اتصال.
+
+الخلاصة اللي تتحفظ
+لا تخلط Analyze in Excel مع Export data من رسم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-analyze-in-excel
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final 2', '102', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-105-409', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that use the same scenario. For your convenience, the scenario is repeated in each question. Each question
@@ -18042,7 +23043,42 @@ You need to create a relationship between the Order table and the Store table on
 
 Store_ID column.
 
-What should you do before you create the relationship?', '["In the Order table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformColumnTypes function.","In the Order table query, use the Table.TrasformColumnTypes function."]', '[2]', 'Use Table.TransformColumnTypes in the Store query so Store[Store_ID] has the same data type as Order[Store_ID] before the relationship is created. Relationship keys must have compatible data types; transforming rows does not solve that requirement.', 'Final 2', '105', '/exhibit-assets/f2-105-409.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do before you create the relationship?', '["In the Order table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformRows function.","In the Store table query, use the Table.TrasformColumnTypes function.","In the Order table query, use the Table.TrasformColumnTypes function."]', '[2]', 'ترجمة السؤال بالعربي
+عايز علاقة Order و Store على Store_ID، وبيانات المفتاح في المصدر مختلفة النوع. ماذا تعدل قبل العلاقة؟
+
+القصة والمعنى
+رقم الفرع قد يصل نصًا في جدول ورقمًا في آخر. نفس الشكل على الشاشة لا يكفي؛ نوع المفتاحين يجب أن يكون متوافقًا.
+
+مثال نفهم بيه
+"12" كنص و 12 كعدد يحتاجان نوعًا موحدًا قبل ربط متجر 12 بعملياته؛ راجع الأصفار البادئة قبل التحويل.
+
+طريقة التفكير خطوة بخطوة
+1. اقرأ نوع Store_ID في الجدولين من المعروض.
+2. استخدم Table.TransformColumnTypes على Store كما يطلب مخطط المصدر.
+3. الاختيار يغير نوع عمود، لا يطبق دالة تحويل صفوف بالكامل.
+
+الإجابة الصحيحة وليه
+C: Table.TransformColumnTypes في Store query.
+
+ليه كل اختيار صح أو غلط
+A. In the Order table query, use the Table.TrasformRows function.
+TransformRows لا يعبر عن تغيير نوع العمود المطلوب.
+
+B. In the Store table query, use the Table.TrasformRows function.
+نفس المشكلة؛ تحويل الصفوف ليس الخيار المقصود.
+
+C. In the Store table query, use the Table.TrasformColumnTypes function.
+صحيح؛ تعديل نوع Store_ID في Store ليتطابق مع Order.
+
+D. In the Order table query, use the Table.TrasformColumnTypes function.
+يغير الجدول الآخر بدل التعديل المحدد في المصدر، وقد يكون أثقل على أكثر من مليون صف.
+
+الخلاصة اللي تتحفظ
+العلاقة تحتاج مفاتيح متوافقة النوع، مش متشابهة المنظر فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships
+https://learn.microsoft.com/en-us/powerquery-m/table-transformcolumntypes', 'Final 2', '105', '/exhibit-assets/f2-105-409.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-106-410', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You need to create a Power Bl report. The first page or the report must contain the following two views:
@@ -18053,7 +23089,51 @@ You need to create a Power Bl report. The first page or the report must contain 
 
 Both views must display a slicer to select a value for a field named Chain.
 
-The Sales By Postal Code view must display a map visual as shown in the following exhibit.', '[]', '[]', 'One bookmark shows the postal-code map and the other shows the monthly visual. Capture Display so the bookmarks change visual visibility without resetting the Chain slicer selection.', 'Final 2', '106', '/dump-assets/f2-106-410-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+The Sales By Postal Code view must display a map visual as shown in the following exhibit.', '[]', '[10001,10001]', 'ترجمة السؤال بالعربي
+صفحة بها عرض Sales By Postal Code وعرض Sales By Month، والسلايسر Chain مشترك. كم Bookmark وما الخاصية اللازمة لتبديل العرض؟
+
+القصة والمعنى
+عايز زرين: واحد يفتح الخريطة، والتاني يفتح تحليل الشهور. كل زر يحفظ حالة ظهور الرسومات؛ اختيار Chain الحالي لازم يفضل مع المستخدم.
+
+مثال نفهم بيه
+المستخدم اختار Chain A ثم ضغط Months؛ تظل Chain A ويختفي map ويظهر monthly chart.
+
+طريقة التفكير خطوة بخطوة
+1. احفظ حالتين مختلفتين للعرض، واحدة لكل view.
+2. فعّل Display لحفظ الإظهار والإخفاء.
+3. عطل Data إذا لا تريد إعادة اختيار السلايسر لقيم قديمة.
+4. المصدر لا يعرض الخريطة الموعودة؛ لا نستنتج أي تنسيق جغرافي غير ظاهر.
+
+الإجابة الصحيحة وليه
+2 bookmarks؛ Display.
+
+ليه كل اختيار صح أو غلط
+A. Minimum number of bookmarks: 1
+حالة واحدة لا تمثل وجهتي التبديل المطلوبتين.
+
+B. Minimum number of bookmarks: 2
+صحيح؛ حالة Postal Code وحالة Month.
+
+C. Minimum number of bookmarks: 3
+ثالثة ليست مطلوبة للتبديل بين عرضين.
+
+D. Minimum number of bookmarks: 4
+أربع حالات جهد زائد دون مطلب.
+
+E. Property: Data
+Data يحفظ الفلاتر والاختيارات وقد يعيد ضبط Chain.
+
+F. Property: Display
+صحيح؛ Display يحفظ ظهور الرسومات.
+
+G. Property: Current page
+Current page يحفظ الصفحة وليس إظهار رسم وإخفاء آخر على الصفحة نفسها.
+
+الخلاصة اللي تتحفظ
+تبديل الرسومات مع الحفاظ على الفلاتر = Display bookmarks دون Data.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-bookmarks', 'Final 2', '106', '/dump-assets/f2-106-410-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-111-411', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have data in a Microsoft Excel worksheet as shown in the following table.
@@ -18064,25 +23144,161 @@ You need to use Power Query to clean and transform the dataset. The solution mus
 
 • All the rows of data must be maintained.
 
-• Administrative effort must be minimized. What should you do in Power Query Editor?', '["Select Keep Errors","Edit the query in the Query Errors group.","Select Replace Errors","Select Remove Errors."]', '[2]', 'Select Replace Errors and enter 0.05. This replaces only the error cells and preserves every row, meeting the requirement with one transformation step.', 'Final 2', '111', '/exhibit-assets/f2-111-411.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+• Administrative effort must be minimized. What should you do in Power Query Editor?', '["Select Keep Errors","Edit the query in the Query Errors group.","Select Replace Errors","Select Remove Errors."]', '[2]', 'ترجمة السؤال بالعربي
+عمود discount فيه أخطاء، وعايز تستبدل كل خطأ بـ 0.05 مع إبقاء كل الصفوف وبأقل شغل.
+
+القصة والمعنى
+فيه فاتورة خصمها مش معروف بسبب Error. المطلوب افتراض خصم 5% لهذه الخانة، مش حذف الفاتورة كلها ولا عرض الفواتير التالفة وحدها.
+
+مثال نفهم بيه
+الخصومات 0.1 و Error و 0 تصبح 0.1 و 0.05 و 0؛ عدد الفواتير لا يتغير.
+
+طريقة التفكير خطوة بخطوة
+1. حدد discount ثم Replace Errors وأدخل 0.05.
+2. العملية تعالج error values الموجودة فعلًا؛ النص العادي N/A ليس Error حتى يفشل تحويله.
+3. لو تحويل النوع ينشئ أخطاء جديدة، نفذ التحويل قبل استبدال تلك الأخطاء.
+
+الإجابة الصحيحة وليه
+C: Replace Errors.
+
+ليه كل اختيار صح أو غلط
+A. Select Keep Errors
+Keep Errors يبقي الصفوف التالفة فقط ويحذف بقية البيانات.
+
+B. Edit the query in the Query Errors group.
+مجموعة Query Errors للتشخيص ليست الاستبدال المباشر المطلوب.
+
+C. Select Replace Errors
+صحيح؛ يحافظ على الصفوف ويعدل خلية الخطأ.
+
+D. Select Remove Errors.
+Remove Errors يحذف صفوفًا، عكس الشرط.
+
+الخلاصة اللي تتحفظ
+استبدال خطأ يحافظ على الصف؛ إزالة خطأ تحذف الصف.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/dealing-with-errors', 'Final 2', '111', '/exhibit-assets/f2-111-411.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-113-412', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Your company has training videos that are published to Microsoft Stream. You need to surface the videos directly in a Microsoft Power BI dashboard. Which type
 
-of tile should you add?', '["video","custom streaming data","text box","web content"]', '[3]', 'https://docs.microsoft.com/en-us/stream/portal-embed-video https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-add- widget#add-web-
-content', 'Final 2', '113', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+of tile should you add?', '["video","custom streaming data","text box","web content"]', '[3]', 'ترجمة السؤال بالعربي
+فيديوهات تدريب منشورة على Microsoft Stream، وعايز تعرضها داخل dashboard. أي نوع tile؟
+
+القصة والمعنى
+Video tile مش مشغلًا عامًا لأي رابط فيديو. فيديو Stream يحتاج كود embed مناسبًا، فنضعه في Web content بدل افتراض أن رابط Stream يعمل داخل نوع Video.
+
+مثال نفهم بيه
+لنك مشاهدة Stream ليس ملف MP4 عام؛ iframe التضمين يحتفظ بصلاحيات المشاهدة المطلوبة.
+
+طريقة التفكير خطوة بخطوة
+1. احصل على embed code المدعوم للفيديو.
+2. أضفه إلى Web content tile، مع مراعاة تسجيل الدخول وسياسة التضمين.
+3. الواجهة في السؤال قديمة؛ Stream الحالي مبني على SharePoint وتختلف تفاصيل التضمين.
+
+الإجابة الصحيحة وليه
+D: Web content في سياق السؤال.
+
+ليه كل اختيار صح أو غلط
+A. video
+نوع Video التقليدي لا يدعم كل مزودي الفيديو ومنهم هذا السيناريو.
+
+B. custom streaming data
+Streaming data لاستقبال بيانات رقمية حية، لا فيديو تدريب.
+
+C. text box
+Text box يعرض نصًا وروابط، لا مشغل التضمين المطلوب.
+
+D. web content
+صحيح؛ يدعم محتوى الويب المضمّن وفق قيود الأمان.
+
+الخلاصة اللي تتحفظ
+Stream فيديو ≠ streaming dataset؛ انتبه لنوع التضمين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-add-widget', 'Final 2', '113', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-118-413', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI report that uses a dataset based on an Azure Analysis Services live connection.
 
-You need to ensure that users can use Q&A from the Power BI service for the dataset. What should you do?', '["From the Power BI service, add an enterprise gateway to the dataset.","From Power BI Desktop, add synonyms and suggested questions.","From Power BI Desktop, add a Q&A visual to the report.","From the Power Bi service, select Turn on Q& A for this dataset."]', '[3]', 'Enable Q&A for the live-connected semantic model in the Power BI service. The service setting controls whether users can ask natural-language questions against that dataset.', 'Final 2', '118', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that users can use Q&A from the Power BI service for the dataset. What should you do?', '["From the Power BI service, add an enterprise gateway to the dataset.","From Power BI Desktop, add synonyms and suggested questions.","From Power BI Desktop, add a Q&A visual to the report.","From the Power Bi service, select Turn on Q& A for this dataset."]', '[3]', 'ترجمة السؤال بالعربي
+تقرير live connection مع Azure Analysis Services. كيف تتيح Q&A في الخدمة؟
+
+القصة والمعنى
+الأرقام جاية من موديل Analysis Services جاهز. إضافة رسم سؤال وجواب للتقرير ليست نفس تفعيل قدرة السؤال على semantic model في الخدمة.
+
+مثال نفهم بيه
+تفعيل إعداد الموديل يسمح بطلب sales by year؛ وضع synonym يساعد الفهم لكنه لا يشغل الميزة المعطلة.
+
+طريقة التفكير خطوة بخطوة
+1. فعّل Turn on Q&A for this dataset في إعدادات الخدمة المدعومة.
+2. Azure Analysis Services سحابي؛ enterprise gateway ليس سبب تفعيل Q&A هنا.
+3. الميزة قديمة وقيد الإزالة: الوثائق الحالية تحدد فبراير 2027، فلا نقدمها كأساس لتصميم جديد.
+
+الإجابة الصحيحة وليه
+D في صياغة المصدر: Turn on Q&A for this dataset.
+
+ليه كل اختيار صح أو غلط
+A. From the Power BI service, add an enterprise gateway to the dataset.
+Gateway ليس مطلوبًا لمجرد أن المصدر Azure Analysis Services ولا يشغل Q&A.
+
+B. From Power BI Desktop, add synonyms and suggested questions.
+Synonyms تحسن اللغة، ولا تستبدل مفتاح التفعيل.
+
+C. From Power BI Desktop, add a Q&A visual to the report.
+إضافة visual ليست شرط تمكين Q&A للموديل في الخدمة.
+
+D. From the Power Bi service, select Turn on Q& A for this dataset.
+صحيح وفق الواجهة القديمة ومتطلبات الميزة المدعومة.
+
+الخلاصة اللي تتحفظ
+تفعيل الميزة شيء، وتحسين قاموسها أو إضافة visual شيء آخر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/natural-language/q-and-a-intro
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-q-and-a-direct-query', 'Final 2', '118', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-122-414', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Microsoft Power Bl dashboard.
 
 You need to ensure that consumers of the dashboard can give you feedback that will be visible to the other consumers of the dashboard.
 
-What should you use?', '["Feedback","Subscribe","Comments","Mark as favorite"]', '[2]', 'https://docs.microsoft.com/en-us/power-bi/consumer/end-user-comment', 'Final 2', '122', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you use?', '["Feedback","Subscribe","Comments","Mark as favorite"]', '[2]', 'ترجمة السؤال بالعربي
+عايز مستهلكو dashboard يتركوا feedback يشوفه باقي المستهلكين. تستخدم إيه؟
+
+القصة والمعنى
+عايز نقاشًا جنب اللوحة: مدير يسأل ليه مبيعات مايو قلت، وحد تاني يرد على نفس الرسالة. ده Comments، مش بريد دوري ولا تقييم خاص للبرنامج.
+
+مثال نفهم بيه
+تعليق على KPI: هل الرقم بعد المرتجعات؟ يقدر الفريق يشوف السؤال والرد في مكانهما.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Comments على dashboard أو tile.
+2. التعليقات مرئية لمن لديهم الوصول المناسب للمحتوى.
+3. يمكن استخدام mention لتنبيه شخص، لكن الإذن بالمحتوى لا يلغى.
+
+الإجابة الصحيحة وليه
+C: Comments.
+
+ليه كل اختيار صح أو غلط
+A. Feedback
+Feedback للمنتج ليس مساحة نقاش المستهلكين المطلوبة.
+
+B. Subscribe
+Subscribe يرسل نسخة دورية ولا ينشئ محادثة مرئية.
+
+C. Comments
+صحيح؛ تعليق ونقاش مرتبط بالمحتوى.
+
+D. Mark as favorite
+Favorite علامة شخصية للمستخدم.
+
+الخلاصة اللي تتحفظ
+نقاش جماعي على لوحة = Comments.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/consumer/end-user-comment', 'Final 2', '122', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-123-415', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have multiple dashboards.
@@ -18091,21 +23307,83 @@ You need to ensure that when users browse the available dashboards from powerbi.
 
 Information (Pll). The solution must minimize configuration effort and impact on the dashboard design.
 
-What should you use?', '["Active Directory groups","tiles","data classifications","comments"]', '[2]', 'Legacy-source answer: C, data classifications. Current-product note: Power BI now uses Microsoft Purview sensitivity labels on dashboards, reports, semantic models, and dataflows. Because the modern feature is absent from the choices, treat this as a legacy concept check rather than a current UI instruction.', 'Final 2', '123', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you use?', '["Active Directory groups","tiles","data classifications","comments"]', '[2]', 'ترجمة السؤال بالعربي
+عايز المستخدم وهو يتصفح dashboards يعرف أيها يحتوي PII، دون تغيير تصميم اللوحة أو مجهود كبير.
+
+القصة والمعنى
+بدل ما تحط نص تحذير على كل رسم، تلصق علامة تصنيف على العنصر نفسه. السؤال يستخدم اسم الميزة القديمة Data classifications.
+
+مثال نفهم بيه
+لوحة رواتب عليها Confidential، فتظهر الحساسية للمستهلك قبل فتح الرسومات.
+
+طريقة التفكير خطوة بخطوة
+1. الهدف اكتشاف الحساسية في قائمة المحتوى.
+2. التصنيف علامة وصف للمحتوى، وليس عضوية فريق أو تعليقًا.
+3. الحل الحالي Sensitivity labels؛ الاختيارات لا تعرض الاسم الحالي.
+
+الإجابة الصحيحة وليه
+C: Data classifications هو الجواب التاريخي؛ حاليًا Sensitivity labels.
+
+ليه كل اختيار صح أو غلط
+A. Active Directory groups
+مجموعات الدليل تحدد أعضاء وصلاحيات، لا شارة نوع البيانات.
+
+B. tiles
+Tile جديد يغير التصميم ويتطلب تعديلات داخل كل لوحة.
+
+C. data classifications
+صحيح بحسب الاسم القديم للميزة؛ لا نفهمه كمنع وصول تلقائي.
+
+D. comments
+Comments ليست علامة تصنيف موحدة في تصفح المحتوى.
+
+الخلاصة اللي تتحفظ
+علّم المحتوى الحساس بتصنيف، ولا تخلط العلامة بالصلاحية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/fabric/enterprise/powerbi/service-security-sensitivity-label-overview', 'Final 2', '123', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-128-416', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have an Azure SQL database that contains sales transactions. The database is updated frequently.
 
 You need to generate reports from the data to detect fraudulent transactions. The data must be visible within five minutes of an update.
 
-How should you configure the data connection?', '["Add a SQL statement.","Set Data Connectivity mode to DirectQuery.","Set the Command timeout in minutes setting.","Set Data Connectivity mode to Import."]', '[1]', 'With Power BI Desktop, when you connect to your data source, it''s always possible to
-import a copy of the data into the Power BI Desktop. For some data sources, an alternative approach is available: connect directly to the data source using
-DirectQuery.
-DirectQuery: No data is imported or copied into Power BI Desktop. For relational sources, the selected tables and columns appear in the Fields list. For multi-
-dimensional sources like SAP Business Warehouse, the dimensions and measures of the selected cube appear in the Fields list. As you create or interact with a
-visualization, Power BI Desktop queries the underlying data source, so you’re always viewing current data.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-use-directquery', 'Final 2', '128', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+How should you configure the data connection?', '["Add a SQL statement.","Set Data Connectivity mode to DirectQuery.","Set the Command timeout in minutes setting.","Set Data Connectivity mode to Import."]', '[1]', 'ترجمة السؤال بالعربي
+Azure SQL يتحدث باستمرار، وتحتاج رؤية المعاملة خلال خمس دقائق لكشف الاحتيال. أي connection mode؟
+
+القصة والمعنى
+لو نسخت البيانات مرة كل ساعات، عملية احتيال جديدة لن تظهر بسرعة. محتاج التقرير يسأل SQL عن البيانات الأحدث بدل انتظار refresh للنسخة المستوردة.
+
+مثال نفهم بيه
+المعاملة وصلت 10:01؛ استعلام DirectQuery عند 10:02 يقدر يقرأها، لكن شاشة متروكة دون تحديث قد تظل قديمة.
+
+طريقة التفكير خطوة بخطوة
+1. DirectQuery يرسل استعلامًا للمصدر عند طلب البيانات.
+2. Import يحتاج تحديث نسخة الموديل ولا يضمن خمس دقائق وحده.
+3. لضمان زمن العرض أيضًا اضبط automatic page refresh أو آلية تحديث مناسبة، مع قيود السعة والكاش.
+
+الإجابة الصحيحة وليه
+B: DirectQuery، مع إعداد تحديث العرض بما يحقق مهلة الخمس دقائق.
+
+ليه كل اختيار صح أو غلط
+A. Add a SQL statement.
+SQL statement يمكنه اختيار بيانات، لكنه لا يحدد نمط حداثتها وحده.
+
+B. Set Data Connectivity mode to DirectQuery.
+صحيح؛ يتجنب انتظار تحديث Import للبيانات.
+
+C. Set the Command timeout in minutes setting.
+Timeout حد انتظار الاستعلام، لا تكرار جلب البيانات.
+
+D. Set Data Connectivity mode to Import.
+Import وحده لا يحقق حداثة خمس دقائق دون آلية إضافية مناسبة.
+
+الخلاصة اللي تتحفظ
+DirectQuery يتيح الحداثة؛ تحديث الشاشة والكاش يحددان ما يراه المستخدم فعلًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-directquery-about
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-automatic-page-refresh', 'Final 2', '128', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-130-417', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a folder of monthly transaction extracts.
@@ -18122,20 +23400,80 @@ You get data from the folder and select Combine & Load. The Combine Files dialog
 
 For each of the following statements, select Yes if the statement is true. Otherwise, select No.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Combine Files builds the transformation function from the selected sample file. Because the first file uses the older 2018 layout, the generated expansion contains the 2018 columns but does not automatically add the extra columns that exist only in 2019 files. Limiting type detection to the first 200 rows reduces profiling work and can improve import time.', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+24 ملفًا:2018 بأعمدة قديمة و 2019 بأعمدة إضافية. Combine Files يستخدم First file، و Type detection على كامل البيانات. قيّم ثلاث عبارات.
+
+القصة والمعنى
+أداة الدمج بتتعلم وصفة الأعمدة من ملف العينة، مش بتخترع union كامل لكل الأعمدة في كل الملفات. لو العينة قديمة، الوصفة غالبًا تفضل على الهيكل القديم.
+
+مثال نفهم بيه
+عينة فيها ID و Amount فقط لن تجعل عمود Channel الجديد جزءًا من الناتج تلقائيًا؛ اختر عينة 2019 وراجع التعامل مع الأعمدة الناقصة.
+
+طريقة التفكير خطوة بخطوة
+1. العينة First file بحسب الترتيب المعروض من 2018، فستظهر أعمدة 2018.
+2. الأعمدة الجديدة في 2019 لا تضاف تلقائيًا إلى التوسيع المبني على العينة القديمة.
+3. المصدر يقول 10–50 صفًا لكل ملف؛ فكل ملف أصلًا أقل من 200. تغيير كشف النوع إلى أول 200 لا يضمن تحسين الزمن هنا.
+
+الإجابة الصحيحة وليه
+الأولى Yes والثانية No. الثالثة: المفتاح يقصد Yes كتقليل فحص، لكنها غير مضمونة لأن كل ملف أقل من 200 صف.
+
+ليه كل اختيار صح أو غلط
+Yes؛ هي الأعمدة التي تعلمت منها دالة التحويل.
+
+No؛ لا تفترض جمع كل أسماء الأعمدة تلقائيًا.
+
+مشروط؛ في ملفات من 10–50 صفًا، أول 200 وكل الملف يغطيان نفس الصفوف، فلا توجد سرعة مضمونة.
+
+الخلاصة اللي تتحفظ
+اختيار Sample file يحدد schema؛ تقليل فحص النوع لا يسرع شيئًا إذا العينة أصلًا أصغر من الحد.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/combine-files-overview
+https://learn.microsoft.com/en-us/power-query/data-types', 'Final 2', '130', '/dump-assets/f2-130-417-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-135-418', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You are reviewing a query that produces 10,000 rows in the Power Query Editor. You need to identify whether a column contains only unique values.
 
 Which two Data Preview options can you use? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["Column profile","Column distribution","Show whitespace","Column quality","Monospace"]', '[0,1]', 'B: Column distribution: This feature provides a set of visuals underneath the names of the columns that showcase the frequency and distribution of the values in
-each of the columns. The data in these visualizations is sorted in descending order from the value with the highest frequency.
-By hovering over the distribution data in any of the columns, you get information about the overall data in the column (with distinct count and unique values).
-A: Column profile: This feature provides a more in-depth look at the data in a column [compared to column distribution]. Apart from the column distribution chart, it
-contains a column statistics chart.
-Reference:
-https://docs.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '135', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '["Column profile","Column distribution","Show whitespace","Column quality","Monospace"]', '[0,1]', 'ترجمة السؤال بالعربي
+Query به 10000 صف، وعايز تعرف هل عمود كل قيمه فريدة. أي خيارين Data Preview يصلح كل منهما؟
+
+القصة والمعنى
+لو كل رقم فاتورة ظهر مرة واحدة يبقى العمود مفتاح محتمل. محتاج تكرار القيم وإحصاءها، مش نسبة الخانات الفارغة فقط.
+
+مثال نفهم بيه
+أول 1000 رقم فريدين لكن الصف 9999 مكرر؛ preview المحدود لن يكشفه.
+
+طريقة التفكير خطوة بخطوة
+1. Column profile يعرض إحصاءات العمود وتوزيع القيم.
+2. Column distribution يعرض distinct و unique counts.
+3. غيّر profiling إلى entire dataset لأن الافتراضي أول 1000 صف فقط.
+
+الإجابة الصحيحة وليه
+A و B: Column profile و Column distribution، مع فحص كل 10000 صف.
+
+ليه كل اختيار صح أو غلط
+A. Column profile
+صحيح؛ يعرض إحصاءات وتكرارات العمود.
+
+B. Column distribution
+صحيح؛ يمكن مقارنة unique/distinct/row count.
+
+C. Show whitespace
+Whitespace يظهر فراغات النص ولا يثبت التفرد.
+
+D. Column quality
+Quality يقيس valid/error/empty، لا التكرار مباشرة.
+
+E. Monospace
+Monospace تنسيق خط المعاينة.
+
+الخلاصة اللي تتحفظ
+Unique تعني ظهر مرة؛ Distinct تعني عدد القيم المختلفة، وافحص كل الصفوف.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '135', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-136-419', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are creating a Power Bi model in Power BI Desktop
@@ -18144,7 +23482,47 @@ You need to create a calculated table named Numbers that will contain all the in
 
 -100 to 100. How should you complete the DAX calculation? To answer, select the appropriate options in the answer area. NOTE Each correct selection is worth
 
-one point.', '[]', '[]', 'GENERATESERIES returns one row for each value from -100 through 100 inclusive, incrementing by 1, which is exactly the required calculated table.', 'Final 2', '136', '/dump-assets/f2-136-419-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+one point.', '[]', '[10002,10001]', 'ترجمة السؤال بالعربي
+عايز جدول Numbers يحوي كل الأعداد الصحيحة من-100 إلى 100. أكمل الدالة والوسائط.
+
+القصة والمعنى
+مش محتاج تكتب 201 صف يدويًا. اطلب بداية ونهاية وخطوة؛ المحرك يولد السلسلة.
+
+مثال نفهم بيه
+أول الصفوف-100،-99،-98؛ وآخرها 98،99،100.
+
+طريقة التفكير خطوة بخطوة
+1. GENERATESERIES تعيد جدولًا من القيم.
+2. الوسائط start=-100 و end=100 و increment=1.
+3. الطرفان داخل النتيجة، فعدد الصفوف 100-(-100)+1=201.
+
+الإجابة الصحيحة وليه
+GENERATESERIES(-100,100,1).
+
+ليه كل اختيار صح أو غلط
+A. DAX function: GENERATE
+GENERATE يدمج تقييم جدول لكل صف، ولا يأخذ الثلاثة أرقام بهذه الدلالة.
+
+B. DAX function: GENERATEALL
+GENERATEALL ليس مولد نطاق أعداد بهذه الصيغة.
+
+C. DAX function: GENERATESERIES
+صحيح؛ مخصص لسلسلة بقيمة بداية ونهاية وخطوة.
+
+D. Arguments: (-100, 1, 200)
+النهاية 1 والخطوة 200 لا تنتج الأعداد المطلوبة.
+
+E. Arguments: (-100, 100, 1)
+صحيح؛ النطاق كامل والخطوة 1.
+
+F. Arguments: (-1, -100, 100)
+الزيادة 100 مع نهاية-100 لا تمثل النطاق المتصاعد المطلوب.
+
+الخلاصة اللي تتحفظ
+نطاق أعداد شامل الطرفين = GENERATESERIES(start,end,step).
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/generateseries-function-dax', 'Final 2', '136', '/dump-assets/f2-136-419-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-137-420', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is a part of a series of questions that present the same scenario. For your convenience, the scenario is repeated in each question. Each
@@ -18165,7 +23543,41 @@ You implement the Power BI model.
 
 You need to add a new column to the Product Subcategory table that uses the following formula.
 
-=if [Subcategory] =null then “NA” else [Subcategory] Which command should you use in Query Editor?', '["Column From Examples","Custom Column","Invoke Custom Function","Conditional Column"]', '[3]', 'References: http://community.powerbi.com/t5/Desktop/if-then-else/td-p/117999', 'Final 2', '137', '/exhibit-assets/f2-137-420.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+=if [Subcategory] =null then “NA” else [Subcategory] Which command should you use in Query Editor?', '["Column From Examples","Custom Column","Invoke Custom Function","Conditional Column"]', '[3]', 'ترجمة السؤال بالعربي
+عايز عمودًا جديدًا يعرض NA إذا Subcategory تساوي null، وإلا يحتفظ بالاسم. أي أمر Power Query؟
+
+القصة والمعنى
+المطلوب خانة تتفرع حسب شرط بسيط. الواجهة فيها زر يكتب if/then/else بدل ما تدخل محرر الكود بنفسك.
+
+مثال نفهم بيه
+null تصبح NA، و Bikes تفضل Bikes؛ لا تحذف الصفوف الناقصة.
+
+طريقة التفكير خطوة بخطوة
+1. Add Column ثم Conditional Column.
+2. شرط Subcategory equals null، الناتج NA، وإلا قيمة Subcategory.
+3. Custom Column قادر تقنيًا على كتابة نفس M، لكن Conditional هو الأمر المباشر المقصود في صياغة السؤال.
+
+الإجابة الصحيحة وليه
+D: Conditional Column، مع التنبيه أن Custom Column يمكنه تنفيذ نفس المنطق يدويًا.
+
+ليه كل اختيار صح أو غلط
+A. Column From Examples
+Column from Examples يستنتج تحويلًا من أمثلة، وليس المدخل المباشر لضبط شرط null.
+
+B. Custom Column
+ممكن تقنيًا لو كتبت M؛ ليس أفضل تمييز إذا اعتبر السؤال كل طرق التنفيذ.
+
+C. Invoke Custom Function
+Invoke Custom Function يتطلب دالة موجودة، وهو زائد هنا.
+
+D. Conditional Column
+صحيح كحل واجهة مباشر للشرط.
+
+الخلاصة اللي تتحفظ
+شرط if بسيط من الواجهة = Conditional Column؛ لا تدّعي أن Custom مستحيل.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/add-conditional-column', 'Final 2', '137', '/exhibit-assets/f2-137-420.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-141-421', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a report that contains a bar chart and a column chart. The bar chart shows customer count by
@@ -18174,9 +23586,38 @@ customer segment. The column chart shows sales by month.
 
 You need to ensure that when a segment is selected in the bar chart, you see which portion of the total sales for the month belongs to the customer segment.
 
-How should the visual interactions be set on the column chart when the bar chart is selected?', '["no impact","highlight","filter"]', '[1]', 'HIGHLIGHT as the question required us to "you see which portion of the total sales for the month belongs to the customer segment" -- in order to see WHICH
-portion, you need to still see the whole visual, highlight is most appropriate. If the requirement stated to ONLY SEE THE PORTION IT RELATES TO then filter
-would be appropriate.', 'Final 2', '141', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+How should the visual interactions be set on the column chart when the bar chart is selected?', '["no impact","highlight","filter"]', '[1]', 'ترجمة السؤال بالعربي
+Bar يعرض عدد العملاء حسب segment و Column يعرض مبيعات الأشهر. عايز اختيار segment يوضح حصته داخل إجمالي الشهر.
+
+القصة والمعنى
+عايز تشوف المبيعات كلها وفيها الجزء الخاص بالشريحة متلون. لو فلترت، الباقي سيختفي وتفقد المقارنة مع الإجمالي.
+
+مثال نفهم بيه
+إجمالي الشهر 100 وشريحة VIP باعِت 30؛ يظهر 30 بارزًا داخل سياق 100.
+
+طريقة التفكير خطوة بخطوة
+1. حدد bar كمصدر الاختيار.
+2. فوق column اختر Highlight.
+3. الجزء المحدد يظهر قويًا وباقي الإجمالي باهتًا؛ Filter يعيد رسم الجزء وحده.
+
+الإجابة الصحيحة وليه
+B: Highlight.
+
+ليه كل اختيار صح أو غلط
+A. no impact
+None لا يوضح أي ارتباط بالشريحة.
+
+B. highlight
+صحيح؛ يبقي الإجمالي ويبرز النصيب المختار.
+
+C. filter
+Filter يعرض 30 وحدها، فلا ترى نسبتها بصريًا من 100.
+
+الخلاصة اللي تتحفظ
+جزء من الكل مع إبقاء الكل = Highlight.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final 2', '141', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-143-422', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bl model that contains the following data.
@@ -18187,7 +23628,41 @@ Total Sales = SUM(Sales[Sale])
 
 You need to create another measure named Previous Quarter to display the sales one quarter before the selected period.
 
-Which DAX calculation should you use?', '["CALCULATE < [Total Sales], OATEADD (Date[Date], -1, QUARTER))","CALCULATE ([Total Sales], DATESQTD (Date[Date]))","TOTALQTD ([Total Sales], Date[Date])","CALCULATE < [Total Sales], PARALLELPERIOO (Date[Date], 1, QUARTER))"]', '[0]', 'CALCULATE([Total Sales], DATEADD(Date[Date], -1, QUARTER)) shifts the current date filter context back by one quarter and reevaluates Total Sales. DATESQTD returns quarter-to-date dates, while the positive PARALLELPERIOD option moves forward.', 'Final 2', '143', '/exhibit-assets/f2-143-422.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX calculation should you use?', '["CALCULATE < [Total Sales], OATEADD (Date[Date], -1, QUARTER))","CALCULATE ([Total Sales], DATESQTD (Date[Date]))","TOTALQTD ([Total Sales], Date[Date])","CALCULATE < [Total Sales], PARALLELPERIOO (Date[Date], 1, QUARTER))"]', '[0]', 'ترجمة السؤال بالعربي
+عندك Total Sales، وعايز Previous Quarter يحسب المبيعات قبل الفترة المختارة بربع سنة. أي DAX؟
+
+القصة والمعنى
+المقياس نفسه يفضل جمع مبيعات، لكن بنرجع نافذة الزمن خطوة للخلف. مش عايز تجميع من بداية الربع الحالي.
+
+مثال نفهم بيه
+لو المحدد Q2، تقارن بمبيعات Q1؛ ولو المحدد جزء من فترة، انتبه لدلالة نافذة DATEADD.
+
+طريقة التفكير خطوة بخطوة
+1. CALCULATE يعيد تقييم Total Sales تحت سياق تواريخ معدل.
+2. DATEADD(Date[Date],-1,QUARTER) يرجع الفترة ربعًا للخلف.
+3. يلزم جدول تاريخ مناسب وعلاقة صحيحة؛ لا تعتمد على أسماء أعمدة تشبه التاريخ فقط.
+
+الإجابة الصحيحة وليه
+A: CALCULATE([Total Sales],DATEADD(Date[Date],-1,QUARTER)).
+
+ليه كل اختيار صح أو غلط
+A. CALCULATE < [Total Sales], OATEADD (Date[Date], -1, QUARTER))
+صحيح؛ الإزاحة السالبة ترجع للخلف.
+
+B. CALCULATE ([Total Sales], DATESQTD (Date[Date]))
+DATESQTD يعرض من بداية الربع الحالي إلى التاريخ المحدد.
+
+C. TOTALQTD ([Total Sales], Date[Date])
+TOTALQTD حساب تراكمي داخل الربع الحالي.
+
+D. CALCULATE < [Total Sales], PARALLELPERIOO (Date[Date], 1, QUARTER))
++1 ينقل للأمام، عكس previous؛ PARALLELPERIOD أيضًا يعيد فترات كاملة.
+
+الخلاصة اللي تتحفظ
+Previous = إزاحة سالبة؛ QTD = تراكم داخل الفترة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/dateadd-function-dax', 'Final 2', '143', '/exhibit-assets/f2-143-422.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-144-423', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a Power Bl workspace named Inventory that contains a dataset a report and a dashboard.
@@ -18196,7 +23671,45 @@ You need to add an additional tile to the dashboard. The tile must show inventor
 
 minimize the impact on the report.
 
-Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Use quick insights on the dashboard.","Hide the report page.","Ask a question by using Q&A.","Add the visual to the report.","Pin the visual to the dashboard."]', '[2,4]', 'Use Q&A to ask for inventory by location, then pin the generated visual to the dashboard. This creates the new dashboard tile without modifying the existing report.', 'Final 2', '144', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Use quick insights on the dashboard.","Hide the report page.","Ask a question by using Q&A.","Add the visual to the report.","Pin the visual to the dashboard."]', '[2,4]', 'ترجمة السؤال بالعربي
+Dashboard يحتاج tile مخزون حسب الموقع، لكن الرسم مش موجود في التقرير، وعايز أقل تأثير عليه. خطوتان؟
+
+القصة والمعنى
+مش مضطر تضيف صفحة جديدة للتقرير. اسأل Q&A عن المخزون حسب الموقع وثبّت الناتج في اللوحة.
+
+مثال نفهم بيه
+سؤال total inventory by location ينتج رسمًا مناسبًا يمكن تثبيته دون تغيير صفحات التقرير.
+
+طريقة التفكير خطوة بخطوة
+1. اطلب inventory by location باستخدام Q&A.
+2. Pin visual الناتج على dashboard.
+3. هذا يشرح الميزة التاريخية؛ Q&A مقرر إزالتها فبراير 2027 حسب الوثائق الحالية.
+
+الإجابة الصحيحة وليه
+C و E: Ask using Q&A ثم Pin visual.
+
+ليه كل اختيار صح أو غلط
+A. Use quick insights on the dashboard.
+Quick insights لا يضمن التحليل المحدد المطلوب ولا يبدأ من dashboard بهذه الدلالة.
+
+B. Hide the report page.
+إخفاء صفحة لا ينشئ تحليلًا جديدًا.
+
+C. Ask a question by using Q&A.
+صحيح؛ يبني visual من الموديل مباشرة.
+
+D. Add the visual to the report.
+يمكنه إنتاج الرسم لكنه يغير التقرير خلاف حل أقل التأثير المتاح.
+
+E. Pin the visual to the dashboard.
+صحيح؛ ينقل الناتج كبلاطة إلى اللوحة.
+
+الخلاصة اللي تتحفظ
+إنشاء tile مستقل تاريخيًا: Q&A ثم Pin، لا تعديل التقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/natural-language/q-and-a-intro
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-pin-tile-from-report', 'Final 2', '144', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-147-424', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 From Power Query Editor, you attempt to execute a query and receive the following error message.
@@ -18205,10 +23718,69 @@ Datasource.Error: could not find file.
 
 What are two possible causes of the error? Each correct answer presents a complete solution.
 
-NOTE: Each correct selection is worth one point.', '["The file is locked","An incorrect privacy level was used for the data source.","The referenced file was moved to a new location","You do not have permissions to the file."]', '[2,3]', 'Independent correction: C and D. The path can be stale because the file moved, or access can fail because the user lacks permission. A privacy-level mismatch does not normally surface as a file-not-found error.', 'Final 2', '147', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '["The file is locked","An incorrect privacy level was used for the data source.","The referenced file was moved to a new location","You do not have permissions to the file."]', '[2,3]', 'ترجمة السؤال بالعربي
+Power Query يعرض DataSource.Error: could not find file. أي سببين محتملين؟
+
+القصة والمعنى
+قبل ما تصلح التحويلات، اسأل: الملف لسه في العنوان؟ والحساب الذي يقرأه يقدر يشوفه؟ بعض الأنظمة تخفي وجود الملف عن غير المصرح له.
+
+مثال نفهم بيه
+ملف انتقل من Reports إلى Archive؛ أو الخدمة تستخدم حسابًا لا يرى المجلد أصلًا.
+
+طريقة التفكير خطوة بخطوة
+1. راجع المسار إذا الملف اتنقل أو اتغير اسمه.
+2. راجع صلاحيات الحساب الفعلي، خاصة حساب gateway أو الخدمة.
+3. عدم الصلاحية قد يظهر Access denied بدل Not found حسب المصدر؛ لا تجعل نص الرسالة دليلًا قاطعًا على الصلاحيات.
+
+الإجابة الصحيحة وليه
+C و D كأسباب محتملة؛ C هو التفسير المباشر، و D يعتمد على طريقة المصدر في إظهار الخطأ.
+
+ليه كل اختيار صح أو غلط
+A. The file is locked
+القفل عادة يعطي sharing violation أو access error، وليس اختفاء المسار.
+
+B. An incorrect privacy level was used for the data source.
+Privacy mismatch له رسائل Formula.Firewall عادة.
+
+C. The referenced file was moved to a new location
+صحيح؛ المسار القديم لم يعد يشير إلى ملف.
+
+D. You do not have permissions to the file.
+محتمل حسب المصدر؛ افحص الحساب ولا تفترض أنه السبب الوحيد.
+
+الخلاصة اللي تتحفظ
+Not found: تحقق من المسار أولًا، ثم هوية الحساب وصلاحياته.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/dealing-with-errors', 'Final 2', '147', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-152-425', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
-You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', 'Incomplete source: no unique answer can be determined. If a later source supplies a requirement to place measures on rows, use Matrix with values on rows; if it requests a different layout, a different setting may be required. Do not treat that conditional example as the answer to this incomplete item.', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You have a Power BI report that contains the table visual shown in the following exhibit.', '[]', '[]', 'ترجمة السؤال بالعربي
+المصدر يقول إن عندك table visual ويعرض صورة، لكنه لا يوضح المطلوب تغييره ولا منطقة الإجابة كاملة.
+
+القصة والمعنى
+زي ما حد يوريك صورة عربية ويسألك تختار قطعة غيار من غير ما يقول العطل. معرفة شكل الجدول وحدها لا تحدد هل عايز Matrix أو card أوتنسيق مختلف.
+
+مثال نفهم بيه
+لو المطلوب عرض measures على صفوف قد نستخدم Matrix؛ لو المطلوب cards فالحل مختلف. المثال ليس جوابًا لهذا السؤال.
+
+طريقة التفكير خطوة بخطوة
+1. لا يوجد هدف مكتمل يمكن مقارنة الخيارات به.
+2. لا نستنتج Matrix أو values on rows من صورة قديمة بلا متطلبات.
+3. يجب استرجاع نص السؤال ومنطقة الإجابة من نسخة كاملة قبل تحديد مفتاح وتصحيح آلي.
+
+الإجابة الصحيحة وليه
+لا توجد إجابة قابلة للتحقق؛ المصدر ناقص ويجب عدم احتسابه كسؤال محلول.
+
+ليه كل اختيار صح أو غلط
+لا يمكن مقارنة بدائل غير ظاهرة أوتأكيد Matrix دون استعادة الهدف ومنطقة الإجابة؛ لا تُستخدم اختيارات مستعارة من سؤال آخر.
+
+الخلاصة اللي تتحفظ
+نقص الهدف لا نعالجه بتخمين إجابة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-tables
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-matrix-visual', 'Final 2', '152', '/dump-assets/f2-152-425-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-157-426', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You create a data model in Power BI.
@@ -18229,14 +23801,89 @@ Which three actions should you perform in sequence? To answer, move the appropri
 
 correct order.
 
-NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[0,2,5]', 'The three inner joins flatten the lookup information into the sales-region query and keep only matching records, simplifying the model presented to report authors.', 'Final 2', '157', '/dump-assets/f2-157-426-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.', '[]', '[]', 'ترجمة السؤال بالعربي
+أربع جداول Sales_Region و Region_Manager و Manager و Sales_Manager. عايز تفردها في جدول واحد وتحتفظ فقط بالمديرين المرتبطين بمنطقة مبيعات.
+
+القصة والمعنى
+عندك موظفون ومديرون زيادة عن اللي لهم مناطق فعلية. الدمج لازم يمشي مع العلاقات ويحتفظ بالتطابقات فقط، بدل ما يسحب مديرًا بلا منطقة.
+
+مثال نفهم بيه
+مدير 99 موجود في Manager لكن بلا Region_Manager لن يظهر؛ مدير 12 المطابق يدخل ببياناته.
+
+طريقة التفكير خطوة بخطوة
+1. Merge Region_Manager مع Manager باستخدام Inner.
+2. Merge Sales_Region مع Region_Manager باستخدام Inner.
+3. Merge Sales_Region مع Sales_Manager باستخدام Inner.
+4. الترتيب قد يختلف مع نفس الاعتمادات وتوسيع الأعمدة؛ المصدر يسمح بأكثر من ترتيب صحيح.
+
+الإجابة الصحيحة وليه
+خطوات Inner joins الثلاث: Region_Manager↔Manager، ثم Sales_Region↔Region_Manager، ثم Sales_Region↔Sales_Manager.
+
+ليه كل اختيار صح أو غلط
+A. Merge [Region_Manager] and [Manager] by using an inner join.
+صحيح؛ يضيف خصائص المدير المرتبط.
+
+B. Merge [Sales_Manager] and [Sales_Region] by using a left join.
+Left من Sales_Manager يحتفظ بمديرين لا مناطق لهم، مخالف الشرط.
+
+C. Merge [Sales_Region] and [Sales_Manager] by using an inner join.
+صحيح؛ يثري جدول المناطق بالمديرين المطابقين.
+
+D. Merge [Sales_Region] and [Sales_Manager] by using an inner join as a new query named [Sales_Region_and_Manager].
+إنشاء new query قد يكون تصميمًا صالحًا إذا أكملت الاعتمادات؛ لا تعتبره خطأ تقنيًا مطلقًا لكن المفتاح المقصود يستخدم الدمج في نفس query.
+
+E. Merge [Sales_Region] and [Region_Manager] by using a right join as a new query named [Sales_Region_and_Region_Manager].
+Right قد يبقي صفوف Region_Manager غير مطابقة لمنطقة؛ لا يلزم مع Inner متاح.
+
+F. Merge [Sales_Region] and [Region_Manager] by using an inner join.
+صحيح؛ يربط منطقة المبيعات بجدول الربط.
+
+الخلاصة اللي تتحفظ
+Inner يحتفظ بالتطابق؛ صمم الدمج بحيث لا تضاعف الصفوف عن grain المطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/merge-queries-inner', 'Final 2', '157', '/dump-assets/f2-157-426-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-161-427', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are building a data model for a Power Bl report. You have data formatted as shown in the following table.
 
 You need to create a clustered bar chart as shown in the following exhibit.
 
-What should you do?', '["From Power Query Editor, split the Machine-User column by using a delimiter.","In a DAX function, create two calculated columns named Machine and User by using the substitute function.","From Power Query Editor, create a column that contains the last three digits of the Machine-User column.","in a DAX function, create two measures named Machine and User by using the substitute function."]', '[0]', 'Split Machine-User by its delimiter in Power Query to create separate Machine and User columns before loading. This is a source-shaping task, so it should not be implemented as measures.', 'Final 2', '161', '/exhibit-assets/f2-161-427.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["From Power Query Editor, split the Machine-User column by using a delimiter.","In a DAX function, create two calculated columns named Machine and User by using the substitute function.","From Power Query Editor, create a column that contains the last three digits of the Machine-User column.","in a DAX function, create two measures named Machine and User by using the substitute function."]', '[0]', 'ترجمة السؤال بالعربي
+Machine-User يجمع قيمتين، والمطلوب clustered bar حسب Machine و User. كيف تحضر البيانات؟
+
+القصة والمعنى
+عمود فيه M01-U03 معناه جهاز ومستخدم، لكن الرسم محتاج كل معلومة في حقل مستقل. افصل النص عند الفاصل.
+
+مثال نفهم بيه
+M01-U03 → Machine=M01 و User=U03؛ تقدر تستخدم واحدًا محورًا والثاني legend.
+
+طريقة التفكير خطوة بخطوة
+1. Split column by delimiter في Power Query.
+2. سمّ الناتج Machine و User وراجع نوع البيانات.
+3. العمودان فئات للعرض، وليسوا measures تجميعية.
+
+الإجابة الصحيحة وليه
+A: Split Machine-User by delimiter.
+
+ليه كل اختيار صح أو غلط
+A. From Power Query Editor, split the Machine-User column by using a delimiter.
+صحيح؛ يحافظ على كل جزء في عمود.
+
+B. In a DAX function, create two calculated columns named Machine and User by using the substitute function.
+SUBSTITUTE يبدل نصًا؛ فصل الطرفين به يتطلب افتراضات وحيلًا غير لازمة.
+
+C. From Power Query Editor, create a column that contains the last three digits of the Machine-User column.
+آخرثلاثة أحرف قد تستخرج User فقط ولا تنتج Machine.
+
+D. in a DAX function, create two measures named Machine and User by using the substitute function.
+Measures لا تنشئ عمودي فئات للـ axis والـ legend.
+
+الخلاصة اللي تتحفظ
+قيمتان في نص بفاصل معروف = Split column.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/split-columns-delimiter', 'Final 2', '161', '/exhibit-assets/f2-161-427.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-164-428', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a custom connector that returns ID, From, To, Subject, Body, and Has Attachments for every email sent during the past year. More than 10 million
@@ -18247,7 +23894,38 @@ You build a report analyzing the internal networks of employees based on whom th
 
 You need to prevent report recipients from reading the analyzed emails. The solution must minimize the model size.
 
-What should you do?', '["Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent.","Remove the Subject and Body columns during the import.","From Model view, set the Subject and Body columns to Hidden."]', '[1]', 'Remove Subject and Body during import. They contain the readable email content and consume substantial model space, while From and To are sufficient for network analysis.', 'Final 2', '164', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent.","Remove the Subject and Body columns during the import.","From Model view, set the Subject and Body columns to Hidden."]', '[1]', 'ترجمة السؤال بالعربي
+عشرة ملايين بريد بها Subject و Body و From و To. المطلوب تحليل شبكة المراسلات ومنع قراءة المحتوى وتقليل الحجم.
+
+القصة والمعنى
+عايز تعرف مين بيكلم مين، مش هو قال إيه. احذف نص الرسالة والعنوان قبل التحميل؛ إخفاؤهما من القائمة لا يمسح البيانات.
+
+مثال نفهم بيه
+صف Ali إلى Mona يفيد تحليل الشبكة حتى بعد حذف نص البريد؛ تحتفظ بالعلاقة بدون المحتوى الحساس.
+
+طريقة التفكير خطوة بخطوة
+1. احتفظ بحقلي From و To والحقول اللازمة لتحليل الشبكة.
+2. احذف Subject و Body أثناء الاستيراد، فلا يدخل المحتوى إلى الموديل.
+3. RLS يحدد الصفوف المرئية، ولا يلغي أعمدة المحتوى أو يوفر مساحتها.
+
+الإجابة الصحيحة وليه
+B: Remove Subject and Body during import.
+
+ليه كل اختيار صح أو غلط
+A. Implement row-level security (RLS) so that the report recipients can only see results based on the emails they sent.
+تقييد المرسل بدور RLS يبقي البريد نفسه مخزنًا، وقد يتيح قراءة نص الرسائل المسموح بها رغم عدم الحاجة إليه.
+
+B. Remove the Subject and Body columns during the import.
+صحيح؛ يقلل الحجم ويلغي محتوى البريد من الموديل.
+
+C. From Model view, set the Subject and Body columns to Hidden.
+إخفاء الأعمدة ليس حماية ولا حذفًا للمساحة المخزنة.
+
+الخلاصة اللي تتحفظ
+ما لا تحتاجه لا تحمّله؛ Hide ليس حدًا أمنيًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '164', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-167-429', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a Power Bl query named Sates that imports the columns shown in the following table.
@@ -18256,7 +23934,44 @@ Usees only use the dale part of the Sales.Date field. Only rows with a Status of
 
 You need to reduce the load times of the query without affecting the analysis.
 
-Which two actions achieve this goal? Each correct answer presents a complete solution. NOTL Each correct selection is worth one pant.', '["Remove the rows in which sales [status] has a value of Canceled.","Change the data type of sale [Delivery_Time] to Integer","Removes (Canceled Date).","Split Sales [Sale_Date] into separate date and time columns.","Remove sales [Sales_Date]."]', '[0,2]', 'Independent correction: A and C. Filter out canceled rows, then remove the now-unused Canceled Date column. These are horizontal and vertical data-reduction steps.', 'Final 2', '167', '/exhibit-assets/f2-167-429.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which two actions achieve this goal? Each correct answer presents a complete solution. NOTL Each correct selection is worth one pant.', '["Remove the rows in which sales [status] has a value of Canceled.","Change the data type of sale [Delivery_Time] to Integer","Removes (Canceled Date).","Split Sales [Sale_Date] into separate date and time columns.","Remove sales [Sales_Date]."]', '[0,2]', 'ترجمة السؤال بالعربي
+Sales يستخدم فقط عمليات Finished ولا يحتاج Canceled Date. اختار إجراءين لتقليل وقت التحميل دون تغيير التحليل.
+
+القصة والمعنى
+المستخدم مش بيحسب طلبات ملغاة، فتخزينها مع تاريخ إلغائها بيستهلك وقتًا ومساحة بلا فائدة لهذا التقرير.
+
+مثال نفهم بيه
+من مليون عملية فيه 200 ألف ملغاة؛ استبعادها يقلل الصفوف، وحذف تاريخ الإلغاء يقلل الأعمدة.
+
+طريقة التفكير خطوة بخطوة
+1. استبعد Canceled قبل التحميل إذا كانت الحالتان المعروضتان Finished و Canceled فقط.
+2. احذف Canceled Date بعد استبعاد العمليات الملغاة.
+3. لو هناك حالات أخرى مثل Pending، فالفلتر الأدق هو Status يساوي Finished؛ هذا قيد على صياغة الخيار.
+
+الإجابة الصحيحة وليه
+A و C: حذف صفوف Canceled وحذف Canceled Date، بشرط أن الحالات الأخرى لا تخالف التحليل المطلوب.
+
+ليه كل اختيار صح أو غلط
+A. Remove the rows in which sales [status] has a value of Canceled.
+صحيح بحسب الحالات المعروضة؛ الأدق الاحتفاظ بعمليات Finished فقط.
+
+B. Change the data type of sale [Delivery_Time] to Integer
+تحويل وقت التسليم إلى Integer قد يغير المعنى ويفقد المعلومة.
+
+C. Removes (Canceled Date).
+صحيح؛ العمود لم يعد مطلوبًا في التحليل بعد استبعاد الملغاة.
+
+D. Split Sales [Sale_Date] into separate date and time columns.
+تقسيم DateTime مع الاحتفاظ بالوقت يضيف حقلًا غير مطلوب؛ تحويله إلى Date أوضح إن سمح به السؤال.
+
+E. Remove sales [Sales_Date].
+يحذف التاريخ الأساسي المستخدم في تحليل المبيعات، فيخالف الحفاظ على التحليل.
+
+الخلاصة اللي تتحفظ
+تقليل أفقي للصفوف وتقليل رأسي للأعمدة، بشرط الحفاظ على المطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '167', '/exhibit-assets/f2-167-429.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-168-430', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a CSV file that contains user complaints. The file contains a column named Logged logged contains the date and time each complaint occurred. The
@@ -18265,7 +23980,42 @@ data in Logged is m the following format: 2018-12-31 at 08:59.
 
 You need to be able to analyze the complaints by the logged date and use a built-in date hierarchy.
 
-What should you do?', '["Create a column by example that starts with 2018-12-31.","Create a column by example that starts with 2018-12-31 and set the data type of the new column to Date","Apply the parse function from the Date transformations options to the Logged column.","Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type of the new column to Whole Number."]', '[1]', 'Independent correction: B. Use Column from Examples to extract the date portion, then set the resulting column data type to Date so Power BI can provide date behavior and hierarchy.', 'Final 2', '168', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Create a column by example that starts with 2018-12-31.","Create a column by example that starts with 2018-12-31 and set the data type of the new column to Date","Apply the parse function from the Date transformations options to the Logged column.","Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type of the new column to Whole Number."]', '[1]', 'ترجمة السؤال بالعربي
+Logged نص مثل 2018-12-31 at 08:59. عايز تحليل باليوم وهرمية تاريخ مدمجة. ماذا تفعل؟
+
+القصة والمعنى
+التاريخ موجود داخل جملة نصية، وليس Date حقيقيًا. استخرج الجزء قبل at ثم عرّفه Date حتى يقدر الموديل يتعامل معه كزمن.
+
+مثال نفهم بيه
+"2018-12-31 at 08:59" يصبح 2018-12-31 بنوع Date؛ تقدر بعد ذلك تجمع الشكاوى حسب اليوم أو الشهر.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Column from Examples لاستخراج 2018-12-31 من النص.
+2. اضبط نوع العمود الجديد إلى Date صراحة.
+3. Auto date/time يحتاج أن يكون مفعّلًا وينطبق على العمود؛ النص أو رقم السنة ليس هرمية تاريخ.
+
+الإجابة الصحيحة وليه
+B: Column from Examples ثم Date.
+
+ليه كل اختيار صح أو غلط
+A. Create a column by example that starts with 2018-12-31.
+استخراج النص وحده دون ضمان نوع Date لا يكفي لتلبية شرط الهرمية.
+
+B. Create a column by example that starts with 2018-12-31 and set the data type of the new column to Date
+صحيح؛ يحقق استخراج الجزء المطلوب ثم ضبط نوعه.
+
+C. Apply the parse function from the Date transformations options to the Logged column.
+Parse على النص الكامل يعتمد على صيغة التفسير، ولا يوجد ضمان لقبول كلمة at بهذه الصورة.
+
+D. Add a conditional column that outputs 2018 if the Logged column starts with 2018 and set the data type of the new column to Whole Number.
+رقم 2018 يعطي سنة فقط، وليس التاريخ الكامل وهرميته المدمجة.
+
+الخلاصة اللي تتحفظ
+شكل التاريخ لا يكفي؛ نوع Date هو المطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/column-from-example
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-auto-date-time', 'Final 2', '168', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-169-431', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18290,19 +24040,78 @@ Solution: From Power Query Editor, you rename the date query as Due Date. You re
 
 Delivery Date.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Creating two additional tables in Power Query can be a possible solution: Remove any inactive relationships.
-Consider renaming the role-playing dimension-type table to better describe its role. In the example, the Airport table is related to the ArrivalAirport column of the
-Flight table, so it''s renamed as Arrival Airport.
-Create a copy of the role-playing table, providing it with a name that reflects its role. If it''s an Import table, we recommend defining a calculated table. If it''s a
-DirectQuery table, you can duplicate the Power Query query.
-In the example, the Departure Airport table was created by using the following calculated table definition.', 'Final 2', '169', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+Sales له Due و Order و Delivery dates. هل تسمية Date باسم Due Date وعمل Reference مرتين لأدوار التاريخ الأخرى يحقق التحليل؟
+
+القصة والمعنى
+كل جدول تاريخ هنا له وظيفة مستقلة: واحد لتاريخ الطلب، واحد للاستحقاق، والثالث للتسليم. نفس قائمة الأيام لكن كل واحدة لها سلايسر وعلاقة خاصة بها.
+
+مثال نفهم بيه
+Order Date=January و Delivery Date=February يظهران طلبات يناير التي وصلت في فبراير.
+
+طريقة التفكير خطوة بخطوة
+1. حمّل جداول الأدوار الثلاثة واربط كل جدول بعمود التاريخ المناسب بعلاقة نشطة.
+2. Reference يعيد استخدام منطق الاستعلام، لا يضمن أن المصدر سيقرأ مرة واحدة.
+3. الخطوات تفترض إكمال العلاقات؛ مجرد إعادة التسمية بلا علاقات لا يفلتر Sales.
+
+الإجابة الصحيحة وليه
+Yes، عند تحميل جداول الأدوار وربطها بعلاقات نشطة مناسبة.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح في التصميم المقصود؛ لكل دور تاريخ جدول مستقل وعلاقة نشطة.
+
+B. No
+No غير صحيح إذا اكتملت العلاقات؛ فصل الأدوار يدعم الاختيارات المستقلة.
+
+الخلاصة اللي تتحفظ
+Role-playing يعني نفس البعد يؤدي أدوارًا مختلفة، لا بيانات أعمال مختلفة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive
+https://learn.microsoft.com/en-us/power-bi/guidance/power-query-referenced-queries', 'Final 2', '169', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-173-432', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are creating a visual to show the ranking of product categories by sales revenue.
 
 Your company''s security policy states that you cannot send data outside of your Microsoft Power Bl tenant
 
-Which approach provides the widest variety of visuals while adhering to the security policy?', '["Use default visuals or custom visuals uploaded from a .pbiviz file.","Use only default visuals.","Use default or any custom visuals from the marketplace.","Use default or certified custom visuals."]', '[3]', 'Independent correction: D. Default visuals plus certified custom visuals provide the broadest selection while respecting the stated data-boundary requirement. Any marketplace visual is too broad.', 'Final 2', '173', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which approach provides the widest variety of visuals while adhering to the security policy?', '["Use default visuals or custom visuals uploaded from a .pbiviz file.","Use only default visuals.","Use default or any custom visuals from the marketplace.","Use default or certified custom visuals."]', '[3]', 'ترجمة السؤال بالعربي
+عايز أكبر تنوع visuals لترتيب الفئات، مع منع إرسال البيانات خارج tenant. أي مجموعة تختار؟
+
+القصة والمعنى
+وجود visual في المتجر لا يعني أنه لا يتصل بخدمة خارجية. شهادة Microsoft تفحص هذا السلوك؛ لذلك تختار الافتراضي ومعه المعتمد فقط.
+
+مثال نفهم بيه
+رسم pbiviz من ملف قد يرسل بيانات إلى API خاص بالمطور؛ مصدر الملف لا يمنع الاتصال.
+
+طريقة التفكير خطوة بخطوة
+1. Certified custom visuals تخضع لاختبارات تمنع الوصول لخدمات وموارد خارجية.
+2. Default فقط يضيّق التنوع أكثر من اللازم.
+3. في تطبيق سياسة صارمة راجع أيضًا visuals الخرائط والموارد الجغرافية؛ الاسم default وحده ليس تحليلًا كاملًا لتدفق البيانات.
+
+الإجابة الصحيحة وليه
+D: Default or certified custom visuals ضمن خيارات السؤال.
+
+ليه كل اختيار صح أو غلط
+A. Use default visuals or custom visuals uploaded from a .pbiviz file.
+ملف pbiviz قد يحتوي اتصالات خارجية، فلا يكفي أنه محلي.
+
+B. Use only default visuals.
+يقلل التنوع رغم وجود certified visuals مناسبة.
+
+C. Use default or any custom visuals from the marketplace.
+أي visual من marketplace ليس بالضرورة certified.
+
+D. Use default or certified custom visuals.
+صحيح؛ أوسع مجموعة مع شرط الاختبار المعتمد المذكور.
+
+الخلاصة اللي تتحفظ
+AppSource مكان نشر؛ Certified حالة اختبار أمان مختلفة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/developer/visuals/power-bi-custom-visuals-certified
+https://learn.microsoft.com/en-us/power-bi/admin/organizational-visuals', 'Final 2', '173', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-174-433', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 Your company has affiliates who help the company acquire customers.
@@ -18317,7 +24126,88 @@ You need to develop a measure to support the visual.
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates SUM(Transactions[Amount]) under the table filter returned by TOPN. TOPN keeps the latest 50 transaction rows by ordering Transactions[TransactionDate] descending.', 'Final 2', '174', '/dump-assets/f2-174-433-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002,10004,10003]', 'ترجمة السؤال بالعربي
+عايز إجمالي قيمة أحدث 50 معاملة لكل Affiliate. أكمل دوال DAX وحقل الترتيب.
+
+القصة والمعنى
+مش عايز أكبر 50 مبلغًا؛ عايز آخر 50 حركة زمنيًا، وبعد اختيار الحركات تجمع فلوسها. إذن نحدد الصفوف أولًا بالتاريخ ثم نحسب مجموع Amount في سياقها.
+
+مثال نفهم بيه
+لو affiliate له 70 حركة، نرتبها بالأحدث، نأخذ 50، ثم نجمع قيمهم؛ لا نجمع أكبر 50 قيمة.
+
+طريقة التفكير خطوة بخطوة
+1. CALCULATE يغيّر سياق حساب المجموع.
+2. SUM يجمع Transactions[Amount].
+3. TOPN يختار أحدث 50 معاملة بالترتيب TransactionDate DESC داخل سياق affiliate.
+4. لو حصل تعادل عند الصف 50 فقد يعيد TOPN أكثر من 50؛ أضف TransactionID كفاصل تعادل إذا المطلوب 50 بالضبط.
+
+الإجابة الصحيحة وليه
+CALCULATE؛ SUM؛ TOPN؛ TransactionDate.
+
+ليه كل اختيار صح أو غلط
+A. Outer function: CALCULATE
+صحيح خارجيًا؛ يعيد حساب المبلغ بعد فلترة الصفوف.
+
+B. Outer function: CONCATENATEX
+CONCATENATEX يجمع نصوصًا ولا ينتج الإيراد الرقمي المطلوب.
+
+C. Outer function: SUM
+SUM لا يقبل وسيطي التعبير وفلتر TOPN في مكان الدالة الخارجية.
+
+D. Outer function: SUMX
+SUMX يحتاج جدولًا وتعبيرًا، وليس تركيب CALCULATE المعروض.
+
+E. Outer function: TOPN
+TOPN خارجياً يرجع جدولًا لا إيرادًا scalar.
+
+F. Aggregate Transactions[Amount] using: CALCULATE
+CALCULATE حول العمود وحده ليس عملية التجميع المقصودة.
+
+G. Aggregate Transactions[Amount] using: CONCATENATEX
+CONCATENATEX يحتاج جدولًا وتعبيرًا ويرجع نصًا.
+
+H. Aggregate Transactions[Amount] using: SUM
+صحيح للفراغ الثاني؛ SUM يقبل عمود Amount ويجمعه.
+
+I. Aggregate Transactions[Amount] using: SUMX
+SUMX لا يأخذ عمودًا واحدًا بهذه الصيغة.
+
+J. Aggregate Transactions[Amount] using: TOPN
+TOPN لا يجمع مبالغ العمود.
+
+K. Select 50 transaction rows using: CALCULATE
+CALCULATE لا يطابق وسائط 50 وجدول وترتيب.
+
+L. Select 50 transaction rows using: CONCATENATEX
+CONCATENATEX لا يختار أحدث الصفوف.
+
+M. Select 50 transaction rows using: SUM
+SUM يجمع عمودًا لا قائمة صفوف مرتبة.
+
+N. Select 50 transaction rows using: SUMX
+SUMX يحسب عبر جدول لكنه لا يحدد أول 50 بهذه الوسائط.
+
+O. Select 50 transaction rows using: TOPN
+صحيح للثالث؛ TOPN يختار الصفوف وفق العدد والترتيب.
+
+P. Order Transactions by: [TransactionID]
+TransactionID ليس التاريخ؛ قد لا يعكس الأحدث زمنيًا.
+
+Q. Order Transactions by: [Amount]
+Amount يختار أعلى قيمة لا أحدث حركة.
+
+R. Order Transactions by: [ItemsOrdered]
+ItemsOrdered يختار أكبر كمية وليس آخر تاريخ.
+
+S. Order Transactions by: [TransactionDate]
+صحيح؛ TransactionDate DESC يرتب من الأحدث للأقدم.
+
+الخلاصة اللي تتحفظ
+آخر معاملات = TOPN بالتاريخ؛ أعلى مبالغ = TOPN بالمبلغ.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/topn-function-dax
+https://learn.microsoft.com/en-us/dax/calculate-function-dax', 'Final 2', '174', '/dump-assets/f2-174-433-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-177-434', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have the Power Bl data model shown in the following exhibit.
@@ -18356,7 +24246,46 @@ may be used once, more than once, or not at all. You may need to drag the split 
 
 scroll to view content.
 
-NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'The CFO role blocks Human Resources with FALSE() while leaving country sales unrestricted. The Manager role filters Country to the signed-in user; the model relationships propagate that filter to Sales and Human Resources.', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[3,1]', 'ترجمة السؤال بالعربي
+Manager يرى بيانات بلده فقط، و CFO يرى مبيعات كل الدول ولا يرى أي صف HR. أكمل فلترَي RLS.
+
+القصة والمعنى
+فيه قفلين مختلفين لدورين مختلفين: دور CFO يقفل HR تمامًا، ودور المدير يحدد دولة من إيميل الدخول. لا تحط الفلترين في دور CFO نفسه فتقيده بدولة أمريكا.
+
+مثال نفهم بيه
+مدير فرنسا يرى France في الجدولين، بينما CFO يرى مبيعات كل الدول وصفر صفوف من HR عند تطبيق دوره وحده، دون إضافته لدور آخر يوسع الوصول.
+
+طريقة التفكير خطوة بخطوة
+1. في دور CFO ضع FALSE() على Human Resources واترك Country دون قيد.
+2. في دور Manager ضع Country[Email]=USERPRINCIPALNAME().
+3. علاقات Country النشطة تنقل فلتر المدير إلى Sales و HR.
+4. لا تضف CFO إلى دور Manager أيضًا؛ عضويات RLS المتعددة تتجمع بالسماح وليست تقاطعًا مانعًا.
+
+الإجابة الصحيحة وليه
+Human Resources لدور CFO: FALSE(). Country لدور Manager: [Email]=USERPRINCIPALNAME().
+
+ليه كل اختيار صح أو غلط
+A. [Country] = "USA"
+USA ثابتة تحصر كل مستخدم في أمريكا وتمنع شرط مبيعات CFO لكل البلدان.
+
+B. [Email] = USERPRINCIPALNAME()
+صحيح لدور Manager؛ يربط المستخدم بصف دولته ديناميكيًا.
+
+C. [Manager] = "CFO"
+Manager=CFO يحدد صف USA بدل إتاحة كل الدول للمدير المالي.
+
+D. FALSE()
+صحيح على HR داخل CFO؛ كل صف يقيّم False فيختفي.
+
+E. TRUE()
+TRUE على HR يسمح بكل صف، عكس منع CFO؛ وعلى Country لا يحدد دولة المدير.
+
+الخلاصة اللي تتحفظ
+FALSE يمنع الصفوف؛ Email يخصصها للمستخدم؛ انتبه لأي دور ينتمي كل فلتر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/guidance/rls-guidance', 'Final 2', '177', '/dump-assets/f2-177-434-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-180-435', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI dashboard that monitors the quality of manufacturing processes. The dashboard contains the following elements:
@@ -18367,7 +24296,41 @@ You have a Power BI dashboard that monitors the quality of manufacturing process
 
 You need to be notified when the daily percentage of defective products manufactured exceeds 3%.
 
-What should you create?', '["a Q&A visual","a subscription","a smart narrative visual","an alert"]', '[3]', 'Create a data alert on the KPI dashboard tile at the 3% threshold. Alerts notify the user when a supported dashboard tile crosses a configured value.', 'Final 2', '180', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you create?', '["a Q&A visual","a subscription","a smart narrative visual","an alert"]', '[3]', 'ترجمة السؤال بالعربي
+Dashboard به KPI لنسبة العيوب اليومية، وعايز إشعارًا عند تجاوز 3%. تعمل إيه؟
+
+القصة والمعنى
+المدير لا يريد انتظار بريد آخر الأسبوع حتى يكتشف أن خط الإنتاج طلع عيوبًا كثيرة. هو يريد شرطًا على الرقم الحالي.
+
+مثال نفهم بيه
+لو measure يخزن النسبة 0.04 وتنسيقه 4%، راجع إدخال الحد بما يلائم واجهة التنبيه بدل خلط 3 مع 0.03.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ data alert على KPI tile.
+2. اضبط threshold على 3% بالقيمة المتوافقة مع measure.
+3. التنبيه يقيّم البيانات بعد تحديثها، لا يخلق تدفق بيانات لحظيًا من نفسه.
+
+الإجابة الصحيحة وليه
+D: An alert.
+
+ليه كل اختيار صح أو غلط
+A. a Q&A visual
+Q&A للاستفسار وليس مراقبة شرط تلقائي.
+
+B. a subscription
+Subscription إرسال دوري حتى لو لم يتجاوز الرقم 3%.
+
+C. a smart narrative visual
+Smart narrative يشرح البيانات نصيًا ولا ينشئ notification شرطية.
+
+D. an alert
+صحيح؛ التنبيه يراقب عبور حد رقمي في tile مدعوم.
+
+الخلاصة اللي تتحفظ
+إشعار مرتبط بعتبة رقمية = Alert، مش Subscription.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-set-data-alerts', 'Final 2', '180', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-184-436', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18382,7 +24345,35 @@ The IOT ID columns are unique to each row in query.
 
 You need to analyze 10T events by the hour and day of the year. The solution must improve dataset performance.
 
-Solution: You change the IOT DateTime column to the Date data type. Does this meet the goal?', '["Yes","No"]', '[1]', 'Independent correction: No. Converting DateTime to Date removes the hour. A valid optimization must preserve or separately derive both the date and hour needed for analysis.', 'Final 2', '184', '/exhibit-assets/f2-184-436.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Solution: You change the IOT DateTime column to the Date data type. Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+أحداث IoT مطلوب تحليلها بالساعة واليوم. هل تحويل DateTime إلى Date يحسن الأداء مع تحقيق المطلوب؟
+
+القصة والمعنى
+أنت وفرت جزء الوقت، لكن مسحت بالضبط المعلومة التي عايز تحللها. حل سريع فقد شرطًا أساسيًا يبقى مش حل.
+
+مثال نفهم بيه
+حدث الساعة 09:15 وحدث الساعة 18:40 في نفس اليوم يصبحان نفس التاريخ؛ لا يمكنك بعدها تمييز الصباح من المساء دون عمود ساعة منفصل.
+
+طريقة التفكير خطوة بخطوة
+1. Date يحتفظ باليوم ويحذف الساعة.
+2. اشتق Hour قبل حذف الجزء الزمني، أو افصل Date و Hour.
+3. التحسين يجب ألا يلغي الدقة المطلوبة.
+
+الإجابة الصحيحة وليه
+No.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+لا؛ توفير المساحة لا يبرر فقد تحليل الساعة المطلوب.
+
+B. No
+صحيح؛ التحويل ل Date وحده يمحو الساعة.
+
+الخلاصة اللي تتحفظ
+حافظ على grain التحليل قبل تقليل الحجم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '184', '/exhibit-assets/f2-184-436.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-187-437', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18401,30 +24392,176 @@ During the development process, you need to import a sample of the data from the
 
 Solution: From Power Query Editor, you import the table and then add a filter step to the query.
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'No. Importing the full 100-million-row table and filtering afterward can still retrieve and process the entire source. Apply the sample limit as a source-side filter or parameter early enough for query folding.', 'Final 2', '187', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[]', 'ترجمة السؤال بالعربي
+جدول SQL فيه أكثر من مئة مليون صف، وتريد عينة للتطوير. الحل المقترح إضافة فلتر في Power Query بعد اختيار استيراد الجدول. هل يحقق الهدف؟
+
+القصة والمعنى
+العبرة مش بمكان زر الفلتر، لكن بمين ينفذه. لو المحرك ترجمه إلى WHERE على SQL، لا تحتاج جلب الجدول كله. أما لو استوردت المئة مليون فعلًا ثم فلترت نسخة محلية، فقد تأخرت.
+
+مثال نفهم بيه
+فلتر OrderDate مبكر قد يتحول إلى WHERE ويجلب شهرًا واحدًا فقط؛ خطوة غير قابلة للطي قبل الفلتر قد تجعل التنفيذ محليًا.
+
+طريقة التفكير خطوة بخطوة
+1. SQL Server يدعم Query Folding لكثير من الفلاتر، فتُرسل الشروط إلى المصدر.
+2. تحقق من View Native Query أو خطة الاستعلام بدل افتراض قراءة جميع الصفوف.
+3. لفظ import ملتبس: اختيار الجدول داخل Editor قبل التحميل يختلف عن اكتمال تحميله إلى الموديل.
+
+الإجابة الصحيحة وليه
+لا توجد إجابة واحدة مؤكدة من الصياغة. نعم إذا طُوي الفلتر إلى SQL قبل التحميل، ولا إذا جُلبت كل الصفوف أولًا. لا نصحح الطالب على No بصورة مطلقة.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+قد يكون Yes صحيحًا إذا كان الفلتر قابلًا للطي وينفذ في SQL قبل تحميل الموديل.
+
+B. No
+قد يكون No صحيحًا إذا اكتمل الاستيراد الكامل أو تعذر طي الفلتر؛ السؤال لا يحسم أي الحالتين.
+
+الخلاصة اللي تتحفظ
+الفلتر في Power Query قد ينفذ في المصدر؛ افحص Folding وتوقيت التحميل.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/query-folding-basics', 'Final 2', '187', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-191-438', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a dataset that has the permissions shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Analyze in Excel requires Build permission. A user who can reshare the dataset can grant Build permission to another group without transferring ownership or deleting the dataset.', 'Final 2', '191', '/dump-assets/f2-191-438-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+من الصلاحيات المعروضة للموديل، حدد ما يمكن أن تفعله مجموعتا Finance و Corp، مع التمييز بين Build و Reshare وتعديل الموديل.
+
+القصة والمعنى
+الاختيارات موجودة، لكن لقطة الصلاحيات التي يفترض السؤال قراءتها غائبة عن المصدر المتاح. نقدر نشرح الفرق بين Build و Reshare، لكن لا نثبت أي مجموعة تملكهما من مجرد أسمائها.
+
+مثال نفهم بيه
+وجود اسم Finance لا يثبت Build؛ ووجود Corp لا يثبت Reshare. لو كانت الأذونات Read فقط ستتغير الإجابة رغم بقاء الأسماء نفسها.
+
+طريقة التفكير خطوة بخطوة
+1. المصدر المتاح يعرض منطقتَي الاختيار فقط، دون جدول أوصورة الصلاحيات المشار إليها.
+2. Analyze in Excel يتطلب Build؛ لا يوجد في الصورة المتاحة دليل يثبت أن Finance لديها هذا الإذن.
+3. إعادة المشاركة قد تسمح بمنح Read وكذلك Build، فتحتاج الجملة الثانية فحص الأذونات الأصلية لا تخمينها.
+
+الإجابة الصحيحة وليه
+المصدر يقصد Analyze in Excel و grant Build، لكن لا يوجد exhibit صلاحيات قابل للتحقق؛ لا نعتمد إجابة فريدة أوتصحيحًا آليًا حتى استعادته.
+
+ليه كل اختيار صح أو غلط
+A. Users in the finance group can ___ the semantic model. assign sensitivity labels to
+تعيين sensitivity label يتطلب صلاحيات وتراخيص إضافية؛ ليس نتيجة تلقائية لوجود Build.
+
+B. Users in the finance group can ___ the semantic model. use Analyze in Excel with
+صحيح؛ Build من متطلبات Analyze in Excel مع بقية متطلبات الوصول.
+
+C. Users in the finance group can ___ the semantic model. delete
+Build لا تمنح صلاحية حذف semantic model من الخدمة.
+
+D. Users in the corp group can ___ the semantic model. grant the Build permission for
+صحيح في الإذن المقصود؛ يمكن منح Build عند السماح بإعادة المشاركة.
+
+E. Users in the corp group can ___ the semantic model. grant the Read permission for
+Read قد يمكن منحه أيضًا؛ لذلك تمييز الاختيارين يحتاج سياق الصلاحيات الكامل ولا يدعم نفي Read مطلقًا.
+
+F. Users in the corp group can ___ the semantic model. remove a table from
+إزالة جدول تعديل لبنية الموديل، ولا تمنحه إعادة المشاركة وحدها.
+
+الخلاصة اللي تتحفظ
+إجابة سؤال صلاحيات تعتمد على الأذونات الظاهرة، لا أسماء المجموعات أومفتاح حرفي قديم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-permissions
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-analyze-in-excel', 'Final 2', '191', '/dump-assets/f2-191-438-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-194-440', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are developing a report page. Some users will navigate the report by using a keyboard, and some users will consume the report by using a screen reader.
 
-You need to ensure that the users can consume the content on a report page in a logical order. What should you configure in Microsoft Power Bl Desktop?', '["the bookmark order","the layer order","the tab order","the X position"]', '[2]', 'If you find yourself unable to navigate to an object or visual while using a keyboard, it may be because the report author has decided to hide that object from the
-tab order. Report authors commonly hide decorative objects from the tab order. If you find that you cannot tab through a report in a logical manner, you should
-contact the report author. Report authors can set the tab order for objects and visuals.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-consuming- tools', 'Final 2', '194', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that the users can consume the content on a report page in a logical order. What should you configure in Microsoft Power Bl Desktop?', '["the bookmark order","the layer order","the tab order","the X position"]', '[2]', 'ترجمة السؤال بالعربي
+تقرير يستخدمه أشخاص بالكيبورد وقارئ الشاشة. ما الإعداد الذي يجعل المرور على عناصر الصفحة بترتيب منطقي؟
+
+القصة والمعنى
+مكان الرسم على الشاشة مش بالضرورة ترتيب الوصول إليه بزر Tab. رتب مسار القراءة بحيث يعرف المستخدم عنوان الصفحة، ثم يختار الفلاتر، ثم يقرأ النتيجة.
+
+مثال نفهم بيه
+ينتقل التركيز من عنوان الصفحة إلى Country slicer ثم KPI ثم جدول التفاصيل، بدل القفز إلى آخر الصفحة قبل معرفة السياق.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Selection pane واضبط Tab order.
+2. رتب عناصر التفاعل والمعلومات حسب تسلسل استخدامها.
+3. استبعد العناصر الزخرفية من التنقل إذا كانت لا تضيف معنى.
+
+الإجابة الصحيحة وليه
+C: Tab order.
+
+ليه كل اختيار صح أو غلط
+A. the bookmark order
+ترتيب bookmarks ينظم الحالات المحفوظة، وليس انتقال التركيز بالكيبورد.
+
+B. the layer order
+Layer order يحدد أي عنصر يغطي الآخر عند التداخل على الصفحة.
+
+C. the tab order
+صحيح؛ Tab order يحدد ترتيب وصول لوحة المفاتيح وقارئ الشاشة للعناصر.
+
+D. the X position
+X position يحرك العنصر أفقيًا ولا يحدد ترتيب التنقل المنطقي وحده.
+
+الخلاصة اللي تتحفظ
+Keyboard و Screen reader يحتاجان Tab order؛ مكان الرسم وطبقته إعدادان مختلفان.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-accessibility-creating-reports', 'Final 2', '194', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-197-441', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have the Power BI data model shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'StoreID is a whole-number field and uses numeric aggregation when added alone to a table visual, so Power BI displays its sum. A filter placed on the many-side Sales table does not flow backward through the single-direction relationships, so it filters only Sales.', 'Final 2', '197', '/dump-assets/f2-197-441-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10001]', 'ترجمة السؤال بالعربي
+StoreID في Sales عدد صحيح بإعداد تجميع، والعلاقات أحادية الاتجاه. ماذا يعرض جدول فيه الحقل وحده، وما أثر فلتر Sales[StoreID]=1؟
+
+القصة والمعنى
+رغم أن اسمه ID، الإعداد قد يجعل البرنامج يجمعه كرقم. وفي نفس الوقت الفلتر الموضوع على جدول العمليات لا يرجع عكس الأسهم ليفلتر أبعاد المتاجر والعملاء.
+
+مثال نفهم بيه
+القيم 1 و 1 و 2 قد تظهر مجموعًا قدره 4، وليس عدد متاجر قدره 2. ولو طبقت Sales[StoreID]=1 لا ينتقل القيد عكسيًا إلى Store.
+
+طريقة التفكير خطوة بخطوة
+1. الإعداد المعروض يعامل StoreID كحقل رقمي قابل للجمع.
+2. إضافة الحقل وحده تعرض Sum وفق إعداد المصدر، لا قائمة المتاجر تلقائيًا.
+3. فلتر Sales يبقى في جهة العمليات مع العلاقات أحادية الاتجاه المعروضة.
+
+الإجابة الصحيحة وليه
+Sum of StoreID؛ only the Sales table.
+
+ليه كل اختيار صح أو غلط
+A. Adding only Sales[StoreID] to a table visual displays: distinct count of the StoreID values
+Distinct count يحتاج اختيار نوع التجميع هذا صراحة، وليس Sum المعروض.
+
+B. Adding only Sales[StoreID] to a table visual displays: list of all the StoreID values
+عرض جميع السجلات ليس نتيجة جمع العمود الرقمي وحده.
+
+C. Adding only Sales[StoreID] to a table visual displays: list of the distinct StoreID values
+قائمة القيم المختلفة تحتاج عدم التلخيص؛ لا تطابق الإعداد المقصود هنا.
+
+D. Adding only Sales[StoreID] to a table visual displays: sum of the StoreID values
+صحيح؛ الإعداد المقصود يجمع قيم StoreID العددية.
+
+E. A page filter Sales[StoreID] = 1 will filter: all the tables related to the Sales table
+الفلاتر لا تنتقل تلقائيًا عكس جميع العلاقات إلى كل الجداول.
+
+F. A page filter Sales[StoreID] = 1 will filter: only the Sales table
+صحيح؛ اتجاه العلاقات المعروض يجعل الفلتر مؤثرًا في Sales فقط.
+
+G. A page filter Sales[StoreID] = 1 will filter: only the Store table
+فلتر جهة many لا يرجع إلى Store خلال العلاقة أحادية الاتجاه.
+
+H. A page filter Sales[StoreID] = 1 will filter: the Sales table and the Customer table
+لا يعود الفلتر من Sales إلى Customer أيضًا في اتجاه الأسهم المعروض.
+
+الخلاصة اللي تتحفظ
+اسم ID لا يمنع Sum؛ واتجاه العلاقة يحدد أين ينتشر الفلتر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage-relationships
+https://learn.microsoft.com/en-us/power-bi/visuals/service-aggregates', 'Final 2', '197', '/dump-assets/f2-197-441-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-201-443', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You are preparing a financial report in Power BI.
@@ -18439,7 +24576,52 @@ You need to prepare the data to support the following:
 
 Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[2,4,0,6]', 'Promote the header row, normalize the year columns into rows with Unpivot Other Columns, rename the generated attribute, and assign a date type so the model can use the year values correctly.', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[2,4,0,6]', 'ترجمة السؤال بالعربي
+Excel فيه Measure وصفوف مقاييس، والأعوام أعمدة من 2016 إلى 2020. رتب تحويله إلى بيانات طويلة تدعم التحليل الزمني والمقارنة السنوية.
+
+القصة والمعنى
+السنوات دلوقت عناوين أعمدة، لكن الرسم الزمني محتاج عمودًا يحمل الفترة وصفًا لكل مقياس وفترة. لا يكفي أن تسمي رقم السنة تاريخًا؛ يجب تحويله إلى يوم صحيح داخل السنة.
+
+مثال نفهم بيه
+Revenue لسنة 2016 بقيمة 0.5 تصبح صفًا يحمل 2016-01-01 وقيمة 0.5؛ لا تريد تاريخًا في 1905 ناتجًا عن اعتبار 2016 عدد أيام.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم الصف الأول كعناوين للأعمدة.
+2. نفذ Unpivot لجميع الأعمدة ما عدا Measure.
+3. أعد تسمية Attribute إلى Year.
+4. حوّل السنة إلى تاريخ صريح مثل #date(Number.From([Year]),1,1)، لا رقم يوم تسلسلي؛ ثم استخدم تقويمًا مناسبًا.
+
+الإجابة الصحيحة وليه
+Promote headers ثم Unpivot other columns ثم Rename Attribute as Year. آخر خطوة مقصودة هي Date صحيح، لكن Change type وحدها قد لا تكفي لتحويل سنة مجردة.
+
+ليه كل اختيار صح أو غلط
+A. Rename the Attribute column as Year.
+صحيح بعد Unpivot؛ Attribute يحمل أسماء أعمدة السنوات.
+
+B. Rename the Measure column as Year.
+Measure يحمل أسماء مثل Revenue، وليس قيم السنوات.
+
+C. Use the first row as headers.
+صحيح أولًا؛ الصف الأول يحتوي أسماء الحقول والسنوات الفعلية.
+
+D. Use headers as the first row.
+هذا يعكس المطلوب ويجعل العناوين صف بيانات بدل تهيئتها.
+
+E. Unpivot all the columns other than Measure.
+صحيح؛ يحتفظ باسم المقياس ويحوّل أعمدة السنوات إلى صفوف.
+
+F. Transpose the table.
+Transpose وحده لا ينتج بنية الفترة والمقياس والقيمة المطلوبة.
+
+G. Change the data type of the Year column to Date.
+الهدف Date صالح، لكن تحويل السنة المجردة مباشرة قد يفشل أو ينتج تاريخًا تسلسليًا غلطًا؛ أكمل الشهر واليوم صراحة.
+
+الخلاصة اللي تتحفظ
+رقم السنة ليس تاريخًا كاملًا؛ أنشئ تاريخًا صريحًا بدل الاعتماد على التحويل التلقائي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/unpivot-column
+https://learn.microsoft.com/en-us/powerquery-m/date-from', 'Final 2', '201', '/dump-assets/f2-201-443-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-202-444', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are profiling data by using Power Query Editor.
@@ -18448,7 +24630,31 @@ The AddressLine2 column in a table named Address is shown in the following exhib
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The profile shows 12 distinct and 11 unique values. However, the complete readable answer options have not been recovered. Do not use the unrelated menu crops as an answer key.', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+السؤال يعرض فحص AddressLine2 في Power Query، لكن الجمل والاختيارات الكاملة لم تستعد من المصدر بصورة موثوقة.
+
+القصة والمعنى
+نقدر نشرح الإحصاء المقروء، لكن لا نقدر نثبت اختيارًا صحيحًا لجملة غير ظاهرة. فهم الرسم شيء واستكمال سؤال ناقص شيء آخر.
+
+مثال نفهم بيه
+القيم A و A و B و C تعطي Distinct=3 و Unique=2؛ كلا العددين مختلف عن عدد الصفوف 4.
+
+طريقة التفكير خطوة بخطوة
+1. المقروء في المصدر هو 12 قيمة مختلفة و 11 قيمة ظهرت مرة واحدة.
+2. Distinct تعني عدد القيم المختلفة، و Unique تعني عدد القيم غير المتكررة.
+3. لا يوجد مفتاح موثق قبل استعادة العبارات والاختيارات الأصلية كاملة.
+
+الإجابة الصحيحة وليه
+مصدر غير مكتمل؛ لا توجد إجابة اختيارات موثوقة متاحة.
+
+ليه كل اختيار صح أو غلط
+أسماء القوائم والعبارات الكاملة غير مستعادة، فلا يمكن إثبات اختيار صحيح منها؛ شرح Distinct و Unique لا يملأ هذا النقص.
+
+الخلاصة اللي تتحفظ
+نشرح الفرق بين الإحصاءات، لكن لا نخترع منطقة إجابة مفقودة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '202', '/dump-assets/f2-202-444-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-204-445', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are configuring a Microsoft Power Bl data model to enable users to ask natural language questions by using Q&A. You have a table named Customer that has
@@ -18459,14 +24665,83 @@ Customer Count = DISTINCTCOUNT(Customer[CustomerID]) Users frequently refer to c
 
 You need to ensure that the users can get a useful result for "subscriber count" by using Q&A. The solution must minimize the size of the model.
 
-What should you do?', '["Add a description of \"subscriber count\" to the Customer Count measure.","Set Summarize By to None for the CustomerlD column.","Add a description of \"Subscriber\" to the Customer table.","Add a synonym of \"subscriber\" to the Customer table."]', '[3]', 'Independent correction: D. Add subscriber as a synonym for Customer. This lets Q&A interpret subscriber count as the existing customer entity and measure without adding data to the model.', 'Final 2', '204', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Add a description of \"subscriber count\" to the Customer Count measure.","Set Summarize By to None for the CustomerlD column.","Add a description of \"Subscriber\" to the Customer table.","Add a synonym of \"subscriber\" to the Customer table."]', '[3]', 'ترجمة السؤال بالعربي
+المستخدمون يسمون العملاء Subscribers، والموديل فيه Customer و Customer Count. كيف تجعل Q&A يفهم subscriber count دون تكرار البيانات؟
+
+القصة والمعنى
+نفس الناس ونفس الجدول، لكن المستخدم يقول اسمًا آخر. الحل قاموس مرادفات، مش جدول Subscribers جديد ونسخة ثانية من الأرقام.
+
+مثال نفهم بيه
+عندما يكتب المستخدم subscriber count، ترتبط كلمة subscriber بالعملاء بدل البحث عن كيان جديد غير موجود.
+
+طريقة التفكير خطوة بخطوة
+1. أضف subscriber كمرادف إلى Customer في إعدادات Q&A.
+2. يستخدم الاستفسار التسمية الشائعة للوصول إلى الكيان الموجود.
+3. Q&A قيد الإزالة؛ الوثائق الحالية تحدد فبراير 2027، فهذا شرح للسؤال التاريخي.
+
+الإجابة الصحيحة وليه
+D: Add subscriber as a synonym to Customer.
+
+ليه كل اختيار صح أو غلط
+A. Add a description of "subscriber count" to the Customer Count measure.
+وصف measure يساعد التوثيق لكنه ليس إعداد synonym المباشر المطلوب.
+
+B. Set Summarize By to None for the CustomerlD column.
+Summarize by يغير طريقة التجميع، لا مفردات اللغة الطبيعية.
+
+C. Add a description of "Subscriber" to the Customer table.
+وصف الجدول لا يساوي إضافة مرادف في قاموس Q&A.
+
+D. Add a synonym of "subscriber" to the Customer table.
+صحيح؛ يربط الاسم الشائع بالكيان الحالي دون إضافة بيانات.
+
+الخلاصة اللي تتحفظ
+اسم آخر لنفس الكيان = Synonym، وليس جدولًا مكررًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/natural-language/q-and-a-tooling-intro
+https://learn.microsoft.com/en-us/power-bi/natural-language/q-and-a-intro', 'Final 2', '204', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-205-446', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You attempt to connect Purer 81 Desktop to a Cassandra database.
 
 From the Get Data connector list you discover that there is no specific connector for the Cassandra database,
 
-You need to select an alternate data connector that will connect to the database. Which of connector should you choose?', '["Microsoft SQL Server database","ODBC","OData","OLE DB"]', '[1]', 'Use ODBC. Cassandra can expose an ODBC driver even when Power BI has no dedicated native connector; ODBC supplies the generic standards-based connection path.', 'Final 2', '205', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to select an alternate data connector that will connect to the database. Which of connector should you choose?', '["Microsoft SQL Server database","ODBC","OData","OLE DB"]', '[1]', 'ترجمة السؤال بالعربي
+لا يوجد موصل Cassandra مخصص في قائمة Get Data المعروضة. أي موصل عام بديل تختار للاتصال؟
+
+القصة والمعنى
+زي جهاز له محول قياسي بدل وصلة مباشرة. ODBC يحتاج driver مناسبًا يعرف يتكلم مع المصدر؛ اختيار الاسم وحده لا يثبت هذا التعريف تلقائيًا.
+
+مثال نفهم بيه
+Driver مناسب يعرض بيانات Cassandra عبر ODBC؛ يستخدم Power BI الموصل العام لقراءتها بدل موصل خاص غير موجود.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم ODBC driver متوافقًا مع Cassandra.
+2. جهز إعداد DSN أو connection string المناسب للبيئة.
+3. لا تفترض أن Cassandra تعرض SQL Server أو OData لمجرد أنها قاعدة بيانات.
+
+الإجابة الصحيحة وليه
+B: ODBC، بشرط وجود driver متوافق وإعداد اتصال صالح.
+
+ليه كل اختيار صح أو غلط
+A. Microsoft SQL Server database
+Cassandra ليست SQL Server؛ موصل SQL Server لا يتصل بها تلقائيًا.
+
+B. ODBC
+صحيح؛ ODBC يوفر المسار العام المقصود عند تثبيت تعريف مناسب.
+
+C. OData
+OData يحتاج endpoint يدعم هذا البروتوكول، وهو غير مذكور في السؤال.
+
+D. OLE DB
+OLE DB يحتاج provider خاصًا؛ ليس البديل المقصود من الخيارات المعطاة.
+
+الخلاصة اللي تتحفظ
+الموصل العام يحتاج driver أو endpoint مناسبًا، وليس وصلة سحرية لأي قاعدة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/connectors/odbc', 'Final 2', '205', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-209-447', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a Power BI report.
@@ -18475,7 +24750,75 @@ You need to create a calculated table to return the 100 highest spending custome
 
 How should you complete the DAX expression? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'SUMMARIZE creates one row per customer with a Sales total. TOPN then returns 100 rows ordered by that Sales value in descending order, giving the highest-spending customers.', 'Final 2', '209', '/dump-assets/f2-209-447-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10004,10003,10001]', 'ترجمة السؤال بالعربي
+تريد جدولًا محسوبًا بأعلى 100 عميل إنفاقًا. أكمل دالة اختيار الصفوف، ودالة تجميع العملاء، واتجاه الترتيب.
+
+القصة والمعنى
+احسب إجمالي كل عميل الأول، وبعدها رتّب العملاء. لو اخترت أكبر العمليات قبل التجميع، ستجيب أكبر فواتير بدل أكبر عملاء.
+
+مثال نفهم بيه
+عميل له عشر فواتير بقيمة 100 يتفوق بإجمالي 1000 على عميل له فاتورة واحدة 900؛ لازم ترتيب الإجماليات لا الفواتير.
+
+طريقة التفكير خطوة بخطوة
+1. SUMMARIZE تجمع FactTransaction حسب Customer ID وتنتج Sales لكل عميل.
+2. TOPN تختار 100 من جدول الإجماليات.
+3. DESC تجعل الأعلى إنفاقًا أولًا؛ التعادل عند الحد قد ينتج أكثر من 100 صف.
+
+الإجابة الصحيحة وليه
+TOPN؛ SUMMARIZE؛ DESC.
+
+ليه كل اختيار صح أو غلط
+A. Outer function: ASC
+ASC اتجاه ترتيب، ولا يصلح بدل الدالة الخارجية التي تنتج جدولًا.
+
+B. Outer function: DESC
+DESC اتجاه ترتيب فقط، وليس دالة اختيار أعلى العملاء.
+
+C. Outer function: FILTER
+FILTER يحتاج شرطًا منطقيًا، ولا يطابق وسائط العدد والجدول والترتيب هنا.
+
+D. Outer function: SUMMARIZE
+SUMMARIZE تجمع داخليًا، لكنها لا تختار أعلى 100 وحدها.
+
+E. Outer function: TOPN
+صحيح للفراغ الأول؛ TOPN تأخذ العدد وجدول الإجماليات والترتيب.
+
+F. Build customer totals using: ASC
+ASC لا تجمع معاملات كل عميل في صف واحد.
+
+G. Build customer totals using: DESC
+DESC ليست دالة لبناء جدول إجمالي المبيعات لكل عميل.
+
+H. Build customer totals using: FILTER
+FILTER لا تقبل مجموعة الأعمدة واسم المقياس بهذه الدلالة.
+
+I. Build customer totals using: SUMMARIZE
+صحيح للثاني؛ SUMMARIZE تنتج صفًا لكل عميل ومجموع مبيعاته.
+
+J. Build customer totals using: TOPN
+TOPN لا تحل محل تجميع المعاملات حسب العميل في الفراغ الداخلي.
+
+K. Order Sales by: ASC
+ASC تختار أقل إنفاقًا بدل أعلى إنفاق، عكس المطلوب.
+
+L. Order Sales by: DESC
+صحيح للثالث؛ DESC ترتيب تنازلي يعطي الأعلى أولًا.
+
+M. Order Sales by: FILTER
+FILTER ليست قيمة صالحة لمعامل اتجاه الترتيب.
+
+N. Order Sales by: SUMMARIZE
+SUMMARIZE ليست اتجاه ترتيب بعد تعبير [Sales].
+
+O. Order Sales by: TOPN
+TOPN هي الدالة الخارجية، وليست اتجاه الفرز المطلوب في آخر وسيط.
+
+الخلاصة اللي تتحفظ
+أكبر العملاء = إجمالي لكل عميل أولًا، ثم TOPN حسب الإجمالي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/topn-function-dax
+https://learn.microsoft.com/en-us/dax/summarize-function-dax', 'Final 2', '209', '/dump-assets/f2-209-447-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-214-448', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You are modeling data in table named SalesDetail by using Microsoft Power Bl.
@@ -18488,7 +24831,48 @@ distributions.
 
 Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the
 
-correct order.', '[]', '[]', 'Table.Profile returns per-column statistics such as count, null count, minimum, maximum, average, and standard deviation. A blank query is used to call it, then the returned table can drive report visuals.', 'Final 2', '214', '/dump-assets/f2-214-448-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+correct order.', '[]', '[]', 'ترجمة السؤال بالعربي
+المستهلكون يحتاجون رؤية إحصاءات اكتمال وتوزيع بيانات SalesDetail داخل تقرير. رتب ثلاث خطوات لإنشاء جدول الإحصاءات وعرضه.
+
+القصة والمعنى
+الفحص داخل Power Query يراه المطور فقط. عشان توصل نتيجته للطالب أوالمدير، حوّل الإحصاءات إلى جدول فعلي حمّله ثم اعرضه في visual.
+
+مثال نفهم بيه
+جدول النتائج يحتوي صفًا لكل عمود وإحصاءات مثل Count و NullCount و DistinctCount؛ يقدر المستهلك يقارن اكتمال الحقول.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ Blank query.
+2. اكتب Table.Profile(#"SalesDetail") ثم Close & Apply.
+3. ابنِ visual من جدول الإحصاءات الناتج.
+4. راجع تكلفة الفحص؛ تطبيقه على بيانات ضخمة قد يزيد وقت التحديث.
+
+الإجابة الصحيحة وليه
+Blank query → Table.Profile → Visual.
+
+ليه كل اختيار صح أو غلط
+A. Specify the following query, then close and apply: = Table.Distinct(#"SalesDetail")
+Table.Distinct تزيل تكرار الصفوف، ولا تنتج إحصاءات الأعمدة المطلوبة.
+
+B. Create a visual for the query table.
+صحيح أخيرًا؛ يحول جدول الإحصاءات إلى محتوى يراه مستخدم التقرير.
+
+C. Create a parameter that uses a query for the suggested values.
+Parameter لقائمة قيم مقترحة لا يحسب اكتمال البيانات أوتوزيعها.
+
+D. Create a query that uses Common Data Service as a data source.
+تغيير المصدر إلى Dataverse لا يفحص SalesDetail الموجودة.
+
+E. Specify the following query, then close and apply: = Table.Profile(#"SalesDetail")
+صحيح في الخطوة الثانية؛ Table.Profile تنتج إحصاءات أعمدة الجدول.
+
+F. Create a blank query as a data source.
+صحيح أولًا؛ Blank query هي مكان استدعاء تعبير الفحص.
+
+الخلاصة اللي تتحفظ
+فحص يراه المستهلك = Table.Profile محملة ثم visual، لا مجرد معاينة Editor.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/powerquery-m/table-profile', 'Final 2', '214', '/dump-assets/f2-214-448-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-217-449', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 In Power BI Desktop, you are building a sales report that contains two tables. Both tables
@@ -18497,37 +24881,165 @@ have row-level security (RLS) configured.
 
 You need to create a relationship between the tables. The solution must ensure that bidirectional cross-filtering honors the RLS settings.
 
-What should you do?', '["Create an active relationship between the tables and select Assume referential integrity.","Create an inactive relationship between the tables and select Assume referential integrity.","Create an inactive relationship between the tables and select Apply security filter in both directions.","Create an active relationship between the tables and select Apply security filter in both directions."]', '[3]', 'By default, row-level security filtering uses single-directional filters, whether the relationships are set to single direction or bi-directional. You can manually enable
-bi- directional cross-filtering with row-level security by selecting the relationship and checking the Apply security filter in both directions checkbox. Select this option
-when you''ve also implemented dynamic row-level security at the server level, where row-level security is based on username or login ID.
+What should you do?', '["Create an active relationship between the tables and select Assume referential integrity.","Create an inactive relationship between the tables and select Assume referential integrity.","Create an inactive relationship between the tables and select Apply security filter in both directions.","Create an active relationship between the tables and select Apply security filter in both directions."]', '[3]', 'ترجمة السؤال بالعربي
+جدولان عليهما RLS، وتريد العلاقة بينهما تسمح بمرور فلتر الأمان في الاتجاهين. ما الإعداد المناسب؟
 
-Reference:
-https://docs.microsoft.com/en-us/power-bi/admin/service-admin-rls', 'Final 2', '217', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+Both للتصفية العادية ليس هو التصريح الأمني لمرور RLS في الاتجاهين. فيه خانة خاصة للأمان، والعلاقة نفسها لازم تكون نشطة.
+
+مثال نفهم بيه
+فلتر المستخدم في جدول صلاحيات قد يحتاج المرور عبر جدول ربط إلى البيانات؛ Both العادية لا تغني عن ضبط اتجاه فلتر الأمان.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ علاقة Active مناسبة بين الجدولين.
+2. فعّل Apply security filter in both directions عند الحاجة لهذا المسار.
+3. اختبر الأدوار والنتائج والأداء؛ التصفية الثنائية قد تسبب غموضًا أوحملًا زائدًا.
+
+الإجابة الصحيحة وليه
+D: Active + Apply security filter in both directions.
+
+ليه كل اختيار صح أو غلط
+A. Create an active relationship between the tables and select Assume referential integrity.
+Assume referential integrity تحسين محتمل لاستعلام DirectQuery، وليس تصريح مرور RLS.
+
+B. Create an inactive relationship between the tables and select Assume referential integrity.
+العلاقة غير النشطة لا تنقل RLS تلقائيًا، وخيار integrity لا يعالج ذلك.
+
+C. Create an inactive relationship between the tables and select Apply security filter in both directions.
+إعداد الأمان صحيح، لكن العلاقة inactive لا تحقق مسار RLS النشط المطلوب.
+
+D. Create an active relationship between the tables and select Apply security filter in both directions.
+صحيح؛ يجمع علاقة نشطة مع مرور فلتر الأمان في الاتجاهين.
+
+الخلاصة اللي تتحفظ
+Both لتفاعلات البيانات، و Apply security filter لاتجاه فلتر RLS.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive', 'Final 2', '217', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-218-450', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You need to provide a user with the ability to add members to a workspace. The solution must use the
 
 principle of least privilege.
 
-Which role should you assign to the user?', '["Viewer","Contributor","Member","Admin"]', '[2]', 'A Member can add members or others with lower permissions. Note:', 'Final 2', '218', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which role should you assign to the user?', '["Viewer","Contributor","Member","Admin"]', '[2]', 'ترجمة السؤال بالعربي
+مستخدم مطلوب منه إضافة أعضاء إلى workspace. أي دور يحقق المطلوب بأقل صلاحيات من الخيارات؟
+
+القصة والمعنى
+محتاج يدخل ناس إلى فريق الشغل، لكنه مش محتاج يدير كل إعدادات المكان. Member يحقق إضافة أعضاء بنفس مستواه أوأقل، بدل Admin الأوسع.
+
+مثال نفهم بيه
+Member يضيف زميلًا كـ Contributor لرفع التقارير، دون إعطائه إدارة كاملة لكل إعدادات workspace.
+
+طريقة التفكير خطوة بخطوة
+1. Member يستطيع إضافة أعضاء أوأدوار أقل بحسب سياسة الخدمة.
+2. Contributor يؤلف المحتوى لكنه لا يدير عضوية workspace بهذه المهمة.
+3. إضافة Admin أوإدارة إعدادات workspace الكاملة ليست ضمن المطلوب هنا.
+
+الإجابة الصحيحة وليه
+C: Member.
+
+ليه كل اختيار صح أو غلط
+A. Viewer
+Viewer يقرأ المحتوى ولا يدير عضوية workspace.
+
+B. Contributor
+Contributor يؤلف محتوى لكنه لا يمنح صلاحية إضافة الأعضاء المطلوبة.
+
+C. Member
+صحيح؛ Member هو أقل دور معروض يحقق إضافة أعضاء أوأدوار أقل.
+
+D. Admin
+Admin يستطيع ذلك لكن صلاحياته أوسع من المطلوب.
+
+الخلاصة اللي تتحفظ
+إضافة أعضاء بأقل دور متاح = Member؛ الإدارة الكاملة = Admin.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final 2', '218', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-222-451', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have the visual shown in the Original exhibit. {Click the Original tab.)
 
 You need to configure the visual as shown in the Modified exhibit. (Click the Modified tab.)
 
-What should you add to the visual?', '["a measure","a trendline","a forecast","an Average line"]', '[2]', 'Explore forecast results by adjusting the desired confidence interval or by adjusting outlier data to see how they affect results.
+What should you add to the visual?', '["a measure","a trendline","a forecast","an Average line"]', '[2]', 'ترجمة السؤال بالعربي
+الصورة المعدلة لرسم زمني تظهر امتدادًا مستقبليًا مع نطاق عدم يقين. ما الذي تضيفه للرسم الأصلي؟
 
-Timeline Description automatically generated with low confidence
-Reference:
-https://powerbi.microsoft.com/fr-fr/blog/introducing-new-forecasting-capabilities-in-power-view-for-office-365/', 'Final 2', '222', '/exhibit-assets/f2-222-451.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+الخط الذي يمتد بعد آخر بيانات فعلية ومعه نطاق ثقة يمثل توقعًا للمستقبل. خط المتوسط ثابت، وخط الاتجاه وحده ليس نفس التجربة المعروضة.
+
+مثال نفهم بيه
+آخر شهر فعلي ديسمبر؛ يظهر يناير وفبراير المتوقعان وخلفهما نطاق يوضح عدم اليقين في التقدير.
+
+طريقة التفكير خطوة بخطوة
+1. أضف Forecast من Analytics إلى Line chart مدعوم.
+2. اضبط مدة التوقع ووحدة الزمن ونطاق الثقة.
+3. التوقع تقدير يتأثر بالنمط التاريخي، وليس وعدًا بتحقق الأرقام.
+
+الإجابة الصحيحة وليه
+C: A forecast.
+
+ليه كل اختيار صح أو غلط
+A. a measure
+Measure وحدها لا تضيف تجربة forecast ونطاق الثقة الظاهرين.
+
+B. a trendline
+Trendline تلخص اتجاه البيانات ولا تعادل امتداد التنبؤ المعروض.
+
+C. a forecast
+صحيح؛ Forecast تضيف القيم المستقبلية التقديرية ونطاق الثقة.
+
+D. an Average line
+Average line خط ثابت لمتوسط القيم، وليس توقعات زمنية جديدة.
+
+الخلاصة اللي تتحفظ
+امتداد مستقبلي مع نطاق ثقة = Forecast، وليس Average line.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final 2', '222', '/exhibit-assets/f2-222-451.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-227-452', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 For the sales department at your company, you publish a Power Bl report that imports data from a Microsoft Excel We located in a Microsoft SharePoint folder The
 
 data model contains several measures You need to create a Power Bl report from the existing data. The solution must minimize development effort. Which type ol
 
-data source should you use?', '["a SharePoint folder","Power Bl dataflows","an Excel workbook","Power Bl dataset"]', '[3]', 'Independent correction: D. Use the existing Power BI semantic model (called a dataset in the source wording). It already contains the model and measures, so a new thin report can reuse them.', 'Final 2', '227', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+data source should you use?', '["a SharePoint folder","Power Bl dataflows","an Excel workbook","Power Bl dataset"]', '[3]', 'ترجمة السؤال بالعربي
+تقرير موجود بموديل ومقاييس جاهزة من Excel على SharePoint. تريد تقريرًا آخر من نفس البيانات بأقل تطوير. ما المصدر؟
+
+القصة والمعنى
+المطبخ جهز البيانات والعلاقات و DAX. لا تبدأ من ملف Excel مرة أخرى وتكرر المقاييس؛ اعمل تقريرًا جديدًا يستند إلى الموديل الجاهز.
+
+مثال نفهم بيه
+تقرير الإدارة وتقرير المبيعات يستخدمان Total Sales واحدة، بدل نسختين قد يختلف تعريفهما بعد التعديل.
+
+طريقة التفكير خطوة بخطوة
+1. اتصل بالـ Power BI semantic model الموجودة.
+2. أعد استخدام العلاقات والمقاييس والأمان بدل إعادة بنائها.
+3. مؤلف التقرير يحتاج Build على الموديل، وإذن نشر مناسبًا في الوجهة.
+
+الإجابة الصحيحة وليه
+D: Power BI dataset، والاسم الحالي semantic model.
+
+ليه كل اختيار صح أو غلط
+A. a SharePoint folder
+SharePoint Folder يعيدك إلى الملفات الأصلية ويكرر التحويلات وبناء الموديل.
+
+B. Power Bl dataflows
+Dataflow يعيد بيانات محضرة، لكنه ليس كل semantic model ومقاييسها.
+
+C. an Excel workbook
+Excel workbook مصدر أولي؛ لا يعيد تلقائيًا مقاييس الموديل المشترك.
+
+D. Power Bl dataset
+صحيح؛ يعيد استخدام الموديل والعلاقات والمقاييس الموجودة.
+
+الخلاصة اللي تتحفظ
+تقرير جديد من منطق جاهز = Reuse semantic model، لا إعادة استيراد المصدر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-report-lifecycle-datasets', 'Final 2', '227', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-228-453', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 Your company plans to use Power BI for 20 users in the sales department. The users will perform the following tasks:
@@ -18542,7 +25054,48 @@ You need to identify which Power BI licenses are required for the tasks. The sol
 
 Which license should you identify for each task? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The scenario does not state that the app is hosted in Premium/Fabric F64+ capacity, so viewing shared app content requires Pro. Editing workspace content and sharing content also require a paid Pro or PPU license.', 'Final 2', '228', '/dump-assets/f2-228-453-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10001,10001,10001]', 'ترجمة السؤال بالعربي
+عشرون مستخدمًا يحتاجون مشاهدة app، وتعديل تقارير workspace، ومشاركة dashboards من My Workspace. حدد أقل ترخيص لكل مهمة.
+
+القصة والمعنى
+الرخصة المجانية مش تصريح نشر ومشاركة. مشاهدة المحتوى قد تكون مجانية لو المؤسسة دفعت سعة كبيرة مناسبة، لكن السؤال لم يذكر هذه السعة.
+
+مثال نفهم بيه
+عشرون Viewer على F64 قد يشاهدون المحتوى برخص Free، لكن مؤلف التقرير المشارك ما زال يحتاج رخصة مناسبة.
+
+طريقة التفكير خطوة بخطوة
+1. بدون Premium أو Fabric F64+ مناسب، استهلاك app مشتركة يحتاج Pro.
+2. تعديل التقارير ومشاركة dashboards يحتاجان Pro أو PPU وفق مكان المحتوى.
+3. لا نفترض سعة مؤهلة للمشاهدة المجانية لمجرد أن المستخدمين عشرون.
+
+الإجابة الصحيحة وليه
+Pro؛ Pro؛ Pro وفق المعطيات. الأولى يمكن أن تصبح Free إذا ذُكرت سعة مؤهلة صراحة.
+
+ليه كل اختيار صح أو غلط
+A. Access a published Power BI app: Power BI (free)
+Free ممكن للمشاهدة على سعة مؤهلة، وهذا الشرط غير مذكور في السؤال.
+
+B. Access a published Power BI app: Power BI PRO
+صحيح للمهمة الأولى في الحالة المعطاة دون افتراض سعة مدفوعة مؤهلة.
+
+C. Modify reports in an app workspace: Power BI (free)
+Free لا يتيح تعديل محتوى workspace مشترك بهذه المهمة.
+
+D. Modify reports in an app workspace: Power BI PRO
+صحيح؛ Pro هو الخيار المدفوع المناسب ضمن القائمة.
+
+E. Share dashboards created in My Workspace: Power BI (free)
+Free داخل My Workspace للاستخدام الشخصي لا يمنح حق مشاركة dashboards مع الآخرين.
+
+F. Share dashboards created in My Workspace: Power BI PRO
+صحيح؛ مشاركة dashboard تتطلب ترخيص مشاركة مناسبًا.
+
+الخلاصة اللي تتحفظ
+Viewer مجاني يحتاج سعة مؤهلة؛ التأليف والمشاركة يحتاجان رخصتهما.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/fundamentals/service-features-license-type
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-faq', 'Final 2', '228', '/dump-assets/f2-228-453-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-232-454', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Microsoft Excel spreadsheet that contains the data shown in the following table.
@@ -18560,23 +25113,23 @@ and arrange them in the correct order.', '[]', '[]', 'ترجمة السؤال ب
 الجدول عامل زي ورقة مدرس فيها مدرسة في كل عمود. للتحليل نحتاج سجل طويل: القسم، المرحلة، المدرسة، الدرجة. بعد كده نلم درجات المراحل ونحسب متوسط كل مدرسة داخل كل قسم.
 
 مثال نفهم بيه
-لو القسم A له School1 بدرجتين 70 و85 في مرحلتين، الناتج A / School1 / 77.5. وستظهر صفوف School2 وSchool3 وSchool4 أيضًا إن كانت لها درجات؛ التجميع لا يحذفها.
+لو القسم A له School1 بدرجتين 70 و 85 في مرحلتين، الناتج A / School1 / 77.5. وستظهر صفوف School2 و School3 و School4 أيضًا إن كانت لها درجات؛ التجميع لا يحذفها.
 
 طريقة التفكير خطوة بخطوة
-1. ثبت Department وStage، واعمل Unpivot Other Columns لأعمدة المدارس.
-2. سمِّ Attribute باسم School وValue باسم Score؛ اسم المدرسة خرج من رأس العمود وبقى قيمة في صف.
-3. Group By على Department وSchool، واحسب Average للـScore. لا تجمع حسب Stage لأن المطلوب دمج المراحل في المتوسط.
+1. ثبت Department و Stage، واعمل Unpivot Other Columns لأعمدة المدارس.
+2. سمِّ Attribute باسم School و Value باسم Score؛ اسم المدرسة خرج من رأس العمود وبقى قيمة في صف.
+3. Group By على Department و School، واحسب Average للـScore. لا تجمع حسب Stage لأن المطلوب دمج المراحل في المتوسط.
 4. تنبيه للمصدر: الصورة النهائية تعرض School1 فقط. الخطوات الثلاث تنتج كل المدارس، وليس School1 وحدها؛ لو الصورة مقصودة كناتج حصري فهناك خطوة فلترة إضافية غير موجودة ضمن الخيارات.
 
 الإجابة الصحيحة وليه
-الترتيب: تثبيت Department وStage ثم Unpivot Other Columns؛ إعادة التسمية؛ Group By على Department وSchool مع Average للـScore. توجد ملاحظة نقص في مثال الناتج الأصلي.
+الترتيب: تثبيت Department و Stage ثم Unpivot Other Columns؛ إعادة التسمية؛ Group By على Department و School مع Average للـScore. توجد ملاحظة نقص في مثال الناتج الأصلي.
 
 ليه كل اختيار صح أو غلط
 A. Group by [Department], [School1], [School2], [School3], [School4] and create a new column named [Avg Score] that uses the AVERAGE function on the [Stage] column.
 التجميع مع إبقاء المدارس الأربع أعمدة وحساب متوسط Stage يحسب شيئًا مختلفًا: متوسط رقم المرحلة، لا درجات المدارس.
 
 B. Select and unpivot the [Department] and [Stage] columns.
-Unpivot لعمودي Department وStage يحوّل مفاتيح الوصف نفسها إلى قيم، بدل تحويل أعمدة الدرجات المطلوبة.
+Unpivot لعمودي Department و Stage يحوّل مفاتيح الوصف نفسها إلى قيم، بدل تحويل أعمدة الدرجات المطلوبة.
 
 C. Select the [Department] and [Stage] columns and unpivot the other columns.
 صحيح كأول خطوة: هذان العمودان ثابتان، وبقية الأعمدة هي المدارس التي نريد تحويلها لصفوف.
@@ -18588,7 +25141,7 @@ E. Group by [Department] and [School] and create a new column named [Avg Score] 
 صحيح ثالثًا: جمع كل صفوف المدرسة والقسم وحساب متوسط Score يدمج المراحل دون خلط المدارس.
 
 الخلاصة اللي تتحفظ
-Unpivot يغيّر شكل الجدول، وGroup By يلخّص صفوفه. ولا واحدة منهما تعمل فلترة لمدرسة بعينها تلقائيًا.
+Unpivot يغيّر شكل الجدول، و Group By يلخّص صفوفه. ولا واحدة منهما تعمل فلترة لمدرسة بعينها تلقائيًا.
 
 مراجع المراجعة
 https://learn.microsoft.com/en-us/power-query/unpivot-column
@@ -18611,26 +25164,166 @@ You implement the Power BI model.
 
 You need to add a measure to rank total sales by product. The results must appear as shown in the following table.
 
-Which DAX formula should you use?', '["Product Ranking= RANKX (Product, [SalesAmount], , DESC, Skip)","Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Dense)","Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Skip)","Product Ranking= RANKX (ALL (‘Product’), [SalesAmount], , Asc, Dense"]', '[1]', 'References: https://msdn.microsoft.com/en-us/library/gg492185.aspx', 'Final 2', '239', '/exhibit-assets/f2-239-456.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX formula should you use?', '["Product Ranking= RANKX (Product, [SalesAmount], , DESC, Skip)","Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Dense)","Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Skip)","Product Ranking= RANKX (ALL (‘Product’), [SalesAmount], , Asc, Dense"]', '[1]', 'ترجمة السؤال بالعربي
+مطلوب ترتيب المنتجات حسب إجمالي المبيعات، مع عدم ترك فجوات في أرقام المراكز بعد التعادل. أي صيغة RANKX تستخدم؟
+
+القصة والمعنى
+لو منتجان اتعادلوا في المركز الأول، عايز اللي بعدهم يبقى الثاني لا الثالث. ولازم تقارن المنتج بباقي المنتجات، مش بنفسه داخل فلتر صفه.
+
+مثال نفهم بيه
+مبيعات 100 و 100 و 80 تعطي الرتب 1 و 1 و 2 مع Dense، مقابل 1 و 1 و 3 مع Skip.
+
+طريقة التفكير خطوة بخطوة
+1. RANKX على ALL(Product) توسع مجموعة المقارنة إلى المنتجات.
+2. DESC تجعل الأعلى مبيعات رقم 1.
+3. Dense تمنع الفجوات بعد التعادل، بينما Skip تتركها.
+
+الإجابة الصحيحة وليه
+B: RANKX(ALL(Product),[SalesAmount],,DESC,DENSE)، بعد تصحيح أخطاء طباعة الصيغة في المصدر.
+
+ليه كل اختيار صح أو غلط
+A. Product Ranking= RANKX (Product, [SalesAmount], , DESC, Skip)
+Product دون ALL قد يبقى مقيدًا بالمنتج الحالي، و Skip لا يطابق الترتيب الكثيف.
+
+B. Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Dense)
+صحيح منطقيًا؛ ALL للمقارنة و DESC للأعلى و Dense للتعادل دون فجوات.
+
+C. Product Ranking= RANKX (ALL, (‘Product’), [SalesAmount], , DESC, Skip)
+Skip يجعل المركز التالي بعد منتجين متعادلين في الأول هو الثالث.
+
+D. Product Ranking= RANKX (ALL (‘Product’), [SalesAmount], , Asc, Dense
+ASC تجعل الأقل مبيعات أولًا بدل الأعلى، حتى لو عالجت التعادل بـ Dense.
+
+الخلاصة اللي تتحفظ
+Dense:1،1،2. Skip:1،1،3. و ALL تحدد مجموعة المقارنة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/rankx-function-dax', 'Final 2', '239', '/exhibit-assets/f2-239-456.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-242-457', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 In Power BI Desktop, you are creating a report that will contain three pages. You need to create a custom tooltip page and prepare the page for use.
 
 Which three actions should you perform? Each correct answer presents part of the
 
-solution.', '["Configure filters on the target visual.","For the target page, set Allow use as tooltip to On.","Add and configure visuals on the tooltip page.","For the tooltip page, set Allow use as tooltip to On.","For the tooltip page, configure filters."]', '[2,3,4]', 'Independent correction: C, D, and E. Build the tooltip page visuals, turn on Allow use as tooltip for that page, and configure the tooltip page filters/fields. The target page does not have an Allow use as tooltip setting for this task.', 'Final 2', '242', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+solution.', '["Configure filters on the target visual.","For the target page, set Allow use as tooltip to On.","Add and configure visuals on the tooltip page.","For the tooltip page, set Allow use as tooltip to On.","For the tooltip page, configure filters."]', '[2,3,4]', 'ترجمة السؤال بالعربي
+تقرير ثلاث صفحات، وتريد تجهيز صفحة tooltip مخصصة. اختر المهام الثلاث المتعلقة بمحتواها وتفعيلها وسياقها.
+
+القصة والمعنى
+بدل مربع صغير فيه رقمين، جهز صفحة تحليل مصغرة تظهر عند المرور على نقطة. الصفحة نفسها تحتاج تعريفها كتلميح وبناء الرسومات التي ستظهر فيها.
+
+مثال نفهم بيه
+المرور على Egypt يعرض ملخص مبيعات مصر وتوزيع منتجاتها، لا أرقام كل البلدان داخل التلميح.
+
+طريقة التفكير خطوة بخطوة
+1. أضف الرسومات المطلوبة إلى صفحة التلميح.
+2. فعّل Allow use as tooltip على صفحة التلميح نفسها.
+3. حدد حقول وسياق التلميح والفلاتر المناسبة، واربطها بالهدف تلقائيًا أويدويًا حسب الحاجة.
+4. حجم صفحة Tooltip مفيد للتصميم وإن لم يكن ضمن الخيارات.
+
+الإجابة الصحيحة وليه
+C و D و E في صياغة المصدر؛ إعداد الفلاتر لا يغني عن ضبط حقول tooltip وربط الصفحة بالـ visual الهدف.
+
+ليه كل اختيار صح أو غلط
+A. Configure filters on the target visual.
+فلتر الرسم الهدف قد يساعد السياق، لكنه ليس الخطوة المباشرة لإنشاء صفحة التلميح هنا.
+
+B. For the target page, set Allow use as tooltip to On.
+المطلوب تفعيل صفحة التلميح، لا تحويل الصفحة الرئيسية إلى tooltip.
+
+C. Add and configure visuals on the tooltip page.
+صحيح؛ هذه الرسومات تشكل محتوى التلميح المخصص.
+
+D. For the tooltip page, set Allow use as tooltip to On.
+صحيح؛ تفعيل Allow use as tooltip يتم على الصفحة المخصصة.
+
+E. For the tooltip page, configure filters.
+صحيح لتجهيز السياق المناسب؛ لكن ليس كل tooltip بحاجة لفلاتر يدوية إضافية.
+
+الخلاصة اللي تتحفظ
+صفحة tooltip لها محتوى وتفعيل وسياق؛ لا تخلطها بالصفحة التي تستدعيها.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-tooltips', 'Final 2', '242', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-244-458', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You need to create a Power Bl theme that will be used in multiple reports. The theme will include corporate branding for font size, color, and bar chart formatting.
 
-What should you do?', '["Create a theme as a PBIVIZ file and import the theme into Power Bl Desktop.","Create a theme as a JSON file and import the theme into Power Bl Desktop.","From Power Bl Desktop, use a built-in report theme.","From Power Bl Desktop, customize the current theme."]', '[1]', 'Independent correction: B. Define the corporate theme in a JSON file and import it into each report. PBIVIZ is a custom-visual package, not a report-theme format.', 'Final 2', '244', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Create a theme as a PBIVIZ file and import the theme into Power Bl Desktop.","Create a theme as a JSON file and import the theme into Power Bl Desktop.","From Power Bl Desktop, use a built-in report theme.","From Power Bl Desktop, customize the current theme."]', '[1]', 'ترجمة السؤال بالعربي
+تريد هوية موحدة لعدة تقارير تشمل حجم الخط والألوان وتنسيق Bar chart. كيف تنشئها وتعيد استخدامها؟
+
+القصة والمعنى
+بدل نسخ لون كل رسم في كل ملف، احفظ وصفة التصميم في JSON واستوردها في التقارير. ده يقلل اختلاف الهوية بين الملفات.
+
+مثال نفهم بيه
+ثيم الشركة يحدد لونًا أزرق للأعمدة وخطًا موحدًا؛ استيراده يطبق الإعدادات على التقارير المستهدفة دون تعديل كل رسم منفردًا.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ report theme بصيغة JSON.
+2. حدد الألوان والخطوط و visualStyles المطلوبة.
+3. استوردها في كل تقرير؛ تعديل الملف لا يحدث جميع التقارير القديمة تلقائيًا.
+
+الإجابة الصحيحة وليه
+B: Create a JSON theme and import it.
+
+ليه كل اختيار صح أو غلط
+A. Create a theme as a PBIVIZ file and import the theme into Power Bl Desktop.
+PBIVIZ حزمة custom visual، وليست صيغة ملف report theme.
+
+B. Create a theme as a JSON file and import the theme into Power Bl Desktop.
+صحيح؛ JSON هي صيغة تعريف الثيم القابلة للنقل والاستيراد.
+
+C. From Power Bl Desktop, use a built-in report theme.
+الثيم الجاهز قد لا يطابق الخطوط والألوان وتنسيقات الشركة.
+
+D. From Power Bl Desktop, customize the current theme.
+التخصيص من الواجهة قد يساعد ثم تصدر JSON؛ الاختيار المقصود لإعادة الاستخدام هو ملف الثيم.
+
+الخلاصة اللي تتحفظ
+Report theme = JSON. حزمة Custom visual = PBIVIZ.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-themes', 'Final 2', '244', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-247-459', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a report in Power Bl named report1 that is based on a shared dataset.
 
 You need to minimize the risk of data exfiltration for report1. The solution must prevent other reports from being affected.
 
-What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.","Apply row-level security (RLS) to the shared dataset."]', '[2]', 'Set the report Export data option to prevent end users from exporting any data. This is scoped to report1, so other reports that use the same shared semantic model are not changed.', 'Final 2', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.","Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.","Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.","Apply row-level security (RLS) to the shared dataset."]', '[2]', 'ترجمة السؤال بالعربي
+Report1 يعتمد على موديل مشترك. تريد تقليل إخراج البيانات من هذا التقرير دون التأثير على التقارير الأخرى. ما الإعداد؟
+
+القصة والمعنى
+أنت عايز تقفل زر التصدير في تقرير واحد، مش تغير حقوق كل الناس على الموديل. خلي التغيير في إعداد التقرير نفسه.
+
+مثال نفهم بيه
+تقرير الرواتب يمنع Export من رسوماته، بينما تقرير آخر على نفس الموديل يحتفظ بإعداد تصديره المختلف.
+
+طريقة التفكير خطوة بخطوة
+1. حدد Don’t allow end users to export any data في إعدادات Report1.
+2. النطاق هو التصدير من هذا التقرير، وليس كل اتصال ممكن بالموديل.
+3. مستخدم يحمل Build قد يصل إلى البيانات بطرق أخرى؛ هذا تقليل لمخاطر التصدير وليس منع تسريب مطلقًا.
+
+الإجابة الصحيحة وليه
+C: Don’t allow end users to export any data على report1.
+
+ليه كل اختيار صح أو غلط
+A. Clear Allow recipients to share your dashboard and Allow users to build new content using the underlying datasets for the dataset.
+تغيير Build و Reshare على الموديل المشترك قد يؤثر في تقارير وتجارب أخرى.
+
+B. Select the Allow end users to export both summarized and underlying data from the service or Report Server Export data option for the report.
+السماح بتصدير الملخص والتفاصيل هو عكس تقليل إخراج البيانات.
+
+C. Select the Don''t allow end users to export any data from the service or Report Server Export data option for the report.
+صحيح؛ يقصر تغيير التصدير على التقرير المطلوب.
+
+D. Apply row-level security (RLS) to the shared dataset.
+RLS يغير الصفوف المرئية عبر الموديل المشترك، لا سياسة تقرير واحد فقط.
+
+الخلاصة اللي تتحفظ
+تغيير تقرير واحد يكون في إعداداته؛ الموديل المشترك نطاق أوسع.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-export-data', 'Final 2', '247', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-252-460', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a column named UnitslnStock as shown in the following exhibit
@@ -18642,17 +25335,17 @@ Use the drop-down menus to select the answer choice that completes each statemen
 NOTE: Each correct
 
 selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
-UnitsInStock فيها75 قيمة غير فارغة، والسؤال يقول51 unique. ما عدد صفوف Table visual بعمود المخزون وحده دون تجميع؟ وماذا يحدث عند تغييره إلى Sum؟
+UnitsInStock فيها 75 قيمة غير فارغة، والسؤال يقول 51 unique. ما عدد صفوف Table visual بعمود المخزون وحده دون تجميع؟ وماذا يحدث عند تغييره إلى Sum؟
 
 القصة والمعنى
-75 منتجًا قد يشترك بعضها في نفس رقم المخزون. لو عرضت المخزون وحده، الجدول لا يميز المنتجين اللذين مخزونهما5 إلا لو أضفت عمودًا يفرق بينهما.
+75 منتجًا قد يشترك بعضها في نفس رقم المخزون. لو عرضت المخزون وحده، الجدول لا يميز المنتجين اللذين مخزونهما 5 إلا لو أضفت عمودًا يفرق بينهما.
 
 مثال نفهم بيه
-المصدر5،5،10. عمود المخزون وحده يعرض5 و10، ثم Sum يعرض20. إضافة ProductID قد تظهر المنتجات الثلاثة لأن تركيبة أعمدة العرض أصبحت مختلفة.
+المصدر 5،5،10. عمود المخزون وحده يعرض 5 و 10، ثم Sum يعرض 20. إضافة ProductID قد تظهر المنتجات الثلاثة لأن تركيبة أعمدة العرض أصبحت مختلفة.
 
 طريقة التفكير خطوة بخطوة
 1. Table visual بعمود غير مجمع واحد يعرض القيم المختلفة ولا يكرر كل صف مصدر تلقائيًا.
-2. لو unique تعني51 قيمة مختلفة Distinct، فالاختيار المقصود51 صفًا، وليس75.
+2. لو unique تعني 51 قيمة مختلفة Distinct، فالاختيار المقصود 51 صفًا، وليس 75.
 3. لو unique مقصود بها إحصاء Power Query للقيم التي ظهرت مرة واحدة فقط، فلا نعرف إجمالي القيم المختلفة من المعلومة وحدها. هذا غموض في صياغة المصدر.
 4. Sum بلا أعمدة تجميع أخرى ينتج إجماليًا واحدًا فيقل عدد الصفوف. Is nullable يسمح بالفراغ، ولا يجبر visual على عرض كل سجل مصدر.
 
@@ -18667,7 +25360,7 @@ B. When UnitsInStock is added to a table visual, the table contains: 1 row
 1 row شكل الإجمالي بعد Sum، وليس العرض الابتدائي للقيم المختلفة.
 
 C. When UnitsInStock is added to a table visual, the table contains: 51 rows
-51 rows صحيح تحت تفسير51 كعدد distinct؛ ليس لو51 مجرد عدد قيم ظهرت مرة واحدة.
+51 rows صحيح تحت تفسير 51 كعدد distinct؛ ليس لو 51 مجرد عدد قيم ظهرت مرة واحدة.
 
 D. When UnitsInStock is added to a table visual, the table contains: 75 rows
 75 rows عدد سجلات المصدر غير الفارغة، وليس دليلًا على عدد صفوف Table بعمود واحد.
@@ -18693,7 +25386,47 @@ You have a dataset that contains revenue data from the past year.
 
 You need to use anomaly detection in Power Bl to show anomalies in the dataset.
 
-What should you configure? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.', '[]', '[]', 'Power BI anomaly detection requires a line chart with time-series data on a continuous date/time axis.', 'Final 2', '256', '/dump-assets/f2-256-461-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you configure? To answer, select the appropriate options in the answer area. NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+عندك إيراد العام السابق، وتريد استخدام Anomaly detection. اختر نوع الرسم وإعداد المحور المناسبين.
+
+القصة والمعنى
+عايز تحدد يومًا قفز فيه الإيراد بصورة غير معتادة مقارنة بمسار الزمن. لازم نعرف كل قيمة حصلت إمتى؛ الرسم الدائري لا يقول ذلك.
+
+مثال نفهم بيه
+الإيراد حوالي 100 معظم الأيام، ثم 700 في يوم واحد؛ يحلل الرسم الزمني القفزة داخل نمط الفترة.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Line chart.
+2. ضع حقل تاريخ صالحًا على المحور الزمني وفق شروط الميزة.
+3. راجع الاستمرارية وعدد النقاط والسلاسل المدعومة قبل تفعيل Anomaly detection.
+
+الإجابة الصحيحة وليه
+Line؛ Populate the axis with a date field.
+
+ليه كل اختيار صح أو غلط
+A. Chart type: Line
+صحيح؛ Line chart هو الرسم المدعوم للتحليل الزمني بالشكل المطلوب.
+
+B. Chart type: Pie
+Pie يعرض أجزاء من كل، ولا يوفر سلسلة الزمن اللازمة لكشف الشذوذ.
+
+C. Chart type: Treemap
+Treemap يقارن فئات بمساحات، ولا يحدد تسلسل الأحداث عبر الأيام.
+
+D. Chart configuration: Select the Show value as option
+Show value as يغير حساب العرض، وليس إعداد محور زمني للميزة.
+
+E. Chart configuration: Enable Cross-report drill-through
+Cross-report drill-through للتنقل بين التقارير، لا كشف القيم الشاذة.
+
+F. Chart configuration: Populate the axis with a date field
+صحيح؛ حقل التاريخ على المحور هو الإعداد المطلوب بين الخيارات.
+
+الخلاصة اللي تتحفظ
+Anomaly detection تحتاج Line chart ببيانات ومحور زمني مناسبين.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-anomaly-detection', 'Final 2', '256', '/dump-assets/f2-256-461-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-260-462', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18706,7 +25439,35 @@ You have several reports and dashboards in a workspace.
 
 You need to grant all organizational users read access to a dashboard and several reports. Solution: You publish an app to the entire organization.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Independent correction: Yes. Publishing a Power BI app to the entire organization is a supported way to distribute the included reports and dashboards as read-only content.', 'Final 2', '260', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+تقارير ولوحات داخل workspace، وتريد منح كل المؤسسة قراءة dashboard وتقارير محددة. هل نشر app للمؤسسة يحقق ذلك؟
+
+القصة والمعنى
+بدل إضافة كل الناس كأعضاء في ورشة التأليف، انشر لهم حزمة قراءة جاهزة بالمحتوى المحدد. app تفصل جمهور الاستهلاك عن فريق البناء.
+
+مثال نفهم بيه
+موظفو الشركة يفتحون app لقراءة لوحات المبيعات، دون أن يصبح كل موظف Contributor يستطيع تعديل الأصل.
+
+طريقة التفكير خطوة بخطوة
+1. انشر app تحتوي العناصر المطلوبة واجعل الجمهور يشمل المؤسسة.
+2. تأكد أن سياسات المؤسسة تسمح بالنشر لهذا الجمهور.
+3. يلزم الترخيص أوالسعة المؤهلة للمستهلكين؛ النشر لا يلغي هذه المتطلبات.
+
+الإجابة الصحيحة وليه
+Yes، مع توافر تراخيص وسعة وسياسات وصول مناسبة.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ app وسيلة مدعومة لتوزيع المحتوى المختار للقراءة على جمهور المؤسسة.
+
+B. No
+No غير صحيح كحكم على أسلوب التوزيع؛ متطلبات الترخيص لا تجعل الميزة نفسها غير صالحة.
+
+الخلاصة اللي تتحفظ
+جمهور واسع للقراءة = App audience، لا عضوية تأليف لكل المؤسسة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final 2', '260', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-264-463', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18723,9 +25484,35 @@ then click
 
 Connect
 
-Does this meet the goal?', '["Yes","No"]', '[1]', 'We need to click "Import", not "Connect".
-References:
-https://docs.microsoft.com/en-us/power-bi/service-excel-workbook-files', 'Final 2', '264', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[1]', 'ترجمة السؤال بالعربي
+Excel على SharePoint Online به Power View sheets. هل Get Data ثم Connect في الخدمة يعيد إنشاء هذه الأوراق كتقارير؟
+
+القصة والمعنى
+السؤال من واجهة قديمة تفرق بين ربط المصنف كملف وبين استيراد محتواه للتحويل. فتح المصنف المرتبط ليس إعادة بناء أوراق Power View كتقارير Power BI.
+
+مثال نفهم بيه
+رؤية workbook عبر الخدمة تختلف عن الحصول على report pages؛ نوع العنصر الناتج هو الفرق الذي يستهدفه السؤال القديم.
+
+طريقة التفكير خطوة بخطوة
+1. في السيناريو التاريخي، Connect يبقي تجربة المصنف بدل التحويل المطلوب.
+2. المفتاح المقصود يستخدم Import، لا Connect.
+3. Power View ومسار استيراده قديمان؛ لا نقدم ذلك كتعليمات حالية مضمونة، ويجب إعادة بناء التقارير بميزات Power BI المدعومة.
+
+الإجابة الصحيحة وليه
+No في السؤال التاريخي؛ Connect ليست خطوة التحويل المقصودة.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+Yes غير صحيح في مسار المصدر؛ الاتصال بالمصنف لا يعادل تحويل أوراقه إلى تقارير.
+
+B. No
+صحيح تاريخيًا؛ المسار المطلوب كان Import لا Connect، مع تقادم Power View نفسه.
+
+الخلاصة اللي تتحفظ
+ربط Excel ليس تحويل Power View إلى تقرير؛ المسار المذكور تاريخي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-excel-workbook-files', 'Final 2', '264', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-266-464', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You create a Power Bl dataset that contains the table shown in the following exhibit.
@@ -18734,14 +25521,101 @@ You need to make the table available as an organizational data type In Microsoft
 
 How should you configure the properties of the table? To answer select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Name is the human-readable row label, ID uniquely identifies each row for Excel, and the table must be marked as featured so users can discover it as an organizational data type.', 'Final 2', '266', '/dump-assets/f2-266-464-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10002,10001]', 'ترجمة السؤال بالعربي
+Business Unit يحتوي Cost Center و Headcount و ID و Name. كيف كان يجهز كنوع بيانات مؤسسي في Excel عبر featured table؟
+
+القصة والمعنى
+Excel كان محتاج اسمًا واضحًا للإنسان ومفتاحًا ثابتًا يربطه بالسجل. Name هو الاسم، و ID هو الهوية، وعلامة Featured تنشر الجدول بالشكل القديم.
+
+مثال نفهم بيه
+الوحدة رقم 17 واسمها Sales تظهر للمستخدم باسم Sales، بينما ID=17 يحدد نفس السجل حتى لو تغير الاسم.
+
+طريقة التفكير خطوة بخطوة
+1. Row label يكون Name لعرض الاسم المفهوم.
+2. Key column يكون ID إذا كان فريدًا ومستقرًا كما يفترض السؤال.
+3. Is featured table يكون Yes في الميزة التاريخية.
+4. الوثائق الحالية تؤكد إزالة وظيفة organization data types؛ لا تنفذ تصميمًا جديدًا يعتمد عليها.
+
+الإجابة الصحيحة وليه
+Name؛ ID؛ Yes تاريخيًا، وليست توصية بميزة حالية متاحة.
+
+ليه كل اختيار صح أو غلط
+A. Row label: Cost Center
+Cost Center ليس الاسم المقصود للوحدة في هذا المصدر، ولا نثبت أنه أفضل وصف لها.
+
+B. Row label: Headcount
+Headcount عدد الموظفين، وليس اسم السجل الذي يقرأه المستخدم.
+
+C. Row label: ID
+ID مناسب للهوية لكنه ليس الاسم البشري الأفضل للعرض.
+
+D. Row label: Name
+صحيح للـ Row label؛ Name هو الوصف المفهوم للوحدة.
+
+E. Key column: Cost Center
+Cost Center غير مثبت أنه المفتاح الفريد المستقر في السؤال.
+
+F. Key column: Headcount
+Headcount يتغير ويتكرر، فلا يصلح لتعريف السجل بشكل فريد.
+
+G. Key column: ID
+صحيح للـ Key column؛ ID هو المفتاح المقصود.
+
+H. Key column: Name
+Name قد يتكرر أويتغير، وليس المفتاح الفريد المحدد بالمثال.
+
+I. Is featured table: No
+No لا يجعل الجدول featured في آلية التكامل القديمة.
+
+J. Is featured table: Yes
+صحيح تاريخيًا؛ Yes كان يفعّل featured table للتكامل المقصود.
+
+الخلاصة اللي تتحفظ
+Label للعرض و Key للهوية، لكن التكامل المؤسسي المذكور أزيل حاليًا.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/office-integration/service-excel-featured-tables', 'Final 2', '266', '/dump-assets/f2-266-464-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-271-465', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a PBiX file that imports several tables from an Azure SQL database. The data will be migrated to another Azure SQL database.
 
 You need to change the connections in the PBIX file. The solution must minimize administrative effort.
 
-What should you do?', '["From Power Query Editor, modify the source of each query.","Create a PBiT file, open the file, and change the data sources when prompted","From Power Query Editor, create new queries.","Modify the Data source settings."]', '[3]', 'Use Data source settings in Power BI Desktop to edit the Azure SQL connection used by the PBIX. It updates the connection centrally instead of editing every query separately.', 'Final 2', '271', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["From Power Query Editor, modify the source of each query.","Create a PBiT file, open the file, and change the data sources when prompted","From Power Query Editor, create new queries.","Modify the Data source settings."]', '[3]', 'ترجمة السؤال بالعربي
+PBIX يستورد عدة جداول من Azure SQL، ثم انتقلت البيانات إلى قاعدة جديدة. كيف تغير الاتصالات بأقل جهد؟
+
+القصة والمعنى
+بدل دخول عشرين Query لتعديل العنوان في كل واحدة، عدّل تعريف المصدر المشترك من مكان مركزي.
+
+مثال نفهم بيه
+الاستعلامات المشتركة في مصدر erp-dev تنتقل إلى erp-prod من تعديل المصدر، إذا بقي الهيكل المطلوب متوافقًا.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Data source settings.
+2. حدد المصدر واختر Change Source لتعديل الخادم والقاعدة.
+3. راجع بيانات الدخول وتوافق الهيكل؛ تغيير العنوان لا يصلح أسماء جداول مختلفة تلقائيًا.
+
+الإجابة الصحيحة وليه
+D: Modify Data source settings.
+
+ليه كل اختيار صح أو غلط
+A. From Power Query Editor, modify the source of each query.
+قد يعمل لكنه يكرر التعديل اليدوي على كل Query بدل المصدر المركزي.
+
+B. Create a PBiT file, open the file, and change the data sources when prompted
+فتح PBIT مسار أطول ولا يلزم لتعديل الاتصال القائم مركزيًا.
+
+C. From Power Query Editor, create new queries.
+Queries جديدة تعيد العمل وتزيد الصيانة دون حاجة.
+
+D. Modify the Data source settings.
+صحيح؛ Data source settings تعدل الاتصال المشترك من واجهة واحدة.
+
+الخلاصة اللي تتحفظ
+تغيير عنوان مصدر مشترك في PBIX = Data source settings.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/desktop-data-sources', 'Final 2', '271', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-275-466', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18756,16 +25630,74 @@ You need to update the query to reference the parameter instead of multiple hard
 
 Solution: In the Power Query M code, you replace references to the Excel file with DataSourceExcel.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'Instead modify the source step of the queries to use DataSourceExcel as the file path.
-Note: Parameterising a Data Source could be used in many different use cases. From connecting to different data sources defined in Query Parameters to load
-different combinations of columns.
-Reference:
-https://www.biinsight.com/power-bi-desktop-query-parameters-part-1/', 'Final 2', '275', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+Parameter اسمه DataSourceExcel يحمل اسم ومكان ملف Excel. هل استخدامه بدل المسارات الثابتة في M يحقق المطلوب؟
+
+القصة والمعنى
+كل استعلام كان شايل ورقة بعنوان الملف. خليهم كلهم يقرأوا نفس المتغير، ولما الملف يتنقل تغير قيمة واحدة بدل نسخ كثيرة.
+
+مثال نفهم بيه
+Excel.Workbook(File.Contents(DataSourceExcel),null,true) يقرأ الملف الذي تشير إليه قيمة parameter الحالية.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم DataSourceExcel كقيمة مسار في File.Contents.
+2. لا تضع اسم parameter بين علامات اقتباس فيصبح نصًا حرفيًا.
+3. احتفظ بخطوات فتح workbook واختيار الورقة المناسبة.
+
+الإجابة الصحيحة وليه
+Yes.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ مرجع parameter يحل محل النص الثابت عند استخدامه في خطوة المصدر.
+
+B. No
+No غير صحيح إذا استخدم المتغير فعلًا كقيمة مسار، لا كنص يحمل اسمه.
+
+الخلاصة اللي تتحفظ
+Parameter قيمة تتغير مركزيًا؛ كتابة اسمه كنص ليست استخدامًا له.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/power-query-query-parameters', 'Final 2', '275', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-277-467', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 From Power 61 Desktop, you publish a new dataset and report lo a Power Bl workspace. The dataset has a row-level security (RLS) role named HR. You need to
 
-ensure that the HR team members have RLS applied when they view reports based on the dataset. What should you do?', '["From Power Bl Desktop, change the Row-Level Security settings.","From Power Bl Desktop, import a table that contains the HR team members","From powerbi.com.add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members."]', '[2]', 'After publishing, open the semantic model security settings in powerbi.com and add the HR users or group to the HR role. Role definitions are created in Desktop; membership is assigned in the service.', 'Final 2', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+ensure that the HR team members have RLS applied when they view reports based on the dataset. What should you do?', '["From Power Bl Desktop, change the Row-Level Security settings.","From Power Bl Desktop, import a table that contains the HR team members","From powerbi.com.add users to the HR role for the dataset.","From powerbi.com, share the dataset to the HR team members."]', '[2]', 'ترجمة السؤال بالعربي
+نشرت موديلًا فيه دور RLS اسمه HR. كيف تجعل أعضاء HR يخضعون لهذا الدور عند مشاهدة التقارير؟
+
+القصة والمعنى
+قاعدة الأمان موجودة، لكن الخدمة تحتاج تعرف مين ينتمي إليها. النشر لا يعين أعضاء الأدوار تلقائيًا.
+
+مثال نفهم بيه
+الدور يفلتر East؛ بعد إضافة مجموعة فريق الشرق إليه، يرى أفرادها بيانات East فقط عند القراءة بصلاحيات خاضعة للدور.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Security للـ semantic model في الخدمة.
+2. أضف أعضاء HR أوالمجموعة المدعومة إلى الدور HR.
+3. اجعلهم مستهلكين مثل Viewer أو app readers، لا محررين يتجاوزون RLS.
+
+الإجابة الصحيحة وليه
+C: Add users to the HR role for the dataset in the service.
+
+ليه كل اختيار صح أو غلط
+A. From Power Bl Desktop, change the Row-Level Security settings.
+تعديل تعريف الدور في Desktop لا يعين مستخدمي الخدمة إليه وحده.
+
+B. From Power Bl Desktop, import a table that contains the HR team members
+جدول بأسماء الفريق قد يفيد أمانًا ديناميكيًا، لكنه لا ينفذ عضوية الدور المطلوبة.
+
+C. From powerbi.com.add users to the HR role for the dataset.
+صحيح؛ تعيين أعضاء الدور يتم بعد النشر من Security في الخدمة.
+
+D. From powerbi.com, share the dataset to the HR team members.
+مشاركة الموديل تمنح وصولًا، ولا تضيف المستخدم تلقائيًا إلى دور HR.
+
+الخلاصة اللي تتحفظ
+تعريف الدور في Desktop؛ أعضاء الدور في Service.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final 2', '277', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-281-468', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a folder that contains 100 CSV files.
@@ -18782,7 +25714,7 @@ NOTE; More than one order of answer choices is correct. You will receive credit 
 عندك فولدر فيه 100 ملف CSV. مطلوب نموذج فيه معلومات عن الملفات، من غير تخزين البيانات المكتوبة داخل ملفات CSV نفسها. اختار ثلاث خطوات؛ السؤال يسمح بأكثر من ترتيب صحيح.
 
 القصة والمعنى
-أنت عايز فهرس المكتبة: اسم كل كتاب وموعد تعديله وصفاته، مش عايز تنسخ صفحات الكتب. Content هو صفحات الكتاب، وAttributes معلومات عنه.
+أنت عايز فهرس المكتبة: اسم كل كتاب وموعد تعديله وصفاته، مش عايز تنسخ صفحات الكتب. Content هو صفحات الكتاب، و Attributes معلومات عنه.
 
 مثال نفهم بيه
 تخرج بصف فيه Sales.csv وخصائصه وتواريخ الملف. لا تخرج بصفوف مبيعات يناير الموجودة داخل Sales.csv؛ تلك بيانات الملف لا metadata عنه.
@@ -18823,17 +25755,80 @@ INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, co
 
 You are creating a Power BI report to analyze consumer purchasing patterns from a table named Transactions. The Transactions table contains a numeric field
 
-named Spend. You need to include a visual that identifies which fields have the greatest impact on Spend. Which type of visual should you use?', '["decomposition tree","Q&A","smart narrative","key influences"]', '[3]', 'Use the Key influencers visual. It analyzes candidate explanatory fields and ranks those that most strongly increase or decrease the numeric Spend outcome.', 'Final 2', '284', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+named Spend. You need to include a visual that identifies which fields have the greatest impact on Spend. Which type of visual should you use?', '["decomposition tree","Q&A","smart narrative","key influences"]', '[3]', 'ترجمة السؤال بالعربي
+Transactions يحتوي حقل Spend رقميًا. أي visual يحدد الحقول المرتبطة بأكبر تغير في الإنفاق؟
+
+القصة والمعنى
+عايز تعرف هل نوع العميل أوالمنطقة أوعضوية الولاء يرتبط بإنفاق أعلى. مش مجرد ملخص مكتوب ولا تقسيم يدوي لإجمالي المبيعات.
+
+مثال نفهم بيه
+قد يظهر أن أعضاء الولاء ينفقون أكثر بمتوسط 30؛ لا يثبت ذلك أن البرنامج سبّب زيادة 30 لكل شخص.
+
+طريقة التفكير خطوة بخطوة
+1. ضع Spend في Analyze داخل Key influencers.
+2. ضع الحقول المرشحة في Explain by.
+3. نتائج الارتباط لا تثبت أن العامل سبب التغير؛ راجع العينة وسياق البيانات.
+
+الإجابة الصحيحة وليه
+D: Key influencers.
+
+ليه كل اختيار صح أو غلط
+A. decomposition tree
+Decomposition tree يفكك مقياسًا حسب أبعاد، لكنه ليس قائمة المؤثرات المطلوبة هنا.
+
+B. Q&A
+Q&A يستقبل أسئلة لغة طبيعية، وليس visual تحليل المؤثرات نفسه.
+
+C. smart narrative
+Smart narrative يلخص البيانات بالكلام ولا يجري نفس ترتيب المؤثرات.
+
+D. key influences
+صحيح؛ يحلل العوامل المرشحة ويبرز ارتباطها بتغير Spend.
+
+الخلاصة اللي تتحفظ
+Key influencers تفسر ارتباط العوامل بالنتيجة؛ ليست إثبات سببية.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-influencers', 'Final 2', '284', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-286-470', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI report. The report contains visualizations that have interactions. You need to identify which visualizations take the longest to complete. What
 
-should you use?', '["SQL Server Profiler","Performance Analyzer in Power BI Desktop","Query Diagnostics in Power BI","Microsoft Edge DevTools"]', '[1]', 'Use Power BI Desktop Performance Analyzer to optimize reports.
-In Power BI Desktop you can find out how each of your report elements, such as visuals and DAX formulas, are performing. Using the Performance Analyzer, you
-can see and record logs that measure how each of your report elements performs when users interact with them, and which aspects of their performance are most
-(or least) resource intensive.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/create-reports/desktop-performance-analyzer', 'Final 2', '286', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+should you use?', '["SQL Server Profiler","Performance Analyzer in Power BI Desktop","Query Diagnostics in Power BI","Microsoft Edge DevTools"]', '[1]', 'ترجمة السؤال بالعربي
+تقرير فيه رسومات تتفاعل مع بعضها. تريد تحديد أي visual يستغرق أطول وقت للاستكمال. ماذا تستخدم؟
+
+القصة والمعنى
+قبل تغيير SQL عشوائيًا، قِس زمن كل رسم ومكوناته. يمكن رسم واحد أن يكون عنق الزجاجة بينما بقية الصفحة سريعة.
+
+مثال نفهم بيه
+جدول التفاصيل يستغرق 2.4 ثانية بينما KPI تستغرق 0.1؛ الأول أحق بالتحقيق قبل تغيير ألوان الصفحة كلها.
+
+طريقة التفكير خطوة بخطوة
+1. افتح Performance Analyzer وابدأ التسجيل.
+2. كرر التفاعلات البطيئة نفسها.
+3. راجع وقت DAX والعرض والانتظار لكل visual، ثم افحص البطيء أولًا.
+
+الإجابة الصحيحة وليه
+B: Performance Analyzer in Power BI Desktop.
+
+ليه كل اختيار صح أو غلط
+A. SQL Server Profiler
+SQL Server Profiler يتتبع طبقة مصدر معينة ولا يلخص تجربة كل visual مباشرة داخل Desktop.
+
+B. Performance Analyzer in Power BI Desktop
+صحيح؛ الأداة تقيس عناصر التقرير وأثر تفاعلات المستخدم عليها.
+
+C. Query Diagnostics in Power BI
+Query Diagnostics تقيس تنفيذ Power Query، لا رسم عناصر التقرير وتفاعلها.
+
+D. Microsoft Edge DevTools
+Edge DevTools تفيد المتصفح والشبكة، لكن السؤال يطلب أداة أداء التقرير المباشرة.
+
+الخلاصة اللي تتحفظ
+بطء الرسومات = Performance Analyzer؛ بطء تجهيز البيانات = Query Diagnostics.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-performance-analyzer', 'Final 2', '286', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-287-471', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a Power Bl report named Orders that supports the following analysis:
@@ -18844,7 +25839,48 @@ You have a Power Bl report named Orders that supports the following analysis:
 
 • New and repeat customer counts
 
-The data model size is nearing the limit for a dataset in shared capacity. The model view for the dataset is shown in the following exhibit.', '[]', '[]', 'Summarizing orders by their identifying columns would not preserve the required measures, and CustomerID is needed for new/repeat customer analysis. UnitPrice and Discount are not needed for the listed analyses when the required sales value is already available, so removing them reduces size.', 'Final 2', '287', '/dump-assets/f2-287-471-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+The data model size is nearing the limit for a dataset in shared capacity. The model view for the dataset is shown in the following exhibit.', '[]', '[]', 'ترجمة السؤال بالعربي
+Orders يدعم المبيعات وعد الطلبات والعملاء الجدد والمتكررين، والحجم يقترب من الحد. قيّم التجميع وحذف CustomerID وحذف UnitPrice و Discount.
+
+القصة والمعنى
+لا تمسح مفتاح العميل وأنت محتاج تعرف رجع اشترى أم لا. لكن تفاصيل السعر والخصم قد تكون زائدة لو قيمة المبيعات النهائية موجودة بالفعل.
+
+مثال نفهم بيه
+إذا كانت القيمة 90 مخزنة، قد تستغني عن سعر 100 وخصم 10%. أما إذا لم تخزن 90، فحذف مدخلات حسابها يفقدك المبيعات.
+
+طريقة التفكير خطوة بخطوة
+1. التجميع مع OrderID لا يثبت خفضًا مفيدًا مع حفظ المقاييس؛ راجع grain المطلوب.
+2. CustomerID ضروري لتمييز العملاء وتتبع تكرارهم.
+3. حذف UnitPrice و Discount صالح إذا كان SalesAmount النهائي موجودًا ولا تعتمد حسابات أخرى عليهما.
+4. الصورة الأصلية مقصوصة؛ لذلك النتيجة الثالثة مشروطة وليست ضمانًا دون فحص schema كاملة.
+
+الإجابة الصحيحة وليه
+المقصود No؛ No؛ Yes، مع شرط وجود قيمة مبيعات نهائية وحفظ مستوى تفاصيل الطلبات.
+
+ليه كل اختيار صح أو غلط
+A. Summarizing Orders by CustomerID, OrderID, and OrderDate reduces model size while still supporting the current analysis. Yes
+Yes ليست مؤكدة؛ التجميع بمفتاح OrderID لا يثبت خفضًا مفيدًا مع حفظ كل المقاييس المطلوبة.
+
+B. Summarizing Orders by CustomerID, OrderID, and OrderDate reduces model size while still supporting the current analysis. No
+No هو المقصود؛ هذا التجميع لا يقدم تحسينًا مثبتًا على grain الطلب الحالي.
+
+C. Removing CustomerID from Orders reduces model size while still supporting the current analysis. Yes
+Yes غير صحيح؛ CustomerID لازم لتحديد العملاء الجدد والمتكررين وربط طلباتهم.
+
+D. Removing CustomerID from Orders reduces model size while still supporting the current analysis. No
+No صحيح؛ يجب الاحتفاظ بمفتاح العميل لتحقيق التحليل المذكور.
+
+E. Removing UnitPrice and Discount from Orders reduces model size while still supporting the current analysis. Yes
+Yes مشروطة بوجود قيمة المبيعات النهائية وعدم اعتماد أي حساب مطلوب على UnitPrice و Discount.
+
+F. Removing UnitPrice and Discount from Orders reduces model size while still supporting the current analysis. No
+No يصبح صحيحًا إذا غابت قيمة مبيعات بديلة أوكانت الحسابات تعتمد على السعر والخصم؛ المخطط مقصوص فلا نثبت العكس دون هذا الشرط.
+
+الخلاصة اللي تتحفظ
+احذف العمود بعد إثبات أن المقاييس المطلوبة قابلة للحساب من الباقي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '287', '/dump-assets/f2-287-471-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-291-472', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a data model that contains many complex DAX expressions. The expressions contain frequent references to the RELATED and RELATEDTABLE
@@ -18853,13 +25889,42 @@ functions.
 
 You need to recommend a solution to minimize the use of the RELATED and RELATEDTABLE functions.
 
-What should you recommend?', '["Merge tables by using Power Query.","Hide unused columns in the model.","Split the model into multiple models.","Transpose."]', '[0]', 'Combining data means connecting to two or more data sources, shaping them as needed, then consolidating them into a useful query.
-When you have one or more columns that you’d like to add to another query, you merge the queries.
-Note: The RELATEDTABLE function is a shortcut for CALCULATETABLE function with no logical expression.
-CALCULATETABLE evaluates a table expression in a modified filter context and returns A
-table of values.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/connect-data/desktop-shape-and-combine-data', 'Final 2', '291', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you recommend?', '["Merge tables by using Power Query.","Hide unused columns in the model.","Split the model into multiple models.","Transpose."]', '[0]', 'ترجمة السؤال بالعربي
+الموديل فيه استخدام متكرر لـ RELATED و RELATEDTABLE. ما التصميم الذي قد يقلل الحاجة إليهما؟
+
+القصة والمعنى
+لو خصائص بُعد واحد موزعة على جداول كثيرة، كل حساب يروح يجيبها من مكان آخر. دمج مناسب وقت التحضير قد يبسط الحسابات، بشرط عدم مضاعفة صفوف العمليات.
+
+مثال نفهم بيه
+دمج Product مع Subcategory داخل بُعد منتج واحد يوفر اسم الفئة دون تكرار جلبه بتعبيرات RELATED في كل موضع.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Merge في Power Query لجلب الخصائص المطلوبة بالمفاتيح المناسبة.
+2. راجع cardinality ومستوى تفاصيل الناتج قبل الدمج.
+3. لا تدمج كل الموديل عشوائيًا؛ تبسيط العلاقات لا يلغي فوائد star schema.
+
+الإجابة الصحيحة وليه
+A: Merge tables using Power Query، عندما يحافظ الدمج على صحة grain والتحليل.
+
+ليه كل اختيار صح أو غلط
+A. Merge tables by using Power Query.
+صحيح؛ يوفر الخصائص المطلوبة أثناء refresh بدل الوصول المتكرر بين الجداول في الحسابات.
+
+B. Hide unused columns in the model.
+إخفاء الأعمدة لا ينقل البيانات ولا يلغي الحاجة للدوال.
+
+C. Split the model into multiple models.
+تقسيم الموديل إلى موديلات متعددة قد يزيد التعقيد ولا يجمع الخصائص المطلوبة.
+
+D. Transpose.
+Transpose يبدل الصفوف والأعمدة، ولا يطابق مفاتيح الجداول.
+
+الخلاصة اللي تتحفظ
+Merge قد يبسط DAX، لكن لا تضحّ بصحة grain أو Star schema لمجرد تقليل دالة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/merge-queries-overview
+https://learn.microsoft.com/en-us/power-bi/guidance/star-schema', 'Final 2', '291', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-296-473', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bl report hosted on powerbi.com that displays expenses by department for department managers.
@@ -18870,7 +25935,41 @@ You need to enable users to choose between viewing the report as a line chart or
 
 effort.
 
-What should you do?', '["Add a column chart, a bookmark, and a button for users to choose a visual.","Create a mobile report that contains a column chart.","Create a separate report page for users to view the column chart.","Enable report readers to personalize visuals."]', '[3]', 'Independent correction: D. Enable personalization so readers can switch the visual type themselves. This meets the choice requirement with the least development and maintenance.', 'Final 2', '296', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Add a column chart, a bookmark, and a button for users to choose a visual.","Create a mobile report that contains a column chart.","Create a separate report page for users to view the column chart.","Enable report readers to personalize visuals."]', '[3]', 'ترجمة السؤال بالعربي
+مديرو الأقسام يريدون التبديل بين Line و Column لنفس المصاريف، بأقل جهد تطوير وصيانة. ماذا تفعل؟
+
+القصة والمعنى
+بدل رسمين وبوكماركس وزرين، استخدم إمكانية جاهزة تسمح للقارئ باختيار طريقة العرض دون تحرير التقرير الأصلي.
+
+مثال نفهم بيه
+المدير يفتح Personalize ويحول مصاريف الشهور من Line إلى Column دون بناء صفحة ثانية أوتقرير جديد.
+
+طريقة التفكير خطوة بخطوة
+1. فعّل Personalize visuals للمستهلكين في التقرير.
+2. اسمح بالخصائص التي تدعمها الرسومات والحقول المناسبة.
+3. التخصيص يخص تجربة القارئ، وليس ترخيص تعديل المصدر المشترك.
+
+الإجابة الصحيحة وليه
+D: Enable readers to personalize visuals.
+
+ليه كل اختيار صح أو غلط
+A. Add a column chart, a bookmark, and a button for users to choose a visual.
+يمكن تنفيذه لكنه يحتاج رسمًا إضافيًا وأزرارًا وحالات وصيانة أكثر من الميزة الجاهزة.
+
+B. Create a mobile report that contains a column chart.
+Mobile report ليس آلية تبديل نوع الرسم للقارئ على التقرير الحالي.
+
+C. Create a separate report page for users to view the column chart.
+صفحة منفصلة تكرر التصميم والصيانة بدل إتاحة التخصيص.
+
+D. Enable report readers to personalize visuals.
+صحيح؛ تمنح القارئ تبديل النوع بأقل إعداد وتطوير.
+
+الخلاصة اللي تتحفظ
+تبديل نوع الرسم للقارئ بأقل شغل = Personalize visuals.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals', 'Final 2', '296', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-300-474', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -18885,7 +25984,35 @@ The IoT GUID and IoT ID columns are unique to each row in query.
 
 You need to analyze IoT events by the hour and day of the year. The solution must improve dataset performance.
 
-Solution: You remove the loT GUID column and retain the loT ID column. Does this meet the goal?', '["Yes","No"]', '[0]', 'Yes. Keeping one unique integer identifier and removing the unused GUID reduces cardinality and model size while preserving a row key. The date/time column can then support hour and day-of-year analysis.', 'Final 2', '300', '/exhibit-assets/f2-300-474.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Solution: You remove the loT GUID column and retain the loT ID column. Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+عندك أحداث أجهزة، وكل صف له IoT GUID و IoT ID فريدان. المطلوب التحليل بالساعة واليوم مع تحسين الأداء. هل حذف GUID والإبقاء على ID يحقق الهدف؟
+
+القصة والمعنى
+كل حدث لابس رقمين تعريفيين، وأنت محتاج رقمًا واحدًا فقط. الرقم النصي الطويل يستهلك قاموسًا أكبر غالبًا من المفتاح العددي، فلا تخزنه بلا استخدام.
+
+مثال نفهم بيه
+حدث رقمه 105 ومعه GUID طويل؛ التحليل الزمني يفضل يعمل برقم 105 دون تخزين التعريف الثاني.
+
+طريقة التفكير خطوة بخطوة
+1. احذف GUID غير المستخدم واحتفظ بالمفتاح العددي اللازم.
+2. تأكد أن GUID ليس مطلوبًا لعلاقة أو تتبع أعمال.
+3. احتفظ بمعلومات التاريخ والساعة؛ هذه الخطوة لا تلغيها.
+
+الإجابة الصحيحة وليه
+Yes، وفق أن GUID زائد فعلًا ولا يستخدم في التحليل أو العلاقات.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ حذف المفتاح الزائد يقلل الحجم دون فقد الساعة أو اليوم.
+
+B. No
+No غير صحيح في المعطيات؛ لا توجد حاجة معلنة للمعرف الثاني.
+
+الخلاصة اللي تتحفظ
+كل عمود فريد عالي cardinality له تكلفة؛ احتفظ بما تحتاجه فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '300', '/exhibit-assets/f2-300-474.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-303-475', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 The data model must support the following analysis:
@@ -18896,14 +26023,76 @@ The data model must support the following analysis:
 
 ? Number Of sales transactions by quarter in Which the order was placed
 
-For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[]', 'LastUpdated is not required by any listed analysis and can be removed. ProductID is required for sales and quantity by product. ShipDate is not used because every requirement is based on OrderDate.', 'Final 2', '303', '/dump-assets/f2-303-475-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+For each Of the following statements, select Yes if the statement is true. Otherwise, select NO.', '[]', '[]', 'ترجمة السؤال بالعربي
+المطلوب إجمالي المبيعات بالشهر والمنتج، والكمية باليوم والمنتج، وعدد العمليات بالربع. كل الفترات حسب OrderDate. قيّم حذف LastUpdated و ProductID و ShipDate.
+
+القصة والمعنى
+المتطلبات هي قائمتك قبل الحذف. ProductID داخل سؤالين صراحة، بينما تاريخ الشحن وآخر تعديل لا يدخلان أي تحليل مذكور.
+
+مثال نفهم بيه
+طلب في يناير وشُحن في فبراير؛ التقرير المطلوب يحسبه في يناير، فلا يحتاج ShipDate لهذا الغرض.
+
+طريقة التفكير خطوة بخطوة
+1. LastUpdated ليس تاريخ العمل المطلوب فيمكن حذفه إذا لا توجد حاجة تقنية أخرى.
+2. ProductID لازم لتوزيع المبيعات والكميات على المنتجات.
+3. ShipDate غير مطلوب لأن كل التحليل مبني على تاريخ الطلب.
+
+الإجابة الصحيحة وليه
+Yes؛ No؛ Yes وفق ترتيب العبارات.
+
+ليه كل اختيار صح أو غلط
+Yes؛ LastUpdated زائد عن جميع التحليلات المذكورة.
+
+No؛ حذف ProductID يلغي الربط بالمنتج والتجميع حسبه.
+
+Yes؛ ShipDate لا يستخدم في متطلبات هذا السؤال.
+
+الخلاصة اللي تتحفظ
+لا تحذف مفتاح بُعد وارد في المتطلبات؛ احذف التاريخ غير المستخدم.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/import-modeling-data-reduction', 'Final 2', '303', '/dump-assets/f2-303-475-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-307-476', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You manage a Power BI model has a table named Sales and product.
 
 You need to ensure that a sales team can view only data that has a CountryRegionName value of United States and a ProductCategory value of Clothing.
 
-What should you do from Power BI Desktop?', '["From Power BI Desktop, create a new role that has the following filter.[countryRegionName]= “United States” && [ProductCategory]= “Clothing”","Add the following filters in Query Editor.CountryRegionName is United StatesProductCategory is Clothing","From Power BI Desktop, create a new role that has the following filters.[CountryRegionName]= “United States”","Add the following filters to a report.CountryRegionName is United SatesProductCategory is Clothing"]', '[0]', 'Independent correction: A. Create a row-level security role that enforces CountryRegionName = United States and ProductCategory = Clothing. Query or report filters are not a security boundary.', 'Final 2', '307', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do from Power BI Desktop?', '["From Power BI Desktop, create a new role that has the following filter.[countryRegionName]= “United States” && [ProductCategory]= “Clothing”","Add the following filters in Query Editor.CountryRegionName is United StatesProductCategory is Clothing","From Power BI Desktop, create a new role that has the following filters.[CountryRegionName]= “United States”","Add the following filters to a report.CountryRegionName is United SatesProductCategory is Clothing"]', '[0]', 'ترجمة السؤال بالعربي
+فريق مبيعات يجب أن يرى فقط United States وفئة Clothing. ما الإجراء من Desktop الذي يفرض ذلك أمنيًا؟
+
+القصة والمعنى
+فلتر الصفحة زي ستارة يقدر صاحب صلاحية يغيرها. RLS هو القيد الذي يطبّق عند قراءة الموديل للمستهلكين الخاضعين للدور.
+
+مثال نفهم بيه
+يسمح بصف USA/Clothing، ويمنع USA/Bikes وكذلك France/Clothing.
+
+طريقة التفكير خطوة بخطوة
+1. أنشئ دور RLS يجمع شرط الدولة وشرط الفئة باستخدام AND.
+2. إذا العمودان في جدولين مختلفين، ضع مرشحًا مناسبًا على كل بُعد أو استخدم تعبيرًا صالحًا وعلاقات نشطة؛ صيغة العمودين المباشرة تفترض سياقًا صالحًا.
+3. بعد النشر عيّن الفريق للدور ولا تمنحه صلاحيات تحرير تتجاوز RLS.
+
+الإجابة الصحيحة وليه
+A: دور RLS يفرض الشرطين، وليس Query أو Report filters.
+
+ليه كل اختيار صح أو غلط
+A. From Power BI Desktop, create a new role that has the following filter.[countryRegionName]= “United States” && [ProductCategory]= “Clothing”
+صحيح من ناحية الأمان؛ طبّق الشرطين على الجداول المناسبة بصيغة DAX صالحة.
+
+B. Add the following filters in Query Editor.CountryRegionName is United StatesProductCategory is Clothing
+فلتر المصدر يحذف البيانات من الموديل لكل المستخدمين، وليس لهذا الفريق وحده.
+
+C. From Power BI Desktop, create a new role that has the following filters.[CountryRegionName]= “United States”
+شرط الدولة وحده يسمح بفئات غير Clothing، فلا يحقق المطلوب.
+
+D. Add the following filters to a report.CountryRegionName is United SatesProductCategory is Clothing
+فلاتر التقرير لا تمثل حدًا أمنيًا بديلًا عن RLS.
+
+الخلاصة اللي تتحفظ
+أمان لفريق محدد = RLS؛ الشروط المختلفة معًا تحتاج AND.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls', 'Final 2', '307', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-310-477', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI report that contains one page. The page contains two line charts and one bar chart.
@@ -18916,14 +26105,82 @@ You need to ensure that users can perform the following tasks for all three visu
 
 ? Add a legend.
 
-The solution must minimize development effort. What should you do?', '["Enable personalization for each Visual.","Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart","Edit the interactions between the three visuals.","Enable personalization for the report"]', '[3]', 'Independent correction: D. Enable visual personalization for the report. It provides the requested reader controls with one report-level setting.', 'Final 2', '310', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+The solution must minimize development effort. What should you do?', '["Enable personalization for each Visual.","Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart","Edit the interactions between the three visuals.","Enable personalization for the report"]', '[3]', 'ترجمة السؤال بالعربي
+صفحة بها رسمان Line وواحد Bar. المستخدم يريد تغيير المقاييس ونوع الرسم وإضافة legend بأقل جهد. ماذا تفعّل؟
+
+القصة والمعنى
+بدل بناء نسخة لكل تركيبة ممكنة، تسمح للقارئ بتخصيص طريقة رؤيته من الميزة الجاهزة.
+
+مثال نفهم بيه
+نفس المدير يبدل Sales إلى Profit، ويغير Line إلى Column ويضيف Region كـ legend حيث تدعم الحقول ذلك.
+
+طريقة التفكير خطوة بخطوة
+1. فعّل Personalize visuals على مستوى التقرير.
+2. تأكد أن الرسومات المطلوبة غير مستثناة بإعداداتها الفردية.
+3. الميزة لا تمنح المستخدم تحرير التقرير الأصلي أو تغيير الموديل.
+
+الإجابة الصحيحة وليه
+D: Enable personalization for the report.
+
+ليه كل اختيار صح أو غلط
+A. Enable personalization for each Visual.
+يمكن ضبطها لكل رسم، لكن الإعداد العام أقل جهدًا للرسومات كلها.
+
+B. Create a bookmark for each acceptable combination of visualization type, measure, and legend in the bar chart
+Bookmarks لكل الاحتمالات عددها يتضخم وصيانتها أصعب.
+
+C. Edit the interactions between the three visuals.
+Interactions تحدد تأثير الرسومات على بعضها، لا تعديل نوع الرسم ومقاييسه.
+
+D. Enable personalization for the report
+صحيح؛ إعداد عام يتيح التخصيص المطلوب بأقل تطوير.
+
+الخلاصة اللي تتحفظ
+حرية عرض للقارئ دون تحرير الأصل = Personalize visuals.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-personalize-visuals', 'Final 2', '310', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-315-478', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a dashboard that contains tiles pinned from a single report as shown in the Original Dashboard exhibit. (Click the Original Dashboard tab.)
 
 You need to modify the dashboard to appear as shown in the Modified Dashboard exhibit. (Click the Modified Dashboard tab.)
 
-What should you do?', '["Edit the details of each tile.","Change the report theme.","Change the dashboard theme.","Create a custom CSS file."]', '[2]', 'https://docs.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes#how-dashboard-themes-work', 'Final 2', '315', '/exhibit-assets/f2-315-478.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Edit the details of each tile.","Change the report theme.","Change the dashboard theme.","Create a custom CSS file."]', '[2]', 'ترجمة السؤال بالعربي
+لوحة بها tiles من تقرير واحد، والصورة المعدلة تغير مظهر اللوحة. ما الذي تعدله؟
+
+القصة والمعنى
+التقرير والداشبورد سطحان مختلفان. تغيير لون غرفة العرض ليس بالضرورة تغيير ملف التقرير الذي جاءت منه البلاطات.
+
+مثال نفهم بيه
+تحويل خلفية اللوحة وألوان بطاقاتها من الفاتح للداكن يتم من ثيم اللوحة، لا من ترتيب البلاطات.
+
+طريقة التفكير خطوة بخطوة
+1. استخدم Dashboard theme للمظهر العام للوحة.
+2. Report theme تخص canvas التقرير ورسوماته.
+3. راجع خيار استخدام مظهر التقرير للبلاطات حسب التصميم المطلوب؛ الثيم لا يعيد كتابة بياناتها.
+
+الإجابة الصحيحة وليه
+C: Change the dashboard theme.
+
+ليه كل اختيار صح أو غلط
+A. Edit the details of each tile.
+تعديل تفاصيل كل tile مجهود أكبر، ولا يضبط مظهر اللوحة ككل مباشرة.
+
+B. Change the report theme.
+Report theme ليست إعداد مظهر لوحة الخدمة نفسها.
+
+C. Change the dashboard theme.
+صحيح؛ هذا إعداد المظهر العام للداشبورد.
+
+D. Create a custom CSS file.
+CSS مخصص ليس آلية تنسيق مدعومة للوحات Power BI بهذه الطريقة.
+
+الخلاصة اللي تتحفظ
+Dashboard theme للوحة؛ Report theme للتقرير.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-themes', 'Final 2', '315', '/exhibit-assets/f2-315-478.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-318-479', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power B1 data model that contains two tables named Products and Sales. A one-to-many relationship exists between the tables.
@@ -18936,7 +26193,45 @@ How should you complete the DAX measure? To answer drag the appropriate DAX func
 
 once, or not at all the spirt bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point', '[]', '[2,1]', 'CALCULATE changes filter context for the percentage measure. ALLSELECTED removes the current product row filter while retaining external report and slicer filters, producing percent of the selected total.', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point', '[]', '[2,1]', 'ترجمة السؤال بالعربي
+Sales و Products بعلاقة one-to-many، والتقرير عليه فلتر Products. أكمل measure نسبة مبيعات المنتج من إجمالي المبيعات المختارة مع احترام فلتر التقرير.
+
+القصة والمعنى
+لو اخترت أحذية وملابس فقط، المقام لازم يكون مجموع الاثنين، مش كل الشركة. وفي صف الأحذية لا ينفع المقام يفضل أحذية وحدها وإلا كل صف يبقى 100%.
+
+مثال نفهم بيه
+أحذية 30 وملابس 70 مختارتان؛ النسب 30% و 70%، حتى لو منتجات أخرى خارج الاختيار باعت 900.
+
+طريقة التفكير خطوة بخطوة
+1. CALCULATE يغير سياق حساب المقام.
+2. ALLSELECTED يزيل فلتر صف الرسم على المنتجات مع الاحتفاظ بالاختيار الخارجي المناسب.
+3. ALL قد يمحو فلتر المنتجات الخارجي فيحسب إجماليًا أوسع من المطلوب.
+
+الإجابة الصحيحة وليه
+CALCULATE و ALLSELECTED في المواضع المعروضة.
+
+ليه كل اختيار صح أو غلط
+A. ALL
+ALL قد يلغي اختيار التقرير على المنتجات، فيخالف شرط selected total.
+
+B. ALLSELECTED
+صحيح؛ يحتفظ بالسياق الخارجي ويزيل قيد صف الرسم في النمط المعروض.
+
+C. CALCULATE
+صحيح؛ يعيد تقييم الإجمالي بسياق المقام المعدل.
+
+D. FILTER
+FILTER يبني جدولًا بشرط لكنه ليس الدالة المطلوبة لإبقاء الاختيار الخارجي تلقائيًا.
+
+E. SELECTEDVALUE
+SELECTEDVALUE يرجع قيمة واحدة ولا ينتج جدول المنتجات المختارة للمقام.
+
+الخلاصة اللي تتحفظ
+نسبة من المختار = ALLSELECTED؛ نسبة من الكل قد تستخدم ALL.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/allselected-function-dax
+https://learn.microsoft.com/en-us/dax/calculate-function-dax', 'Final 2', '318', '/dump-assets/f2-318-479-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-323-480', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl report that contains three pages. The pages are used to analyze sales across various countries.
@@ -18953,7 +26248,41 @@ Which task should you perform for each requirement? To answer, drag the appropri
 
 once, or not at all. You may need to drag the split bar between panes or scroll to view content.Ther
 
-NOTE Each correct selection is worth one point.', '[]', '[1,3]', 'Syncing applies the same selected country to every page. Hiding the synchronized slicer on pages two and three preserves the filter without repeating the control.', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE Each correct selection is worth one point.', '[]', '[1,3]', 'ترجمة السؤال بالعربي
+ثلاث صفحات بها Country slicer. اختيار الصفحة الأولى يجب أن يفلتر الباقي، والصفحتان الثانية والثالثة تعرضان النتائج فقط دون تكرار أداة الاختيار.
+
+القصة والمعنى
+عايز ريموتًا واحدًا في أول صفحة يتحكم في الثلاثة. في الصفحات الأخرى أخفِ الريموت نفسه، لكن سيب الاتصال شغالًا.
+
+مثال نفهم بيه
+اختيار Egypt في الأولى يجعل الجداول بالصفحات الأخرى تعرض مصر رغم عدم ظهور السلايسر هناك.
+
+طريقة التفكير خطوة بخطوة
+1. Sync للسلايسر على الصفحات الثلاث.
+2. أزل Visible على الصفحتين الثانية والثالثة مع بقاء Sync.
+3. إخفاء السلايسر لا يلغي تأثير فلتره المتزامن.
+
+الإجابة الصحيحة وليه
+Sync across all pages؛ Hide slicer on pages two and three.
+
+ليه كل اختيار صح أو غلط
+A. Add the Country field to the filters on all the pages.
+فلاتر صفحات مستقلة لا تنقل اختيار الصفحة الأولى تلقائيًا.
+
+B. Configure the Country slicer to sync across all the pages.
+صحيح للمطلب الأول؛ المزامنة تشمل مصدر الاختيار والوجهات.
+
+C. Configure the Country slicer to sync only on the second and third pages.
+مزامنة الثانية والثالثة وحدهما تترك الصفحة الأولى خارج المجموعة.
+
+D. Hide the Country slicer on the second and third pages.
+صحيح للمطلب الثاني؛ الإخفاء مع بقاء المزامنة يعرض النتائج دون أداة مكررة.
+
+الخلاصة اللي تتحفظ
+Sync يحدد التأثير؛ Visible يحدد ظهور الأداة فقط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-slicers', 'Final 2', '323', '/dump-assets/f2-323-480-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-327-481', 'Manage and secure Power BI', 'multi', '- (Topic 4)
 
 You have a prospective customer list that contains 1,500 rows of data. The list contains the following fields:
@@ -18972,10 +26301,44 @@ You import the list into Power Query Editor.
 
 You need to ensure that the list contains records for each State/Region to which you want to target a marketing campaign.
 
-Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Open the Advanced Editor.","Select Column quality.","Enable Column profiling based on entire dataset.","Select Column distribution.","Select Column profile."]', '[2,4]', 'In Power query, the load preview by default is 1000 row. By default, the column quality also only looks at the first 1000 row. You can verify this by the status bar at
-the bottom of the Power query window. To change the profiling so it analyses the entire column of data, select the profiling status in the status bar. Then select
-Column profiling based on the entire data set.
-https://theexcelclub.com/data-profiling-views-in-power-query-excel-and-power-bi/', 'Final 2', '327', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which two actions should you perform? Each correct answer presents part of the solution. NOTE: Each correct selection is worth one point.', '["Open the Advanced Editor.","Select Column quality.","Enable Column profiling based on entire dataset.","Select Column distribution.","Select Column profile."]', '[2,4]', 'ترجمة السؤال بالعربي
+قائمة 1500 عميل محتمل، وعايز تتأكد أن كل المناطق المستهدفة موجودة. اختر إجراءين لفحص العمود كاملًا.
+
+القصة والمعنى
+لو آخر 500 صف فيهم منطقة مش موجودة في أول ألف، معاينة الألف الأولى هتخدعك. لازم توسع نطاق الفحص قبل قراءة الإحصاءات.
+
+مثال نفهم بيه
+Sinai موجودة فقط في الصف 1400؛ الفحص الكامل يكشفها بينما أول 1000 لا يظهرها.
+
+طريقة التفكير خطوة بخطوة
+1. فعّل Column profiling based on entire dataset.
+2. حدد State/Region واستخدم Column profile لعرض القيم وتوزيعها.
+3. قارن المناطق الظاهرة بقائمة الحملة المطلوبة؛ وجود قيم غير فارغة لا يثبت اكتمال كل المناطق.
+
+الإجابة الصحيحة وليه
+C و E: Entire dataset و Column profile.
+
+ليه كل اختيار صح أو غلط
+A. Open the Advanced Editor.
+Advanced Editor ليس أقصر أداة لفحص تكرارات المناطق.
+
+B. Select Column quality.
+Column quality يوضح النقص والأخطاء، لا قائمة المناطق المستهدفة كاملة.
+
+C. Enable Column profiling based on entire dataset.
+صحيح؛ يضمن إدخال جميع 1500 صف في الفحص.
+
+D. Select Column distribution.
+Distribution يعرض التوزيع أيضًا، لكن Source يقصد التفاصيل مع Profile؛ لا تدّعي أنه عديم الفائدة.
+
+E. Select Column profile.
+صحيح؛ يعرض توزيع العمود وتفاصيل قيمه بعد تفعيل الفحص الكامل.
+
+الخلاصة اللي تتحفظ
+قبل الوثوق بالـ profiling راجع: أول 1000 أم كل البيانات؟
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '327', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-331-482', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You plan to use Power BI to create a quarterly profit report that meets the following requirements:
@@ -18995,7 +26358,7 @@ NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة ال�
 أول مطلب زي تقسيم تورتة الأرباح بين فئات المنتجات. ثاني مطلب زي مسابقة بين المناطق: مين هامشه أعلى؟ وجود كلمة ربع سنوي لا يعني أن المطلوب الثاني تحليل زمني.
 
 مثال نفهم بيه
-أرباح الطعام 60 ألفًا والمشروبات 40 ألفًا: الدائرة تعرض 60% و40% مع القيم. هامش القاهرة 20% والإسكندرية 30%: طول شريطي المقارنة يوضح الفرق، وليس حصتين من تورتة واحدة.
+أرباح الطعام 60 ألفًا والمشروبات 40 ألفًا: الدائرة تعرض 60% و 40% مع القيم. هامش القاهرة 20% والإسكندرية 30%: طول شريطي المقارنة يوضح الفرق، وليس حصتين من تورتة واحدة.
 
 طريقة التفكير خطوة بخطوة
 1. Pie chart يعرض كل فئة كجزء من الإجمالي؛ اضبط التسميات لتعرض القيمة ونسبة الإجمالي.
@@ -19032,14 +26395,78 @@ You are creating a line chart in a Power Bl report as shown in the following exh
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'The source provides a line chart but not the statements or answer area. Previously reused menu crops have been disabled; no answer is inferred.', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+المصدر يعرض Line chart ويطلب إكمال عبارات، لكن العبارات ومنطقة الإجابة غير موجودتين في النسخة المتاحة.
+
+القصة والمعنى
+الرسم قد يسمح بعشرات الأسئلة: أعلى شهر، خط اتجاه، توقع أو نوع محور. من غير الجمل المطلوبة لا توجد إجابة واحدة نقدر نثبتها.
+
+مثال نفهم بيه
+معرفة أن الرسم Line لا تخبرنا هل السؤال عن نوع محور أم تأثير فلتر؛ كلاهما محتمل دون النص.
+
+طريقة التفكير خطوة بخطوة
+1. لا تستخدم menu crops من سؤال آخر لتعبئة الفراغ.
+2. استرجع صفحة السؤال الكاملة مع عباراته وخياراته.
+3. يبقى السؤال غير محسوب حتى تتوفر بيانات تسمح بالمراجعة.
+
+الإجابة الصحيحة وليه
+المصدر ناقص؛ لا يوجد مفتاح موثق لهذا السؤال.
+
+ليه كل اختيار صح أو غلط
+لا توجد عبارات أوخيارات أصلية كاملة يمكن ترجيحها؛ لا نعتبر نوع الرسم وحده جوابًا ولا نخترع قوائم مفقودة.
+
+الخلاصة اللي تتحفظ
+نقص منطقة الإجابة لا يعالج بالتخمين أو استعارة اختيارات سؤال آخر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-line-chart', 'Final 2', '336', '/dump-assets/f2-336-483-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-337-484', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a report page that contains the visuals shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic. NOTE: Each correct
 
-selection is worth one point.', '[]', '[]', 'Reviewed answer: selecting a quarter on the line chart cross-highlights the clustered column chart. Selecting a point on the line chart cross-filters the map. Power BI retains and dims unrelated columns during cross-highlighting, but line charts, scatter charts, and maps are cross-filter targets only.', 'Final 2', '337', '/dump-assets/f2-337-484-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+selection is worth one point.', '[]', '[10001,10000]', 'ترجمة السؤال بالعربي
+من صفحة فيها Line chart و Clustered column و Map، حدد أثر اختيار ربع على الأعمدة، واختيار نقطة Tailspin Toys على الخريطة.
+
+القصة والمعنى
+الأعمدة تقدر تظهر الجزء المختار داخل الإجمالي بالتظليل. الخريطة في هذا التفاعل تعيد عرض البيانات المختارة بدل نفس أسلوب الجزء الباهت داخل عمود.
+
+مثال نفهم بيه
+الربع الأول يبرز حصته داخل أعمدة السنة، بينما الخريطة تعرض نطاق النقطة المختارة.
+
+طريقة التفكير خطوة بخطوة
+1. اختيار الربع يسبب cross-highlight للأعمدة وفق التفاعلات المعروضة.
+2. اختيار نقطة الشركة يسبب cross-filter للخريطة.
+3. Edit interactions قد يغير الإعداد؛ لا تجعل الحكم قاعدة على أي تقرير دون فحص تفاعلاته.
+
+الإجابة الصحيحة وليه
+Cross-highlight للـ column chart؛ cross-filter للـ map.
+
+ليه كل اختيار صح أو غلط
+A. Selecting a quarter on the line chart will ___ the clustered column chart. cross-filter
+Filter سيخفي باقي أعمدة السياق بدل إبراز الجزء كما في التفاعل المقصود.
+
+B. Selecting a quarter on the line chart will ___ the clustered column chart. cross-highlight
+صحيح؛ الأعمدة تدعم cross-highlighting في هذا السيناريو.
+
+C. Selecting a quarter on the line chart will ___ the clustered column chart. not affect
+None لا يحقق التفاعل المعروض بين الرسمين.
+
+D. Selecting a Tailspin Toys data point on the line chart will ___ the map. cross-filter
+صحيح؛ الخريطة تستقبل الاختيار كتصفية في النمط المذكور.
+
+E. Selecting a Tailspin Toys data point on the line chart will ___ the map. cross-highlight
+Highlight ليس التفاعل الذي تحدده هذه الخريطة في السؤال.
+
+F. Selecting a Tailspin Toys data point on the line chart will ___ the map. not affect
+None يعني تجاهل اختيار النقطة، خلاف التفاعل المقصود.
+
+الخلاصة اللي تتحفظ
+نتيجة الاختيار تعتمد على visual الهدف وإعداد التفاعل، لا المصدر وحده.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions', 'Final 2', '337', '/dump-assets/f2-337-484-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-342-485', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have sales data in a star schema that contains four tables named Sales, Customer, Date, and Product.
@@ -19050,42 +26477,219 @@ Most often, you will use the purchase date to analyze the data, but you will ana
 
 You need to design an imported dataset to support the analysis. The solution must minimize the model size and the number of queries against the data source.
 
-Which data modeling design should you use?', '["Use the Auto Date/Time functionality in Microsoft Power BI and do NOT import the Datetable.","Duplicate the Date query in Power Query and use active relationships between both Date tables.","On the Date table, use a reference query in Power Query and create active relationships between Sales and both Date tables in the modeling view.","Create an active relationship between Sales and Date for the purchase date and an inactive relationship for the ship date."]', '[3]', 'Only one relationship can be active.
-Note: If you query two or more tables at the same time, when the data is loaded, Power BI Desktop attempts to find and create relationships for you. The
-relationship options Cardinality, Cross filter direction, and Make this relationship active are automatically set.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/transform-model/desktop-create-and-manage- relationships', 'Final 2', '342', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which data modeling design should you use?', '["Use the Auto Date/Time functionality in Microsoft Power BI and do NOT import the Datetable.","Duplicate the Date query in Power Query and use active relationships between both Date tables.","On the Date table, use a reference query in Power Query and create active relationships between Sales and both Date tables in the modeling view.","Create an active relationship between Sales and Date for the purchase date and an inactive relationship for the ship date."]', '[]', 'ترجمة السؤال بالعربي
+Star schema بها Sales و Customer و Date و Product. المطلوب تحليل purchase date و ship date باستقلال ومعًا، مع تقليل الحجم واستعلامات المصدر. قارن التصاميم.
+
+القصة والمعنى
+جدول تاريخ واحد يوفر نسخة، لكنه لا يعطيك سلايسرين مستقلين لمعنى الطلب والشحن. شرط التحليل معًا أهم من توفير جدول تاريخ صغير، لكن الاختيارات تخلط ذلك مع ادعاء توفير استعلامات غير مضمون.
+
+مثال نفهم بيه
+شراء يناير وشحن فبراير يحتاجان فلترَي تاريخ مستقلين. USERELATIONSHIP على Date واحدة لا يعطي قيمة يناير وفبراير لنفس العمود معًا.
+
+طريقة التفكير خطوة بخطوة
+1. للتحليل المتزامن المستقل، أنشئ دورَي تاريخ منفصلين بعلاقات نشطة.
+2. Duplicate و Reference يمكنهما إنتاج الجدولين، لكن Reference لا يضمن قراءة المصدر مرة واحدة.
+3. D بعلاقة نشطة وأخرى غير نشطة يناسب غياب شرط الفلترة المتزامنة المستقلة، عكس هذا السؤال.
+4. في Import، calculated date copy أو تقويم DAX قد يقلل إعادة قراءة المصدر، لكنه غير معروض ضمن الخيارات.
+
+الإجابة الصحيحة وليه
+لا إجابة فريدة تحقق كل القيود كما كُتبت. B و C يدعمان الدورين؛ لا يمكن تفضيل C بحجة cache مضمونة. D لا يحقق شرط together المستقل.
+
+ليه كل اختيار صح أو غلط
+A. Use the Auto Date/Time functionality in Microsoft Power BI and do NOT import the Datetable.
+Auto date/time ينشئ جداول مخفية متعددة ولا يقدم تصميمًا صريحًا صغيرًا ومدارًا للدورين.
+
+B. Duplicate the Date query in Power Query and use active relationships between both Date tables.
+يدعم دورَي التاريخ النشطين، لكنه لا يضمن أقل عدد استعلامات للمصدر.
+
+C. On the Date table, use a reference query in Power Query and create active relationships between Sales and both Date tables in the modeling view.
+يدعم الدورين أيضًا؛ Reference يعيد استخدام المنطق وليس نتيجة مخزنة مشتركة مضمونة.
+
+D. Create an active relationship between Sales and Date for the purchase date and an inactive relationship for the ship date.
+أقل حجمًا لكنه لا يدعم فلترة الدورين باستقلال في نفس الوقت؛ لذلك لا نثبت مفتاح الدامب D.
+
+الخلاصة اللي تتحفظ
+جدول لكل دور مطلوب معًا؛ Reference ليست cache مشتركة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive
+https://learn.microsoft.com/en-us/power-bi/guidance/power-query-referenced-queries', 'Final 2', '342', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-346-487', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You open a query in Power Query Editor.
 
-You need to identify the percentage of empty values in each column as quickly as possible. Which Data Preview option should you select?', '["Show whitespace","Column profile","Column distribution","Column quality"]', '[3]', 'Column quality: In this section, we can easily see valid, Error and Empty percentage of data values associated with the Selected table.
-Note: In Power Query Editor, Under View tab in Data Preview Section we can see the following data profiling functionalities:
-? Column quality
-? Column distribution
+You need to identify the percentage of empty values in each column as quickly as possible. Which Data Preview option should you select?', '["Show whitespace","Column profile","Column distribution","Column quality"]', '[3]', 'ترجمة السؤال بالعربي
+عايز بسرعة نسبة الخانات الفارغة في كل عمود داخل Power Query. أي Data Preview option؟
 
-? Column profile
-Reference:
-https://community.powerbi.com/t5/Community-Blog/Data-Profiling-in-Power-BI-Power-BI-Update-April-2019/ba-p/674555', 'Final 2', '346', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+مش محتاج تقرأ كل صف أو تعد الفراغات يدويًا. شريط جودة العمود يعطي نسب Valid و Error و Empty مباشرة.
+
+مثال نفهم بيه
+عمود فيه 100 صف و 10 null يظهر Empty 10% في نطاق الفحص الصحيح.
+
+طريقة التفكير خطوة بخطوة
+1. فعّل Column quality من View.
+2. اقرأ Empty لكل عمود.
+3. لو المطلوب حكم على الجدول كله، غيّر profiling من أول 1000 إلى entire dataset.
+
+الإجابة الصحيحة وليه
+D: Column quality.
+
+ليه كل اختيار صح أو غلط
+A. Show whitespace
+Show whitespace يكشف المسافات في النص، لا نسبة القيم الفارغة لكل عمود.
+
+B. Column profile
+Column profile مفصل لكنه ليس العرض الأسرع المباشر للنسب عبر الأعمدة كلها.
+
+C. Column distribution
+Distribution يركز على تكرار القيم والتفرد لا نسبة Empty المباشرة.
+
+D. Column quality
+صحيح؛ شريط الجودة يعرض Valid و Error و Empty.
+
+الخلاصة اللي تتحفظ
+نسب الأخطاء والفراغات = Column quality.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/data-profiling-tools', 'Final 2', '346', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-349-488', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have a report in Power BI Desktop as shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-Note: Each correct selection is worth one point.', '[]', '[]', 'The Target value field well in the exhibit is empty, so the gauge goal was entered in the visual formatting settings. A visual-level filter keeps this gauge on Canada regardless of other report content.', 'Final 2', '349', '/dump-assets/f2-349-488-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Note: Each correct selection is worth one point.', '[]', '[10002,10002]', 'ترجمة السؤال بالعربي
+Gauge في الصورة له Target value field فارغ، وعايز تعرف مصدر الهدف وكيف تقصر الرسم على Canada.
+
+القصة والمعنى
+الهدف ممكن يكون رقمًا ثابتًا من Format أو measure من خانة Target. الصورة بتحدد أن الخانة فارغة، فلا تخترع measure غير موجودة.
+
+مثال نفهم بيه
+لو الصفحة لفرنسا والـ gauge مقيّد بكندا، قد يصبح فارغًا بسبب تقاطع الفلاتر؛ لا يعني أن الفلتر المحلي يتجاوز كل الفلاتر.
+
+طريقة التفكير خطوة بخطوة
+1. الهدف الظاهر مضبوط من Format settings لأن Target field فارغ.
+2. أضف Territory إلى Visual-level filters وحدد Canada.
+3. ذلك يثبت قيدًا على هذا الرسم، لكنه لا يتجاوز RLS أو تقاطع فلاتر أعلى قد يجعل النتيجة فارغة.
+
+الإجابة الصحيحة وليه
+Format settings؛ Visual-level filters field.
+
+ليه كل اختيار صح أو غلط
+A. The gauge goal is set by using: a calculated measure
+Calculated measure كانت ستظهر في Target field؛ المعروض أن الخانة فارغة.
+
+B. The gauge goal is set by using: a DAX formula
+DAX formula ليست مصدر هدف ظاهر في الصورة بهذا الإعداد.
+
+C. The gauge goal is set by using: the Format settings
+صحيح؛ يمكن إدخال هدف ثابت من التنسيق.
+
+D. To always show TotalPrice for Canada, add Territory to: the Tooltips field
+Tooltip يعرض معلومة عند المرور ولا يقصر البيانات على كندا.
+
+E. To always show TotalPrice for Canada, add Territory to: the Values field
+Values يضيف قيمة للقياس، وليس مرشح دولة.
+
+F. To always show TotalPrice for Canada, add Territory to: the Visual level filters field
+صحيح؛ يقيّد هذا الـ visual على Territory=Canada.
+
+الخلاصة اللي تتحفظ
+Target فارغ مع هدف ظاهر = قيمة Format؛ تقييد رسم واحد = Visual filter.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/visuals/power-bi-visualization-radial-gauge-charts
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-report-add-filter', 'Final 2', '349', '/dump-assets/f2-349-488-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-353-489', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have the data lineage shown in the following exhibit.
 
 Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Following the lineage arrows identifies CONTOSO BIKES as the report in the requested path. The lineage view shows three separate datasets feeding the downstream content.', 'Final 2', '353', '/dump-assets/f2-353-489-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002]', 'ترجمة السؤال بالعربي
+من Lineage view، حدد التقرير الذي يستهلك CONTOSO مباشرة وعدد datasets التي تعتمد عليها Realtime dashboard.
+
+القصة والمعنى
+اتبع الأسهم زي خريطة مواسير. التقرير قد يأتي من موديل واحد، واللوحة قد تجمع tiles من تقارير متعددة وبالتالي عدة موديلات.
+
+مثال نفهم بيه
+لوحة تجمع ثلاثة تقارير من ثلاثة موديلات؛ وجود عشر بلاطات لا يجعلها عشرة مصادر بيانات، لأننا نعد الموديلات المميزة.
+
+طريقة التفكير خطوة بخطوة
+1. اتبع السهم الخارج من CONTOSO إلى CONTOSO BIKES report.
+2. تتبع جميع مسارات الموديلات التي تصب في Realtime.
+3. عد الموديلات المميزة لا عدد الأسهم ولا تكرار أسماء التقارير.
+
+الإجابة الصحيحة وليه
+CONTOSO BIKES report؛ three datasets.
+
+ليه كل اختيار صح أو غلط
+A. The CONTOSO dataset is consumed directly by: CONTOSO BIKES report
+صحيح؛ هو التقرير المتصل مباشرة بسهم المصدر المطلوب.
+
+B. The CONTOSO dataset is consumed directly by: CONTOSO dashboard
+Dashboard downstream ليست المستهلك المباشر المعروض للموديل.
+
+C. The CONTOSO dataset is consumed directly by: Realtime dashboard
+Realtime تجمع المحتوى لاحقًا وليست أول عنصر على هذا المسار.
+
+D. The Realtime dashboard depends on: one dataset
+موديل واحد لا يشمل كل المسارات المرسومة للوحة.
+
+E. The Realtime dashboard depends on: two datasets
+موديلان أقل من المصادر المختلفة الظاهرة.
+
+F. The Realtime dashboard depends on: three datasets
+صحيح؛ ثلاثة موديلات مميزة تغذي المحتوى downstream.
+
+G. The Realtime dashboard depends on: four datasets
+أربعة يضيف مصدرًا غير موجود أو يعد نفس الموديل مرتين.
+
+الخلاصة اللي تتحفظ
+في Lineage عد المصادر المميزة واتبع اتجاه السهم، لا تشابه الأسماء.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-data-lineage', 'Final 2', '353', '/dump-assets/f2-353-489-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-355-490', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power B1 report that contains the visuals shown in the following table.
 
-You need to modify the location of each visual. What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', 'Modify Position to change the X and Y coordinates of each visual on the report canvas. Layer order controls overlap, padding controls internal spacing, and tab order controls keyboard navigation.', 'Final 2', '355', '/exhibit-assets/f2-355-490.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to modify the location of each visual. What should you modify for each visual?', '["the layer order","the padding","the position","the tab order"]', '[2]', 'ترجمة السؤال بالعربي
+عندك عدة visuals وعايز تغير مكان كل واحدة على الصفحة. أي خاصية تعدل؟
+
+القصة والمعنى
+عايز تنقل الرسم من شمال الصفحة ليمينها، لا تغير ترتيب ظهوره فوق الرسومات ولا مساحته الداخلية.
+
+مثال نفهم بيه
+X=20 و Y=30 ثم X=400 ينقل الرسم يمينًا مع الحفاظ على بياناته وتفاعلاته.
+
+طريقة التفكير خطوة بخطوة
+1. عدّل Position بقيم X و Y.
+2. Layer order يتحكم في التراكب بين العناصر.
+3. Tab order يحدد انتقال لوحة المفاتيح لا مكان الرسم.
+
+الإجابة الصحيحة وليه
+C: Position.
+
+ليه كل اختيار صح أو غلط
+A. the layer order
+Layer order يحدد العنصر فوق أو تحت غيره عند التداخل.
+
+B. the padding
+Padding مسافة داخلية، لا إحداثيات مكان العنصر على Canvas.
+
+C. the position
+صحيح؛Position تحدد مكانه الأفقي والرأسي.
+
+D. the tab order
+Tab order تسلسل التركيز بالكيبورد لا موضع الرسم.
+
+الخلاصة اللي تتحفظ
+المكان X/Y = Position؛ الطبقة = Layer order.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-gridlines-snap-to-grid', 'Final 2', '355', '/exhibit-assets/f2-355-490.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-358-491', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You create a dataset sourced from dozens of flat files in Azure Blob storage. The dataset uses incremental refresh.
@@ -19094,12 +26698,42 @@ From powerbi.com, you deploy the dataset and several related reports to Microsof
 
 capacity.
 
-You discover that the dataset refresh fails after the refresh runs out of resources. What is a possible cause of the issue?', '["Query folding is not occurring.","You selected Only refresh complete periods.","The data type of the column used to partition the data changed.","A filter is missing on the report."]', '[0]', 'The Power BI service partitions data based on date range. This is what enables only
-certain partitions to be refreshed incrementally. To make this work, the partition filter conditions are pushed down to the source system by including them in the
-queries. Using Power Query terminology, this is called “query folding”. It is not recommended that incremental refresh is used when the required query folding
-cannot take place.
-Reference:
-https://powerbi.microsoft.com/en-us/blog/incremental-refresh-query-folding/', 'Final 2', '358', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You discover that the dataset refresh fails after the refresh runs out of resources. What is a possible cause of the issue?', '["Query folding is not occurring.","You selected Only refresh complete periods.","The data type of the column used to partition the data changed.","A filter is missing on the report."]', '[0]', 'ترجمة السؤال بالعربي
+موديل من ملفات مسطحة في AzureBlob مع Incremental refresh يفشل بسبب نفاد الموارد. أي سبب محتمل؟
+
+القصة والمعنى
+تقسيم البيانات لأجزاء لا يوفر شيئًا لو كل جزء يفتح كل الملفات ويقرأها كلها ثم يفلتر محليًا. التاريخ لازم يقلل ما يقرأه المصدر فعليًا.
+
+مثال نفهم بيه
+لو كل partition من 12 جزءًا يفتح نفس 100 ملف بدل قراءة ملفات شهره فقط، تتكرر القراءة ويتضاعف استهلاك الذاكرة دون توفير حقيقي.
+
+طريقة التفكير خطوة بخطوة
+1. غياب folding أو فلترة الملفات مبكرًا قد يعيد فحص كل البيانات لكل partition.
+2. افحص RangeStart و RangeEnd ومسار تصفية الملفات قبلفتح Content.
+3. مصادر الملفات لا تدعم SQLfolding المعتاد؛ يمكن تحسينها بتصفية metadata أو تصميممصدر يدعم الدفع المناسب.
+
+الإجابة الصحيحة وليه
+A: Query folding is not occurring، كسبب محتمل لقراءة زائدة.
+
+ليه كل اختيار صح أو غلط
+A. Query folding is not occurring.
+صحيح؛ عدم خفض القراءة حسب المدى قد يلغي فائدة التقسيم ويستهلك الموارد.
+
+B. You selected Only refresh complete periods.
+Only refresh complete periods لا يفسر وحده قراءة كل الملفات ونفاد الموارد.
+
+C. The data type of the column used to partition the data changed.
+تغير نوع العمود قد يسبب خطأ تحويل، لكنه ليس السبب المباشر المقصود لنفاد الموارد.
+
+D. A filter is missing on the report.
+فلتر التقرير لا يقلل بيانات المصدر التي تقرأها عملية refresh.
+
+الخلاصة اللي تتحفظ
+Incremental refresh مفيد عندما يقلّل قراءة المصدر فعلًا، لا مجرد تقسيم داخلي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/incremental-refresh-overview
+https://learn.microsoft.com/en-us/power-bi/connect-data/incremental-refresh-troubleshoot', 'Final 2', '358', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-360-492', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Remove unused columns from tables in the data model. This will reduce the size of your PBIX file and make your data model more efficient. You can use Power
@@ -19114,9 +26748,41 @@ You need to shape the query to display the following three columns:
 
 * Year
 
-‘What should you select in Power Query Editor?', '["Pivot column","Merge columns","Unpivot columns.","Transpose"]', '[2]', 'This will convert your column headers (Jan-20, Feb-20,…) into row values under a new column called Attribute. You can then rename this column as Month and
-change its data type to Date. You will also have a new column called Value that contains the sales amounts for each month. You can rename this column as Sales
-and change its data type to Decimal Number.', 'Final 2', '360', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+‘What should you select in Power Query Editor?', '["Pivot column","Merge columns","Unpivot columns.","Transpose"]', '[2]', 'ترجمة السؤال بالعربي
+المطلوب تشكيل بيانات في أعمدة Month و Sales و Year بدل أعمدة فترات متعددة. أي تحويل أساسي في Power Query؟
+
+القصة والمعنى
+الشهر الذي كان عنوان عمود لازم ينزل كقيمة داخل صف، ويقابله مبلغ المبيعات. هذا هو الشكل الطويل الذي يجعل الفترة حقلًا قابلًا للتحليل.
+
+مثال نفهم بيه
+Jan-20=100 و Feb-20=200 يصبحان صفين: January/2020/100 و February/2020/200 بعد استخراج السنة والشهر.
+
+طريقة التفكير خطوة بخطوة
+1. نفذ Unpivot لأعمدة الفترات مع إبقاء معرفات الصف الثابتة.
+2. أعد تسمية Attribute و Value إلى الفترة و Sales.
+3. استخرج Month و Year من الفترة واضبط الأنواع؛ المصدر المتاح لا يعرض كل الهيكل، فلا نفترض تفاصيل أعمدة مفقودة.
+
+الإجابة الصحيحة وليه
+C: Unpivot columns للتحويل الأساسي؛ استكمال Month و Year يعتمد على صيغة الفترة الفعلية.
+
+ليه كل اختيار صح أو غلط
+A. Pivot column
+Pivot يحول قيم الصفوف إلى أعمدة، عكس جعل الفترات صفوفًا.
+
+B. Merge columns
+Merge columns يلصق محتويات أعمدة ولا ينشئ صفًا لكل فترة.
+
+C. Unpivot columns.
+صحيح؛ ينقل رؤوس أعمدة الفترات إلى قيم، ومبالغها إلى العمود المقابل.
+
+D. Transpose
+Transpose يبدل المصفوفة كلها ولا ينتج بنية الفترة والقيمة المطلوبة وحده.
+
+الخلاصة اللي تتحفظ
+عناوين الأعمدة نفسها تمثل فترات تحليل؟ استخدم Unpivot ثم عالج الفترة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/unpivot-column', 'Final 2', '360', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-365-493', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a CSV file that contains user complaints. The file contains a column named Logged. Logged contains the date and time each complaint occurred. The
@@ -19125,19 +26791,84 @@ data in Logged is in the following format: 2018-12-31 at 08:59.
 
 You need to be able to analyze the complaints by the logged date and use a built-in date hierarchy.
 
-What should you do?', '["Apply a transformation to extract the last 11 characters of the Logged column and set the data type of the new column to Date.","Change the data type of the Logged column to Date.","Split the Logged column by using at as the delimiter.","Apply a transformation to extract the first 11 characters of the Logged column."]', '[2]', 'Simply create a custom table in Power Query, enter the date shown in the question into a column called Date, and then Split it by a delimiter. No need for spaces
-on either side of "at" Power BI takes care of the rest:
-= Table.SplitColumn(#"Changed Type", "Date", Splitter.SplitTextByDelimiter("at", QuoteStyle.Csv), {"Date.1", "Date.2"})
-It will even automatically change the type to Date:
-= Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Date.1", type date},
-{"Date.2", type time}})', 'Final 2', '365', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Apply a transformation to extract the last 11 characters of the Logged column and set the data type of the new column to Date.","Change the data type of the Logged column to Date.","Split the Logged column by using at as the delimiter.","Apply a transformation to extract the first 11 characters of the Logged column."]', '[2]', 'ترجمة السؤال بالعربي
+Logged نص مثل 2018-12-31 at 08:59. المطلوب التاريخ وهرميته المدمجة. أي خيار متاح يعزل التاريخ؟
+
+القصة والمعنى
+هنا الخيارات مختلفة عن سؤال Column from Examples. افصل عند كلمة at، فيبقى التاريخ وحده في حقل يمكن تحويله إلى Date.
+
+مثال نفهم بيه
+2018-12-31 at 08:59 ينقسم إلى 2018-12-31 و 08:59؛ الجزء الأول يصبح Date، والثاني يمكن الاحتفاظ به كوقت إذا احتجته.
+
+طريقة التفكير خطوة بخطوة
+1. Split by delimiter باستخدام at يفصل التاريخ عن الوقت.
+2. نظف المسافات المتبقية إن وجدت واضبط الجزء الأول إلى Date.
+3. قد يضيف Editor خطوة Changed Type تلقائيًا، لكن يجب التحقق بدل افتراضها.
+
+الإجابة الصحيحة وليه
+C: Split Logged by at، مع التأكد أن عمود التاريخ الناتج بنوع Date.
+
+ليه كل اختيار صح أو غلط
+A. Apply a transformation to extract the last 11 characters of the Logged column and set the data type of the new column to Date.
+آخر 11 حرفًا لا تمثل التاريخ الكامل، بل تضم الوقت ومقطعًا آخر.
+
+B. Change the data type of the Logged column to Date.
+تحويل النص المختلط كله إلى Date قد يفشل بسبب at والوقت.
+
+C. Split the Logged column by using at as the delimiter.
+صحيح؛ يفصل الجزء المطلوب ثم يجب تثبيت نوع Date لدعم الهرمية.
+
+D. Apply a transformation to extract the first 11 characters of the Logged column.
+أول 11 حرفًا تعطي نص التاريخ مع مسافة؛ دون تحويله إلى Date لا تضمن الهرمية.
+
+الخلاصة اللي تتحفظ
+اعزل التاريخ أولًا، ثم تأكد أن نوعه Date لا مجرد نص يبدو كتاريخ.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/split-columns-delimiter
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-auto-date-time', 'Final 2', '365', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-366-494', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Each employee has one manager as shown in the ParentEmployeelD column, All reporting paths lead to the CEO at the top of the organizational hierarchy.
 
 You need to create a calculated column that returns the count of levels from each employee to the CEO.
 
-Which DAX expression should you use?', '["PATH(Employees[EmployeeID], Employees[ParentEmployeeID])","PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]))","PATHITEM(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), 1)","PATHCONTAINS(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), Employees[EmployeeID])"]', '[1]', 'Reviewed answer: PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID])). PATH returns the hierarchy path for each employee; PATHLENGTH counts the employee and every ancestor through the CEO.', 'Final 2', '366', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Which DAX expression should you use?', '["PATH(Employees[EmployeeID], Employees[ParentEmployeeID])","PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]))","PATHITEM(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), 1)","PATHCONTAINS(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), Employees[EmployeeID])"]', '[1]', 'ترجمة السؤال بالعربي
+كل موظف له ParentEmployeeID، وكل المسارات تنتهي عند CEO. ما تعبير العمود المحسوب الذي يعد المستويات في المسار؟
+
+القصة والمعنى
+ابدأ بالموظف ثم مديره ثم مدير المدير حتى القمة. المطلوب عدد العناصر في هذه السلسلة، وليس أول اسم فيها أوإجابة نعم/لا عن وجود موظف.
+
+مثال نفهم بيه
+CEO ثم Manager ثم Employee: طول مسار الموظف 3 عناصر، بينما الوصول منه إلى CEO يحتاج رابطين فقط.
+
+طريقة التفكير خطوة بخطوة
+1. PATH ينشئ مسار الموظف وأسلافه.
+2. PATHLENGTH تعد عناصر المسار شاملة الموظف والـ CEO.
+3. عدد المستويات مختلف عن عدد القفزات بينهما؛ للقفزات اطرح 1 من طول المسار.
+
+الإجابة الصحيحة وليه
+B: PATHLENGTH(PATH(Employees[EmployeeID],Employees[ParentEmployeeID])).
+
+ليه كل اختيار صح أو غلط
+A. PATH(Employees[EmployeeID], Employees[ParentEmployeeID])
+PATH ترجع مسارًا نصيًا، ولا ترجع عدد مستوياته وحدها.
+
+B. PATHLENGTH(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]))
+صحيح؛ PATHLENGTH تحول المسار إلى عدد عناصره ومستوياته.
+
+C. PATHITEM(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), 1)
+PATHITEM ترجع عنصرًا محددًا في المسار، وليس عدد المستويات.
+
+D. PATHCONTAINS(PATH(Employees[EmployeeID], Employees[ParentEmployeeID]), Employees[EmployeeID])
+PATHCONTAINS ترجع True أو False عن وجود عنصر، لا طول المسار.
+
+الخلاصة اللي تتحفظ
+PATH تنشئ المسار؛ PATHLENGTH تعد عناصره؛ عدد الحواف أقل بواحد.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/path-function-dax
+https://learn.microsoft.com/en-us/dax/pathlength-function-dax', 'Final 2', '366', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-368-495', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl workspace that contains a single-page report named Sales.
@@ -19195,17 +26926,83 @@ In the Power BI service, you create an app workplace that contains several dashb
 
 You need to provide a user named user1@contoso.com with the ability to edit and publish dashboards.
 
-What should you do?', '["Modify the members of the app workspace.","Configure security for the dataset used by the app.","Share the dashboard, and then modify the Access settings of the dashboard.","From the app workspace, click Update app, and then configure the Access settings."]', '[0]', 'Independent correction: A. Modify workspace membership and assign an appropriate editing role. Dashboard sharing and app access do not grant authoring or publishing rights.', 'Final 2', '370', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Modify the members of the app workspace.","Configure security for the dataset used by the app.","Share the dashboard, and then modify the Access settings of the dashboard.","From the app workspace, click Update app, and then configure the Access settings."]', '[0]', 'ترجمة السؤال بالعربي
+في الخدمة، عندك workspace فيها dashboards. تريد أن يتمكن مستخدم من تعديلها ونشر المحتوى. أي إعداد تغير؟
+
+القصة والمعنى
+مشاركة لوحة مع شخص تجعله مستهلكًا، لا عضوًا في فريق التأليف. لو محتاج يشتغل على الأصل، ادخله إلى workspace بدور مناسب للمهمة.
+
+مثال نفهم بيه
+إضافة Mona كـ Member تتيح لها تعديل اللوحات والمشاركة في إدارة نشر app، بدل إرسال رابط مشاهدة لا يمنحها التأليف.
+
+طريقة التفكير خطوة بخطوة
+1. عدّل عضوية workspace وأضف المستخدم بصلاحية تأليف مناسبة.
+2. Contributor يستطيع تعديل المحتوى؛ نشر أو تحديث app قد يحتاج Member أو تفويضًا مناسبًا، حسب المقصود بالنشر.
+3. صلاحية قراءة dashboard أو app لا تمنح تحرير الأصل.
+
+الإجابة الصحيحة وليه
+A: Modify the members of the app workspace، مع اختيار الدور المناسب لمدى النشر المطلوب.
+
+ليه كل اختيار صح أو غلط
+A. Modify the members of the app workspace.
+صحيح؛ عضوية workspace هي الطريق لمنح صلاحيات التأليف والنشر المناسبة.
+
+B. Configure security for the dataset used by the app.
+إعداد RLS يتحكم في الصفوف المرئية، لا حق تعديل dashboard.
+
+C. Share the dashboard, and then modify the Access settings of the dashboard.
+مشاركة dashboard تمنح الاستهلاك ولا تحول المستخدم إلى مؤلف في workspace.
+
+D. From the app workspace, click Update app, and then configure the Access settings.
+Access للـ app يحدد المستهلكين، وليس من يستطيع تحرير المحتوى الأصلي.
+
+الخلاصة اللي تتحفظ
+تأليف المحتوى يحتاج دور workspace؛ المشاركة وحدها تمنح الاستهلاك.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final 2', '370', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-375-497', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a collection of reports for the HR department of your company. The datasets use row-level security (RLS). The company has multiple sales regions that
 
 each has an HR manager. You need to ensure that the HR managers can interact with the data from their region only. The HR managers must be prevented from
 
-changing the layout of the reports. How should you provision access to the reports for the HR managers?', '["Create a new workspace, copy the datasets and reports, and add the HR managers as members of the workspace.","Publish the reports to a different workspace other than the one hosting the datasets.","Publish the reports in an app and grant the HR managers access permission.","Add the HR managers as members of the existing workspace that hosts the reports and the datasets."]', '[2]', 'Note: Row-level security (RLS) with Power BI can be used to restrict data access for given users. Filters restrict data access at the row level, and you can define
-filters within roles. In the Power BI service, members of a workspace have access to datasets in the workspace. RLS doesn''t restrict this data access.
-Reference:
-https://docs.microsoft.com/en-us/power-bi/admin/service-admin-rls', 'Final 2', '375', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+changing the layout of the reports. How should you provision access to the reports for the HR managers?', '["Create a new workspace, copy the datasets and reports, and add the HR managers as members of the workspace.","Publish the reports to a different workspace other than the one hosting the datasets.","Publish the reports in an app and grant the HR managers access permission.","Add the HR managers as members of the existing workspace that hosts the reports and the datasets."]', '[2]', 'ترجمة السؤال بالعربي
+تقارير HR عليها RLS حسب المنطقة. تريد أن يرى كل مدير منطقته ويتفاعل معها، دون تغيير تصميم التقرير. كيف تنشر الوصول؟
+
+القصة والمعنى
+المدير مستخدم للتقرير، مش واحد من فريق بنائه. أعطه التطبيق الجاهز، واربطه بدور الأمان الخاص بمنطقته بدل إدخاله Member في workspace.
+
+مثال نفهم بيه
+مدير East يفتح app ويغير السلايسرات داخل بيانات East فقط، لكنه لا يستطيع نقل الرسومات أو تعديل التقرير الأصلي.
+
+طريقة التفكير خطوة بخطوة
+1. انشر app بها التقارير المطلوبة وامنح مديري HR حق الوصول.
+2. عيّنهم إلى أدوار RLS المناسبة أو مجموعة مدعومة تخضع للدور الديناميكي.
+3. لا تمنحهم أدوار تحرير workspace التي لا يُفرض RLS عليها كالمستهلكين.
+
+الإجابة الصحيحة وليه
+C: Publish the reports in an app and grant access، مع عضوية RLS الصحيحة.
+
+ليه كل اختيار صح أو غلط
+A. Create a new workspace, copy the datasets and reports, and add the HR managers as members of the workspace.
+نسخ الموديل يكرر الصيانة، و Member يمنح تحريرًا ويتجاوز قيد RLS للمستهلك.
+
+B. Publish the reports to a different workspace other than the one hosting the datasets.
+تغيير workspace وحده لا يحدد صلاحية الاستهلاك أو عضوية RLS المطلوبة.
+
+C. Publish the reports in an app and grant the HR managers access permission.
+صحيح؛ app توزع المحتوى للقراءة والتفاعل مع استمرار قيود RLS على المستهلك.
+
+D. Add the HR managers as members of the existing workspace that hosts the reports and the datasets.
+Member في workspace الحالية يمنح صلاحيات أوسع من المطلوب ولا يحقق منع التحرير.
+
+الخلاصة اللي تتحفظ
+قارئ يحتاج RLS ولا يحرر الأصل = App access مع دور أمان مضبوط.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final 2', '375', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-378-498', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You are building a financial report by using Power BI.
@@ -19216,22 +27013,129 @@ You need to create a measure that calculates the relative change in sales as com
 
 How should you complete the measure? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates sales under the prior-quarter date context produced by DATEADD. DIVIDE safely calculates the relative change and handles a zero denominator.', 'Final 2', '378', '/dump-assets/f2-378-498-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10000,10002,10003]', 'ترجمة السؤال بالعربي
+financials بها Date و Sales. أكمل measure تحسب التغير النسبي في المبيعات عن الربع السابق.
+
+القصة والمعنى
+اسأل سؤالين: الربع السابق باع بكام؟ والفرق بين الحالي والسابق يساوي كام من السابق؟ الأولى تغيير سياق تاريخ، والثانية قسمة آمنة.
+
+مثال نفهم بيه
+السابق 100 والحالي 120: النتيجة (120−100)/100 = 20%. ليست 120% ولا فرقًا نقديًا قدره 20.
+
+طريقة التفكير خطوة بخطوة
+1. CALCULATE يعيد حساب SUM(Sales) في فترة مختلفة.
+2. DATEADD ينقل تواريخ التقويم إلى الخلف بمقدار ربع سنة.
+3. DIVIDE يقسم الفرق على مبيعات الربع السابق، ويعيد BLANK افتراضيًا عند مقام صفر.
+4. صيغة المصدر تستخدم هرمية Date التلقائية و ISFILTERED؛ في نموذج جديد يفضل تقويم صريح مناسب بدل نسخ المرجع الهرمي إلى أي عمود.
+
+الإجابة الصحيحة وليه
+CALCULATE؛ DATEADD؛ DIVIDE.
+
+ليه كل اختيار صح أو غلط
+A. Calculate PREV_QUARTER using: CALCULATE
+صحيح للأول؛ CALCULATE تعيد تقييم المبيعات في سياق الربع السابق.
+
+B. Calculate PREV_QUARTER using: CALCULATETABLE
+CALCULATETABLE تعيد جدولًا بينما المتغير المطلوب رقم مبيعات.
+
+C. Calculate PREV_QUARTER using: DATEADD
+DATEADD تنتج تواريخ، وليست دالة التجميع الخارجية لهذا الفراغ.
+
+D. Calculate PREV_QUARTER using: DIVIDE
+DIVIDE لها وظيفة المقام لاحقًا، لا تعديل سياق SUM بالتواريخ.
+
+E. Calculate PREV_QUARTER using: FILTER
+FILTER تحتاج جدولًا وشرطًا، لا التعبير الرقمي المعروض.
+
+F. Calculate PREV_QUARTER using: FIND
+FIND للبحث داخل النصوص، ولا يحسب مبيعات ربع سابق.
+
+G. Shift the date context using: CALCULATE
+CALCULATE لا تنتج إزاحة تواريخ بهذه الوسائط.
+
+H. Shift the date context using: CALCULATETABLE
+CALCULATETABLE لا تستقبل عدد الإزاحة و QUARTER بهذا الشكل.
+
+I. Shift the date context using: DATEADD
+صحيح للثاني؛ DATEADD ينقل نافذة التاريخ ربعًا إلى الخلف.
+
+J. Shift the date context using: DIVIDE
+DIVIDE عملية حسابية وليست إزاحة تقويم.
+
+K. Shift the date context using: FILTER
+FILTER لا يقبل وسائط عمود وعدد و QUARTER بهذا المعنى.
+
+L. Shift the date context using: FIND
+FIND لا يتعامل مع إزاحة فترات التاريخ.
+
+M. Calculate relative change using: CALCULATE
+CALCULATE ليست دالة قسمة الفرق على المقام.
+
+N. Calculate relative change using: CALCULATETABLE
+CALCULATETABLE تعيد جدولًا لا نسبة تغير.
+
+O. Calculate relative change using: DATEADD
+DATEADD تنتج فترة مقارنة وليست النسبة نفسها.
+
+P. Calculate relative change using: DIVIDE
+صحيح للثالث؛ DIVIDE تعالج المقام الصفري دون خطأ قسمة.
+
+Q. Calculate relative change using: FILTER
+FILTER ترجع جدول صفوف، لا نسبة عددية.
+
+R. Calculate relative change using: FIND
+FIND ترجع موضع نص، وليس تغير المبيعات.
+
+الخلاصة اللي تتحفظ
+تغير نسبي = (الحالي − السابق) ÷ السابق؛ DIVIDE تحمي حالة الصفر.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/dateadd-function-dax
+https://learn.microsoft.com/en-us/dax/divide-function-dax', 'Final 2', '378', '/dump-assets/f2-378-498-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-381-499', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have the dataset shown in the following exhibit.
 
 You need to ensure that the visual shows only the 10 cities that have the highest sales profit.
 
-What should you do?', '["Add a Top N filter to the visual.","Configure the Sales Profit measure to use the RANKX function.","Add a calculated column to the table that uses the TOPN functio","In the visual, replace Sales Profit with the calculated column.","Add a calculated column to the table that returns the city name if the city is in the top 10, otherwise thecalculated column will return \"Not in Top 10\". In the visual, replace Sales Profit with the calculated column."]', '[0]', 'Power BI Top N Filters are useful to display the top performing records, and Bottom N filters are helpful to display the least performing records. For example, we
-can display top or bottom 10 products by orders or sales.
-Note:
-? Select the Column you want to display the Top Sales Profit
-? Then change the Filter Type of that Column to Top N
-? Fill in Top / Bottom number field
-? And lastly drag to the By Value filed your Sales Profit
-Reference:
-https://www.tutorialgateway.org/power-bi-top-10-filters/', 'Final 2', '381', '/exhibit-assets/f2-381-499.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Add a Top N filter to the visual.","Configure the Sales Profit measure to use the RANKX function.","Add a calculated column to the table that uses the TOPN functio","In the visual, replace Sales Profit with the calculated column.","Add a calculated column to the table that returns the city name if the city is in the top 10, otherwise thecalculated column will return \"Not in Top 10\". In the visual, replace Sales Profit with the calculated column."]', '[0]', 'ترجمة السؤال بالعربي
+رسم يعرض مدنًا مع Sales Profit، وتريد أعلى عشر مدن فقط. ما الإجراء؟
+
+القصة والمعنى
+المطلوب تقليل المدن المعروضة، مش تغيير مقياس الربح. فلتر Top N الجاهز يرتب المدن بمقياس تختاره ثم يحتفظ بالأعلى.
+
+مثال نفهم بيه
+مدينة ربحها 500 تتقدم مدينة ربحها 200 حتى لو كانت أقل مبيعات؛ معيار الترتيب هنا الربح لا المبيعات.
+
+طريقة التفكير خطوة بخطوة
+1. في فلاتر الـ visual حدد حقل City.
+2. اختر Top N وحدد Top 10، وضع Sales Profit في By value.
+3. طبق الفلتر؛ راجع سلوك التعادل إذا كان لابد من عشر مدن بالضبط.
+
+الإجابة الصحيحة وليه
+A: Add a Top N filter to the visual.
+
+ليه كل اختيار صح أو غلط
+A. Add a Top N filter to the visual.
+صحيح؛ يحقق أعلى المدن حسب Sales Profit دون تغيير الموديل.
+
+B. Configure the Sales Profit measure to use the RANKX function.
+RANKX ممكن ضمن تصميم أوسع، لكن تعديل measure الربح ليس الخطوة المباشرة للفلتر.
+
+C. Add a calculated column to the table that uses the TOPN functio
+TOPN تعيد جدولًا، فلا تستخدمها وحدها كقيمة calculated column.
+
+D. In the visual, replace Sales Profit with the calculated column.
+استبدال مقياس الربح بعمود لا يحدد وحده أفضل عشر مدن.
+
+E. Add a calculated column to the table that returns the city name if the city is in the top 10, otherwise thecalculated column will return "Not in Top 10". In the visual, replace Sales Profit with the calculated column.
+عمود تصنيف ثابت عند refresh لا يتكيف مع الفلاتر مثل Top N الديناميكي، ويضيف تعقيدًا.
+
+الخلاصة اللي تتحفظ
+أفضل N فئات في رسم = Top N على الفئة و By value على المقياس الصحيح.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/create-reports/power-bi-report-add-filter', 'Final 2', '381', '/exhibit-assets/f2-381-499.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-385-500', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the
@@ -19248,9 +27152,35 @@ You need to create a reference line to show which employees are above the median
 
 Solution: You create a percentile line by using the Salary measure and set the percentile to 50%.
 
-Does this meet the goal?', '["Yes","No"]', '[0]', 'The 50th percentile is also known as the median or middle value where 50 percent of observations fall below.
-Reference:
-https://dash-intel.com/powerbi/statistical_functions_percentile.php', 'Final 2', '385', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+Does this meet the goal?', '["Yes","No"]', '[0]', 'ترجمة السؤال بالعربي
+Bar chart يعرض Salary لكل Employee. المطلوب خط وسيط الرواتب. هل Percentile line بقيمة 50% يحقق ذلك؟
+
+القصة والمعنى
+رتب الرواتب وخد النقطة التي تفصل النصف الأقل عن النصف الأعلى. دي الـ 50th percentile، أي Median، مش المتوسط الحسابي.
+
+مثال نفهم بيه
+رواتب 10 و 20 و 90: خط الـ 50th percentile عند 20، بينما المتوسط 40.
+
+طريقة التفكير خطوة بخطوة
+1. اضبط percentile على 50 في Analytics للرسم المدعوم.
+2. التوزيع المقصود هنا قيم Salary على مستوى الموظفين المعروضين.
+3. لو المقياس مجمع على مستوى مختلف، راجع grain لأن وسيط الفروع ليس وسيط الموظفين.
+
+الإجابة الصحيحة وليه
+Yes: 50th percentile = Median.
+
+ليه كل اختيار صح أو غلط
+A. Yes
+صحيح؛ النسبة المئوية 50 تحدد الوسيط لتوزيع قيم الموظفين في الرسم.
+
+B. No
+No غير صحيح؛ هو يخلط الوسيط بالمتوسط أو بنوع آخر من خطوط المرجع.
+
+الخلاصة اللي تتحفظ
+الوسيط هو الـ 50th percentile، عند نفس مستوى التفاصيل المطلوب.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/transform-model/desktop-analytics-pane', 'Final 2', '385', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-389-501', 'Manage and secure Power BI', 'manual', 'HOTSPOT - (Topic 4)
 
 You have an API that returns more than 100 columns. The following is a sample of column names.
@@ -19277,7 +27207,67 @@ You need to remove any columns that have a suffix of sourceid.
 
 How should you complete the Power Query M code? To answer, select the appropriate options in the answer area.
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'Table.RemoveColumns removes a dynamically generated list of unwanted columns. List.Select filters Table.ColumnNames(rawData), and Text.EndsWith keeps the names whose suffix is sourceid.', 'Final 2', '389', '/dump-assets/f2-389-501-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[10003,10001,10001]', 'ترجمة السؤال بالعربي
+API يرجع أكثر من مئة عمود. تريد حذف كل عمود ينتهي اسمه بـ sourceid دون كتابة أسماء الأعمدة واحدًا واحدًا. أكمل M.
+
+القصة والمعنى
+بدل قائمة حذف تتكسر كلما زاد عمود جديد، خذ أسماء الأعمدة الحالية، اختار منها اللي آخر اسمها sourceid، ثم احذف القائمة الناتجة.
+
+مثال نفهم بيه
+client_notified_sourceid يحذف، و client_sourceid_status يبقى لأنه لا ينتهي بالمقطع المطلوب.
+
+طريقة التفكير خطوة بخطوة
+1. Table.ColumnNames(rawData) تعيد قائمة أسماء الأعمدة.
+2. List.Select تختار الأسماء التي تحقق Text.EndsWith(_, "sourceid").
+3. Table.RemoveColumns يحذف هذه القائمة من rawData؛ لا تستخدم Contains لأنه قد يلتقط الكلمة في وسط الاسم.
+
+الإجابة الصحيحة وليه
+Table.RemoveColumns؛ List.Select؛ Text.EndsWith.
+
+ليه كل اختيار صح أو غلط
+A. Transform rawData using: Table.CombineColumn
+الجمع بين الأعمدة لا يزيل قائمة أعمدة مطابقة للنمط.
+
+B. Transform rawData using: Table.FindText
+Table.FindText يبحث في محتوى الجدول، لا يحذف الأعمدة حسب أسمائها.
+
+C. Transform rawData using: Table.FromList
+Table.FromList يحول قائمة إلى جدول، لا ينفذ الحذف المطلوب.
+
+D. Transform rawData using: Table.RemoveColumns
+صحيح؛ RemoveColumns يستقبل الجدول وقائمة أسماء الحذف.
+
+E. Select column names using: List.Contains
+List.Contains تعيد True أو False لقيمة، لا قائمة أسماء مصفاة.
+
+F. Select column names using: List.Select
+صحيح؛ List.Select ترجع العناصر التي تحقق شرط اللاحقة.
+
+G. Select column names using: Table.FindText
+Table.FindText لا يصفّي قائمة الأسماء بهذه الوسائط.
+
+H. Select column names using: Table.FromList
+Table.FromList ليس دالة اختيار عناصر بشرط.
+
+I. Match the suffix using: Text.Contains
+Contains يطابق وجود المقطع في أي مكان، أوسع من شرط suffix.
+
+J. Match the suffix using: Text.EndsWith
+صحيح؛ EndsWith يطابق نهاية اسم العمود فقط.
+
+K. Match the suffix using: Text.From
+Text.From تحويل نوع إلى نص، وليس اختبار اللاحقة.
+
+L. Match the suffix using: Text.StartsWith
+StartsWith يختبر بداية الاسم بدل نهايته.
+
+الخلاصة اللي تتحفظ
+حذف أعمدة بنمط اسم = RemoveColumns مع List.Select على ColumnNames.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/powerquery-m/table-removecolumns
+https://learn.microsoft.com/en-us/powerquery-m/list-select
+https://learn.microsoft.com/en-us/powerquery-m/text-endswith', 'Final 2', '389', '/dump-assets/f2-389-501-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-391-502', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You create the following step by using Power Query Editor.
@@ -19286,18 +27276,82 @@ You create the following step by using Power Query Editor.
 
 Table.ReplaceValue(SalesLT_Address,"1318","1319",Replacer.ReplaceText,{"AddressLine 1"})
 
-A row has a value of 21318 Lasalle Street in the AddressLine1 column. What will the value be when the step is applied?', '["1318","1319","21318 Lasalle Street","21319 Lasalle Street"]', '[3]', 'Example:
-Replace the text "ur" with the text "or" in the table.
+A row has a value of 21318 Lasalle Street in the AddressLine1 column. What will the value be when the step is applied?', '["1318","1319","21318 Lasalle Street","21319 Lasalle Street"]', '[3]', 'ترجمة السؤال بالعربي
+الخطوة تستبدل "1318" بـ"1319" باستخدام Replacer.ReplaceText داخل AddressLine1. ماذا يحدث للقيمة 21318 Lasalle Street؟
 
-Reference:
-https://docs.microsoft.com/en-us/powerquery-m/table-replacevalue', 'Final 2', '391', '/exhibit-assets/f2-391-502.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+القصة والمعنى
+ReplaceText يدور على جزء داخل النص، مش يشترط أن الخانة كلها تساوي الرقم. لذلك يترك الـ 2 في البداية ويغير الجزء بعدها.
+
+مثال نفهم بيه
+"A1318B" تصبح "A1319B" بنفس مبدأ استبدال المقطع، لا استبدال الخانة بالكامل.
+
+طريقة التفكير خطوة بخطوة
+1. القيمة 21318 تحتوي المقطع 1318 بعد أول حرف.
+2. استبدال هذا المقطع ينتج 21319 مع بقاء اسم الشارع.
+3. Replacer.ReplaceValue كان سيعامل المطابقة للقيمة كلها بطريقة مختلفة.
+
+الإجابة الصحيحة وليه
+D: 21319 Lasalle Street.
+
+ليه كل اختيار صح أو غلط
+A. 1318
+لا ينتج الرقم القديم منفردًا؛ بقية النص لا تحذفها الدالة.
+
+B. 1319
+لا تختزل الخانة إلى 1319؛ الرقم البديل يحل محل المقطع فقط.
+
+C. 21318 Lasalle Street
+القيمة تتغير لأن المقطع موجود فعلًا و ReplaceText يطابقه.
+
+D. 21319 Lasalle Street
+صحيح؛ تبديل المقطع يحافظ على الـ 2 وبقية عنوان الشارع.
+
+الخلاصة اللي تتحفظ
+ReplaceText يبدل جزء النص؛ ReplaceValue يقارن قيمة الخانة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/powerquery-m/table-replacevalue', 'Final 2', '391', '/exhibit-assets/f2-391-502.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-392-503', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power BI app named App1. The privacy for the App1 workspace is set to Private.
 
 A user named User1 reports that App1 does not appear in the My organization AppSource. App1 appears in the My organization AppSource for your account.
 
-You need to ensure that User sees App1 from the My organization AppSource. What should you do?', '["From the app workspace, click Update app, configure the Content settings, and then click Update app.","From the app workspace settings, add a member.","From the app workspace, click Update app, configure the Access setting, and then click Update app.","From the app workspace, share the dashboard."]', '[2]', 'References: https://docs.microsoft.com/en-us/power-bi/service-organizational-content-pack-introduction#what-is-appsource', 'Final 2', '392', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You need to ensure that User sees App1 from the My organization AppSource. What should you do?', '["From the app workspace, click Update app, configure the Content settings, and then click Update app.","From the app workspace settings, add a member.","From the app workspace, click Update app, configure the Access setting, and then click Update app.","From the app workspace, share the dashboard."]', '[2]', 'ترجمة السؤال بالعربي
+App1 تظهر لك في AppSource المؤسسة ولا تظهر لمستخدم آخر. workspace خصوصيتها Private. كيف تمنحه الوصول للتطبيق؟
+
+القصة والمعنى
+التطبيق له جمهور غير فريق تأليف workspace. المطلوب تضيفه إلى جمهور التطبيق وتنشر التحديث، مش تدخله محررًا لمجرد أنه يريد القراءة.
+
+مثال نفهم بيه
+بعد إضافة مجموعة Sales audience ونشر التحديث، يجد أعضاء المجموعة App1 ضمن التطبيقات المتاحة لهم.
+
+طريقة التفكير خطوة بخطوة
+1. من Update app عدّل Access أو Audience بحسب الواجهة الحالية.
+2. أضف المستخدم أو مجموعته المناسبة ثم Update app.
+3. تحقق أيضًا من الترخيص والوصول إلى الموديل عند الحاجة؛ اسم Private لا يعني أن كل المؤسسة ترى التطبيق.
+
+الإجابة الصحيحة وليه
+C: Update app → Access settings → Update app.
+
+ليه كل اختيار صح أو غلط
+A. From the app workspace, click Update app, configure the Content settings, and then click Update app.
+Content تحدد العناصر المنشورة، لا أعضاء الجمهور الذين يستطيعون الوصول.
+
+B. From the app workspace settings, add a member.
+إضافة workspace member تمنح تأليفًا زائدًا وليست أقل وصول للتطبيق.
+
+C. From the app workspace, click Update app, configure the Access setting, and then click Update app.
+صحيح؛ تعدل جمهور التطبيق وتنشر تغيير الوصول.
+
+D. From the app workspace, share the dashboard.
+مشاركة dashboard منفردة لا تضيف المستخدم إلى جمهور App1 نفسه.
+
+الخلاصة اللي تتحفظ
+من يشاهد app يتحدد في Audience/Access؛ من يؤلف يتحدد في workspace.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-create-distribute-apps', 'Final 2', '392', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-396-504', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have a Power Bl table named Customer that contains a field named Email Address. You discover that multiple records contain the same email address.
@@ -19308,7 +27362,50 @@ How should you complete the OAX expression for the calculated column? To answer,
 
 once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content
 
-NOTE: Each correct selection is worth one point.', '[]', '[]', 'CALCULATE evaluates COUNTROWS(Customer) after ALL removes the current row filter from the Email Address column. The explicit equality filter then reapplies the current email and counts its duplicates.', 'Final 2', '396', '/dump-assets/f2-396-504-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+NOTE: Each correct selection is worth one point.', '[]', '[]', 'ترجمة السؤال بالعربي
+Customer فيه Email Address مكرر. أكمل calculated column يحسب عدد الصفوف التي تحمل نفس الإيميل.
+
+القصة والمعنى
+خزن إيميل الصف الحالي أولًا، ثم اخرج من قيد هذا الصف وعد كل العملاء الذين يحملون الإيميل نفسه. لو بقيت محبوسًا في الصف الحالي فالعدد دائمًا واحد.
+
+مثال نفهم بيه
+ثلاثة صفوف بإيميل a@example.com ترجع 3 لكل منها؛ إيميل منفرد يرجع 1. لا تختزل ALL إلى عمود الإيميل إذا بقيت فلاتر أعمدة الصف الأخرى.
+
+طريقة التفكير خطوة بخطوة
+1. VAR Email = [Email Address] تحفظ قيمة الصف الحالي.
+2. CALCULATE مع COUNTROWS(Customer) ينفذ العد تحت سياق معدل.
+3. ALL(Customer) في الرسم الأصلي يزيل قيد الصف على الجدول كله، ثم يعيد شرط Customer[Email Address]=Email.
+4. الناتج عدد التكرارات شامل الصف الحالي؛ >1 تعني مكرر، والفراغات تحتاج قرار أعمال إذا أردت استثناءها.
+
+الإجابة الصحيحة وليه
+CALCULATE؛ COUNTROWS؛ ALL، كما في صيغة الجدول الكامل بالمصدر.
+
+ليه كل اختيار صح أو غلط
+A. ALL
+صحيح للفراغ الخاص بإزالة قيد صف Customer قبل عد الإيميل عبر الجدول.
+
+B. CALCULATE
+صحيح خارجيًا؛ يعدل filter context بعد context transition.
+
+C. COUNTROWS
+صحيح داخل الحساب؛ يعد الصفوف المطابقة للإيميل.
+
+D. EVALUATE
+EVALUATE أمر استعلام DAX، وليس دالة داخل calculated column.
+
+E. SUM
+SUM يحتاج عمودًا رقميًا ولا يعد صفوف الإيميل بهذه الصيغة.
+
+F. SUMX
+SUMX يحتاج جدولًا وتعبيرًا، بينما المصدر يعرض COUNTROWS المباشرة.
+
+الخلاصة اللي تتحفظ
+في calculated column، CALCULATE ينقل سياق الصف؛ ALL(Customer) يزيله قبل عد الأشباه.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/dax/calculate-function-dax
+https://learn.microsoft.com/en-us/dax/all-function-dax
+https://learn.microsoft.com/en-us/dax/countrows-function-dax', 'Final 2', '396', '/dump-assets/f2-396-504-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-398-505', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Power Bl workspace named Workspace1 that contains a dataset named DS1 and a report named RPT1.
@@ -19317,14 +27414,86 @@ A user wants to create a report by using the data In DS1 and publish the report 
 
 You need to provide the user with the appropriate access. The solution must minimize the number of access permissions granted to the user.
 
-What should you do?', '["Share RPT1 with the user.","Add the user as a Viewer of Workspace1.","Add the user as a member of Workspace1.","Grant the Build permission for DS1 to the user."]', '[3]', 'Microsoft says: To copy a report to another workspace, and to create a report in another workspace based on a dataset in the current workspace, you need Build
-permission for the dataset. For datasets in the original workspace, if you have at least the Contributor role, you automatically have Build permission through your
-workspace role. https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final 2', '398', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Share RPT1 with the user.","Add the user as a Viewer of Workspace1.","Add the user as a member of Workspace1.","Grant the Build permission for DS1 to the user."]', '[3]', 'ترجمة السؤال بالعربي
+Workspace1 فيها DS1 و RPT1. مستخدم يريد بناء تقرير من DS1 ونشره في workspace أخرى. ما أقل وصول تمنحه للمصدر؟
+
+القصة والمعنى
+هو لا يحتاج مفاتيح غرفة الشغل كلها؛ يحتاج إذن استخدام الموديل كمواد لبناء تقريره. ده Build على DS1 تحديدًا.
+
+مثال نفهم بيه
+مؤلف جديد يعيد استخدام Total Sales من DS1 في تقريره دون القدرة على تعديل RPT1 أو حذف DS1.
+
+طريقة التفكير خطوة بخطوة
+1. امنحه Build على DS1 بدل دور تحرير workspace المصدر.
+2. يحتاج بشكل مستقل صلاحية النشر في workspace الوجهة والترخيص المناسب.
+3. Read أومشاركة التقرير وحدهما لا يكفيان لإنشاء تقرير جديد من الموديل.
+
+الإجابة الصحيحة وليه
+D: Grant Build permission for DS1.
+
+ليه كل اختيار صح أو غلط
+A. Share RPT1 with the user.
+مشاركة RPT1 تمنح قراءة التقرير ولا تضمن Build المطلوب للموديل.
+
+B. Add the user as a Viewer of Workspace1.
+Viewer على workspace أوسع من مورد واحد، ولا يمنح Build تلقائيًا.
+
+C. Add the user as a member of Workspace1.
+Member يعطي تحريرًا وإدارة أوسع من الحاجة على workspace المصدر.
+
+D. Grant the Build permission for DS1 to the user.
+صحيح؛ يقتصر الإذن على بناء محتوى من DS1.
+
+الخلاصة اللي تتحفظ
+تقرير جديد من موديل مشترك = Build على الموديل، مع إذن نشر مستقل للوجهة.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/connect-data/service-datasets-build-permissions
+https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-roles-new-workspaces', 'Final 2', '398', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-403-506', 'Manage and secure Power BI', 'manual', 'DRAG DROP - (Topic 4)
 
 You have the Power BI data model shown in the following exhibit.
 
-You create two row-level security (RLS) roles named Manager and CFO. Each manager must see only Sales and Human Resources data for their own country. The CFO must see Sales for all countries but must not see any Human Resources rows. Complete the two RLS filters for Human Resources and Country.', '[]', '[3,1]', 'The CFO role uses FALSE() on Human Resources to deny every row while leaving country sales available. The Manager role filters Country to the signed-in manager, and the relationships propagate that country filter.', 'Final 2', '403', '/dump-assets/f2-403-506-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+You create two row-level security (RLS) roles named Manager and CFO. Each manager must see only Sales and Human Resources data for their own country. The CFO must see Sales for all countries but must not see any Human Resources rows. Complete the two RLS filters for Human Resources and Country.', '[]', '[3,1]', 'ترجمة السؤال بالعربي
+المدير يرى مبيعات وموارد بشرية لبلده، بينما CFO يرى مبيعات كل الدول ولا يرى أي صف HR. أكمل فلتر HR وفلتر Country للدورين المناسبين.
+
+القصة والمعنى
+مش معنى وجود CFO أمام USA في جدول الدول أنه يجب حصره في أمريكا. متطلباته مختلفة: المبيعات كلها، والموارد البشرية مقفولة. مدير البلد يستخدم إيميله لاختيار صف الدولة.
+
+مثال نفهم بيه
+مدير فرنسا يرى بيانات France فقط؛ CFO يرى كل Sales ولا يرى أي HR تحت دوره وحده.
+
+طريقة التفكير خطوة بخطوة
+1. ضع FALSE() على Human Resources داخل دور CFO.
+2. اترك Country بلا قيد لهذا الدور حتى لا يقتصر Sales على دولة واحدة.
+3. داخل Manager role ضع [Email]=USERPRINCIPALNAME() على Country؛ العلاقات تنقل الفلتر للجدولين.
+4. لا تعين CFO إلى دور Manager أيضًا دون مراجعة اتحاد صلاحيات RLS؛ الأدوار المتعددة قد توسع الوصول.
+
+الإجابة الصحيحة وليه
+Human Resources في CFO: FALSE(). Country في Manager: [Email]=USERPRINCIPALNAME().
+
+ليه كل اختيار صح أو غلط
+A. [Country] = "USA"
+Country=USA ثابت يحصر المبيعات في دولة ويخالف حق CFO في رؤية كل الدول.
+
+B. [Email] = USERPRINCIPALNAME()
+صحيح لدور Manager؛ يربط هوية الدخول بدولة المدير ديناميكيًا.
+
+C. [Manager] = "CFO"
+Manager=CFO يختار صفًا واحدًا في Country ولا ينفذ متطلبات الدورين.
+
+D. FALSE()
+صحيح على HR داخل دور CFO؛ يمنع جميع صفوف هذا الجدول.
+
+E. TRUE()
+TRUE يسمح بكل الصفوف، فلا يحقق حجب HR أو تخصيص دولة المدير.
+
+الخلاصة اللي تتحفظ
+فلتر منع HR يخص CFO؛ فلتر Email يخص Manager. لا تجمعهما في دور واحد.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/enterprise/service-admin-rls
+https://learn.microsoft.com/en-us/power-bi/guidance/rls-guidance', 'Final 2', '403', '/dump-assets/f2-403-506-question.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-407-507', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You are building a Power Bl report that uses data from an Azure SQL database named erp1.
@@ -19337,7 +27506,42 @@ You need to perform the following analyses:
 
 • Orders by attributes of products sold
 
-The solution must minimize update times when interacting with visuals in the report. What should you do first?', '["From Power Query, merge the Orders query and the Order Line Hems query.","Calculate the count of orders per product by using a DAX function.","Create a calculated column that adds a list of product categories to the Orders table by using a DAX function.","From Power Query, merge the Order Line Items query and the Products query."]', '[0]', 'Independent correction: A. Merge Orders into Order Line Items to produce the line-level sales fact with order attributes and values. Keep Products as a dimension for product-attribute slicing.', 'Final 2', '407', '/exhibit-assets/f2-407-507.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+The solution must minimize update times when interacting with visuals in the report. What should you do first?', '["From Power Query, merge the Orders query and the Order Line Hems query.","Calculate the count of orders per product by using a DAX function.","Create a calculated column that adds a list of product categories to the Orders table by using a DAX function.","From Power Query, merge the Order Line Items query and the Products query."]', '[0]', 'ترجمة السؤال بالعربي
+Orders و Order Line Items و Products من Azure SQL. تحتاج قيمة الطلبات عبر الزمن والتحليل بخصائص المنتجات، مع سرعة التفاعل. ماذا تفعل أولًا؟
+
+القصة والمعنى
+رأس الطلب فيه التاريخ والعميل، والتفاصيل فيها المنتج والكمية. لتبني fact واضحًا للمبيعات، ضع خصائص رأس الطلب اللازمة مع صفوف تفاصيله، واحتفظ بـ Product كبعد.
+
+مثال نفهم بيه
+طلب إجماليه 100 وله سطران؛ نسخ 100 على كل سطر ثم SUM ينتج 200 بالخطأ. احسب قيمتي السطرين 40 و 60، أوتجنب جمع قيمة الرأس المكررة.
+
+طريقة التفكير خطوة بخطوة
+1. Merge Orders مع Order Line Items على مفتاح الطلب الصحيح.
+2. الناتج grain سطر طلب؛ لا تجمع قيمة رأس الطلب المكررة على كل سطر دون معالجة.
+3. أبقِ Products بعدًا مرتبطًا لتصفية الفاكت بخصائص المنتجات.
+4. استخرج قيمة السطر من الكمية والسعر المناسبين، أو استخدم منطقًا يحافظ على إجمالي الطلب دون مضاعفة.
+
+الإجابة الصحيحة وليه
+A: Merge Orders and Order Line Items، مع الحفاظ على grain ومنع تكرار إجمالي الرأس.
+
+ليه كل اختيار صح أو غلط
+A. From Power Query, merge the Orders query and the Order Line Hems query.
+صحيح؛ يسطح header/detail ويقرب خصائص الطلب من أحداث المبيعات المطلوبة.
+
+B. Calculate the count of orders per product by using a DAX function.
+عد الطلبات لكل منتج لا يحل بناء الفاكت وقيمة الطلب عبر الزمن أولًا.
+
+C. Create a calculated column that adds a list of product categories to the Orders table by using a DAX function.
+قائمة فئات كنص داخل Orders تصعب التصفية وتزيد التعقيد ولا تحافظ على grain السطر.
+
+D. From Power Query, merge the Order Line Items query and the Products query.
+دمج Products في الفاكت يكرر خصائص البعد؛ ليس أول خطوة المقصودة لتبسيط header/detail.
+
+الخلاصة اللي تتحفظ
+Header مع Detail يحتاج grain واضحًا؛ تكرار قيمة الرأس قد يضاعف الإجمالي.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-bi/guidance/star-schema', 'Final 2', '407', '/exhibit-assets/f2-407-507.webp', NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
 INSERT OR REPLACE INTO question_bank (id, domain, type, prompt, choices_json, correct_json, explanation, source, source_number, image, answer_image, context, rows_json, created_at) VALUES ('f2-410-508', 'Manage and secure Power BI', 'single', '- (Topic 4)
 
 You have a Microsoft SharePoint Online site that contains several document libraries.
@@ -19346,4 +27550,38 @@ One of the document libraries contains manufactunng reports saved as Microsoft E
 
 You need to use Power Bl Desktop to load only the manufacturing reports to a table for analysis.
 
-What should you do?', '["Get data from a SharePoint folder, enter the site URL, select Transform Data, filter Folder Path to the manufacturing library, and then combine the files.","Get data from a SharePoint list and enter the site URL; then combine and transform the list.","Get data from a SharePoint list, enter the site URL, and then select Combine & Load.","Get data from a SharePoint folder, enter the site URL, and immediately select Combine & Load without filtering."]', '[0]', 'Independent correction: use SharePoint Folder with the site URL, choose Transform Data, filter Folder Path to the manufacturing document library, and only then combine the identically structured Excel files. Immediate Combine & Load can include files from other libraries.', 'Final 2', '410', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');
+What should you do?', '["Get data from a SharePoint folder, enter the site URL, select Transform Data, filter Folder Path to the manufacturing library, and then combine the files.","Get data from a SharePoint list and enter the site URL; then combine and transform the list.","Get data from a SharePoint list, enter the site URL, and then select Combine & Load.","Get data from a SharePoint folder, enter the site URL, and immediately select Combine & Load without filtering."]', '[0]', 'ترجمة السؤال بالعربي
+SharePoint Online فيه مكتبات كثيرة، وواحدة فيها ملفات Excel تصنيع متطابقة الهيكل. كيف تحمل ملفات التصنيع فقط في جدول واحد؟
+
+القصة والمعنى
+موصل SharePoint Folder ممكن يعرض ملفات من الموقع كله. لازم تختار المكتبة المطلوبة قبل ما تفتح كل الملفات وتدمجها؛ وإلا تدخل ملفات لا تخص التصنيع.
+
+مثال نفهم بيه
+الموقع فيه HR و Manufacturing؛ فلتر مسار Manufacturing أولًا حتى لا تضم ملفات الموظفين إلى الإنتاج.
+
+طريقة التفكير خطوة بخطوة
+1. Get data من SharePoint Folder باستخدام site URL، وليس رابط ملف واحد.
+2. اختر Transform Data وفلتر Folder Path للمكتبة المطلوبة، مع نوع الملف عند الحاجة.
+3. بعد حصر الملفات الصحيحة استخدم Combine وراجع Sample file والورقة المطلوبة.
+
+الإجابة الصحيحة وليه
+A: SharePoint Folder → site URL → Transform Data → filter Folder Path → Combine.
+
+ليه كل اختيار صح أو غلط
+A. Get data from a SharePoint folder, enter the site URL, select Transform Data, filter Folder Path to the manufacturing library, and then combine the files.
+صحيح؛ يختار المصدر ونطاق الملفات قبل الدمج.
+
+B. Get data from a SharePoint list and enter the site URL; then combine and transform the list.
+SharePoint List يعيد عناصر قائمة، وليس محتويات ملفات Excel في المكتبة بهذه العملية.
+
+C. Get data from a SharePoint list, enter the site URL, and then select Combine & Load.
+Combine & Load من موصل List لا يدمج workbooks المكتبة المطلوبين.
+
+D. Get data from a SharePoint folder, enter the site URL, and immediately select Combine & Load without filtering.
+الدمج فورًا دون فلترة قد يجلب ملفات من مكتبات أخرى أو هياكل مختلفة.
+
+الخلاصة اللي تتحفظ
+SharePoint Folder للموقع، ثم فلتر المسار، ثم ادمج الملفات.
+
+مراجع المراجعة
+https://learn.microsoft.com/en-us/power-query/connectors/sharepoint-folder', 'Final 2', '410', NULL, NULL, NULL, NULL, '2026-10-11T00:00:00.000Z');

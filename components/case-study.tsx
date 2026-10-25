@@ -5,7 +5,7 @@ import { useLanguage } from '@/lib/i18n';
 import { QuestionExhibits } from '@/components/question-exhibits';
 
 const isHeading = (text: string) =>
-  /^(?:General Overview|Overview|Business Issues|Existing Environment(?:\.\s+.+)?|Requirements(?:\.\s+.+)?)(?:\s*-\s*)?$/i.test(
+  /^(?:General Overview|Overview|Business Issues|Existing Environment(?:\.\s+.+)?|Requirements(?:\.\s+.+)?|Data and Sources|Balance Sheet Data|Product Catalog Data|Planned Changes|Technical Requirements|Security Requirements|Report Requirements)(?:\s*-\s*)?$/i.test(
     text.trim(),
   );
 
@@ -69,15 +69,25 @@ export function CaseStudy({ text }: { text: string }) {
               </p>
             );
           })}
-          {text.includes('Northwind Traders') && (
+          {['Northwind Traders', 'Litware, Inc.', 'Contoso, Ltd.'].some(
+            (name) => text.includes(name),
+          ) && (
             <details className="rounded-lg border p-3">
               <summary className="cursor-pointer font-semibold">
                 {tx(
-                  'Case tables and schemas (8) — open to inspect',
-                  'جداول ومخططات الكيس ستادي (8) — اضغط للعرض',
+                  'Original case tables and schemas — open to inspect',
+                  'جداول ومخططات الكيس ستادي الأصلية — اضغط للعرض',
                 )}
               </summary>
-              <QuestionExhibits question={{ id: 'case-northwind' }} />
+              <QuestionExhibits
+                question={{
+                  id: text.includes('Northwind Traders')
+                    ? 'case-northwind'
+                    : text.includes('Litware, Inc.')
+                      ? 'case-litware'
+                      : 'case-contoso',
+                }}
+              />
             </details>
           )}
         </div>

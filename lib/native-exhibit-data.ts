@@ -3,6 +3,41 @@ export const nativeExhibitData: Record<
   string,
   { src: string; width: number; height: number; caption?: string }[]
 > = {
+  'case-litware': [
+    {
+      src: '/native-exhibits/case-litware-schema.webp',
+      width: 598,
+      height: 722,
+      caption: 'Original Litware table and column schema',
+    },
+  ],
+  'case-contoso': [
+    {
+      src: '/native-exhibits/case-contoso-sources.webp',
+      width: 687,
+      height: 144,
+      caption: 'Original data sources',
+    },
+    {
+      src: '/native-exhibits/case-contoso-balances.webp',
+      width: 909,
+      height: 313,
+      caption: 'Original monthly balance snapshots',
+    },
+    {
+      src: '/native-exhibits/case-contoso-products.webp',
+      width: 940,
+      height: 410,
+      caption: 'Original product catalog',
+    },
+    {
+      src: '/native-exhibits/case-contoso-date.webp',
+      width: 901,
+      height: 230,
+      caption:
+        'Original Date table definition (sample values retained as supplied)',
+    },
+  ],
   'f2-020-384': [
     {
       src: '/native-exhibits/f2-020-384-1.webp',

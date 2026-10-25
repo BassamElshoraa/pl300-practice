@@ -1,5 +1,6 @@
 import { isAnswered, isCorrect, type Answers } from './exam-utils.ts';
 import type { Question } from './questions.ts';
+import { hasManagedAutoGradingKey } from './managed-auto-grading-keys.ts';
 
 export const LEARNER_STATE_KEY = 'pl300-simulator-state';
 export const LEARNER_STATE_VERSION = 3;
@@ -253,7 +254,8 @@ export function updateMistakeRecords(
 ) {
   const next = { ...current };
   for (const question of exam) {
-    if (question.type === 'manual') continue;
+    if (question.type === 'manual' && !hasManagedAutoGradingKey(question.id))
+      continue;
     const answer = answers[question.id];
     if (!isAnswered(question, answer)) continue;
     const previous = next[question.id];

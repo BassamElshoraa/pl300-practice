@@ -827,7 +827,7 @@ const sourceDragDropData: Record<string, DragDropSpec> = {
   },
   'f1-244-243': {
     mode: 'matching',
-    slots: 3,
+    slots: 2,
     allowReuse: true,
     options: [
       {
@@ -972,7 +972,7 @@ const sourceDragDropData: Record<string, DragDropSpec> = {
   },
   'f1-284-283': {
     mode: 'sequence',
-    slots: 4,
+    slots: 3,
     allowReuse: true,
     options: [
       {

@@ -1,4 +1,11 @@
 import type { Question } from './questions.ts';
+import { presentations as review221Presentations } from './reviewed-lessons/review-221-280-controls.ts';
+import { presentations as review281Presentations } from './reviewed-lessons/review-281-300-controls.ts';
+import { presentations as review301Presentations } from './reviewed-lessons/review-301-380-controls.ts';
+import { presentations as review381Presentations } from './review-381-494-controls.ts';
+import { omittedNativeKeys } from './reviewed-lessons/native-keys-001-220-301-380.ts';
+import { nativeKeyQualifications } from './reviewed-lessons/native-keys-221-300.ts';
+import { nativeKeyQualifications as laterKeyQualifications } from './reviewed-lessons/native-keys-381-494.ts';
 
 export type TextAnswerRow = { label: string; options: string[] };
 export type QuestionPresentation = {
@@ -8,10 +15,24 @@ export type QuestionPresentation = {
   statements?: string[];
   hideSourceImage?: boolean;
   warning?: string;
+  /** Informational qualification; unlike warning this never disables answers. */
+  note?: string;
   code?: string;
 };
 
 export const questionPresentation: Record<string, QuestionPresentation> = {
+  ...review221Presentations,
+  ...review281Presentations,
+  ...review301Presentations,
+  ...review381Presentations,
+  'f1-244-243': {
+    hideSourceImage: true,
+    note: 'The source already provides the first step: Add a Bookmark navigator button. Complete only the second and third steps below.',
+  },
+  'f1-284-283': {
+    hideSourceImage: true,
+    note: 'The source already provides step 2: Set Column Profiling based upon entire dataset. Complete only steps 1, 3 and 4 below.',
+  },
   'f1-212-211': { hideSourceImage: true },
   'f1-219-218': {
     hideSourceImage: true,
@@ -947,5 +968,32 @@ export const questionPresentation: Record<string, QuestionPresentation> = {
 };
 
 export function getQuestionPresentation(question: Pick<Question, 'id'>) {
-  return questionPresentation[question.id];
+  const spec = questionPresentation[question.id];
+  const unresolved: Record<string, string> = {
+    'f1-343-342':
+      'The whole Northwind case requires sales users to edit/manage content AND remain subject to regional RLS. Workspace editing roles bypass RLS. No listed option satisfies both requirements; this item is explained but excluded from automatic scoring.',
+    'f2-102-408':
+      'Build permission is the relevant Analyze in Excel permission. None of the proposed next steps is required by the stated task; changing Export data to None is not a prerequisite. No reliable unique answer can be graded.',
+    'f2-187-437':
+      'The outcome depends on whether the Power Query filter folds to SQL before loading. The source does not specify this. Neither an unconditional Yes nor No is defensible for every interpretation; this item is not automatically scored.',
+    'f2-342-485':
+      'Independent simultaneous purchase and ship-date filters need separate role-playing date tables. Both Duplicate and Reference can create them; Reference does not guarantee fewer source evaluations. The original inactive-relationship key fails the stated together requirement, and the alternatives do not establish a unique optimum.',
+  };
+  if (unresolved[question.id])
+    return { ...spec, warning: unresolved[question.id] };
+  const qualification =
+    omittedNativeKeys[question.id] ??
+    nativeKeyQualifications[question.id] ??
+    laterKeyQualifications[question.id];
+  if (['f1-066-65', 'f2-157-426'].includes(question.id))
+    return {
+      ...spec,
+      note: 'More than one merge sequence can produce the required result. The displayed sequence is one valid example. Automatic exact-order scoring is disabled so another valid dependency-preserving sequence is not marked incorrect.',
+    };
+  return qualification
+    ? {
+        ...spec,
+        note: [spec?.note, qualification].filter(Boolean).join('\n\n'),
+      }
+    : spec;
 }

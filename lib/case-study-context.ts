@@ -1,6 +1,22 @@
 import type { Question } from './questions';
 
 type CaseStudyKey = 'litware' | 'northwind' | 'contoso';
+/** The second PDF starts with continuations of the same three cases. These
+ * mappings are source IDs, never positions in the combined bank. */
+export const secondCollectionCases: Record<string, CaseStudyKey> = {
+  'f2-001-369': 'litware',
+  'f2-002-370': 'litware',
+  'f2-003-371': 'litware',
+  'f2-004-372': 'contoso',
+  'f2-005-373': 'contoso',
+  'f2-006-374': 'contoso',
+  'f2-007-375': 'contoso',
+  'f2-008-376': 'northwind',
+  'f2-009-377': 'northwind',
+  'f2-010-378': 'northwind',
+  'f2-010-379': 'northwind',
+  'f2-012-380': 'northwind',
+};
 
 const CASE_STUDY_CONFIG: Record<
   CaseStudyKey,
@@ -9,9 +25,7 @@ const CASE_STUDY_CONFIG: Record<
   litware: {
     title: 'Litware, Inc.',
     canonicalSourceNumber: 328,
-    questionNumbers: [
-      328, 329, 349, 350, 351, 352, 353, 354, 363, 364, 365,
-    ],
+    questionNumbers: [328, 329, 349, 350, 351, 352, 353, 354, 363, 364, 365],
   },
   northwind: {
     title: 'Northwind Traders',
@@ -105,9 +119,10 @@ export function applyCaseStudyContexts(sourceQuestions: Question[]) {
   }
 
   return sourceQuestions.map((question) => {
-    if (question.source !== 'Final') return question;
-
-    const caseStudyKey = caseStudyForQuestion.get(question.sourceNumber);
+    const caseStudyKey =
+      question.source === 'Final'
+        ? caseStudyForQuestion.get(question.sourceNumber)
+        : secondCollectionCases[question.id];
     if (!caseStudyKey) return question;
 
     const embedded = splitEmbeddedCaseStudy(question.prompt);

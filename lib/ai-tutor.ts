@@ -104,6 +104,7 @@ export function buildTutorContext({
           ? `Original calculation:\n${presentation.code}`
           : undefined,
         presentation?.warning,
+        presentation?.note,
       ]
         .filter(Boolean)
         .join('\n\n'),
@@ -135,11 +136,12 @@ export function buildTutorContext({
   if (checked) {
     const audit = getAnswerAudit(question);
     const selections = formatSelections(question, question.correct);
-    context.correctAnswer = selections.length
-      ? selections
-      : getReviewedLesson(question)?.answer
-        ? [getReviewedLesson(question)!.answer]
-        : [];
+    const reviewedAnswer =
+      getReviewedLesson(question)?.answer ?? audit.reviewedAnswer;
+    context.correctAnswer =
+      reviewedAnswer && (presentation?.warning || question.type === 'manual')
+        ? [reviewedAnswer]
+        : selections;
     context.sourceExplanation = cleanText(
       buildReviewedExplanation(question) ?? question.explanation,
     );

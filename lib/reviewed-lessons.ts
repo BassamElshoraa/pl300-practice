@@ -18,6 +18,21 @@ import { lessons181 } from './reviewed-lessons/181-190.ts';
 import { lessons191 } from './reviewed-lessons/191-200.ts';
 import { lessons201 } from './reviewed-lessons/201-210.ts';
 import { lessons211 } from './reviewed-lessons/211-220.ts';
+import { streamingLesson } from './reviewed-lessons/145-streaming.ts';
+import { lessons221 } from './reviewed-lessons/221-240.ts';
+import { lessons241 } from './reviewed-lessons/241-260.ts';
+import { lessons261 } from './reviewed-lessons/261-280.ts';
+import { lessons281 } from './reviewed-lessons/281-300.ts';
+import { lessons301 } from './reviewed-lessons/301-320.ts';
+import { lessons321 } from './reviewed-lessons/321-340.ts';
+import { lessons341 } from './reviewed-lessons/341-360.ts';
+import { lessons361 } from './reviewed-lessons/361-380.ts';
+import { lessons381 } from './reviewed-lessons/381-400.ts';
+import { lessons401 } from './reviewed-lessons/401-420.ts';
+import { lessons421 } from './reviewed-lessons/421-440.ts';
+import { lessons441 } from './reviewed-lessons/441-460.ts';
+import { lessons461 } from './reviewed-lessons/461-480.ts';
+import { lessons481 } from './reviewed-lessons/481-494.ts';
 import { repairedDragLessons } from './reviewed-lessons/repaired-drag.ts';
 import { optionDetailRepairs } from './reviewed-lessons/option-detail-repairs.ts';
 import type { ReviewedLesson } from './reviewed-lessons/types.ts';
@@ -40,15 +55,48 @@ const baseReviewedLessons = {
   ...lessons191,
   ...lessons201,
   ...lessons211,
+  ...lessons221,
+  ...lessons241,
+  ...lessons261,
+  ...lessons281,
+  ...lessons301,
+  ...lessons321,
+  ...lessons341,
+  ...lessons361,
+  ...lessons381,
+  ...lessons401,
+  ...lessons421,
+  ...lessons441,
+  ...lessons461,
+  ...lessons481,
+  ...streamingLesson,
   ...repairedDragLessons,
 };
+/** Keep Arabic/English boundaries legible without changing authored wording or code. */
+function readableSpacing(value: string) {
+  return value
+    .replace(/([\p{Script=Arabic}])([A-Za-z0-9])/gu, '$1 $2')
+    .replace(/([A-Za-z0-9])([\p{Script=Arabic}])/gu, '$1 $2');
+}
+function readableLesson(id: string, lesson: ReviewedLesson): ReviewedLesson {
+  return {
+    ...lesson,
+    translation: readableSpacing(lesson.translation),
+    story: readableSpacing(lesson.story),
+    answer: readableSpacing(lesson.answer),
+    example: readableSpacing(lesson.example),
+    takeaway: readableSpacing(lesson.takeaway),
+    reasoning: lesson.reasoning.map(readableSpacing),
+    optionsAr: (optionDetailRepairs[id] ?? lesson.optionsAr).map(
+      readableSpacing,
+    ),
+  };
+}
 export const reviewedLessons: Record<string, ReviewedLesson> =
   Object.fromEntries(
     Object.entries(baseReviewedLessons).map(([id, lesson]) => [
       id,
-      optionDetailRepairs[id]
-        ? { ...lesson, optionsAr: optionDetailRepairs[id] }
-        : lesson,
+      readableLesson(id, lesson),
     ]),
   );
 export function getReviewedLesson(question: Pick<Question, 'id'>) {

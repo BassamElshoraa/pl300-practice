@@ -202,6 +202,8 @@ export const dragTextData: Record<string, DragTextSpec> = {
     ],
   },
   'f1-244-243': {
+    discardLegacyAnswers: true,
+    slotLabels: ['Second step (first step already provided)', 'Third step'],
     options: [
       'Add a Bookmark button.',
       'Change the Bookmark property for the button.',
@@ -238,6 +240,8 @@ export const dragTextData: Record<string, DragTextSpec> = {
     options: ['Gauge', 'Slicer', 'Smart narrative', 'Table', 'Treemap'],
   },
   'f1-284-283': {
+    discardLegacyAnswers: true,
+    slotLabels: ['Step 1', 'Step 3 (step 2 already provided)', 'Step 4'],
     options: [
       'From the Transform tab, select Extract, and then select Length.',
       'From the View tab, select Column distribution.',
@@ -312,6 +316,7 @@ export const dragTextData: Record<string, DragTextSpec> = {
       'Add a column named ProductName that contains only the text between the third and fourth > symbol in the ProductDescription column.',
       'Add a column named ProductName that contains all the text after the third > symbol in the ProductDescription column.',
       'Create a product hierarchy of ProductCategory, ProductSubcategory, Manufacturer, ProductName, and ProductSpecifications.',
+      'Replace the use of ProductDescription in the report with the product hierarchy.',
     ],
   },
   'f2-059-397': {

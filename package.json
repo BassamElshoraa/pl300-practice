@@ -25,7 +25,8 @@
     "managed:dev": "wrangler dev --config exam-api-worker/wrangler.jsonc --local",
     "managed:deploy": "wrangler deploy --config exam-api-worker/wrangler.jsonc",
     "qa:presentation": "node --experimental-strip-types scripts/presentation-data-qa.mjs",
-    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:lessons && npm run qa:downloads && npm run qa:ai && npm run qa:answers && npm run qa:interactions && npm run qa:dumps && npm run qa:case-studies && npm run qa:managed && npm run qa:presentation",
+    "qa:complete": "node --experimental-strip-types scripts/complete-bank-qa.mjs",
+    "qa:all": "npm run qa && npm run qa:state && npm run qa:learning && npm run qa:lessons && npm run qa:downloads && npm run qa:ai && npm run qa:answers && npm run qa:interactions && npm run qa:dumps && npm run qa:case-studies && npm run qa:managed && npm run qa:presentation && npm run qa:complete",
     "ai:dev": "wrangler dev --config ai-tutor-worker/wrangler.jsonc",
     "ai:deploy": "wrangler deploy --config ai-tutor-worker/wrangler.jsonc",
     "format": "oxfmt"
