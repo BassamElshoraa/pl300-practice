@@ -1,6 +1,7 @@
 import type { Question } from './questions';
 import { answerCompletenessCorrections } from './answer-completeness.ts';
 import { getReviewedLesson } from './reviewed-lessons.ts';
+import { managedAcceptedAnswers } from './managed-auto-grading-keys.ts';
 import { corrections as review221Corrections } from './reviewed-lessons/review-221-280-controls.ts';
 import { corrections as review281Corrections } from './reviewed-lessons/review-281-300-controls.ts';
 import { corrections as review301Corrections } from './reviewed-lessons/review-301-380-controls.ts';
@@ -1032,6 +1033,16 @@ const corrections: Record<string, QuestionCorrection> = {
 
 export function getAnswerAudit(question: Pick<Question, 'id'>): AnswerAudit {
   const correction = corrections[question.id];
+  if (managedAcceptedAnswers[question.id]) {
+    const lesson = getReviewedLesson(question);
+    return {
+      ...correction,
+      status: correction?.status ?? 'independently-reviewed',
+      reviewedAnswer: lesson?.answer ?? correction?.reviewedAnswer,
+      reasonAr:
+        'التصحيح يقبل البدائل الكاملة المحققة الموضحة في الشرح، ولا يقتصر على ترتيب واحد أو الاختيار التقليدي في مفتاح المصدر.',
+    };
+  }
   if (correction) return correction;
   const lesson = getReviewedLesson(question);
   if (lesson?.verdict === 'incomplete')

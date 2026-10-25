@@ -259,23 +259,23 @@ export const answerCompletenessCorrections: Record<string, QuestionCorrection> =
       'Customer Name has repeated values according to its distinct/unique profile, unlike the displayed Customer ID and Customer Key columns. Extract the last 12 characters is the intended phone transformation for the shown formats: 500-555-0169 contains ten digits plus two hyphens. It removes the optional country prefix and leading separator space. It does not produce a string of exactly ten characters; if that is required, remove the hyphens as an additional step. This fixed-width method must not be generalized to phone formats with different national-number lengths.',
     ),
     'f2-202-444': {
-      status: 'incomplete-source',
+      status: 'independently-reviewed',
       reviewedAnswer:
-        'Answer selection unavailable: the saved dropdown crops belong to a different question.',
+        '12 distinct values including nulls; 11 non-null values occurring once.',
       explanation:
-        'The profile shows 12 distinct and 11 unique values. However, the complete readable answer options have not been recovered. Do not use the unrelated menu crops as an answer key.',
+        'The complete statements and both menus (2, 11, 12, 23) were recovered from the original Final 2 PDF page 33. Distinct is 12 including nulls; unique non-null values occurring once is 11. Percentage valid is not a count, and adding distinct to unique double-counts values.',
       reasonAr:
-        'قصاصات الاختيارات تخص سؤالًا آخر، ولذلك أوقفناها بدل عرض اختيارات مضللة. نحتاج نسخة واضحة من الاختيارات الأصلية.',
+        'استعدنا الجمل والقوائم الأصلية من صفحة 33. الإجابة 12 ثم 11، والقوائم مكتوبة الآن بدل القصاصات غير الصحيحة القديمة.',
       suppressSourceAnswerImage: true,
     },
     'f2-336-483': {
       status: 'incomplete-source',
       reviewedAnswer:
-        'Cannot determine: the source omits the answer area and statements.',
+        'Average reference line; X-axis for date hierarchy drill-down. Full original distractors remain unavailable.',
       explanation:
-        'The source provides a line chart but not the statements or answer area. Previously reused menu crops have been disabled; no answer is inferred.',
+        'Original Final 2 PDF page 49 contains both statements with collapsed selections. An average reference line represents the average; date hierarchy levels belong on the X-axis for drill-down, not the source-selected Values bucket. No complete original option lists are visible, so automatic grading remains disabled.',
       reasonAr:
-        'الرسم موجود لكن عبارات السؤال ومنطقة الإجابة ناقصان. لا نعتمد الاختيارات القديمة لأنها لا تخص السؤال.',
+        'استعدنا العبارتين من صفحة 49: خط المتوسط، ومكان مستويات التاريخ. الصحيح Average reference line ثم X-axis، لكن القوائم غير موسعة ولا نخترع بدائل للتصحيح التلقائي.',
       suppressSourceAnswerImage: true,
     },
     'f1-021-20': {
