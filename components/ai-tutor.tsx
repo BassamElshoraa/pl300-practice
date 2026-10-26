@@ -25,6 +25,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
+import { TutorMessageContent } from '@/components/tutor-message-content';
 import {
   AI_TUTOR_DAILY_LIMIT,
   buildLocalTutorReply,
@@ -464,7 +465,7 @@ export function AiTutor({
       <Button
         type="button"
         size="lg"
-        className={`group fixed bottom-4 z-40 h-14 rounded-full border border-white/20 bg-[#172033] px-3 pr-5 text-white shadow-[0_16px_40px_rgba(23,32,51,0.28)] hover:bg-[#22304a] sm:bottom-6 ${isArabic ? 'left-4 sm:left-6' : 'right-4 sm:right-6'}`}
+        className="group fixed right-4 bottom-4 z-40 h-14 rounded-full border border-white/20 bg-[#172033] px-3 pr-5 text-white shadow-[0_16px_40px_rgba(23,32,51,0.28)] hover:bg-[#22304a] sm:right-6 sm:bottom-6"
         onClick={() => {
           trackAnalyticsEvent('pl300_ai_tutor_opened', {
             language: conversationLanguage,
@@ -484,14 +485,12 @@ export function AiTutor({
 
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent
-          className="w-full! gap-0 sm:max-w-[480px]"
-          side={isArabic ? 'left' : 'right'}
+          className="h-dvh! min-h-0 w-full! gap-0 overflow-hidden sm:max-w-[480px]!"
+          side="right"
           dir={isArabic ? 'rtl' : 'ltr'}
         >
           <SheetHeader className="border-b px-5 py-4">
-            <div
-              className={`flex items-center gap-3 ${isArabic ? 'pl-10' : 'pr-10'}`}
-            >
+            <div className="flex items-center gap-3 pr-10">
               <TutorOrb />
               <div className="min-w-0">
                 <SheetTitle className="flex flex-wrap items-center gap-2 text-lg">
@@ -601,7 +600,7 @@ export function AiTutor({
             </div>
           ) : workerConnected && !session ? (
             <div
-              className="flex-1 overflow-y-auto p-5"
+              className="min-h-0 flex-1 overflow-y-auto p-5"
               lang={isArabic ? 'ar-EG' : 'en'}
             >
               <div className="rounded-sm border border-primary/25 bg-accent/45 p-5">
@@ -677,7 +676,7 @@ export function AiTutor({
             !builtInMode &&
             (!puterReady || !puterSignedIn) ? (
             <div
-              className="flex-1 overflow-y-auto p-5"
+              className="min-h-0 flex-1 overflow-y-auto p-5"
               lang={isArabic ? 'ar-EG' : 'en'}
             >
               <div className="rounded-sm border border-primary/25 bg-accent/45 p-5">
@@ -792,24 +791,29 @@ export function AiTutor({
               )}
 
               <div
-                className="flex-1 space-y-4 overflow-y-auto px-4 py-5 sm:px-5"
-                dir="auto"
+                className="min-h-0 flex-1 space-y-4 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-5"
+                dir="ltr"
                 aria-live="polite"
               >
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex gap-2.5 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex min-w-0 gap-2.5 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     {message.role === 'assistant' && (
                       <span className="grid size-8 shrink-0 place-items-center rounded-full bg-accent text-primary">
                         <Bot className="size-4" />
                       </span>
                     )}
-                    <p
-                      className={`max-w-[84%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-7 ${message.role === 'user' ? 'rounded-br-sm bg-primary text-primary-foreground' : 'rounded-bl-sm border bg-card'}`}
+                    <div
+                      dir="auto"
+                      className={`min-w-0 max-w-[88%] rounded-2xl px-4 py-3 text-start text-sm leading-7 [overflow-wrap:anywhere] ${message.role === 'user' ? 'rounded-br-sm bg-primary text-primary-foreground' : 'rounded-bl-sm border bg-card'}`}
                     >
-                      {message.content}
+                      {message.role === 'assistant' ? (
+                        <TutorMessageContent content={message.content} />
+                      ) : (
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                      )}
                       {message.source && (
                         <span
                           className="mt-2 block border-t pt-2 text-xs text-muted-foreground"
@@ -823,7 +827,7 @@ export function AiTutor({
                               )}
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
                 ))}
                 {sending && (
@@ -838,14 +842,14 @@ export function AiTutor({
                 <div ref={chatEnd} />
               </div>
 
-              <div className="border-t bg-card p-4">
-                <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
+              <div className="shrink-0 border-t bg-card p-4">
+                <div className="mb-3 flex flex-wrap gap-2">
                   {quickPrompts.map((prompt) => (
                     <Button
                       key={prompt}
                       variant="outline"
                       size="sm"
-                      className="shrink-0 rounded-full"
+                      className="h-auto min-h-8 max-w-full rounded-full py-1.5 whitespace-normal text-start"
                       disabled={
                         sending ||
                         connectionChecking ||
@@ -878,7 +882,8 @@ export function AiTutor({
                       'Ask about the current question…',
                       'اسأل عن السؤال الحالي…',
                     )}
-                    className="min-h-11 resize-none"
+                    dir="auto"
+                    className="min-h-11 min-w-0 resize-none text-start"
                     aria-label={tx('Message the AI tutor', 'اكتب للمدرس الذكي')}
                   />
                   <Button
